@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://komandro-ccit-ftui.github.io',
+  site: 'https://komandro-ccit.github.io',
   base: '/',
   integrations: [
     tailwind(),
