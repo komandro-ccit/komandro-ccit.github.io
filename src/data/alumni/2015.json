@@ -1,0 +1,66 @@
+[
+  {
+    "id": "alumni-2015-001",
+    "name": "Budi Santoso",
+    "role": "Ketua",
+    "batch": 2015,
+    "photo": "/images/alumni/budi-santoso-2015.jpg",
+    "consent": true,
+    "currentPosition": "Software Engineer at Gojek",
+    "contact": {
+      "email": "budi.santoso@example.com",
+      "linkedin": "https://linkedin.com/in/budi-santoso"
+    },
+    "achievements": [
+      "Founded Komandro Community",
+      "Built the first Android curriculum"
+    ]
+  },
+  {
+    "id": "alumni-2015-002",
+    "name": "Siti Rahayu",
+    "role": "Wakil Ketua",
+    "batch": 2015,
+    "photo": "/images/alumni/siti-rahayu-2015.jpg",
+    "consent": true,
+    "currentPosition": "Mobile Developer at Tokopedia",
+    "contact": {
+      "email": "siti.rahayu@example.com",
+      "linkedin": "https://linkedin.com/in/siti-rahayu"
+    },
+    "achievements": [
+      "Organized first Android Workshop"
+    ]
+  },
+  {
+    "id": "alumni-2015-003",
+    "name": "Andi Wijaya",
+    "role": "Anggota",
+    "batch": 2015,
+    "photo": "/images/alumni/andi-wijaya-2015.jpg",
+    "consent": false,
+    "currentPosition": "Freelance Android Developer"
+  },
+  {
+    "id": "alumni-2015-004",
+    "name": "Dewi Putri",
+    "role": "Sekretaris",
+    "batch": 2015,
+    "photo": "/images/alumni/dewi-putri-2015.jpg",
+    "consent": true,
+    "currentPosition": "UX Designer at Traveloka",
+    "contact": {
+      "email": "dewi.putri@example.com",
+      "linkedin": "https://linkedin.com/in/dewi-putri"
+    }
+  },
+  {
+    "id": "alumni-2015-005",
+    "name": "Rudi Hartono",
+    "role": "Bendahara",
+    "batch": 2015,
+    "photo": "/images/alumni/rudi-hartono-2015.jpg",
+    "consent": false,
+    "currentPosition": "Project Manager at BCA"
+  }
+]

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "alumni-2023-001",
+    "name": "Reza Pratama",
+    "role": "Ketua",
+    "batch": 2023,
+    "photo": "/images/alumni/reza-pratama-2023.jpg",
+    "consent": true,
+    "currentPosition": "Backend Developer at Shopee",
+    "contact": {
+      "email": "reza.pratama@example.com",
+      "linkedin": "https://linkedin.com/in/reza-pratama"
+    }
+  }
+]

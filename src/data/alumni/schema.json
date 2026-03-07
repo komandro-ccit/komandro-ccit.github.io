@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "alumni-schema",
+  "title": "Komandro Alumni Directory Schema",
+  "description": "Schema for alumni data in Komandro CCIT-FTUI community",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "role", "batch", "consent"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the alumnus"
+      },
+      "name": {
+        "type": "string",
+        "description": "Full name of the alumnus"
+      },
+      "role": {
+        "type": "string",
+        "enum": ["Ketua", "Wakil Ketua", "Sekretaris", "Bendahara", "Anggota", "Pengurus"],
+        "description": "Role/position held in the organization"
+      },
+      "batch": {
+        "type": "integer",
+        "minimum": 2015,
+        "description": "Year batch of the alumnus"
+      },
+      "photo": {
+        "type": "string",
+        "format": "uri-reference",
+        "description": "Relative path to the photo file"
+      },
+      "consent": {
+        "type": "boolean",
+        "description": "Whether the alumnus consents to displaying their photo"
+      },
+      "currentPosition": {
+        "type": "string",
+        "description": "Current job/position after graduation"
+      },
+      "contact": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "linkedin": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "achievements": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "List of notable achievements"
+      }
+    }
+  }
+}

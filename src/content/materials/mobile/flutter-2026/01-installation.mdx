@@ -1,0 +1,104 @@
+---
+title: "01 - Setup & Installation Flutter"
+description: "Setup environment Flutter di Windows, Mac, dan Linux"
+category: "Mobile Development"
+difficulty: "Beginner"
+pubDate: 2026-01-15
+author: "Flutter Team Komandro"
+curriculumSlug: "flutter-2026"
+order: 1
+estimatedTime: "1 hour"
+tags: ["flutter", "setup", "installation"]
+---
+
+## Persiapan System Requirements
+
+Sebelum memulai, pastikan laptop kamu memenuhi requirement minimum:
+
+**Windows:**
+- Windows 10 atau lebih baru (64-bit)
+- RAM: 8 GB minimum (16 GB direkomendasikan)
+- Disk Space: 2.5 GB untuk Flutter SDK + IDE + Emulator
+
+**macOS:**
+- macOS 10.14 (Mojave) atau lebih baru
+- RAM: 8 GB minimum
+- Xcode 12 atau lebih baru
+
+**Linux:**
+- 64-bit Linux distribution
+- RAM: 8 GB minimum
+
+## Download Flutter SDK
+
+### Windows
+
+1. Download Flutter SDK dari [flutter.dev](https://flutter.dev/docs/get-started/install)
+2. Extract ke folder `C:\flutter`
+3. Add ke PATH environment variable
+
+```powershell
+# Buka PowerShell sebagai Administrator
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\flutter\bin", "User")
+```
+
+### macOS
+
+```bash
+# Using git
+cd ~
+git clone https://github.com/flutter/flutter.git -b stable
+
+# Add to PATH
+echo 'export PATH="$PATH:$HOME/flutter/bin"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+## Verify Installation
+
+Jalankan command berikut untuk verify installation:
+
+```bash
+flutter doctor
+```
+
+## Setup Android Studio
+
+1. Download dan install [Android Studio](https://developer.android.com/studio)
+2. Install Flutter dan Dart plugins
+3. Setup Android SDK
+4. Create Android Virtual Device (AVD)
+
+## Setup VS Code (Alternative)
+
+Jika prefer VS Code:
+
+1. Install Flutter extension
+2. Install Dart extension
+3. Configure Flutter SDK path
+
+## First Flutter Command
+
+```bash
+flutter --version
+```
+
+Jika berhasil, akan menampilkan versi Flutter, Dart, dan toolchain.
+
+## Troubleshooting
+
+### Common Issues
+
+**Android SDK not found:**
+```bash
+flutter config --android-sdk=/path/to/android/sdk
+```
+
+**License not accepted:**
+```bash
+flutter doctor --android-licenses
+```
+
+## Selanjutnya
+
+Di lesson berikutnya, kita akan membuat aplikasi Flutter pertama kamu!

@@ -1,0 +1,91 @@
+---
+title: "Jetpack Compose Tips & Tricks"
+description: "Collection of best practices dan tips untuk Jetpack Compose development"
+category: "Mobile Development"
+difficulty: "Intermediate"
+pubDate: 2026-01-20
+author: "Android Team Komandro"
+type: "article"
+estimatedTime: "30 minutes"
+tags: ["android", "jetpack-compose", "tips"]
+---
+
+## 1. Gunakan remember wisely
+
+```kotlin
+// ❌ Bad - recreated on every recomposition
+val name = mutableStateOf("")
+
+// ✅ Good - survive recomposition
+var name by remember { mutableStateOf("") }
+
+// ✅ Better - survive configuration changes
+var name by rememberSaveable { mutableStateOf("") }
+```
+
+## 2. Avoid passing ViewModel ke child composables
+
+```kotlin
+// ❌ Bad
+@Composable
+fun Screen(viewModel: MyViewModel) {
+    Child(viewModel) // Tight coupling
+}
+
+// ✅ Good
+@Composable
+fun Screen(viewModel: MyViewModel) {
+    val state by viewModel.state.collectAsState()
+    Child(state) // Pass state only
+}
+
+@Composable
+fun Child(state: UiState) {
+    // Reusable, testable
+}
+```
+
+## 3. Use LaunchedEffect untuk side effects
+
+```kotlin
+@Composable
+fun UserProfile(userId: String) {
+    var user by remember { mutableStateOf<User?>(null) }
+    
+    LaunchedEffect(userId) {
+        // Runs when userId changes
+        user = repository.getUser(userId)
+    }
+}
+```
+
+## 4. Preview dengan berbagai configurations
+
+```kotlin
+@Preview(
+    name = "Light Mode",
+    showBackground = true
+)
+@Preview(
+    name = "Dark Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true
+)
+@Composable
+fun MyPreview() {
+    MyApp()
+}
+```
+
+## 5. Optimize recomposition dengan stable types
+
+```kotlin
+// ❌ Bad - always triggers recomposition
+data class User(val name: String)
+
+// ✅ Good - ImmutableList is stable
+@Immutable
+data class UserList(val users: ImmutableList<User>)
+```
+
+Selamat mencoba! 🚀

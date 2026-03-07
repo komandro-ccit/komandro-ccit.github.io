@@ -1,0 +1,170 @@
+---
+title: "02 - Hello World App"
+description: "Membuat aplikasi Flutter pertama dengan counter sederhana"
+category: "Mobile Development"
+difficulty: "Beginner"
+pubDate: 2026-01-16
+author: "Flutter Team Komandro"
+curriculumSlug: "flutter-2026"
+order: 2
+estimatedTime: "2 hours"
+tags: ["flutter", "hello-world", "widgets"]
+---
+
+## Membuat Project Baru
+
+```bash
+flutter create hello_world
+cd hello_world
+```
+
+Command ini akan generate project Flutter lengkap dengan structure:
+
+```
+hello_world/
+├── android/          # Android native code
+├── ios/             # iOS native code  
+├── lib/             # Dart code utama
+│   └── main.dart    # Entry point
+├── test/            # Unit tests
+└── pubspec.yaml     # Dependencies
+```
+
+## Understanding main.dart
+
+Buka `lib/main.dart`, akan melihat code berikut:
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+```
+
+## Run Aplikasi
+
+```bash
+flutter run
+```
+
+Pilih device yang tersedia (emulator atau real device).
+
+## Hot Reload
+
+Salah satu fitur keren Flutter adalah Hot Reload:
+
+1. Ubah text di code
+2. Tekan `r` di terminal atau save file
+3. UI akan update tanpa restart app
+
+## Membuat Counter App Sederhana
+
+Mari buat counter app dari nol:
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const CounterApp());
+}
+
+class CounterApp extends StatelessWidget {
+  const CounterApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Counter',
+      home: const CounterPage(),
+    );
+  }
+}
+
+class CounterPage extends StatefulWidget {
+  const CounterPage({super.key});
+
+  @override
+  State<CounterPage> createState() => _CounterPageState();
+}
+
+class _CounterPageState extends State<CounterPage> {
+  int _counter = 0;
+
+  void _increment() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Counter'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Kamu telah menekan tombol:'),
+            Text(
+              '$_counter kali',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _increment,
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+## Key Concepts
+
+### StatelessWidget
+- Widget yang tidak berubah
+- Tidak punya state
+- Contoh: Text, Icon, Container
+
+### StatefulWidget
+- Widget yang bisa berubah
+- Punya state yang bisa di-update
+- Perlu `setState()` untuk update UI
+
+### Scaffold
+- Struktur dasar halaman
+- AppBar, Body, FloatingActionButton
+
+### setState()
+- Memberitahu Flutter untuk rebuild widget
+- Selalu gunakan saat update data yang affect UI
+
+## Challenge
+
+Tambahkan fitur berikut:
+1. Tombol untuk decrement (-1)
+2. Reset counter ke 0
+3. Batasi counter tidak boleh negatif
+
+Selamat mencoba! 🎯

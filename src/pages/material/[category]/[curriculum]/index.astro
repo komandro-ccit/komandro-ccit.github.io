@@ -1,0 +1,229 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const materials = await getCollection('materials');
+  
+  // Get all unique curriculum slugs
+  const curriculumSlugs = new Set<string>();
+  
+  materials.forEach(material => {
+    const slugParts = material.slug.split('/');
+    if (slugParts.length >= 3) {
+      // This is inside a subfolder (curriculum)
+      const category = slugParts[0];
+      const curriculumName = slugParts[1];
+      curriculumSlugs.add(`${category}/${curriculumName}`);
+    }
+  });
+  
+  return Array.from(curriculumSlugs).map(slug => {
+    const [category, curriculum] = slug.split('/');
+    return {
+      params: { category, curriculum },
+      props: { curriculumSlug: slug }
+    };
+  });
+}
+
+const { category, curriculum } = Astro.params;
+const { curriculumSlug } = Astro.props;
+
+const allMaterials = await getCollection('materials');
+
+// Get curriculum index
+const curriculumIndex = allMaterials.find(m => 
+  m.slug === `${curriculumSlug}/index` || m.slug === curriculumSlug
+);
+
+// Get all lessons for this curriculum
+const lessons = allMaterials
+  .filter(m => {
+    const slugParts = m.slug.split('/');
+    return slugParts.length === 3 && 
+           slugParts[0] === category && 
+           slugParts[1] === curriculum &&
+           slugParts[2] !== 'index';
+  })
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+
+const difficultyColors: Record<string, string> = {
+  'Beginner': 'bg-green-100 text-green-800',
+  'Intermediate': 'bg-yellow-100 text-yellow-800',
+  'Advanced': 'bg-red-100 text-red-800',
+};
+
+// Fallback if curriculum index not found
+const curriculumData = curriculumIndex?.data || {
+  title: curriculum.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+  description: 'Complete learning curriculum',
+  difficulty: 'Beginner',
+  author: 'Komandro Team',
+  estimatedTime: 'TBD'
+};
+---
+
+<Layout title={`${curriculumData.title} - Komandro CCIT-FTUI`}>
+  <main class="min-h-screen bg-slate-50">
+    
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white py-12 px-4">
+      <div class="max-w-4xl mx-auto">
+        <a href={`/material/${category}`} class="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Back to {category}
+        </a>
+      </div>
+    </section>
+
+    <!-- Curriculum Overview Card -->
+    <section class="py-8 px-4 mt-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
+          <div class="h-2 bg-gradient-to-r from-[#4CAF50] to-[#3DDC84]" />
+          
+          <div class="p-8">
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+              <span class:list={[
+                'px-3 py-1 rounded-full text-sm font-medium',
+                difficultyColors[curriculumData.difficulty] || 'bg-gray-100 text-gray-800'
+              ]}>
+                {curriculumData.difficulty}
+              </span>
+              
+              <span class="px-3 py-1 bg-[#4CAF50]/10 text-[#4CAF50] rounded-full text-sm font-medium">
+                📚 Curriculum
+              </span>
+              
+              {curriculumData.estimatedTime && (
+                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  {curriculumData.estimatedTime}
+                </span>
+              )}
+              
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+                </svg>
+                {lessons.length} Lessons
+              </span>
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{curriculumData.title}</h1>
+            
+            <p class="text-lg text-gray-600 mb-6">{curriculumData.description}</p>
+            
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                By {curriculumData.author}
+              </div>
+              
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+                  <line x1="16" x2="16" y1="2" y2="6"/>
+                  <line x1="8" x2="8" y1="2" y2="6"/>
+                  <line x1="3" x2="21" y1="10" y2="10"/>
+                </svg>
+                {new Date(curriculumData.pubDate).toLocaleDateString('id-ID', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </div>
+            </div>
+
+            {curriculumData.prerequisites && curriculumData.prerequisites.length > 0 && (
+              <div class="bg-slate-50 rounded-xl p-4 border border-gray-200">
+                <h4 class="text-sm font-semibold text-gray-700 mb-2">Prerequisites:</h4>
+                <ul class="space-y-1">
+                  {curriculumData.prerequisites.map((prereq) => (
+                    <li class="flex items-center gap-2 text-sm text-gray-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2">
+                        <polyline points="9 11 12 14 22 4"/>
+                      </svg>
+                      {prereq}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lessons List -->
+    <section class="py-8 px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-2xl font-bold text-gray-800">Course Content</h2>
+          
+          <span class="text-sm text-gray-500">{lessons.length} Lessons</span>
+        </div>
+
+        {lessons.length === 0 ? (
+          <div class="bg-white rounded-2xl border border-gray-200 p-12 text-center">
+            <div class="text-6xl mb-4">📝</div>
+            <p class="text-gray-600">Lessons will be added soon!</p>
+          </div>
+        ) : (
+          <div class="space-y-4">
+            {lessons.map((lesson, index) => {
+              const lessonSlug = lesson.slug.split('/').pop()?.replace('.mdx', '');
+              return (
+                <a
+                  href={`/material/${category}/${curriculum}/${lessonSlug}`}
+                  class="group block bg-white rounded-xl border border-gray-200 p-6 hover:border-[#4CAF50] hover:shadow-lg transition-all"
+                >
+                  <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white flex items-center justify-center font-bold text-lg shadow-md">
+                      {index + 1}
+                    </div>
+                    
+                    <div class="flex-1">
+                      <h3 class="text-lg font-bold text-gray-800 mb-1 group-hover:text-[#4CAF50] transition-colors">
+                        {lesson.data.title}
+                      </h3>
+                      
+                      <p class="text-sm text-gray-600 mb-2">{lesson.data.description}</p>
+                      
+                      <div class="flex items-center gap-4 text-xs text-gray-500">
+                        {lesson.data.estimatedTime && (
+                          <span class="flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <circle cx="12" cy="12" r="10"/>
+                              <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            {lesson.data.estimatedTime}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div class="flex-shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400 group-hover:text-[#4CAF50] transition-colors">
+                        <path d="m9 18 6-6-6-6"/>
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+</Layout>

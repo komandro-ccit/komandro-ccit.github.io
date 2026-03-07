@@ -1,0 +1,320 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    id: 1,
+    title: "E-Commerce Mobile App Redesign",
+    description: "Complete UI/UX redesign for a local e-commerce platform focusing on improving user experience and conversion rates through modern design principles.",
+    type: "design",
+    url: "https://figma.com/example-ecommerce",
+    author: "Sarah Wijaya",
+    batch: "2022",
+    image: "/images/showcase/ecommerce-design.jpg"
+  },
+  {
+    id: 2,
+    title: "Task Management API",
+    description: "RESTful API built with Node.js and Express for managing tasks and projects. Features authentication, real-time updates, and comprehensive documentation.",
+    type: "code",
+    url: "https://github.com/example/task-api",
+    author: "Ahmad Fauzi",
+    batch: "2023",
+    image: "/images/showcase/task-api.jpg"
+  },
+  {
+    id: 3,
+    title: "Healthcare Dashboard Design",
+    description: "Modern dashboard design for healthcare management system with data visualization, patient tracking, and appointment scheduling features.",
+    type: "design",
+    url: "https://figma.com/example-healthcare",
+    author: "Maya Putri",
+    batch: "2021",
+    image: "/images/showcase/healthcare-dashboard.jpg"
+  },
+  {
+    id: 4,
+    title: "Social Media Analytics Tool",
+    description: "Python-based analytics tool for tracking social media metrics across multiple platforms. Includes data visualization and automated reporting.",
+    type: "code",
+    url: "https://github.com/example/social-analytics",
+    author: "Reza Pratama",
+    batch: "2022",
+    image: "/images/showcase/analytics-tool.jpg"
+  },
+  {
+    id: 5,
+    title: "Banking App UI Kit",
+    description: "Comprehensive UI kit for banking applications including 50+ screens, design system, and component library for rapid prototyping.",
+    type: "design",
+    url: "https://figma.com/example-banking-kit",
+    author: "Dewi Anggraini",
+    batch: "2023",
+    image: "/images/showcase/banking-kit.jpg"
+  },
+  {
+    id: 6,
+    title: "Weather Forecast App",
+    description: "Flutter weather application with real-time data, location services, and beautiful animations. Integrates with OpenWeatherMap API.",
+    type: "code",
+    url: "https://github.com/example/weather-app",
+    author: "Budi Santoso",
+    batch: "2021",
+    image: "/images/showcase/weather-app.jpg"
+  }
+];
+
+const designProjects = projects.filter(p => p.type === 'design');
+const codeProjects = projects.filter(p => p.type === 'code');
+---
+
+<Layout title="Showcase - Komandro CCIT-FTUI"
+  description="Showcase of amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community members.">
+  <main class="min-h-screen bg-slate-50">
+    
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white py-16 px-4">
+      <div class="max-w-6xl mx-auto text-center">
+        <div class="w-20 h-20 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Project Showcase</h1>
+        
+        <p class="text-xl text-white/90 max-w-2xl mx-auto">
+          Amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filter Stats -->
+    <section class="py-8 px-4 bg-white border-b border-gray-200">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-wrap justify-center gap-6">
+          <div class="flex items-center gap-3 px-6 py-3 bg-[#4CAF50]/10 rounded-full">
+            <span class="text-2xl">🎨</span>
+            <div>
+              <span class="font-bold text-[#4CAF50]">{designProjects.length}</span>
+              <span class="text-gray-600 ml-1">Design Projects</span>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3 px-6 py-3 bg-blue-50 rounded-full">
+            <span class="text-2xl">💻</span>
+            <div>
+              <span class="font-bold text-blue-600">{codeProjects.length}</span>
+              <span class="text-gray-600 ml-1">Code Projects</span>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3 px-6 py-3 bg-purple-50 rounded-full">
+            <span class="text-2xl">✨</span>
+            <div>
+              <span class="font-bold text-purple-600">{projects.length}</span>
+              <span class="text-gray-600 ml-1">Total Projects</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design Projects Section -->
+    {designProjects.length > 0 && (
+      <section class="py-16 px-4">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="text-3xl">🎨</span>
+            <h2 class="text-2xl font-bold text-gray-800">Design Projects (UI/UX)</h2>
+            <div class="flex-1 h-px bg-gray-200" />
+            <span class="px-3 py-1 bg-[#4CAF50]/10 text-[#4CAF50] rounded-full text-sm font-semibold">
+              Figma
+            </span>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {designProjects.map((project) => (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group bg-white rounded-xl border-2 border-gray-100 overflow-hidden hover:border-[#4CAF50] hover:shadow-xl transition-all duration-300"
+              >
+                <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                  {project.image ? (
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center">
+                      <span class="text-6xl">🎨</span>
+                    </div>
+                  )}
+                  
+                  <div class="absolute top-3 right-3">
+                    <span class="px-3 py-1 bg-[#4CAF50] text-white rounded-full text-xs font-semibold shadow-md">
+                      Design
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="p-6">
+                  <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-[#4CAF50] transition-colors line-clamp-1">
+                    {project.title}
+                  </h3>
+                  
+                  <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+                    {project.description}
+                  </p>
+                  
+                  <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <div class="flex items-center gap-2">
+                      <div class="w-8 h-8 bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        {project.author.charAt(0)}
+                      </div>
+                      <div class="text-xs">
+                        <div class="font-medium text-gray-800">{project.author}</div>
+                        <div class="text-gray-500">Batch {project.batch}</div>
+                      </div>
+                    </div>
+                    
+                    <span class="inline-flex items-center gap-1 text-sm text-[#4CAF50] opacity-0 group-hover:opacity-100 transition-opacity">
+                      View
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m9 18 6-6-6-6"/>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Code Projects Section -->
+    {codeProjects.length > 0 && (
+      <section class="py-16 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="text-3xl">💻</span>
+            <h2 class="text-2xl font-bold text-gray-800">Code Projects</h2>
+            <div class="flex-1 h-px bg-gray-200" />
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
+              GitHub
+            </span>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {codeProjects.map((project) => (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group bg-white rounded-xl border-2 border-gray-100 overflow-hidden hover:border-blue-500 hover:shadow-xl transition-all duration-300"
+              >
+                <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+                  {project.image ? (
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center">
+                      <span class="text-6xl">💻</span>
+                    </div>
+                  )}
+                  
+                  <div class="absolute top-3 right-3">
+                    <span class="px-3 py-1 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md">
+                      Code
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="p-6">
+                  <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors line-clamp-1">
+                    {project.title}
+                  </h3>
+                  
+                  <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+                    {project.description}
+                  </p>
+                  
+                  <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <div class="flex items-center gap-2">
+                      <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        {project.author.charAt(0)}
+                      </div>
+                      <div class="text-xs">
+                        <div class="font-medium text-gray-800">{project.author}</div>
+                        <div class="text-gray-500">Batch {project.batch}</div>
+                      </div>
+                    </div>
+                    
+                    <span class="inline-flex items-center gap-1 text-sm text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                      GitHub
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m9 18 6-6-6-6"/>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Update Schedule Info -->
+    <section class="py-16 px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] rounded-2xl p-8 md:p-12 text-white">
+          <h2 class="text-3xl font-bold mb-4">Regular Updates</h2>
+          
+          <p class="text-lg text-white/90">
+            Projects are updated at the end of each batch period. Stay tuned for new showcases from every graduating class!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Home -->
+    <section class="py-8 px-4 bg-slate-50">
+      <div class="max-w-6xl mx-auto">
+        <a 
+          href="/" 
+          class="inline-flex items-center gap-2 text-gray-600 hover:text-[#4CAF50] font-medium transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Back to Home
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

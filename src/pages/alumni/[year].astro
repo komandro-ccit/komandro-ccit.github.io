@@ -1,0 +1,175 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import AlumniCard from '../../components/AlumniCard.astro';
+
+interface Alumni {
+  id: string;
+  name: string;
+  role: string;
+  batch: number;
+  photo?: string;
+  consent: boolean;
+  currentPosition?: string;
+  contact?: {
+    email?: string;
+    linkedin?: string;
+  };
+  achievements?: string[];
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const alumniFiles = import.meta.glob('/src/data/alumni/*.json', { eager: true });
+  
+  const paths = Object.entries(alumniFiles).map(([path, data]) => {
+    const yearMatch = path.match(/(\d{4})\.json$/);
+    if (!yearMatch) return null;
+    
+    const year = yearMatch[1];
+    const alumniData = data as { default: Alumni[] };
+    
+    return {
+      params: { year },
+      props: {
+        year: parseInt(year),
+        alumni: alumniData.default || alumniData
+      }
+    };
+  }).filter(Boolean);
+  
+  return paths;
+};
+
+interface Props {
+  year: number;
+  alumni: Alumni[];
+}
+
+const { year, alumni } = Astro.props;
+
+const sortedAlumni = [...alumni].sort((a, b) => {
+  const roleOrder = ['Ketua', 'Wakil Ketua', 'Sekretaris', 'Bendahara', 'Pengurus', 'Anggota'];
+  const aIndex = roleOrder.indexOf(a.role);
+  const bIndex = roleOrder.indexOf(b.role);
+  return aIndex - bIndex;
+});
+
+const currentYear = new Date().getFullYear();
+const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015 + i).reverse();
+---
+
+<Layout title={`Alumni Batch ${year} - Komandro CCIT-FTUI`}>
+  <main class="min-h-screen bg-slate-50">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white py-16 px-4">
+      <div class="max-w-6xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Alumni Batch {year}
+        </h1>
+        <p class="text-xl text-white/90 max-w-2xl mx-auto">
+          Meet the talented members who shaped Komandro CCIT-FTUI in {year}
+        </p>
+      </div>
+    </section>
+
+    <!-- Year Navigation -->
+    <section class="bg-white border-b border-gray-200 py-4 px-4 sticky top-0 z-10 shadow-sm">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <span class="text-sm text-gray-500 font-medium whitespace-nowrap mr-2">
+            Filter by Year:
+          </span>
+          {availableYears.map((yr) => (
+            <a
+              href={`/alumni/${yr}`}
+              class:list={[
+                'px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200',
+                yr === year
+                  ? 'bg-[#4CAF50] text-white shadow-md'
+                  : 'bg-gray-100 text-gray-700 hover:bg-[#4CAF50]/10 hover:text-[#4CAF50]'
+              ]}
+            >
+              {yr}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Alumni Grid -->
+    <section class="py-12 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">
+              {alumni.length} Member{alumni.length !== 1 ? 's' : ''}
+            </h2>
+            <p class="text-gray-600">The {year} generation</p>
+          </div>
+          <a 
+            href="/alumni" 
+            class="inline-flex items-center gap-2 text-[#4CAF50] hover:text-[#3DDC84] font-medium transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6"/>
+            </svg>
+            Back to Alumni
+          </a>
+        </div>
+
+        {alumni.length === 0 ? (
+          <div class="text-center py-16 bg-white rounded-2xl border border-gray-200">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">No Alumni Data</h3>
+            <p class="text-gray-600 max-w-md mx-auto">
+              No alumni records found for batch {year}. The data might not be available yet.
+            </p>
+          </div>
+        ) : (
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {sortedAlumni.map((person) => (
+              <AlumniCard 
+                alumni={person}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Join CTA -->
+    <section class="bg-[#4CAF50] py-12 px-4 mt-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">
+          Be Part of Our Story
+        </h2>
+        <p class="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
+          Join Komandro CCIT-FTUI and become the next generation of tech leaders.
+        </p>
+        <a 
+          href="/#join" 
+          class="inline-block bg-white text-[#4CAF50] px-8 py-3 rounded-lg font-semibold hover:bg-slate-50 transition-colors shadow-lg"
+        >
+          Join Us Today
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

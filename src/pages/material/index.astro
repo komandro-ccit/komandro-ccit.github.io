@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const categories = [
+  {
+    id: 'mobile',
+    name: 'Mobile Development',
+    description: 'iOS, Android, Flutter, React Native development',
+    icon: '📱',
+    color: 'from-green-500 to-emerald-500',
+    curriculumCount: 1,
+    articleCount: 2
+  },
+  {
+    id: 'backend',
+    name: 'Backend Development',
+    description: 'Server-side development, APIs, databases',
+    icon: '⚙️',
+    color: 'from-blue-500 to-cyan-500',
+    curriculumCount: 0,
+    articleCount: 0
+  },
+  {
+    id: 'frontend',
+    name: 'Frontend Development',
+    description: 'Web frontend technologies and frameworks',
+    icon: '🎨',
+    color: 'from-purple-500 to-violet-500',
+    curriculumCount: 0,
+    articleCount: 0
+  },
+  {
+    id: 'ui-ux',
+    name: 'UI/UX Design',
+    description: 'User Interface and User Experience design',
+    icon: '✨',
+    color: 'from-pink-500 to-rose-500',
+    curriculumCount: 0,
+    articleCount: 0
+  },
+  {
+    id: 'devops',
+    name: 'DevOps',
+    description: 'Deployment, CI/CD, containers, infrastructure',
+    icon: '🚀',
+    color: 'from-orange-500 to-amber-500',
+    curriculumCount: 0,
+    articleCount: 0
+  }
+];
+---
+
+<Layout title="Learning Materials - Komandro CCIT-FTUI">
+  <main class="min-h-screen bg-slate-50">
+    
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white py-16 px-4">
+      <div class="max-w-6xl mx-auto text-center">
+        <div class="w-20 h-20 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+          </svg>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Learning Materials</h1>
+        
+        <p class="text-xl text-white/90 max-w-2xl mx-auto">
+          Structured curriculums and articles to level up your skills
+        </p>
+      </div>
+    </section>
+
+    <!-- Categories Grid -->
+    <section class="py-16 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block px-3 py-1 bg-[#4CAF50]/10 text-[#4CAF50] rounded-full text-sm font-semibold mb-4">
+            Categories
+          </span>
+          
+          <h2 class="text-3xl font-bold text-gray-800">Choose Your Learning Path</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {categories.map((category) => (
+            <a
+              href={`/material/${category.id}`}
+              class="group relative bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-[#4CAF50] hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            >
+              <div class:list={['h-2 bg-gradient-to-r', category.color]} />
+              
+              <div class="p-8">
+                <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">{category.icon}</div>
+                
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">{category.name}</h3>
+                
+                <p class="text-gray-600 mb-6 line-clamp-2">{category.description}</p>
+                
+                <div class="flex items-center gap-4 text-sm text-gray-500">
+                  {category.curriculumCount > 0 && (
+                    <span class="bg-slate-100 px-3 py-1 rounded-full">
+                      📚 {category.curriculumCount} Curriculum{category.curriculumCount !== 1 ? 's' : ''}
+                    </span>
+                  )}
+                  {category.articleCount > 0 && (
+                    <span class="bg-slate-100 px-3 py-1 rounded-full">
+                      📄 {category.articleCount} Article{category.articleCount !== 1 ? 's' : ''}
+                    </span>
+                  )}
+                  {category.curriculumCount === 0 && category.articleCount === 0 && (
+                    <span class="text-gray-400">Coming soon...</span>
+                  )}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="py-16 px-4 bg-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="p-6">
+            <div class="w-16 h-16 mx-auto bg-[#4CAF50]/10 rounded-2xl flex items-center justify-center mb-4">
+              <span class="text-3xl">📚</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Structured Curriculums</h3>
+            
+            <p class="text-gray-600">
+              Complete learning paths with sequential lessons from beginner to advanced.
+            </p>
+          </div>
+          
+          <div class="p-6">
+            <div class="w-16 h-16 mx-auto bg-[#4CAF50]/10 rounded-2xl flex items-center justify-center mb-4">
+              <span class="text-3xl">📄</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Standalone Articles</h3>
+            
+            <p class="text-gray-600">
+              Quick guides, tips, and reference materials for specific topics.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Home -->
+    <section class="py-8 px-4 bg-slate-50">
+      <div class="max-w-6xl mx-auto">
+        <a 
+          href="/" 
+          class="inline-flex items-center gap-2 text-gray-600 hover:text-[#4CAF50] font-medium transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Back to Home
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

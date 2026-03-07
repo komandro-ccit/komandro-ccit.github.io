@@ -1,0 +1,152 @@
+---
+title: "Architecture Patterns di Mobile Development"
+description: "MVVM, MVP, MVI - Mana yang terbaik untuk project kamu?"
+category: "Mobile Development"
+difficulty: "Advanced"
+pubDate: 2026-01-25
+author: "Architecture Team Komandro"
+type: "article"
+estimatedTime: "45 minutes"
+tags: ["architecture", "mvvm", "mvp", "mvi", "android", "ios"]
+---
+
+## Mengapa Architecture Pattern Penting?
+
+Architecture pattern membantu:
+- **Separation of Concerns**: UI logic terpisah dari business logic
+- **Testability**: Code lebih mudah di-test
+- **Maintainability**: Mudah maintain dan scale
+- **Collaboration**: Tim bisa kerja paralel
+
+## 1. MVC (Model-View-Controller)
+
+```
+┌─────────┐     ┌──────────┐     ┌─────────┐
+│  View   │────▶│ Controller│────▶│  Model  │
+└─────────┘     └──────────┘     └─────────┘
+      ▲                              │
+      └──────────────────────────────┘
+```
+
+**Kelebihan:**
+- Simple dan mudah dipahami
+- Cocok untuk project kecil
+
+**Kekurangan:**
+- Controller bisa jadi terlalu besar (God Class)
+- Tight coupling antara View dan Controller
+
+## 2. MVP (Model-View-Presenter)
+
+```
+┌─────────┐     ┌──────────┐     ┌─────────┐
+│  View   │◄───▶│ Presenter│◄───▶│  Model  │
+└─────────┘     └──────────┘     └─────────┘
+```
+
+Presenter sebagai mediator antara View dan Model.
+
+**Contoh di Android:**
+```kotlin
+interface UserView {
+    fun showUser(user: User)
+    fun showError(message: String)
+}
+
+class UserPresenter(private val view: UserView) {
+    fun loadUser(id: String) {
+        repository.getUser(id)
+            .onSuccess { view.showUser(it) }
+            .onFailure { view.showError(it.message) }
+    }
+}
+```
+
+## 3. MVVM (Model-View-ViewModel)
+
+```
+┌─────────┐     ┌──────────┐     ┌─────────┐
+│  View   │◄───▶│ ViewModel│◄───▶│  Model  │
+└─────────┘     └──────────┘     └─────────┘
+                     │
+                     ▼
+               ┌──────────┐
+               │ LiveData │
+               │  State   │
+               └──────────┘
+```
+
+**Architecture Components:**
+```kotlin
+class UserViewModel : ViewModel() {
+    private val _users = MutableLiveData<List<User>>()
+    val users: LiveData<List<User>> = _users
+    
+    fun loadUsers() {
+        viewModelScope.launch {
+            _users.value = repository.getUsers()
+        }
+    }
+}
+```
+
+## 4. MVI (Model-View-Intent)
+
+```
+User ──▶ Intent ──▶ Processor ──▶ State ──▶ View
+                         ▲                    │
+                         └────────────────────┘
+```
+
+**Unidirectional Data Flow:**
+```kotlin
+// Intent (User Action)
+sealed class UserIntent {
+    object LoadUsers : UserIntent()
+    data class DeleteUser(val id: String) : UserIntent()
+}
+
+// State
+sealed class UserState {
+    object Loading : UserState()
+    data class Success(val users: List<User>) : UserState()
+    data class Error(val message: String) : UserState()
+}
+
+class UserViewModel : ViewModel() {
+    private val _state = MutableStateFlow<UserState>(UserState.Loading)
+    val state: StateFlow<UserState> = _state
+    
+    fun process(intent: UserIntent) {
+        when (intent) {
+            is UserIntent.LoadUsers -> loadUsers()
+            is UserIntent.DeleteUser -> deleteUser(intent.id)
+        }
+    }
+}
+```
+
+## Comparison
+
+| Pattern | Separation | Testability | Complexity | Best For |
+|---------|-----------|-------------|------------|----------|
+| MVC | ⭐⭐ | ⭐⭐ | ⭐ | Small projects |
+| MVP | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | Medium projects |
+| MVVM | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | Most projects |
+| MVI | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Complex projects |
+
+## Rekomendasi
+
+**Untuk Android:**
+- MVVM dengan Architecture Components (rekomendasi Google)
+- MVI untuk complex state management
+
+**Untuk iOS:**
+- MVVM dengan Combine/SwiftUI
+- Clean Architecture untuk large projects
+
+**Untuk Flutter:**
+- BLoC pattern (MVI variant)
+- Provider/Riverpod untuk simpler approach
+
+Choose wisely! 🎯
