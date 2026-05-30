@@ -1,66 +1,122 @@
 [
   {
-    "id": "alumni-2015-001",
-    "name": "Budi Santoso",
-    "role": "Ketua",
+    "id": "alumni-2015-004",
+    "name": "Ahmad Farhan Hafidzudin",
+    "role": "Anggota",
     "batch": 2015,
-    "photo": "/images/alumni/budi-santoso-2015.jpg",
-    "consent": true,
-    "currentPosition": "Software Engineer at Gojek",
+    "consent": false,
+    "currentPosition": "Backend",
     "contact": {
-      "email": "budi.santoso@example.com",
-      "linkedin": "https://linkedin.com/in/budi-santoso"
+      "linkedin": "https://www.linkedin.com/in/ahmad-farhan-hapizhudin-914b60118/"
     },
-    "achievements": [
-      "Founded Komandro Community",
-      "Built the first Android curriculum"
-    ]
-  },
-  {
-    "id": "alumni-2015-002",
-    "name": "Siti Rahayu",
-    "role": "Wakil Ketua",
-    "batch": 2015,
-    "photo": "/images/alumni/siti-rahayu-2015.jpg",
-    "consent": true,
-    "currentPosition": "Mobile Developer at Tokopedia",
-    "contact": {
-      "email": "siti.rahayu@example.com",
-      "linkedin": "https://linkedin.com/in/siti-rahayu"
-    },
-    "achievements": [
-      "Organized first Android Workshop"
-    ]
+    "achievements": []
   },
   {
     "id": "alumni-2015-003",
-    "name": "Andi Wijaya",
+    "name": "Bagus Bayu Kencana",
     "role": "Anggota",
     "batch": 2015,
-    "photo": "/images/alumni/andi-wijaya-2015.jpg",
     "consent": false,
-    "currentPosition": "Freelance Android Developer"
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/bagus-bayu-kencana-7b8a8411a/"
+    },
+    "achievements": []
   },
   {
-    "id": "alumni-2015-004",
-    "name": "Dewi Putri",
-    "role": "Sekretaris",
+    "id": "alumni-2015-007",
+    "name": "Bowi Andreyano",
+    "role": "Anggota",
     "batch": 2015,
-    "photo": "/images/alumni/dewi-putri-2015.jpg",
-    "consent": true,
-    "currentPosition": "UX Designer at Traveloka",
+    "consent": false,
+    "currentPosition": "Entrepreneur",
     "contact": {
-      "email": "dewi.putri@example.com",
-      "linkedin": "https://linkedin.com/in/dewi-putri"
-    }
+      "linkedin": "https://www.linkedin.com/in/bowiandreyano/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-001",
+    "name": "Buce Immanuel",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/buceimanuel/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-002",
+    "name": "David Wijaya",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/davidwijaya09/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-010",
+    "name": "Ginfa Ghifari Yahya",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "Digital Marketing",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ginfa-ghifary/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-009",
+    "name": "Rahmawati Putri",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "Quality Assurance",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/rahmawati-putri-714b2812a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-006",
+    "name": "Salma Shella",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "IT Business Analyst",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/salma-shella-b7397b128/"
+    },
+    "achievements": []
   },
   {
     "id": "alumni-2015-005",
-    "name": "Rudi Hartono",
-    "role": "Bendahara",
+    "name": "Siti Aisyah",
+    "role": "Anggota",
     "batch": 2015,
-    "photo": "/images/alumni/rudi-hartono-2015.jpg",
     "consent": false,
-    "currentPosition": "Project Manager at BCA"
+    "currentPosition": "Product Management",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/siti-aisyah-6b19b917b/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-008",
+    "name": "Zulfi Robbani",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "Entrepreneur",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/zulfirobbani/"
+    },
+    "achievements": []
   }
 ]

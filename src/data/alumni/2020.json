@@ -1,0 +1,222 @@
+[
+  {
+    "id": "alumni-2020-016",
+    "name": "Adlyanscyah Ammar",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/adlyanscyah-ammar-syauqi-962a40192/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-018",
+    "name": "Alfadjri Aditia Prayoga",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Entrepreneur",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/alfadjri-aditia-prayoga/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-002",
+    "name": "Ali Sirajudin",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Unity Developer",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ali-sirajuddin/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-009",
+    "name": "Alodia Nasywa",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Socmed Marketing",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/alodia-nasywa-b570b9206"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-003",
+    "name": "Arief Aprilianto",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Entrepreneur",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/arief-aprilianto-45346a19a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-006",
+    "name": "Daffa Muhammad Rizqi",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/daffa-rizqi/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-007",
+    "name": "Erlangga AH",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Hardware Engineer",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/erlangga-adidarma-hartono-6740791b8/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-005",
+    "name": "Fajar Triady Putra",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Quality Assurance",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/fajartriadyp/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-014",
+    "name": "Farika Trinanda",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/farika-trinanda-b144642b2/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-010",
+    "name": "Fauzan Azmi",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Socmed Marketing",
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-013",
+    "name": "Fikri Haikal",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Mobile Development",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/fikrihkl/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-019",
+    "name": "Harianda Subakti",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Product Management",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/harianda/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-004",
+    "name": "Nisrina Aulia Rahma",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Quality Assurance",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/nisrinaauliarahma/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-012",
+    "name": "Ocva Widi Saputra",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Hardware Engineer",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ocva-widi-saputra/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-017",
+    "name": "Ovie Permatasari",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ovie-permatasari-999157230/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-015",
+    "name": "Siti Rayhannah",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/siti-rayhannah-b580a0209/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-011",
+    "name": "Sri Indarti",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "UI / UX",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/sriindarti-0312/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-001",
+    "name": "Syifa Syauqi Adam",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/syifasyauqi/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2020-008",
+    "name": "Yudistria Nuzuli",
+    "role": "Anggota",
+    "batch": 2020,
+    "consent": false,
+    "currentPosition": "Netowrk Engineer",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/yudhistira-nuzuli-ardana-90b731231"
+    },
+    "achievements": []
+  }
+]

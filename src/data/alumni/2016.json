@@ -1,0 +1,100 @@
+[
+  {
+    "id": "alumni-2016-009",
+    "name": "Daffa Dwiyanti Zulkifli",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Backend",
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-006",
+    "name": "Farhan Ramadhany",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Quality Assurance",
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-007",
+    "name": "Farhan hafidz",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/farhan-hafidz-81490094/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-004",
+    "name": "Fransiskus Xaverius Ananda Tri Prasetio",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Mobile Development",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/fransiskus-xaverius-ananda-tri-prasetio-b3232819b/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-002",
+    "name": "Gagah Alfiandi Pulungan",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Frontend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/gagah-alfiandi-pulungan-a16a5a12b/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-003",
+    "name": "Garin Ramadhan",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/garin-ramadhan/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-008",
+    "name": "Muhammad Ramadhan",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/muhammad-ramadhan-0a58ba129/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-005",
+    "name": "Syukur",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-001",
+    "name": "Yudha Purbajagad",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/yudha-purbajagad-910a69128/"
+    },
+    "achievements": []
+  }
+]

@@ -1,0 +1,165 @@
+[
+  {
+    "id": "alumni-2017-005",
+    "name": "Dandi Husni Thamrin",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/dandi-husni-771b06165/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-011",
+    "name": "Faisal Maulana Wasalman",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/faisal-mawas/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-004",
+    "name": "Husin Al Adani Alaydrus",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "Entrepreneur",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/adni-husein/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-010",
+    "name": "Iko Juniyus Adi Pratama",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ikojuniyus/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-013",
+    "name": "Iqbal Setyo Nugroho",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/iqbal-setyo-nugroho-bb3446141/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-008",
+    "name": "Iskandar Nurrahman",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/iskandar-nurrahman-b34419174/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-006",
+    "name": "Juika Pesa Puspita",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/juika-pesa-puspita-33523b12a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-001",
+    "name": "Mindy Atikah Chiara Gyver",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "Frontend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/mindy-atikah-chiara-gyver-010a58181/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-012",
+    "name": "Rafif Agdyaputra",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/rafif-agdyaputra-649404192/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-009",
+    "name": "Renault Dzaky",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ren-dzaky-a05665190/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-003",
+    "name": "Reynaldi Rivaldo",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "Entrepreneur",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/reynaldi-rivaldo-470229154/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-007",
+    "name": "Sherina Putri Rahayu",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "UI / UX",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/sherinarahayu9/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-002",
+    "name": "Tubagus Haikal Naufal",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "Entrepreneur",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/haikal-naufal-1bb115168/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2017-014",
+    "name": "Vario Nabil R",
+    "role": "Anggota",
+    "batch": 2017,
+    "consent": false,
+    "currentPosition": "Security Engineer",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/vario-nabil-ramadhan-58a68b148/"
+    },
+    "achievements": []
+  }
+]

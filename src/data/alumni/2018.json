@@ -1,0 +1,197 @@
+[
+  {
+    "id": "alumni-2018-003",
+    "name": "Alfi Naufal",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "currentPosition": "IT Business Analyst",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/alfinaufal/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-005",
+    "name": "Andhika Putra",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/andhika-putra-37b5b216a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-010",
+    "name": "Arrsyaila",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/arrsyailaa/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-013",
+    "name": "Bagas Ade Satria",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "currentPosition": "UI / UX",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/bagasadesatria001/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-011",
+    "name": "Euklides Marima",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "currentPosition": "Quality Assurance",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/euklides-marima/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-004",
+    "name": "Fitriani Chaerunisa",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/fitriani-chaerunisa/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-014",
+    "name": "Hafizh Sogar",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/hafizh-sogar/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-006",
+    "name": "Hanas Bayu Pratama",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "currentPosition": "Entrepreneur",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/hanas-bayu-pratama/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-001",
+    "name": "Hilman Maulana Anhar",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/hma28official/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-017",
+    "name": "Ilyas Panji",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "currentPosition": "UI / UX",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ilyaspanjihutomo/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-016",
+    "name": "Izzatu Ramadhan",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/izzatu-ramadhan-5765aa16a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-008",
+    "name": "Jeremia Manogi Mario",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "currentPosition": "Mobile Development",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/jeremiamanogi/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-009",
+    "name": "Muhammad Ihza Al Rifki",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/muhammad-ihza-al-rifki-70969116a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-012",
+    "name": "Pangeran Nicola Alfiano",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "currentPosition": "Video Editor",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/pangeran-nicola-alfiano/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-015",
+    "name": "Selgi Okta",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/selgi-okta-74057116a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-002",
+    "name": "Thalia Azzahra",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/thaliaam/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2018-007",
+    "name": "Yovie Shubhan",
+    "role": "Anggota",
+    "batch": 2018,
+    "consent": false,
+    "currentPosition": "Video Editor",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/yovieshubhan/"
+    },
+    "achievements": []
+  }
+]

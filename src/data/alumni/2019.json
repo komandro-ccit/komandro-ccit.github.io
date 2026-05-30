@@ -1,0 +1,173 @@
+[
+  {
+    "id": "alumni-2019-010",
+    "name": "Amalia",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-009",
+    "name": "Andhika Putra",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "Data Analyst",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/andhika-putra-37b5b216a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-011",
+    "name": "Arvito Putra",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-004",
+    "name": "Chiesa Afandy",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "Frontend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/chiesaafandy/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-003",
+    "name": "Deano Amor",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "UI / UX",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/deanoamor/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-013",
+    "name": "Dhiya Zhafirah",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "Design Graphics",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/dhiyazhafirah/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-001",
+    "name": "Ghifari Nur Athoillah Prayoga",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "DevOps",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ghifarinur/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-016",
+    "name": "Gifino Thoriq",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/gifino-thoriq/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-008",
+    "name": "Imam Bayu Saga",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "Mobile Development",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/imam-bayu-saga-2b2281203/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-015",
+    "name": "Ismi",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "Backend",
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-012",
+    "name": "Izzaturahman",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-014",
+    "name": "Maharani",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/maharani-marsono-7231431b5/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-005",
+    "name": "Putri Arina Kamilia",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "UI / UX",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/putri-arina-kamilia/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-006",
+    "name": "Qori",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-007",
+    "name": "Rafly",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/ahmad-rafly/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2019-002",
+    "name": "Reza Asep Adi Purnomo",
+    "role": "Anggota",
+    "batch": 2019,
+    "consent": false,
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/reza-asep-adi-purnomo-8584a01b9/"
+    },
+    "achievements": []
+  }
+]
