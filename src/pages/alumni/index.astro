@@ -8,7 +8,7 @@ const availableYears = Array.from({ length: maxBatchYear - 2014 }, (_, i) => 201
 
 const getYearDescription = (year: number): string => {
   if (year === 2015) return 'Founding Year';
-  if (year === maxBatchYear) return 'Current Batch';
+  if (year === maxBatchYear) return 'Latest Batch';
   return `Batch ${year - 2014}`;
 };
 ---
