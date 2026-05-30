@@ -5,7 +5,7 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   output: 'static',
   site: 'https://komandro-ccit.github.io',
-  base: '/komandro-ccit/',
+  base: '/',
   integrations: [
     tailwind(),
     mdx()
