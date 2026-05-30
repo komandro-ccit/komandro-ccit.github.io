@@ -47,7 +47,7 @@ const sortedPosts = posts.sort((a, b) =>
         ) : (
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sortedPosts.map((post) => (
-              <article class="group bg-white border border-surface-border overflow-hidden rounded hover:border-primary transition-colors duration-300">
+              <article class="group bg-white border-0 md:border border-surface-border overflow-hidden rounded-none md:rounded hover:border-primary transition-colors duration-300">
                 {post.data.heroImage && (
                   <div class="aspect-video overflow-hidden bg-surface-container">
                     <img 

@@ -50,9 +50,9 @@ const { Content } = await post.render();
 
     <!-- Content -->
     <section class="py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-      <div class="bg-white border border-surface-border rounded">
+      <div class="bg-white md:border md:border-surface-border md:rounded">
         {post.data.heroImage && (
-          <div class="aspect-video border-b border-surface-border">
+          <div class="aspect-video md:border-b border-surface-border">
             <img 
               src={post.data.heroImage} 
               alt={post.data.title}
@@ -61,7 +61,7 @@ const { Content } = await post.render();
           </div>
         )}
         
-        <div class="p-8 md:p-12">
+        <div class="px-0 py-8 md:px-8 md:py-12 lg:px-12 lg:py-12">
           <p class="text-body-lg-home text-secondary mb-10 leading-relaxed">{post.data.description}</p>
 
           <article class="prose prose-lg max-w-none prose-headings:text-on-background prose-p:text-secondary prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-on-background prose-code:text-primary prose-code:bg-surface-container prose-code:px-1.5 prose-code:py-0.5">

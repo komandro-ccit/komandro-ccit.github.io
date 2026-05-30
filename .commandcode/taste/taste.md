@@ -9,3 +9,9 @@
 - Year filter dropdown should offset by -2 years (graduation year minus entry year), because when the graduating batch is year N, the cohort entered college in year N-2. Confidence: 0.70
 - For alumni batch years with no data (future batches), handle gracefully with empty state and an informative message like "Angkatan ini masih berjalan" instead of erroring. Confidence: 0.70
 
+# communication
+- Use English for all content and text. Confidence: 0.90
+
+# mobile-ux
+- Tables on mobile should overflow horizontally with scroll instead of being squished to fit container. Confidence: 0.75
+
