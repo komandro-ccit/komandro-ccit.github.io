@@ -10,6 +10,9 @@ export default defineConfig({
     tailwind(),
     mdx()
   ],
+  server: {
+    port: 4350
+  },
   markdown: {
     shikiConfig: {
       theme: 'github-dark',

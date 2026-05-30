@@ -1,0 +1,54 @@
+---
+import MaterialIcon from './MaterialIcon.astro';
+import { link } from '../../utils/link';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  moduleCount: number;
+  modules: string[];
+  difficulty?: string;
+}
+
+const { href, title, description, moduleCount, modules, difficulty } = Astro.props;
+
+const difficultyColors: Record<string, string> = {
+  'Beginner': 'bg-primary text-white',
+  'Intermediate': 'bg-secondary text-white',
+  'Advanced': 'bg-on-background text-white',
+};
+---
+
+<a
+  href={link(href)}
+  class="group bg-surface-container-lowest border border-surface-variant border-l-4 border-l-primary rounded p-md flex flex-col gap-sm hover:border-primary transition-colors duration-200"
+>
+  <div class="flex justify-between items-start">
+    <span class="font-label-md text-label-md text-secondary">{moduleCount} Modules</span>
+    <span class="bg-primary text-white font-label-md text-label-md uppercase tracking-widest px-2 py-1">SERIES</span>
+  </div>
+  <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">{title}</h3>
+  {modules.length > 0 && (
+    <ul class="font-body-md text-body-md text-secondary list-disc list-inside mb-4">
+      {modules.map((mod) => (
+        <li>{mod}</li>
+      ))}
+    </ul>
+  )}
+  {!modules.length && description && (
+    <p class="font-body-md text-body-md text-secondary line-clamp-2 mb-4">{description}</p>
+  )}
+  <div class="mt-auto">
+    <div class="flex justify-between items-center mb-2">
+      {difficulty && (
+        <span class:list={['px-2 py-1 font-label-md text-label-md uppercase tracking-widest', difficultyColors[difficulty] || 'bg-surface-variant text-on-background']}>
+          {difficulty}
+        </span>
+      )}
+    </div>
+    <button class="w-full bg-transparent border border-on-background text-on-background font-bold font-body-md text-body-md py-2 hover:bg-surface-variant transition-colors">
+      Start Learning
+    </button>
+  </div>
+</a>

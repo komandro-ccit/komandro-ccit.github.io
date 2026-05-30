@@ -1,0 +1,44 @@
+---
+import MaterialIcon from './MaterialIcon.astro';
+import { link } from '../../utils/link';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  author: string;
+  date: string;
+  difficulty?: string;
+  estimatedTime?: string;
+}
+
+const { href, title, description, author, date, difficulty, estimatedTime } = Astro.props;
+
+const difficultyColors: Record<string, string> = {
+  'Beginner': 'bg-primary text-white',
+  'Intermediate': 'bg-secondary text-white',
+  'Advanced': 'bg-on-background text-white',
+};
+---
+
+<a
+  href={link(href)}
+  class="group bg-surface-container-lowest border border-surface-variant rounded p-md flex flex-col gap-sm hover:border-primary transition-colors duration-200"
+>
+  <div class="flex justify-between items-start">
+    {difficulty && (
+      <span class:list={['px-2 py-1 font-label-md text-label-md uppercase tracking-widest', difficultyColors[difficulty] || 'bg-surface-variant text-on-background']}]}>
+        {difficulty}
+      </span>
+    )}
+    <span class="bg-secondary text-white font-label-md text-label-md uppercase tracking-widest px-2 py-1">TUTORIAL</span>
+  </div>
+  <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">{title}</h3>
+  <p class="font-body-md text-body-md text-secondary line-clamp-2">{description}</p>
+  <div class="flex items-center gap-2 mt-auto pt-sm border-t border-surface-variant">
+    <MaterialIcon name="bx-user" class="text-secondary text-sm" />
+    <span class="font-label-md text-label-md text-secondary">{author}</span>
+    <span class="text-secondary mx-2">•</span>
+    <span class="font-label-md text-label-md text-secondary">{date}</span>
+  </div>
+</a>

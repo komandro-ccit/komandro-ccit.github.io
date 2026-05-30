@@ -1,0 +1,258 @@
+---
+import MaterialIcon from './MaterialIcon.astro';
+import { link } from '../../utils/link';
+
+interface TocItem {
+  text: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  backUrl: string;
+  backLabel: string;
+  type?: string;
+  author: string;
+  pubDate: string;
+  estimatedTime?: string;
+  tocItems: TocItem[];
+  prerequisites?: string[];
+  tags?: string[];
+}
+
+const { 
+  title, 
+  description, 
+  backUrl, 
+  backLabel, 
+  type = 'LESSON',
+  author,
+  pubDate,
+  estimatedTime,
+  tocItems,
+  prerequisites,
+  tags
+} = Astro.props;
+---
+
+<main class="min-h-screen bg-surface-light pt-24">
+  {/* Content Grid */}
+  <div class="max-w-container-max mx-auto px-gutter pb-lg pt-lg grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    {/* Main Content */}
+    <main class="lg:col-span-9 bg-surface-container-lowest border border-outline-variant rounded p-lg md:p-xl">
+      {/* Header */}
+      <div class="mb-lg border-b border-outline-variant pb-md">
+        <div class="flex justify-between items-center mb-lg">
+          <a href={link(backUrl)} class="inline-flex items-center gap-2 text-primary hover:underline font-label-md text-label-md">
+            <MaterialIcon name="bx-arrow-back" class="text-[20px]" />
+            {backLabel}
+          </a>
+          
+          <span class="inline-block bg-surface-variant text-secondary px-3 py-1 rounded-sm font-label-md text-label-md uppercase tracking-widest">
+            {type.toUpperCase()}
+          </span>
+        </div>
+        
+        <h1 class="font-headline-xl text-headline-xl text-on-surface mb-sm">{title}</h1>
+        
+        <div class="flex flex-wrap items-center gap-md text-on-surface-variant font-body-md text-body-md">
+          <div class="flex items-center gap-2">
+            <MaterialIcon name="bx-user" class="text-[20px]" />
+            {author}
+          </div>
+          <div class="flex items-center gap-2">
+            <MaterialIcon name="bx-calendar" class="text-[20px]" />
+            {new Date(pubDate).toLocaleDateString('id-ID', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </div>
+          {estimatedTime && (
+            <div class="flex items-center gap-2">
+              <MaterialIcon name="bx-time" class="text-[20px]" />
+              {estimatedTime}
+            </div>
+          )}
+        </div>
+      </div>
+      
+      {prerequisites && prerequisites.length > 0 && (
+        <div class="mb-8 p-6 bg-surface-container border border-outline-variant rounded">
+          <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-3">Prerequisites</h3>
+          <ul class="space-y-2">
+            {prerequisites.map((prereq) => (
+              <li class="flex items-center gap-2 text-on-surface-variant">
+                <MaterialIcon name="bx-check" class="text-primary text-[16px]" />
+                {prereq}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      
+      {/* Article Body */}
+      <article class="prose prose-lg max-w-none text-body-lg font-body-lg text-on-surface space-y-6
+        prose-headings:text-on-surface 
+        prose-headings:font-bold
+        prose-h1:text-3xl prose-h1:mb-6 prose-h1:mt-8
+        prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-8 prose-h2:scroll-mt-24
+        prose-h3:text-xl prose-h3:mb-3 prose-h3:mt-6 prose-h3:scroll-mt-24
+        prose-h4:text-lg prose-h4:mb-2 prose-h4:mt-4
+        prose-p:text-on-surface-variant prose-p:mb-4
+        prose-a:text-primary-m3 prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-on-surface prose-strong:font-semibold
+        prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-4
+        prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-4
+        prose-li:text-on-surface-variant prose-li:mb-1
+        prose-table:w-full prose-table:border-collapse prose-table:mb-6
+        prose-th:bg-surface-container-high prose-th:text-on-surface prose-th:font-semibold prose-th:p-3 prose-th:text-left prose-th:border prose-th:border-outline-variant
+        prose-td:p-3 prose-td:border prose-td:border-outline-variant prose-td:text-on-surface-variant
+        prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-surface-container-low prose-blockquote:pl-4 prose-blockquote:py-2 prose-blockquote:pr-4 prose-blockquote:mb-6
+        prose-img:border prose-img:border-outline-variant prose-img:mb-6
+        prose-hr:border-outline-variant prose-hr:my-8
+        prose-pre:bg-slate-dark prose-pre:p-4 prose-pre:relative
+        prose-code:text-primary prose-code:bg-surface-container prose-code:px-1
+      ">
+        <slot />
+      </article>
+      
+      {tags && tags.length > 0 && (
+        <div class="mt-12 pt-8 border-t border-outline-variant">
+          <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-3">Tags</h3>
+          <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span class="px-3 py-1 bg-surface-variant text-on-background rounded-sm font-label-md text-label-md uppercase tracking-widest">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {/* Prev/Next Navigation */}
+      <slot name="navigation" />
+    </main>
+    
+    {/* Sidebar TOC */}
+    <aside class="hidden lg:block lg:col-span-3">
+      <div class="sticky top-24 bg-surface-container-lowest border border-outline-variant rounded p-md">
+        <h3 class="font-headline-md text-headline-md text-on-surface mb-md pb-sm border-b border-outline-variant">On this page</h3>
+        <nav class="flex flex-col gap-sm font-body-md text-body-md" id="toc-nav">
+          {tocItems.map((item, index) => (
+            <a 
+              href={item.href}
+              class:list={[
+                'border-l-2 pl-3 py-1 transition-colors',
+                index === 0 ? 'text-primary border-primary font-bold' : 'text-on-surface-variant border-transparent hover:text-primary-m3'
+              ]}
+            >
+              {item.text}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<style is:global>
+  /* Shiki override for dark code blocks */
+  .prose pre {
+    background-color: #1F2937 !important;
+    color: #f7f9fb !important;
+  }
+  .prose pre code {
+    background-color: transparent !important;
+    color: #f7f9fb !important;
+  }
+  .prose pre .shiki {
+    background-color: transparent !important;
+  }
+  
+  /* Copy button styles */
+  .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.2s;
+    opacity: 0;
+  }
+  .prose pre:hover .copy-btn,
+  .copy-btn:focus {
+    opacity: 1;
+  }
+  .copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Inline code inside prose (not in pre) */
+  .prose :not(pre) > code {
+    color: #006d3b;
+    background-color: #f3f4f6;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+</style>
+
+<script>
+  // TOC IntersectionObserver
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        if (!id) return;
+        const tocLink = document.querySelector(`#toc-nav a[href="#${id}"]`);
+        
+        if (entry.isIntersecting && tocLink) {
+          document.querySelectorAll('#toc-nav a').forEach(a => {
+            a.classList.remove('text-primary', 'border-primary', 'font-bold');
+            a.classList.add('text-on-surface-variant', 'border-transparent');
+          });
+          tocLink.classList.remove('text-on-surface-variant', 'border-transparent');
+          tocLink.classList.add('text-primary', 'border-primary', 'font-bold');
+        }
+      });
+    }, { rootMargin: '-100px 0px -66% 0px' });
+
+    document.querySelectorAll('article h2, article h3').forEach((section) => {
+      if (section.id) observer.observe(section);
+    });
+  });
+  
+  // Copy code buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.prose pre').forEach((pre) => {
+      const code = pre.querySelector('code');
+      if (!code) return;
+      
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.innerHTML = '<i class="bx bx-copy text-[14px]"></i> Copy';
+      btn.setAttribute('aria-label', 'Copy code');
+      
+      btn.addEventListener('click', () => {
+        const text = code.textContent || '';
+        navigator.clipboard.writeText(text).then(() => {
+          btn.innerHTML = '<i class="bx bx-check text-[14px]"></i> Copied!';
+          setTimeout(() => {
+            btn.innerHTML = '<i class="bx bx-copy text-[14px]"></i> Copy';
+          }, 2000);
+        });
+      });
+      
+      pre.appendChild(btn);
+    });
+  });
+</script>

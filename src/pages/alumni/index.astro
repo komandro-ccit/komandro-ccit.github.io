@@ -1,14 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { link } from '../../utils/link';
 
 const currentYear = new Date().getFullYear();
 const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015 + i).reverse();
-
-const getYearEmoji = (year: number): string => {
-  if (year === 2015) return '🌟';
-  if (year === currentYear) return '🔥';
-  return '🎓';
-};
 
 const getYearDescription = (year: number): string => {
   if (year === 2015) return 'Founding Year';
@@ -18,95 +13,79 @@ const getYearDescription = (year: number): string => {
 ---
 
 <Layout title="Alumni - Komandro CCIT-FTUI">
-  <main class="min-h-screen bg-slate-50">
+  <main class="pt-24">
     
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white py-20 px-4">
-      <div class="max-w-6xl mx-auto text-center">
-        <div class="w-20 h-20 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
+    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
+        <div class="max-w-4xl">
+          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white mb-10">
+            <span class="w-2 h-2 bg-primary"></span>
+            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Hall of Fame</span>
+          </div>
+          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
+            Alumni <span class="text-primary">Directory</span>
+          </h1>
+          <p class="text-body-lg-home text-secondary mb-12 max-w-2xl leading-relaxed">
+            Explore our {availableYears.length} batches of talented alumni who have shaped Komandro's journey since 2015.
+          </p>
         </div>
-        
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Alumni Directory</h1>
-        
-        <p class="text-xl text-white/90 max-w-2xl mx-auto">
-          Explore our {availableYears.length} batches of talented alumni who have shaped Komandro's journey
-        </p>
       </div>
     </section>
 
     <!-- Statistics -->
-    <section class="py-8 px-4 bg-white border-b border-gray-200">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="text-center p-4">
-            <div class="text-3xl font-bold text-[#4CAF50]">{availableYears.length}</div>
-            <div class="text-sm text-gray-500">Batches</div>
+    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-surface-border pt-16">
+          <div>
+            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">{availableYears.length}</div>
+            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Batches</div>
           </div>
-          
-          <div class="text-center p-4">
-            <div class="text-3xl font-bold text-[#4CAF50]">500+</div>
-            <div class="text-sm text-gray-500">Alumni</div>
+          <div>
+            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">500+</div>
+            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Alumni</div>
           </div>
-          
-          <div class="text-center p-4">
-            <div class="text-3xl font-bold text-[#4CAF50]">{currentYear - 2015}+</div>
-            <div class="text-sm text-gray-500">Years</div>
+          <div>
+            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">{currentYear - 2015}+</div>
+            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Years</div>
           </div>
-          
-          <div class="text-center p-4">
-            <div class="text-3xl font-bold text-[#4CAF50]">100%</div>
-            <div class="text-sm text-gray-500">Legacy</div>
+          <div>
+            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">100%</div>
+            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Legacy</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Year Grid -->
-    <section class="py-16 px-4">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-800 mb-4">Select a Batch Year</h2>
-          <p class="text-gray-600 max-w-xl mx-auto">
-            Click on any year to view the alumni who were part of that batch
+    <section class="py-32 bg-white border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="mb-20">
+          <h2 class="text-headline-lg-home text-on-background mb-6">Select a Batch Year</h2>
+          <div class="w-24 h-1 bg-primary mb-8"></div>
+          <p class="text-secondary max-w-xl text-body-lg-home leading-relaxed">
+            Click on any year to view the alumni who were part of that batch.
           </p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {availableYears.map((year) => (
             <a
-              href={`/alumni/${year}`}
-              class="group relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#4CAF50] hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              href={link(`/alumni/${year}`)}
+              class="group bg-white border border-surface-border rounded p-6 text-center hover:border-primary transition-colors duration-300"
             >
-              <div class="p-6 text-center">
-                <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">
-                  {getYearEmoji(year)}
-                </div>
-                
-                <div class="text-2xl font-bold text-gray-800 mb-1">{year}</div>
-                
-                <div class="text-xs text-gray-500">{getYearDescription(year)}</div>
-                
-                <div class="mt-4 inline-flex items-center gap-1 text-sm text-[#4CAF50] opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span>View</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m9 18 6-6-6-6"/>
-                  </svg>
-                </div>
+              <div class="mb-4">
+                <i class="bx bx-calendar text-on-background text-[32px] group-hover:text-primary transition-colors"></i>
               </div>
               
-              {year === 2015 && (
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-orange-500" />
-              )}
+              <div class="text-headline-lg text-on-background mb-1">{year}</div>
               
-              {year === currentYear && (
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#4CAF50] to-[#3DDC84]" />
-              )}
+              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">{getYearDescription(year)}</div>
+              
+              <div class="mt-4 inline-flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity font-label-md text-label-md uppercase tracking-wider">
+                <span>View</span>
+                <i class="bx bx-right-arrow-alt text-[14px]"></i>
+              </div>
             </a>
           ))}
         </div>
@@ -114,68 +93,46 @@ const getYearDescription = (year: number): string => {
     </section>
 
     <!-- Study Turtle Section -->
-    <section class="py-16 px-4 bg-white">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <span class="inline-block px-3 py-1 bg-[#4CAF50]/10 text-[#4CAF50] rounded-full text-sm font-semibold mb-4">
-              Alumni Program
-            </span>
-            
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">
-              Study Turtle (Stutle)
-            </h2>
-            
-            <p class="text-gray-600 mb-4">
+    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-16">
+          <div class="lg:w-1/2">
+          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
+              <span class="w-2 h-2 bg-primary"></span>
+              <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Alumni Program</span>
+            </div>
+            <h2 class="text-headline-lg-home text-on-background mb-6">Study Turtle (Stutle)</h2>
+            <div class="w-24 h-1 bg-primary mb-8"></div>
+            <p class="text-secondary text-body-md leading-relaxed mb-4">
               All alumni who graduated from CCIT-FTUI and former Komandro members automatically 
               become part of Study Turtle (Stutle) — an exclusive alumni organization dedicated 
               to continuous growth and professional development.
             </p>
-            
-            <p class="text-gray-600 mb-6">
+            <p class="text-secondary text-body-md leading-relaxed mb-8">
               Stutle provides comprehensive programs designed to enhance the capabilities of 
               Komandro alumni in the professional world, including one-on-one mentoring, 
               career coaching, networking opportunities, and industry workshops.
             </p>
-            
             <a 
-              href="/alumni/2015" 
-              class="inline-flex items-center gap-2 bg-[#4CAF50] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#3DDC84] transition-colors"
+            href={link('/alumni/2015')} 
+            class="inline-flex items-center gap-2 bg-on-background text-white px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-white transition-colors duration-300"
             >
               Explore Alumni Network
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14"/>
-                <path d="m12 5 7 7-7 7"/>
-              </svg>
+              <i class="bx bx-right-arrow-alt text-[20px]"></i>
             </a>
           </div>
           
-          <div class="relative">
-            <div class="bg-gradient-to-br from-[#4CAF50]/10 to-[#3DDC84]/10 rounded-2xl p-8 aspect-square flex items-center justify-center">
+          <div class="lg:w-1/2 flex items-center justify-center">
+            <div class="border border-surface-border bg-white rounded p-12 w-full max-w-md aspect-square flex items-center justify-center">
               <div class="text-center">
-                <div class="text-7xl mb-4">🐢</div>
-                <div class="text-3xl font-bold text-gray-800">Study Turtle</div>
-                <div class="text-lg text-gray-600 mt-2">Alumni Organization</div>
-                <div class="text-sm text-gray-500 mt-1">Mentoring • Growth • Success</div>
+                <i class="bx bx-group text-surface-border text-[80px] mb-6"></i>
+                <div class="text-headline-lg text-on-background mb-2">Study Turtle</div>
+                <div class="text-secondary text-body-md mb-1">Alumni Organization</div>
+                <div class="text-secondary text-body-md">Mentoring &bull; Growth &bull; Success</div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Back to Home -->
-    <section class="py-8 px-4 bg-slate-50">
-      <div class="max-w-6xl mx-auto">
-        <a 
-          href="/" 
-          class="inline-flex items-center gap-2 text-gray-600 hover:text-[#4CAF50] font-medium transition-colors"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
-          Back to Home
-        </a>
       </div>
     </section>
   </main>

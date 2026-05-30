@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { link } from '../utils/link';
 
 const projects = [
   {
@@ -66,56 +67,60 @@ const projects = [
 
 const designProjects = projects.filter(p => p.type === 'design');
 const codeProjects = projects.filter(p => p.type === 'code');
+
+const typeBadgeStyles: Record<string, string> = {
+  'design': 'bg-primary text-white',
+  'code': 'bg-secondary text-white',
+};
 ---
 
 <Layout title="Showcase - Komandro CCIT-FTUI"
   description="Showcase of amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community members.">
-  <main class="min-h-screen bg-slate-50">
+  <main class="pt-24">
     
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white py-16 px-4">
-      <div class="max-w-6xl mx-auto text-center">
-        <div class="w-20 h-20 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-            <polyline points="2 17 12 22 22 17"/>
-            <polyline points="2 12 12 17 22 12"/>
-          </svg>
+    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
+        <div class="max-w-4xl">
+          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
+            <span class="w-2 h-2 bg-primary"></span>
+            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Projects</span>
+          </div>
+          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
+            Project <span class="text-primary">Showcase</span>
+          </h1>
+          <p class="text-body-lg-home text-secondary max-w-2xl leading-relaxed">
+            Amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community.
+          </p>
         </div>
-        
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Project Showcase</h1>
-        
-        <p class="text-xl text-white/90 max-w-2xl mx-auto">
-          Amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community.
-        </p>
       </div>
     </section>
 
     <!-- Filter Stats -->
-    <section class="py-8 px-4 bg-white border-b border-gray-200">
-      <div class="max-w-6xl mx-auto">
-        <div class="flex flex-wrap justify-center gap-6">
-          <div class="flex items-center gap-3 px-6 py-3 bg-[#4CAF50]/10 rounded-full">
-            <span class="text-2xl">🎨</span>
+    <section class="py-16 bg-surface-container-low border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="flex items-center gap-4">
+            <i class="bx bx-palette text-on-background text-[32px]"></i>
             <div>
-              <span class="font-bold text-[#4CAF50]">{designProjects.length}</span>
-              <span class="text-gray-600 ml-1">Design Projects</span>
+              <div class="text-headline-md-home text-on-background">{designProjects.length}</div>
+              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Design Projects</div>
             </div>
           </div>
           
-          <div class="flex items-center gap-3 px-6 py-3 bg-blue-50 rounded-full">
-            <span class="text-2xl">💻</span>
+          <div class="flex items-center gap-4">
+            <i class="bx bx-code-alt text-on-background text-[32px]"></i>
             <div>
-              <span class="font-bold text-blue-600">{codeProjects.length}</span>
-              <span class="text-gray-600 ml-1">Code Projects</span>
+              <div class="text-headline-md-home text-on-background">{codeProjects.length}</div>
+              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Code Projects</div>
             </div>
           </div>
           
-          <div class="flex items-center gap-3 px-6 py-3 bg-purple-50 rounded-full">
-            <span class="text-2xl">✨</span>
+          <div class="flex items-center gap-4">
+            <i class="bx bx-collection text-on-background text-[32px]"></i>
             <div>
-              <span class="font-bold text-purple-600">{projects.length}</span>
-              <span class="text-gray-600 ml-1">Total Projects</span>
+              <div class="text-headline-md-home text-on-background">{projects.length}</div>
+              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Total Projects</div>
             </div>
           </div>
         </div>
@@ -124,14 +129,14 @@ const codeProjects = projects.filter(p => p.type === 'code');
 
     <!-- Design Projects Section -->
     {designProjects.length > 0 && (
-      <section class="py-16 px-4">
-        <div class="max-w-6xl mx-auto">
-          <div class="flex items-center gap-3 mb-8">
-            <span class="text-3xl">🎨</span>
-            <h2 class="text-2xl font-bold text-gray-800">Design Projects (UI/UX)</h2>
-            <div class="flex-1 h-px bg-gray-200" />
-            <span class="px-3 py-1 bg-[#4CAF50]/10 text-[#4CAF50] rounded-full text-sm font-semibold">
-              Figma
+      <section class="py-32 bg-white border-b border-surface-border">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+          <div class="flex items-center gap-4 mb-12">
+            <i class="bx bx-palette text-on-background text-[28px]"></i>
+            <h2 class="text-headline-lg-home text-on-background">Design Projects</h2>
+            <div class="flex-1 h-px bg-surface-border"></div>
+            <span class="px-3 py-1 bg-primary text-white font-label-md text-label-md uppercase tracking-widest">
+              UI/UX
             </span>
           </div>
 
@@ -141,53 +146,51 @@ const codeProjects = projects.filter(p => p.type === 'code');
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group bg-white rounded-xl border-2 border-gray-100 overflow-hidden hover:border-[#4CAF50] hover:shadow-xl transition-all duration-300"
+                class="group bg-white border border-surface-border overflow-hidden rounded hover:border-primary transition-colors duration-300"
               >
-                <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+                <div class="aspect-video bg-surface-container relative overflow-hidden">
                   {project.image ? (
                     <img 
                       src={project.image} 
                       alt={project.title}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      class="w-full h-full object-cover"
                     />
                   ) : (
                     <div class="w-full h-full flex items-center justify-center">
-                      <span class="text-6xl">🎨</span>
+                      <i class="bx bx-image text-surface-border text-[48px]"></i>
                     </div>
                   )}
                   
                   <div class="absolute top-3 right-3">
-                    <span class="px-3 py-1 bg-[#4CAF50] text-white rounded-full text-xs font-semibold shadow-md">
+                    <span class="px-3 py-1 bg-primary text-white font-label-md text-label-md uppercase tracking-widest">
                       Design
                     </span>
                   </div>
                 </div>
                 
                 <div class="p-6">
-                  <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-[#4CAF50] transition-colors line-clamp-1">
+                  <h3 class="text-headline-md text-on-background mb-2 group-hover:text-primary transition-colors line-clamp-1">
                     {project.title}
                   </h3>
                   
-                  <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+                  <p class="text-secondary text-body-md mb-6 line-clamp-3">
                     {project.description}
                   </p>
                   
-                  <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <div class="flex items-center gap-2">
-                      <div class="w-8 h-8 bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  <div class="flex items-center justify-between pt-4 border-t border-surface-border">
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 bg-surface-container flex items-center justify-center text-on-background text-xs font-bold">
                         {project.author.charAt(0)}
                       </div>
-                      <div class="text-xs">
-                        <div class="font-medium text-gray-800">{project.author}</div>
-                        <div class="text-gray-500">Batch {project.batch}</div>
+                      <div class="text-body-md">
+                        <div class="text-on-background font-medium">{project.author}</div>
+                        <div class="text-secondary">Batch {project.batch}</div>
                       </div>
                     </div>
                     
-                    <span class="inline-flex items-center gap-1 text-sm text-[#4CAF50] opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span class="inline-flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity font-label-md text-label-md uppercase tracking-wider">
                       View
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="m9 18 6-6-6-6"/>
-                      </svg>
+                      <i class="bx bx-right-arrow-alt text-[14px]"></i>
                     </span>
                   </div>
                 </div>
@@ -200,13 +203,13 @@ const codeProjects = projects.filter(p => p.type === 'code');
 
     <!-- Code Projects Section -->
     {codeProjects.length > 0 && (
-      <section class="py-16 px-4 bg-white">
-        <div class="max-w-6xl mx-auto">
-          <div class="flex items-center gap-3 mb-8">
-            <span class="text-3xl">💻</span>
-            <h2 class="text-2xl font-bold text-gray-800">Code Projects</h2>
-            <div class="flex-1 h-px bg-gray-200" />
-            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
+      <section class="py-32 bg-surface-container-low border-b border-surface-border">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+          <div class="flex items-center gap-4 mb-12">
+            <i class="bx bx-code-alt text-on-background text-[28px]"></i>
+            <h2 class="text-headline-lg-home text-on-background">Code Projects</h2>
+            <div class="flex-1 h-px bg-surface-border"></div>
+            <span class="px-3 py-1 bg-secondary text-white font-label-md text-label-md uppercase tracking-widest">
               GitHub
             </span>
           </div>
@@ -217,53 +220,51 @@ const codeProjects = projects.filter(p => p.type === 'code');
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group bg-white rounded-xl border-2 border-gray-100 overflow-hidden hover:border-blue-500 hover:shadow-xl transition-all duration-300"
+                class="group bg-white border border-surface-border overflow-hidden rounded hover:border-primary transition-colors duration-300"
               >
-                <div class="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+                <div class="aspect-video bg-slate-dark relative overflow-hidden">
                   {project.image ? (
                     <img 
                       src={project.image} 
                       alt={project.title}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      class="w-full h-full object-cover"
                     />
                   ) : (
                     <div class="w-full h-full flex items-center justify-center">
-                      <span class="text-6xl">💻</span>
+                      <i class="bx bx-code-block text-white/30 text-[48px]"></i>
                     </div>
                   )}
                   
                   <div class="absolute top-3 right-3">
-                    <span class="px-3 py-1 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md">
+                    <span class="px-3 py-1 bg-secondary text-white font-label-md text-label-md uppercase tracking-widest">
                       Code
                     </span>
                   </div>
                 </div>
                 
                 <div class="p-6">
-                  <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors line-clamp-1">
+                  <h3 class="text-headline-md text-on-background mb-2 group-hover:text-primary transition-colors line-clamp-1">
                     {project.title}
                   </h3>
                   
-                  <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+                  <p class="text-secondary text-body-md mb-6 line-clamp-3">
                     {project.description}
                   </p>
                   
-                  <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <div class="flex items-center gap-2">
-                      <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  <div class="flex items-center justify-between pt-4 border-t border-surface-border">
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 bg-surface-container flex items-center justify-center text-on-background text-xs font-bold">
                         {project.author.charAt(0)}
                       </div>
-                      <div class="text-xs">
-                        <div class="font-medium text-gray-800">{project.author}</div>
-                        <div class="text-gray-500">Batch {project.batch}</div>
+                      <div class="text-body-md">
+                        <div class="text-on-background font-medium">{project.author}</div>
+                        <div class="text-secondary">Batch {project.batch}</div>
                       </div>
                     </div>
                     
-                    <span class="inline-flex items-center gap-1 text-sm text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span class="inline-flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity font-label-md text-label-md uppercase tracking-wider">
                       GitHub
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="m9 18 6-6-6-6"/>
-                      </svg>
+                      <i class="bx bx-right-arrow-alt text-[14px]"></i>
                     </span>
                   </div>
                 </div>
@@ -275,30 +276,16 @@ const codeProjects = projects.filter(p => p.type === 'code');
     )}
 
     <!-- Update Schedule Info -->
-    <section class="py-16 px-4">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] rounded-2xl p-8 md:p-12 text-white">
-          <h2 class="text-3xl font-bold mb-4">Regular Updates</h2>
-          
-          <p class="text-lg text-white/90">
+    <section class="py-32 bg-white">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="border border-surface-border rounded p-8 md:p-16 text-center">
+          <i class="bx bx-time text-on-background text-[48px] mb-6"></i>
+          <h2 class="text-headline-lg-home text-on-background mb-4">Regular Updates</h2>
+          <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+          <p class="text-body-lg-home text-secondary max-w-2xl mx-auto leading-relaxed">
             Projects are updated at the end of each batch period. Stay tuned for new showcases from every graduating class!
           </p>
         </div>
-      </div>
-    </section>
-
-    <!-- Back to Home -->
-    <section class="py-8 px-4 bg-slate-50">
-      <div class="max-w-6xl mx-auto">
-        <a 
-          href="/" 
-          class="inline-flex items-center gap-2 text-gray-600 hover:text-[#4CAF50] font-medium transition-colors"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
-          Back to Home
-        </a>
       </div>
     </section>
   </main>

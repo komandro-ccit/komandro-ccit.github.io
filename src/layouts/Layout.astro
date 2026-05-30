@@ -1,5 +1,6 @@
 ---
 import Navbar from '../components/Navbar.astro';
+import { link } from '../utils/link';
 
 interface Props {
   title: string;
@@ -10,6 +11,8 @@ const {
   title, 
   description = "Komandro CCIT-FTUI - Komunitas Android dan Teknologi sejak 2015. Belajar, Berkarya, Berkomunitas."
 } = Astro.props;
+
+const currentYear = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
@@ -24,7 +27,10 @@ const {
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <!-- Box Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
     <style is:global>
       * {
@@ -40,7 +46,7 @@ const {
       body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         line-height: 1.6;
-        color: #1f2937;
+        color: #191c1e;
         background-color: #f8fafc;
       }
       
@@ -56,7 +62,93 @@ const {
     </style>
   </head>
   <body>
-    <Navbar />
+    <slot name="navbar">
+      <Navbar />
+    </slot>
     <slot />
+    
+    <!-- Global Footer -->
+    <footer class="bg-slate-dark text-white py-24">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-16 mb-16 border-b border-white/20 pb-16">
+          {/* Brand Column */}
+          <div class="col-span-1 md:col-span-5">
+            <div class="flex items-center gap-3 mb-8">
+              <div class="w-10 h-10 bg-white flex items-center justify-center">
+                <i class="bx bx-terminal text-slate-dark text-[24px]"></i>
+              </div>
+              <span class="text-headline-md-home font-bold tracking-tight uppercase">Komandro</span>
+            </div>
+            <p class="text-white/70 font-body-md text-body-md max-w-sm leading-relaxed mb-8">
+              An institution of engineering excellence at CCIT-FTUI, cultivating technology leadership since 2015.
+            </p>
+            <div class="flex gap-4">
+              <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-slate-dark transition-colors">
+                <i class="bx bx-globe text-[20px]"></i>
+              </a>
+              <a href="#" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-slate-dark transition-colors">
+                <i class="bx bx-code-alt text-[20px]"></i>
+              </a>
+            </div>
+          </div>
+          
+          {/* Directory Column */}
+          <div class="col-span-1 md:col-span-3">
+            <h4 class="font-label-md text-label-md mb-8 uppercase tracking-widest text-white/50 border-b border-white/20 pb-4">Directory</h4>
+            <ul class="space-y-4">
+              <li><a href={link('/')} class="text-white/80 hover:text-primary transition-colors font-body-md">Overview</a></li>
+              <li><a href={link('/about')} class="text-white/80 hover:text-primary transition-colors font-body-md">Institution</a></li>
+              <li><a href={link('/alumni')} class="text-white/80 hover:text-primary transition-colors font-body-md">Hall of Fame</a></li>
+              <li><a href={link('/material')} class="text-white/80 hover:text-primary transition-colors font-body-md">Academic Resources</a></li>
+              <li><a href={link('/blog')} class="text-white/80 hover:text-primary transition-colors font-body-md">Publications</a></li>
+            </ul>
+          </div>
+          
+          {/* Contact Column */}
+          <div class="col-span-1 md:col-span-4">
+            <h4 class="font-label-md text-label-md mb-8 uppercase tracking-widest text-white/50 border-b border-white/20 pb-4">Contact</h4>
+            <ul class="space-y-6">
+              <li>
+                <span class="block text-white/50 text-sm uppercase tracking-wider mb-1">Email Correspondence</span>
+                <a href="mailto:komandro@ccit-ftui.ac.id" class="text-white hover:text-primary transition-colors font-body-md">komandro@ccit-ftui.ac.id</a>
+              </li>
+              <li>
+                <span class="block text-white/50 text-sm uppercase tracking-wider mb-1">Headquarters</span>
+                <span class="text-white/80 font-body-md leading-relaxed">Engineering Center, CCIT-FTUI<br/>Universitas Indonesia, Depok</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-white/50 font-label-md text-label-md uppercase tracking-wider">&copy; {currentYear} Komandro CCIT-FTUI. All Rights Reserved.</p>
+          <div class="flex gap-8 text-white/50 font-label-md text-label-md uppercase tracking-wider">
+            <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
+
+<script>
+  // Header scroll effect for default navbar
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('main-header');
+    if (header) {
+      if (window.scrollY > 20) {
+        header.classList.add('shadow-sm');
+      } else {
+        header.classList.remove('shadow-sm');
+      }
+    }
+  });
+</script>
+
+<style is:global>
+  .hero-pattern {
+    background-image: linear-gradient(to right, #f1f5f9 1px, transparent 1px), linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+</style>

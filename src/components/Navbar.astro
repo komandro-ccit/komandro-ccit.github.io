@@ -1,4 +1,6 @@
 ---
+import { link } from '../utils/link';
+
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
@@ -11,74 +13,69 @@ const navLinks = [
 const pathname = Astro.url.pathname;
 ---
 
-<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] rounded-lg flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
-            <path d="M17.6 11.4c0-2.8-1.4-5.2-3.6-6.6V4c0-.8-.7-1.5-1.5-1.5-.8 0-1.5.7-1.5 1.5v.8C8.8 6.2 7.4 8.6 7.4 11.4c0 1.5.5 2.8 1.2 3.9-.3.4-.6.8-.6 1.4 0 1.1.9 1.9 1.9 1.9h5.2c1.1 0 1.9-.9 1.9-1.9 0-.6-.3-1-.6-1.4.7-1.1 1.2-2.4 1.2-3.9z"/>
-          </svg>
-        </div>
-        <span class="text-xl font-bold text-gray-800">Komandro</span>
-      </a>
+<header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-surface-border transition-all duration-300" id="main-header">
+  <nav class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-24 flex justify-between items-center">
+    <!-- Logo -->
+    <a href={link('/')} class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-slate-dark flex items-center justify-center">
+        <i class="bx bx-terminal text-white text-[24px]"></i>
+      </div>
+      <span class="text-headline-md-home font-bold text-on-surface tracking-tight uppercase">Komandro</span>
+    </a>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-1">
-        {navLinks.map((link) => (
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center gap-10">
+      {navLinks.map((navLink) => {
+        const isActive = pathname === navLink.href || pathname.startsWith(navLink.href + '/');
+        return (
           <a
-            href={link.href}
+            href={link(navLink.href)}
             class:list={[
-              'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
-              pathname === link.href || pathname.startsWith(link.href + '/')
-                ? 'bg-[#4CAF50]/10 text-[#4CAF50]'
-                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+              'font-label-md text-label-md uppercase tracking-wider transition-colors pb-1',
+              isActive
+                ? 'text-on-background font-bold border-b-2 border-primary'
+                : 'text-secondary font-medium hover:text-on-background'
             ]}
           >
-            {link.label}
+            {navLink.label}
           </a>
-        ))}
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <button
-        id="mobile-menu-btn"
-        class="md:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-        aria-label="Toggle menu"
-      >
-        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="4" x2="20" y1="12" y2="12"/>
-          <line x1="4" x2="20" y1="6" y2="6"/>
-          <line x1="4" x2="20" y1="18" y2="18"/>
-        </svg>
-        <svg id="close-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 6 6 18"/>
-          <path d="m6 6 12 12"/>
-        </svg>
-      </button>
+        );
+      })}
     </div>
 
-    <!-- Mobile Navigation -->
-    <div id="mobile-menu" class="hidden md:hidden pb-4">
-      <div class="flex flex-col gap-1">
-        {navLinks.map((link) => (
+    <!-- Mobile Menu Button -->
+    <button
+      class="md:hidden text-on-background p-2"
+      id="mobile-menu-btn"
+      aria-label="Toggle menu"
+    >
+      <i class="bx bx-menu text-2xl" id="menu-icon"></i>
+      <i class="bx bx-x text-2xl hidden" id="close-icon"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile Navigation -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-surface-border">
+    <div class="max-w-container-max mx-auto px-margin-mobile py-4 flex flex-col gap-2">
+      {navLinks.map((navLink) => {
+        const isActive = pathname === navLink.href || pathname.startsWith(navLink.href + '/');
+        return (
           <a
-            href={link.href}
+            href={link(navLink.href)}
             class:list={[
-              'px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200',
-              pathname === link.href || pathname.startsWith(link.href + '/')
-                ? 'bg-[#4CAF50]/10 text-[#4CAF50]'
-                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+              'px-4 py-3 font-label-md text-label-md uppercase tracking-wider transition-colors',
+              isActive
+                ? 'text-on-background font-bold bg-primary/10'
+                : 'text-secondary font-medium hover:bg-surface-container-low'
             ]}
           >
-            {link.label}
+            {navLink.label}
           </a>
-        ))}
-      </div>
+        );
+      })}
     </div>
   </div>
-</nav>
+</header>
 
 <script>
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');

@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Building API with NodeJS - Curriculum</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#78dc77",
+                        "inverse-surface": "#2d3133",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary-container": "#005c31",
+                        "secondary": "#555f6f",
+                        "primary": "#006d3b",
+                        "tertiary-fixed": "#94f990",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#bbcbbc",
+                        "outline": "#6c7b6e",
+                        "primary-container": "#3ddc84",
+                        "surface-tint": "#006d3b",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "secondary-container": "#d6e0f3",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed": "#002204",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "classic-green": "#4CAF50",
+                        "on-tertiary-fixed-variant": "#005313",
+                        "on-secondary-fixed": "#121c2a",
+                        "android-green": "#3DDC84",
+                        "tertiary": "#006e1c",
+                        "surface-dim": "#d8dadc",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#bdc7d9",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#66fea2",
+                        "on-primary-fixed": "#00210e",
+                        "surface-light": "#F8FAFC",
+                        "on-tertiary-container": "#005d16",
+                        "tertiary-container": "#74d873",
+                        "secondary-fixed": "#d9e3f6",
+                        "on-secondary-fixed-variant": "#3d4756",
+                        "on-surface-variant": "#3c4a3f",
+                        "primary-fixed-dim": "#43e188",
+                        "surface-container": "#eceef0",
+                        "on-primary-fixed-variant": "#00522b",
+                        "on-secondary-container": "#596373",
+                        "on-surface": "#191c1e",
+                        "inverse-primary": "#43e188",
+                        "slate-dark": "#1F2937",
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "on-background": "#191c1e",
+                        "surface-container-low": "#f2f4f6",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "lg": "48px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "gutter": "24px",
+                        "container-max": "1120px",
+                        "xs": "4px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "code-sm": ["monospace"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "code-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F8FAFC; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .accordion-content { transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out; max-height: 0; opacity: 0; overflow: hidden; }
+        .accordion-content.open { max-height: 500px; opacity: 1; }
+        .card-hover:hover { border-color: #3DDC84; border-width: 2px; margin: -1px; /* compensate for border change to prevent shift */ }
+        .path-line { width: 2px; background-color: #E2E8F0; position: absolute; left: 15px; top: 32px; bottom: -32px; z-index: 0; }
+        .path-line:last-child { display: none; }
+    </style>
+</head>
+<body class="min-h-screen text-on-surface antialiased"><nav class="bg-surface-container-low border-b border-outline-variant sticky top-0 z-50"><div class="max-w-container-max mx-auto px-gutter h-16 flex items-center justify-between"><div class="flex items-center gap-lg"><div class="flex items-center gap-sm"><img alt="Learning Path Logo" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTdeT4MOZq-9e-hVqKgJBgVFPVGPrzLAK-1owbvt-HKgJBMoqJbVJtzA4ZHtfZ6ONur9MyDc_F37wrKPRTzT9cYPfuVhtewgvDZS9bthblVB0OcMVWrBVTOVelzPUj1CRdCqHcoH2mAq6y10d3CyWFzBiSYlEIrbh5I0K1W2Cq8XTT_7e2W1b6ztRzVkq22nFUEbFk7vua47k-qBM-DRZCfpY6GhKr0lVcsxmMMHDV2_D0EEhAzRqAK7hGW4PA6iHSpvPoV6oW6w"><h2 class="font-headline-md text-body-lg font-bold text-on-surface">Learning Path</h2></div><div class="hidden md:flex items-center gap-md"><a class="text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors" href="#">Home</a><a class="text-on-surface hover:text-primary font-label-md text-label-md transition-colors font-bold" href="#">Tutorials</a><a class="text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors" href="#">Showcase</a></div></div></div></nav>
+<!-- SideNavBar Shared Component -->
+<!-- Main Content -->
+<main class="bg-surface-light w-full mx-auto">
+<div class="mx-auto px-gutter py-lg md:py-xl max-w-4xl">
+<!-- Mobile Back Button (Visible only on small screens) -->
+<a class="lg:hidden inline-flex items-center gap-sm text-on-surface-variant font-label-md text-label-md mb-lg hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">arrow_back</span>
+                Back to Materials
+            </a>
+<!-- Series Header -->
+<header class="mb-xl">
+<div class="inline-flex items-center gap-sm px-sm py-xs bg-surface-container border border-outline-variant rounded-full mb-md">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Series</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-sm lg:text-[48px] text-[36px] leading-tight">Building API with NodeJS</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mb-lg">
+                    A comprehensive, step-by-step curriculum designed to take you from foundational concepts to deploying robust, production-ready RESTful APIs using Node.js and modern architectural patterns.
+                </p>
+<!-- Progress Indicator -->
+<div class="flex items-center gap-md max-w-md">
+<div class="flex-1 bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-primary-container w-1/4 h-full rounded-full"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">1 of 4 Modules Completed</span>
+</div>
+</header>
+<!-- Curriculum Stepper / List -->
+<div class="relative space-y-md ml-xs lg:ml-0">
+<!-- Module 1: Completed -->
+<div class="relative flex gap-md items-start group cursor-pointer" onclick="toggleAccordion('mod1')">
+<div class="path-line"></div>
+<div class="relative z-10 w-8 h-8 rounded-full bg-surface-container-lowest border-2 border-primary-container flex items-center justify-center shrink-0 mt-1">
+<span class="w-4 h-4 rounded-full bg-primary-container"></span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl border border-outline-variant p-md card-hover transition-all">
+<div class="flex justify-between items-center mb-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface">Express Fundamentals</h3>
+<span class="material-symbols-outlined text-on-surface-variant" id="icon-mod1">expand_more</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-0">Master the core concepts of Express.js, routing, middleware, and request handling.</p>
+<div class="accordion-content mt-md border-t border-outline-variant pt-md" id="mod1">
+<ul class="space-y-sm">
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+                                    Introduction to REST Architecture
+                                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+                                    Setting up Express and basic routing
+                                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+                                    Understanding Middleware patterns
+                                </li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Module 2: Active -->
+<div class="relative flex gap-md items-start group cursor-pointer" onclick="toggleAccordion('mod2')">
+<div class="path-line"></div>
+<div class="relative z-10 w-8 h-8 rounded-full bg-surface-container-lowest border-2 border-primary-container flex items-center justify-center shrink-0 mt-1 shadow-[0_0_12px_rgba(61,220,132,0.3)]">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl border-2 border-primary-container p-md shadow-sm transition-all">
+<div class="flex justify-between items-center mb-sm">
+<div class="flex items-center gap-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface">Authentication &amp; Authorization</h3>
+<span class="bg-secondary-container text-on-secondary-container font-label-md text-[12px] px-2 py-1 rounded">In Progress</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" id="icon-mod2" style="transform: rotate(180deg);">expand_more</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-0">Implement secure user authentication using JWT and role-based access control strategies.</p>
+<div class="accordion-content open mt-md border-t border-outline-variant pt-md" id="mod2">
+<ul class="space-y-sm">
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-outline text-[20px]">play_circle</span>
+                                    Hashing passwords with bcrypt
+                                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-outline text-[20px]">lock</span>
+                                    Generating and verifying JSON Web Tokens
+                                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-outline text-[20px]">admin_panel_settings</span>
+                                    Implementing Role-Based Access Control (RBAC)
+                                </li>
+</ul>
+<div class="mt-md flex justify-end">
+<button class="bg-primary-container text-slate-dark font-label-md text-label-md rounded-lg py-sm px-md font-bold hover:opacity-90 transition-opacity">
+                                    Continue Learning
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Module 3: Locked -->
+<div class="relative flex gap-md items-start group cursor-pointer" onclick="toggleAccordion('mod3')">
+<div class="path-line"></div>
+<div class="relative z-10 w-8 h-8 rounded-full bg-surface-container-lowest border-2 border-outline-variant flex items-center justify-center shrink-0 mt-1">
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl border border-outline-variant p-md card-hover transition-all opacity-75 hover:opacity-100">
+<div class="flex justify-between items-center mb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline">lock</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Database Integration</h3>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" id="icon-mod3">expand_more</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-0">Connect your application to databases, exploring both NoSQL (MongoDB) and SQL (PostgreSQL) paradigms.</p>
+<div class="accordion-content mt-md border-t border-outline-variant pt-md" id="mod3">
+<ul class="space-y-sm">
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                    Mongoose schemas and models
+                                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                    Complex queries and aggregation
+                                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                    Introduction to Prisma ORM
+                                </li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Module 4: Locked -->
+<div class="relative flex gap-md items-start group cursor-pointer" onclick="toggleAccordion('mod4')">
+<div class="path-line hidden"></div> <!-- Hide last line -->
+<div class="relative z-10 w-8 h-8 rounded-full bg-surface-container-lowest border-2 border-outline-variant flex items-center justify-center shrink-0 mt-1">
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl border border-outline-variant p-md card-hover transition-all opacity-75 hover:opacity-100">
+<div class="flex justify-between items-center mb-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline">lock</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Deployment Strategies</h3>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" id="icon-mod4">expand_more</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-0">Prepare your API for production. Learn about environment variables, CI/CD pipelines, and cloud hosting.</p>
+<div class="accordion-content mt-md border-t border-outline-variant pt-md" id="mod4">
+<ul class="space-y-sm">
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                    Dockerizing Node.js applications
+                                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                    Setting up CI/CD with GitHub Actions
+                                </li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                    Deploying to modern cloud platforms
+                                </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
+                icon.style.transition = 'transform 0.3s ease';
+            } else {
+                // Optional: close others
+                // document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+                
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+                icon.style.transition = 'transform 0.3s ease';
+            }
+        }
+    </script>
+
+
+</body></html>

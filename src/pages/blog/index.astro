@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { link } from '../../utils/link';
 
 const posts = await getCollection('blog', ({ data }) => {
   return data.draft !== true;
@@ -12,98 +13,83 @@ const sortedPosts = posts.sort((a, b) =>
 ---
 
 <Layout title="Blog - Komandro CCIT-FTUI">
-  <main class="min-h-screen bg-slate-50">
+  <main class="pt-24">
     
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white py-16 px-4">
-      <div class="max-w-6xl mx-auto text-center">
-        <div class="w-20 h-20 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-            <polyline points="14 2 14 8 20 8"/>
-          </svg>
+    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
+        <div class="max-w-4xl">
+          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
+            <span class="w-2 h-2 bg-primary"></span>
+            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Publications</span>
+          </div>
+          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
+            <span class="text-primary">Blog</span>
+          </h1>
+          <p class="text-body-lg-home text-secondary max-w-2xl leading-relaxed">
+            News, updates, and insights from the Komandro community.
+          </p>
         </div>
-        
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
-        
-        <p class="text-xl text-white/90 max-w-2xl mx-auto">
-          News, updates, and insights from the Komandro community
-        </p>
       </div>
     </section>
 
     <!-- Blog Posts -->
-    <section class="py-16 px-4">
-      <div class="max-w-6xl mx-auto">
+    <section class="py-32 bg-white">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
         {sortedPosts.length === 0 ? (
-          <div class="text-center py-20">
-            <div class="text-6xl mb-4">📝</div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">No Posts Yet</h2>
-            <p class="text-gray-600">Blog posts will be published soon!</p>
+          <div class="text-center py-24 border border-surface-border rounded">
+            <div class="mb-6">
+              <i class="bx bx-file-blank text-surface-border text-[64px]"></i>
+            </div>
+            <h2 class="text-headline-md text-on-background mb-2">No Posts Yet</h2>
+            <p class="text-secondary text-body-md">Blog posts will be published soon!</p>
           </div>
         ) : (
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sortedPosts.map((post) => (
-              <article class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#4CAF50] hover:shadow-lg transition-all duration-300">
+              <article class="group bg-white border border-surface-border overflow-hidden rounded hover:border-primary transition-colors duration-300">
                 {post.data.heroImage && (
-                  <div class="aspect-video overflow-hidden">
+                  <div class="aspect-video overflow-hidden bg-surface-container">
                     <img 
                       src={post.data.heroImage} 
                       alt={post.data.title}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      class="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
                 )}
                 
                 <div class="p-6">
-                  <div class="flex items-center gap-3 mb-3 text-sm text-gray-500">
+                  <div class="flex items-center gap-3 mb-4 font-label-md text-label-md text-secondary uppercase tracking-widest">
                     <span>{new Date(post.data.pubDate).toLocaleDateString('id-ID', { 
                       year: 'numeric', 
                       month: 'short', 
                       day: 'numeric' 
                     })}</span>
-                    <span class="w-1 h-1 bg-gray-300 rounded-full" />
+                    <span class="w-1 h-1 bg-secondary" />
                     <span>{post.data.author}</span>
                   </div>
 
-                  <a href={`/blog/${post.slug}`}>
-                    <h2 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-[#4CAF50] transition-colors">
+                  <a href={link(`/blog/${post.slug}`)}>
+                    <h2 class="text-headline-md text-on-background mb-3 group-hover:text-primary transition-colors">
                       {post.data.title}
                     </h2>
                   </a>
 
-                  <p class="text-gray-600 mb-4 line-clamp-2">{post.data.description}</p>
+                  <p class="text-secondary text-body-md mb-6 line-clamp-2">{post.data.description}</p>
 
                   <a 
-                    href={`/blog/${post.slug}`} 
-                    class="inline-flex items-center gap-1 text-[#4CAF50] font-medium hover:underline"
+                    href={link(`/blog/${post.slug}`)} 
+                    class="inline-flex items-center gap-2 text-on-background font-label-md text-label-md uppercase tracking-wider hover:text-primary transition-colors group/link"
                   >
                     Read More
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="m9 18 6-6-6-6"/>
-                    </svg>
+                    <i class="bx bx-right-arrow-alt text-[16px] group-hover/link:translate-x-1 transition-transform"></i>
                   </a>
                 </div>
               </article>
             ))}
           </div>
         )}
-      </div>
-    </section>
-
-    <!-- Back to Home -->
-    <section class="py-8 px-4 bg-slate-50">
-      <div class="max-w-6xl mx-auto">
-        <a 
-          href="/" 
-          class="inline-flex items-center gap-2 text-gray-600 hover:text-[#4CAF50] font-medium transition-colors"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
-          Back to Home
-        </a>
       </div>
     </section>
   </main>

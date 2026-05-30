@@ -1,42 +1,46 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
+import SingleMaterialCard from '../../../components/material/SingleMaterialCard.astro';
+import SeriesMaterialCard from '../../../components/material/SeriesMaterialCard.astro';
+import MaterialIcon from '../../../components/material/MaterialIcon.astro';
+import { link } from '../../../utils/link';
 
 export async function getStaticPaths() {
-  const categories = ['mobile', 'backend', 'frontend', 'ui-ux', 'devops'];
+  const categories = ['web', 'mobile', 'ui-ux', 'qa', 'devops', 'game'];
   return categories.map(cat => ({ params: { category: cat } }));
 }
 
-const categoryInfo: Record<string, { name: string; description: string; icon: string; color: string }> = {
+const categoryInfo: Record<string, { name: string; description: string; icon: string }> = {
+  'web': {
+    name: 'Web Development',
+    description: 'Build robust, responsive applications for the browser.',
+    icon: 'bx-globe'
+  },
   'mobile': {
     name: 'Mobile Development',
-    description: 'iOS, Android, Flutter, React Native mobile app development',
-    icon: '📱',
-    color: 'from-green-500 to-emerald-500'
-  },
-  'backend': {
-    name: 'Backend Development',
-    description: 'Server-side development, APIs, databases',
-    icon: '⚙️',
-    color: 'from-blue-500 to-cyan-500'
-  },
-  'frontend': {
-    name: 'Frontend Development',
-    description: 'Web frontend technologies and frameworks',
-    icon: '🎨',
-    color: 'from-purple-500 to-violet-500'
+    description: 'Create native and cross-platform applications for smartphones.',
+    icon: 'bx-mobile-alt'
   },
   'ui-ux': {
     name: 'UI/UX Design',
-    description: 'User Interface and User Experience design',
-    icon: '✨',
-    color: 'from-pink-500 to-rose-500'
+    description: 'Master layout, color theory, typography, and user research.',
+    icon: 'bx-paint'
+  },
+  'qa': {
+    name: 'Quality Assurance',
+    description: 'Ensure software reliability through rigorous testing.',
+    icon: 'bx-bug'
   },
   'devops': {
     name: 'DevOps',
-    description: 'Deployment, CI/CD, containers, infrastructure',
-    icon: '🚀',
-    color: 'from-orange-500 to-amber-500'
+    description: 'Streamline development with CI/CD and cloud infrastructure.',
+    icon: 'bx-cloud'
+  },
+  'game': {
+    name: 'Game Development',
+    description: 'Design and program interactive entertainment experiences.',
+    icon: 'bx-game'
   }
 };
 
@@ -44,8 +48,7 @@ const { category } = Astro.params;
 const info = categoryInfo[category] || { 
   name: category, 
   description: '', 
-  icon: '📚', 
-  color: 'from-gray-500 to-gray-600' 
+  icon: 'bx-book'
 };
 
 const allMaterials = await getCollection('materials');
@@ -65,13 +68,10 @@ categoryMaterials.forEach(material => {
   const isCurriculum = material.data.type === 'curriculum';
   
   if (isCurriculum) {
-    // Curriculum index (e.g., mobile/flutter-2026 with type: curriculum)
     curriculums.push(material);
   } else if (slugParts.length === 2) {
-    // Standalone article (e.g., mobile/article.mdx)
     standaloneArticles.push(material);
   } else if (slugParts.length >= 3) {
-    // Curriculum lesson
     const curriculumName = slugParts[1];
     if (!curriculumLessons[curriculumName]) {
       curriculumLessons[curriculumName] = [];
@@ -85,184 +85,112 @@ Object.keys(curriculumLessons).forEach(key => {
   curriculumLessons[key].sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 });
 
-const difficultyColors: Record<string, string> = {
-  'Beginner': 'bg-green-100 text-green-800',
-  'Intermediate': 'bg-yellow-100 text-yellow-800',
-  'Advanced': 'bg-red-100 text-red-800',
-};
-
 const totalItems = curriculums.length + standaloneArticles.length;
 ---
 
 <Layout title={`${info.name} - Materials - Komandro CCIT-FTUI`}>
-  <main class="min-h-screen bg-slate-50">
+  <main class="min-h-screen bg-surface-light pt-24">
     
-    <!-- Hero Section -->
-    <section class:list={['py-16 px-4 bg-gradient-to-br', info.color]}>
-      <div class="max-w-6xl mx-auto">
-        <a href="/material" class="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
-          Back to Categories
-        </a>
-        
-        <div class="text-white">
-          <div class="text-6xl mb-4">{info.icon}</div>
-          <h1 class="text-4xl md:text-5xl font-bold mb-4">{info.name}</h1>
-          <p class="text-xl text-white/90 max-w-2xl mb-6">{info.description}</p>
-          <div class="flex gap-6 text-sm">
-            <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-              <span class="font-bold">{curriculums.length}</span> Curriculum{curriculums.length !== 1 ? 's' : ''}
+    {/* Hero Section */}
+    <section class="relative py-32 overflow-hidden bg-white border-b border-surface-border hero-pattern">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+        <div class="max-w-4xl">
+          <a href={link('/material')} class="inline-flex items-center gap-2 text-secondary hover:text-on-background mb-6 font-label-md text-label-md uppercase tracking-wider transition-colors">
+            <MaterialIcon name="bx-arrow-back" class="text-[18px]" />
+            Back to Pathways
+          </a>
+          
+          <div class="flex items-center gap-3 mb-6">
+            <i class={`bx ${info.icon} text-on-background text-[40px]`}></i>
+          </div>
+          
+          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-4 leading-tight">
+            {info.name}
+          </h1>
+          <p class="text-body-lg-home text-secondary max-w-2xl mb-8 leading-relaxed">
+            {info.description}
+          </p>
+          
+          <div class="flex gap-4">
+            <div class="px-4 py-2 bg-surface-variant text-on-background font-label-md text-label-md uppercase tracking-widest">
+              <span class="font-bold">{curriculums.length}</span> Series
             </div>
-            <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-              <span class="font-bold">{standaloneArticles.length}</span> Article{standaloneArticles.length !== 1 ? 's' : ''}
+            <div class="px-4 py-2 bg-surface-variant text-on-background font-label-md text-label-md uppercase tracking-widest">
+              <span class="font-bold">{standaloneArticles.length}</span> Articles
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Content -->
-    <section class="py-16 px-4">
-      <div class="max-w-6xl mx-auto">
-        
-        <!-- Curriculums Section (ATAS) - Card Style -->
-        {curriculums.length > 0 && (
-          <div class="mb-16">
-            <div class="flex items-center gap-3 mb-8">
-              <span class="text-3xl">📚</span>
-              <h2 class="text-2xl font-bold text-gray-800">Structured Curriculums</h2>
-              <div class="flex-1 h-px bg-gray-200" />
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {curriculums.map((curriculum) => {
-                const slugParts = curriculum.slug.split('/');
-                const curriculumSlug = slugParts[slugParts.length - 1];
-                const lessons = curriculumLessons[curriculumSlug] || [];
-                
-                return (
-                  <a
-                    href={`/material/${category}/${curriculumSlug}`}
-                    class="group bg-white rounded-xl border-2 border-[#4CAF50]/20 overflow-hidden hover:border-[#4CAF50] hover:shadow-lg transition-all duration-300"
-                  >
-                    <div class="h-1 bg-gradient-to-r from-[#4CAF50] to-[#3DDC84]" />
-                    
-                    <div class="p-6">
-                      <div class="flex items-center gap-2 mb-3">
-                        <span class:list={[
-                          'px-2 py-1 rounded-full text-xs font-semibold',
-                          difficultyColors[curriculum.data.difficulty] || 'bg-gray-100 text-gray-800'
-                        ]}>
-                          {curriculum.data.difficulty}
-                        </span>
-                        <span class="text-xs text-gray-500 flex items-center gap-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
-                          </svg>
-                          {lessons.length} Lessons
-                        </span>
-                      </div>
-
-                      <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-[#4CAF50] transition-colors">
-                        {curriculum.data.title}
-                      </h3>
-
-                      <p class="text-sm text-gray-600 mb-4 line-clamp-2">{curriculum.data.description}</p>
-
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs text-gray-500">By {curriculum.data.author}</span>
-                        
-                        <span class="inline-flex items-center gap-1 text-sm text-[#4CAF50] opacity-0 group-hover:opacity-100 transition-opacity">
-                          Start
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="m9 18 6-6-6-6"/>
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
+    {/* Content */}
+    <section class="py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      
+      {/* Series Section */}
+      {curriculums.length > 0 && (
+        <div class="mb-16">
+          <div class="flex items-center gap-3 mb-8">
+            <MaterialIcon name="bx-collection" class="text-3xl text-primary" />
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">Structured Series</h2>
+            <div class="flex-1 h-px bg-outline-variant" />
           </div>
-        )}
 
-        <!-- Single Articles Section (BAWAH) -->
-        {standaloneArticles.length > 0 && (
-          <div class={curriculums.length > 0 ? 'border-t-4 border-gray-200 pt-16' : ''}>
-            <div class="flex items-center gap-3 mb-8">
-              <span class="text-3xl">📄</span>
-              <h2 class="text-2xl font-bold text-gray-800">Single Articles</h2>
-              <div class="flex-1 h-px bg-gray-200" />
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {standaloneArticles.map((article) => (
-                <a
-                  href={`/material/${category}/${article.slug.split('/').pop()?.replace('.mdx', '')}`}
-                  class="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-[#4CAF50] hover:shadow-lg transition-all duration-300"
-                >
-                  <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                      <span class:list={[
-                        'px-2 py-1 rounded-full text-xs font-semibold',
-                        difficultyColors[article.data.difficulty] || 'bg-gray-100 text-gray-800'
-                      ]}>
-                        {article.data.difficulty}
-                      </span>
-                      {article.data.estimatedTime && (
-                        <span class="text-xs text-gray-500 flex items-center gap-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12 6 12 12 16 14"/>
-                          </svg>
-                          {article.data.estimatedTime}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-[#4CAF50] transition-colors">
-                      {article.data.title}
-                    </h3>
-
-                    <p class="text-sm text-gray-600 mb-4 line-clamp-2">{article.data.description}</p>
-
-                    <div class="flex items-center justify-between">
-                      <span class="text-xs text-gray-500">By {article.data.author}</span>
-                      
-                      <span class="inline-flex items-center gap-1 text-sm text-[#4CAF50] opacity-0 group-hover:opacity-100 transition-opacity">
-                        Read
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                          <path d="m9 18 6-6-6-6"/>
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+            {curriculums.map((curriculum) => {
+              const slugParts = curriculum.slug.split('/');
+              const curriculumSlug = slugParts[slugParts.length - 1];
+              const lessons = curriculumLessons[curriculumSlug] || [];
+              const lessonTitles = lessons.slice(0, 4).map(l => l.data.title);
+              
+              return (
+                <SeriesMaterialCard
+                  href={link(`/material/${category}/${curriculumSlug}`)}
+                  title={curriculum.data.title}
+                  description={curriculum.data.description}
+                  moduleCount={lessons.length}
+                  modules={lessonTitles}
+                  difficulty={curriculum.data.difficulty}
+                />
+              );
+            })}
           </div>
-        )}
+        </div>
+      )}
 
-        {totalItems === 0 && (
-          <div class="text-center py-20 bg-white rounded-2xl border border-gray-200">
-            <div class="text-6xl mb-4">📚</div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">No Materials Yet</h3>
-            <p class="text-gray-600">Materials for this category will be added soon!</p>
+      {/* Single Articles Section */}
+      {standaloneArticles.length > 0 && (
+        <div class:list={[curriculums.length > 0 ? 'border-t-4 border-surface-variant pt-16' : '']}>
+          <div class="flex items-center gap-3 mb-8">
+            <MaterialIcon name="bx-file" class="text-3xl text-primary" />
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">Single Articles</h2>
+            <div class="flex-1 h-px bg-outline-variant" />
           </div>
-        )}
-      </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+            {standaloneArticles.map((article) => {
+              const articleSlug = article.slug.split('/').pop()?.replace('.mdx', '');
+              return (
+                <SingleMaterialCard
+                  href={link(`/material/${category}/${articleSlug}`)}
+                  title={article.data.title}
+                  description={article.data.description}
+                  author={article.data.author}
+                  date={new Date(article.data.pubDate).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}
+                  difficulty={article.data.difficulty}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {totalItems === 0 && (
+        <div class="text-center py-24 bg-white border border-surface-border rounded">
+          <MaterialIcon name="bx-book-open" class="text-6xl text-on-surface-variant mb-4" />
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-2">No Materials Yet</h3>
+          <p class="text-on-surface-variant">Materials for this pathway will be added soon!</p>
+        </div>
+      )}
     </section>
   </main>
 </Layout>
-
-<style>
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-</style>

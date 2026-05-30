@@ -1,0 +1,30 @@
+---
+import MaterialIcon from './MaterialIcon.astro';
+import { link } from '../../utils/link';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const { href, title, description, icon } = Astro.props;
+---
+
+<a
+  href={link(href)}
+  class="group block bg-surface-container-lowest border border-outline-variant rounded p-md flex flex-col h-full hover:border-primary transition-colors duration-300"
+>
+  <div class="w-12 h-12 bg-surface-container flex items-center justify-center mb-md text-on-surface group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+    <MaterialIcon name={icon} class="text-[24px]" />
+  </div>
+  <h3 class="font-headline-md text-headline-md text-on-surface mb-xs">{title}</h3>
+  <p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">
+    {description}
+  </p>
+  <div class="flex items-center text-primary font-label-md text-label-md mt-auto pt-sm border-t border-surface-container">
+    <span>View Materials</span>
+    <MaterialIcon name="bx-right-arrow-alt" class="ml-xs text-[18px]" />
+  </div>
+</a>

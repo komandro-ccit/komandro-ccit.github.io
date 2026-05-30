@@ -1,334 +1,208 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import AlumniCard from '../components/AlumniCard.astro';
+import { link } from '../utils/link';
 
 const currentYear = new Date().getFullYear();
-const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015 + i).reverse();
-
-const recentAlumni = availableYears.slice(0, 3);
+const yearsActive = currentYear - 2015;
 ---
 
-<Layout title="Komandro CCIT-FTUI - Komunitas Android">
-  <main class="min-h-screen bg-slate-50">
-    
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-[#4CAF50] to-[#3DDC84] text-white min-h-[90vh] flex items-center">
-      <div class="absolute inset-0 opacity-10">
-        <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d="M0,0 L100,100 M100,0 L0,100" stroke="white" stroke-width="0.5"/>
-        </svg>
-      </div>
-      
-      <div class="relative max-w-6xl mx-auto px-4 py-20 text-center">
-        <div class="mb-8">
-          <div class="w-32 h-32 mx-auto bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="white">
-              <path d="M17.6 11.4c0-2.8-1.4-5.2-3.6-6.6V4c0-.8-.7-1.5-1.5-1.5-.8 0-1.5.7-1.5 1.5v.8C8.8 6.2 7.4 8.6 7.4 11.4c0 1.5.5 2.8 1.2 3.9-.3.4-.6.8-.6 1.4 0 1.1.9 1.9 1.9 1.9h5.2c1.1 0 1.9-.9 1.9-1.9 0-.6-.3-1-.6-1.4.7-1.1 1.2-2.4 1.2-3.9zm-4.1 7.2H10.5c-.3 0-.5-.2-.5-.5s.2-.5.5-.5h3c.3 0 .5.2.5.5s-.2.5-.5.5zm.4-3.8H10.1c-.4 0-.7-.3-.7-.7s.3-.7.7-.7h4c.4 0 .7.3.7.7-.1.4-.4.7-.8.7z"/>
-              <circle cx="9" cy="9" r="1"/>
-              <circle cx="15" cy="9" r="1"/>
-            </svg>
+<Layout title="Komandro | CCIT-FTUI Android & Technology Community">
+  <main class="pt-24">
+    {/* Hero Section */}
+    <section class="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-white hero-pattern border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10 w-full py-32">
+        <div class="max-w-4xl">
+          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
+            <span class="w-2 h-2 bg-primary animate-pulse"></span>
+            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Est. 2015 &bull; Engineering Excellence</span>
           </div>
-        </div>
-        
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-          Komandro
-        </h1>
-        
-        <p class="text-2xl md:text-3xl font-light mb-4 opacity-90">
-          CCIT-FTUI
-        </p>
-        
-        <p class="text-lg md:text-xl opacity-80 mb-2">
-          Komunitas Android &amp; Teknologi
-        </p>
-        
-        <div class="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full mb-10">
-          <span class="text-sm font-medium">Established 2015</span>
-          <span class="text-white/50">|</span>
-          <span class="text-sm">{currentYear - 2015}+ Years of Innovation</span>
-        </div>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="/about" 
-            class="inline-flex items-center justify-center gap-2 bg-white text-[#4CAF50] px-8 py-4 rounded-xl font-semibold hover:bg-slate-50 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 16v-4"/>
-              <path d="M12 8h.01"/>
-            </svg>
-            Learn More
-          </a>
-          
-          <a 
-            href="/alumni" 
-            class="inline-flex items-center justify-center gap-2 bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/30 transition-all duration-200"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            View Alumni
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Vision Section -->
-    <section id="vision" class="py-20 px-4">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <span class="inline-block px-3 py-1 bg-[#4CAF50]/10 text-[#4CAF50] rounded-full text-sm font-semibold mb-4">
-            Our Impact
-          </span>
-          
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">
-            Growing Together Since 2015
-          </h2>
-          
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Komandro CCIT-FTUI has been a catalyst for student success in technology, 
-            fostering innovation and building a strong community of tech enthusiasts.
+          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
+            Cultivating the Next Generation of <span class="text-primary">Technology Leaders</span>
+          </h1>
+          <p class="text-body-lg-home text-secondary mb-12 max-w-2xl leading-relaxed">
+            Komunitas Android &amp; Teknologi CCIT-FTUI. We are an institution dedicated to advancing software engineering practice, fostering innovation, and building a prestigious network of technology professionals.
           </p>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-          <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition-shadow">
-            <div class="text-5xl font-bold text-[#4CAF50] mb-2">{currentYear - 2015}+</div>
-            <div class="text-gray-600 font-medium">Years Active</div>
-          </div>
-          <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition-shadow">
-            <div class="text-5xl font-bold text-[#4CAF50] mb-2">500+</div>
-            <div class="text-gray-600 font-medium">Alumni</div>
-          </div>
-          <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition-shadow">
-            <div class="text-5xl font-bold text-[#4CAF50] mb-2">50+</div>
-            <div class="text-gray-600 font-medium">Workshops</div>
-          </div>
-          <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center hover:shadow-xl transition-shadow">
-            <div class="text-5xl font-bold text-[#4CAF50] mb-2">100+</div>
-            <div class="text-gray-600 font-medium">Projects</div>
-          </div>
-        </div>
-
-        <!-- Achievement Highlights -->
-        <div class="bg-gradient-to-br from-[#4CAF50]/5 to-[#3DDC84]/5 rounded-3xl p-8 md:p-12">
-          <div class="grid md:grid-cols-3 gap-8">
-            <div class="text-center">
-              <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-md flex items-center justify-center mb-4">
-                <span class="text-3xl">🏆</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Hackathon Winners</h3>
-              <p class="text-gray-600">Multiple national and international competition victories</p>
-            </div>
-            <div class="text-center">
-              <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-md flex items-center justify-center mb-4">
-                <span class="text-3xl">💼</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Career Success</h3>
-              <p class="text-gray-600">Alumni working at top tech companies worldwide</p>
-            </div>
-            <div class="text-center">
-              <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-md flex items-center justify-center mb-4">
-                <span class="text-3xl">🤝</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2">Industry Partners</h3>
-              <p class="text-gray-600">Collaboration with leading technology companies</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Location Section -->
-    <section class="py-20 px-4 bg-white">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-          <span class="inline-block px-3 py-1 bg-[#4CAF50]/10 text-[#4CAF50] rounded-full text-sm font-semibold mb-4">
-            Our Location
-          </span>
-          
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">Find Us at FT UI</h2>
-          
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Visit us at the Engineering Center, Faculty of Engineering, Universitas Indonesia
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8 items-stretch">
-          <!-- Map -->
-          <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-lg h-[400px]">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.184555262124!2d106.82348637590873!3d-6.362763762257183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ec1a90b7b85d%3A0x76f9f05a69e55d5a!2sFaculty%20of%20Engineering%20-%20Universitas%20Indonesia!5e0!3m2!1sen!2sid!4v1709899200000!5m2!1sen!2sid"
-              width="100%" 
-              height="100%" 
-              style="border:0;" 
-              allowfullscreen="" 
-              loading="lazy" 
-              referrerpolicy="no-referrer-when-downgrade"
-              title="FT UI Engineering Center Location"
-            ></iframe>
-          </div>
-
-          <!-- Location Info -->
-          <div class="flex flex-col justify-center space-y-6">
-            <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-xl">
-              <div class="w-12 h-12 bg-[#4CAF50]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Address</h3>
-                <p class="text-gray-600">Engineering Center<br/>Faculty of Engineering<br/>Universitas Indonesia<br/>Depok, West Java 16424</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-xl">
-              <div class="w-12 h-12 bg-[#4CAF50]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Room</h3>
-                <p class="text-gray-600">Computer Lab, 2nd Floor<br/>Engineering Center Building</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-xl">
-              <div class="w-12 h-12 bg-[#4CAF50]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polyline points="12 6 12 12 16 14"/>
-                </svg>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Meeting Time</h3>
-                <p class="text-gray-600">Every Thursday<br/>16:00 - 18:00 WIB</p>
-              </div>
-            </div>
-
-            <a 
-              href="https://maps.google.com/?q=Faculty+of+Engineering+Universitas+Indonesia" 
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-center gap-2 bg-[#4CAF50] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#3DDC84] transition-colors"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              Open in Google Maps
+          <div class="flex flex-col sm:flex-row gap-6">
+            <a href={link('/material')} class="inline-flex items-center justify-center gap-2 bg-on-background text-white px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-white transition-colors duration-300">
+              Explore Programs
+              <i class="bx bx-right-arrow-alt text-[20px]"></i>
+            </a>
+            <a href={link('/alumni')} class="inline-flex items-center justify-center gap-2 bg-white text-on-background border-2 border-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-surface-variant transition-colors duration-300">
+              View Hall of Fame
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Featured Alumni Section -->
-    <section class="py-20 px-4 bg-slate-50">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-          <span class="inline-block px-3 py-1 bg-[#4CAF50]/10 text-[#4CAF50] rounded-full text-sm font-semibold mb-4">
-            Alumni Network
-          </span>
-          
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Amazing Alumni</h2>
-          
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Meet the talented individuals who have shaped Komandro's journey since 2015
+    {/* Stats Section */}
+    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="mb-20">
+          <h2 class="text-headline-lg-home text-on-background mb-6">Institutional Impact</h2>
+          <div class="w-24 h-1 bg-primary mb-8"></div>
+          <p class="text-secondary max-w-3xl text-body-lg-home leading-relaxed">
+            A decade of sustained excellence in technical education, practical engineering, and community building at Universitas Indonesia.
           </p>
         </div>
-        
-        <div class="flex justify-center gap-3 mb-8">
-          {recentAlumni.map((year) => (
-            <a
-              href={`/alumni/${year}`}
-              class="px-5 py-2.5 rounded-lg border-2 border-gray-200 text-gray-700 font-medium hover:border-[#4CAF50] hover:text-[#4CAF50] transition-all"
-            >
-              Batch {year}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-surface-border pt-16">
+          <div>
+            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">{yearsActive}+</div>
+            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Years of Excellence</div>
+          </div>
+          <div>
+            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">500+</div>
+            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Prestigious Alumni</div>
+          </div>
+          <div>
+            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">50+</div>
+            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Technical Workshops</div>
+          </div>
+          <div>
+            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">100+</div>
+            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Engineering Projects</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Core Pillars Section */}
+    <section class="py-32 bg-white border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="mb-20">
+          <h2 class="text-headline-lg-home text-on-background mb-6">Core Pillars of Excellence</h2>
+          <div class="w-24 h-1 bg-primary mb-8"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+          {/* Pillar 1 */}
+          <div class="group border-l-4 border-surface-border hover:border-primary pl-8 transition-colors duration-300">
+            <i class="bx bx-trophy text-on-background text-4xl mb-6 font-light"></i>
+            <h3 class="text-headline-md-home mb-4 text-on-background">Competitive Engineering</h3>
+            <p class="text-secondary text-body-md leading-relaxed">
+              Multiple national and international competition victories demonstrating exceptional capability in mobile development and software engineering.
+            </p>
+          </div>
+          {/* Pillar 2 */}
+          <div class="group border-l-4 border-surface-border hover:border-primary pl-8 transition-colors duration-300">
+            <i class="bx bx-briefcase text-on-background text-4xl mb-6 font-light"></i>
+            <h3 class="text-headline-md-home mb-4 text-on-background">Professional Trajectory</h3>
+            <p class="text-secondary text-body-md leading-relaxed">
+              Alumni establishing distinguished careers at top global technology firms and innovative startups, carrying forward the institution's rigor.
+            </p>
+          </div>
+          {/* Pillar 3 */}
+          <div class="group border-l-4 border-surface-border hover:border-primary pl-8 transition-colors duration-300">
+            <i class="bx bx-handshake text-on-background text-4xl mb-6 font-light"></i>
+            <h3 class="text-headline-md-home mb-4 text-on-background">Industry Integration</h3>
+            <p class="text-secondary text-body-md leading-relaxed">
+              Strategic partnerships with leading technology enterprises facilitating advanced research, internships, and curriculum development.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Location Directory Section */}
+    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-16">
+          <div class="lg:w-1/3">
+            <h2 class="text-headline-lg-home text-on-background mb-6">Institutional Directory</h2>
+            <div class="w-24 h-1 bg-primary mb-8"></div>
+            <p class="text-secondary text-body-md leading-relaxed mb-8">
+              Komandro is headquartered within the Faculty of Engineering at Universitas Indonesia, providing a premier academic environment for technological advancement.
+            </p>
+            <a href="https://maps.google.com/?q=Faculty+of+Engineering+Universitas+Indonesia" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-on-background font-label-md text-label-md uppercase tracking-wider hover:text-primary transition-colors duration-300 group">
+              <i class="bx bx-right-arrow-alt text-[20px] group-hover:translate-x-1 transition-transform"></i>
+              View on Map
             </a>
-          ))}
+          </div>
+          <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 w-full">
+            <div class="border-t border-surface-border pt-6">
+              <h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">Campus Location</h4>
+              <p class="text-headline-md-home text-on-background mb-2">Engineering Center</p>
+              <p class="text-secondary text-body-md leading-relaxed">
+                Faculty of Engineering<br/>Universitas Indonesia<br/>Depok, West Java 16424
+              </p>
+            </div>
+            <div class="border-t border-surface-border pt-6">
+              <h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">Facility</h4>
+              <p class="text-headline-md-home text-on-background mb-2">Computer Laboratory</p>
+              <p class="text-secondary text-body-md leading-relaxed">
+                Level 2<br/>Engineering Center Building
+              </p>
+            </div>
+            <div class="border-t border-surface-border pt-6 md:col-span-2">
+              <h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">Official Convening</h4>
+              <p class="text-headline-md-home text-on-background mb-2">Weekly Assembly</p>
+              <p class="text-secondary text-body-md leading-relaxed">
+                Thursdays, 16:00 - 18:00 WIB
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Hall of Fame Section */}
+    <section class="py-32 bg-white">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div>
+            <h2 class="text-headline-lg-home text-on-background mb-6">Hall of Fame</h2>
+            <div class="w-24 h-1 bg-primary mb-8"></div>
+            <p class="text-secondary max-w-2xl text-body-lg-home leading-relaxed">
+              Recognizing the distinguished professionals who have defined the legacy of Komandro since our inception.
+            </p>
+          </div>
+          <div class="flex gap-4">
+            <button class="px-6 py-3 border-b-2 border-on-background font-label-md text-label-md uppercase tracking-wider text-on-background">Recent</button>
+            <button class="px-6 py-3 border-b-2 border-transparent hover:border-surface-border font-label-md text-label-md uppercase tracking-wider text-secondary transition-colors">By Batch</button>
+            <button class="px-6 py-3 border-b-2 border-transparent hover:border-surface-border font-label-md text-label-md uppercase tracking-wider text-secondary transition-colors">By Industry</button>
+          </div>
+        </div>
+        
+        {/* Structured List */}
+        <div class="divide-y divide-surface-border border-t border-b border-surface-border mb-16">
+          <div class="py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:bg-surface-container-low transition-colors px-4 -mx-4">
+            <div class="flex-1">
+              <h4 class="text-headline-md-home text-on-background mb-1">Senior Software Engineer</h4>
+              <p class="text-secondary text-body-md">Leading architecture at top regional technology firm.</p>
+            </div>
+            <div class="flex flex-col md:items-end gap-2">
+              <span class="font-label-md text-label-md text-on-background uppercase tracking-widest bg-surface-variant px-4 py-1">Batch 2021</span>
+              <span class="text-secondary text-sm">Engineering Div.</span>
+            </div>
+          </div>
+          <div class="py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:bg-surface-container-low transition-colors px-4 -mx-4">
+            <div class="flex-1">
+              <h4 class="text-headline-md-home text-on-background mb-1">Lead Product Designer</h4>
+              <p class="text-secondary text-body-md">Developing accessible design systems for global fintech.</p>
+            </div>
+            <div class="flex flex-col md:items-end gap-2">
+              <span class="font-label-md text-label-md text-on-background uppercase tracking-widest bg-surface-variant px-4 py-1">Batch 2022</span>
+              <span class="text-secondary text-sm">Design Div.</span>
+            </div>
+          </div>
+          <div class="py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:bg-surface-container-low transition-colors px-4 -mx-4">
+            <div class="flex-1">
+              <h4 class="text-headline-md-home text-on-background mb-1">Principal Data Scientist</h4>
+              <p class="text-secondary text-body-md">Applying artificial intelligence to complex agricultural optimization.</p>
+            </div>
+            <div class="flex flex-col md:items-end gap-2">
+              <span class="font-label-md text-label-md text-on-background uppercase tracking-widest bg-surface-variant px-4 py-1">Batch 2020</span>
+              <span class="text-secondary text-sm">Research Div.</span>
+            </div>
+          </div>
         </div>
         
         <div class="text-center">
-          <a 
-            href="/alumni" 
-            class="inline-flex items-center gap-2 text-[#4CAF50] font-semibold hover:underline"
-          >
-            View All Alumni
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"/>
-              <path d="m12 5 7 7-7 7"/>
-            </svg>
+          <a href={link('/alumni')} class="inline-flex items-center gap-3 text-on-background border border-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-on-background hover:text-white transition-all duration-300 group">
+            Access Complete Register
+            <i class="bx bx-right-arrow-alt transition-transform group-hover:translate-x-1"></i>
           </a>
         </div>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-12 px-4">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-4 gap-8 mb-8">
-          <div class="md:col-span-2">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 bg-[#4CAF50] rounded-lg flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
-                  <path d="M17.6 11.4c0-2.8-1.4-5.2-3.6-6.6V4c0-.8-.7-1.5-1.5-1.5-.8 0-1.5.7-1.5 1.5v.8C8.8 6.2 7.4 8.6 7.4 11.4c0 1.5.5 2.8 1.2 3.9-.3.4-.6.8-.6 1.4 0 1.1.9 1.9 1.9 1.9h5.2c1.1 0 1.9-.9 1.9-1.9 0-.6-.3-1-.6-1.4.7-1.1 1.2-2.4 1.2-3.9zm-4.1 7.2H10.5c-.3 0-.5-.2-.5-.5s.2-.5.5-.5h3c.3 0 .5.2.5.5s-.2.5-.5.5zm.4-3.8H10.1c-.4 0-.7-.3-.7-.7s.3-.7.7-.7h4c.4 0 .7.3.7.7-.1.4-.4.7-.8.7z"/>
-                </svg>
-              </div>
-              <span class="text-xl font-bold text-white">Komandro</span>
-            </div>
-            
-            <p class="text-gray-400 max-w-sm">
-              Komunitas Android CCIT-FTUI since 2015. Building the next generation of tech leaders.
-            </p>
-          </div>
-          
-          <div>
-            <h4 class="text-white font-semibold mb-4">Navigation</h4>
-            <ul class="space-y-2">
-              <li><a href="/" class="hover:text-[#4CAF50] transition-colors">Home</a></li>
-              <li><a href="/about" class="hover:text-[#4CAF50] transition-colors">About</a></li>
-              <li><a href="/alumni" class="hover:text-[#4CAF50] transition-colors">Alumni</a></li>
-              <li><a href="/material" class="hover:text-[#4CAF50] transition-colors">Materials</a></li>
-              <li><a href="/blog" class="hover:text-[#4CAF50] transition-colors">Blog</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 class="text-white font-semibold mb-4">Contact</h4>
-            <ul class="space-y-2">
-              <li class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect width="20" height="16" x="2" y="4" rx="2"/>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                </svg>
-                <span>komandro@ccit-ftui.ac.id</span>
-              </li>
-              <li class="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-                <span>CCIT-FTUI, Depok</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="border-t border-gray-800 pt-8 text-center">
-          <p class="text-sm text-gray-500">
-            &copy; {currentYear} Komandro CCIT-FTUI. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
   </main>
 </Layout>
