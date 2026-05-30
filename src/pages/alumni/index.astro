@@ -4,7 +4,7 @@ import { link } from '../../utils/link';
 
 const currentYear = new Date().getFullYear();
 const maxBatchYear = currentYear - 2;
-const availableYears = Array.from({ length: maxBatchYear - 2014 }, (_, i) => 2015 + i).reverse();
+const availableYears = Array.from({ length: maxBatchYear - 2013 }, (_, i) => 2014 + i).reverse();
 
 const getYearDescription = (year: number): string => {
   if (year === 2015) return 'Founding Year';

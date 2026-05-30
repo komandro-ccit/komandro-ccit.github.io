@@ -22,7 +22,7 @@ interface Alumni {
 export const getStaticPaths: GetStaticPaths = async () => {
   const alumniFiles = import.meta.glob('/src/data/alumni/*.json', { eager: true });
   const currentYear = new Date().getFullYear();
-  const allYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015 + i);
+  const allYears = Array.from({ length: currentYear - 2013 }, (_, i) => 2014 + i);
 
   const alumniMap: Record<string, Alumni[]> = {};
   for (const [path, data] of Object.entries(alumniFiles)) {
@@ -57,7 +57,7 @@ const sortedAlumni = [...alumni].sort((a, b) => {
 
 const currentYear = new Date().getFullYear();
 const maxBatchYear = currentYear - 2;
-const availableYears = Array.from({ length: maxBatchYear - 2014 }, (_, i) => 2015 + i).reverse();
+const availableYears = Array.from({ length: maxBatchYear - 2013 }, (_, i) => 2014 + i).reverse();
 ---
 
 <Layout title={`Alumni Batch ${year} - Komandro CCIT-FTUI`}>
