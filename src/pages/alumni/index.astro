@@ -3,11 +3,12 @@ import Layout from '../../layouts/Layout.astro';
 import { link } from '../../utils/link';
 
 const currentYear = new Date().getFullYear();
-const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015 + i).reverse();
+const maxBatchYear = currentYear - 2;
+const availableYears = Array.from({ length: maxBatchYear - 2014 }, (_, i) => 2015 + i).reverse();
 
 const getYearDescription = (year: number): string => {
   if (year === 2015) return 'Founding Year';
-  if (year === currentYear) return 'Current Batch';
+  if (year === maxBatchYear) return 'Current Batch';
   return `Batch ${year - 2014}`;
 };
 ---
@@ -19,10 +20,6 @@ const getYearDescription = (year: number): string => {
     <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
         <div class="max-w-4xl">
-          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white mb-10">
-            <span class="w-2 h-2 bg-primary"></span>
-            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Hall of Fame</span>
-          </div>
           <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
             Alumni <span class="text-primary">Directory</span>
           </h1>
@@ -33,25 +30,62 @@ const getYearDescription = (year: number): string => {
       </div>
     </section>
 
-    <!-- Statistics -->
+    <!-- Featured Alumni -->
     <section class="py-32 bg-surface-container-low border-b border-surface-border">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-surface-border pt-16">
-          <div>
-            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">{availableYears.length}</div>
-            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Batches</div>
+        <div class="mb-20 text-center">
+          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white mb-10">
+            <span class="w-2 h-2 bg-primary"></span>
+            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Hall of Fame</span>
           </div>
-          <div>
-            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">500+</div>
-            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Alumni</div>
+          <h2 class="text-headline-lg-home text-on-background mb-6">Featured Alumni</h2>
+          <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
+          <p class="text-secondary max-w-xl mx-auto text-body-lg-home leading-relaxed">
+            Alumni who have made significant impact on the Komandro community.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Hudya -->
+          <div class="bg-white border border-surface-border rounded p-8 text-center hover:border-primary transition-colors duration-300">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
+              <span class="text-primary text-headline-lg font-bold">HR</span>
+            </div>
+            <h3 class="text-headline-md text-on-background mb-1">Muhamad Hudya Ramadhana</h3>
+            <p class="text-primary font-label-md text-label-md uppercase tracking-widest mb-4">Lead Backend Engineer</p>
+            <p class="text-secondary text-body-md">Batch 2015</p>
+            <a href="https://linkedin.com/in/perogeremmer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 mt-4 text-secondary hover:text-primary transition-colors font-label-md text-label-md">
+              <i class="bx bxl-linkedin text-[16px]"></i>
+              LinkedIn
+            </a>
           </div>
-          <div>
-            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">{currentYear - 2015}+</div>
-            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Years</div>
+
+          <!-- Natasha -->
+          <div class="bg-white border border-surface-border rounded p-8 text-center hover:border-primary transition-colors duration-300">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
+              <span class="text-primary text-headline-lg font-bold">NS</span>
+            </div>
+            <h3 class="text-headline-md text-on-background mb-1">Natasha Syeikinah Marsauli</h3>
+            <p class="text-primary font-label-md text-label-md uppercase tracking-widest mb-4">Product Manager</p>
+            <p class="text-secondary text-body-md">Batch 2018</p>
+            <a href="https://www.linkedin.com/in/natassm/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 mt-4 text-secondary hover:text-primary transition-colors font-label-md text-label-md">
+              <i class="bx bxl-linkedin text-[16px]"></i>
+              LinkedIn
+            </a>
           </div>
-          <div>
-            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">100%</div>
-            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Legacy</div>
+
+          <!-- Tivo -->
+          <div class="bg-white border border-surface-border rounded p-8 text-center hover:border-primary transition-colors duration-300">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
+              <span class="text-primary text-headline-lg font-bold">TY</span>
+            </div>
+            <h3 class="text-headline-md text-on-background mb-1">Tivo Yudha Perwira</h3>
+            <p class="text-primary font-label-md text-label-md uppercase tracking-widest mb-4">Lead Frontend Engineer</p>
+            <p class="text-secondary text-body-md">Batch 2015</p>
+            <a href="https://www.linkedin.com/in/tivo-yudha/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 mt-4 text-secondary hover:text-primary transition-colors font-label-md text-label-md">
+              <i class="bx bxl-linkedin text-[16px]"></i>
+              LinkedIn
+            </a>
           </div>
         </div>
       </div>

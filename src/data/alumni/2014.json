@@ -1,6 +1,6 @@
 [
   {
-    "id": "alumni-2014-001",
+    "id": "alumni-2014-002",
     "name": "Ibrahim Al Hayyi",
     "role": "Anggota",
     "batch": 2014,
@@ -8,6 +8,18 @@
     "currentPosition": "Backend",
     "contact": {
       "linkedin": "https://www.linkedin.com/in/ibrahim-al-hayyi-1ba75412a/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2014-001",
+    "name": "Ugi Ispoyo Widodo",
+    "role": "Anggota",
+    "batch": 2014,
+    "consent": false,
+    "currentPosition": "Frontend",
+    "contact": {
+      "linkedin": "https://linkedin.com/in/perogeremmer"
     },
     "achievements": []
   }

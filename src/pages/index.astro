@@ -1,9 +1,15 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import { link } from '../utils/link';
 
 const currentYear = new Date().getFullYear();
 const yearsActive = currentYear - 2015;
+
+const blogPosts = await getCollection('blog', ({ data }) => !data.draft);
+const latestPosts = blogPosts
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3);
 ---
 
 <Layout title="Komandro | CCIT-FTUI Android & Technology Community">
@@ -28,7 +34,7 @@ const yearsActive = currentYear - 2015;
               <i class="bx bx-right-arrow-alt text-[20px]"></i>
             </a>
             <a href={link('/alumni')} class="inline-flex items-center justify-center gap-2 bg-white text-on-background border-2 border-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-surface-variant transition-colors duration-300">
-              View Hall of Fame
+              View Alumni
             </a>
           </div>
         </div>
@@ -144,65 +150,55 @@ const yearsActive = currentYear - 2015;
       </div>
     </section>
 
-    {/* Hall of Fame Section */}
+    {/* Latest from Blog */}
     <section class="py-32 bg-white">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
         <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div>
-            <h2 class="text-headline-lg-home text-on-background mb-6">Hall of Fame</h2>
+            <h2 class="text-headline-lg-home text-on-background mb-6">Latest from Blog</h2>
             <div class="w-24 h-1 bg-primary mb-8"></div>
             <p class="text-secondary max-w-2xl text-body-lg-home leading-relaxed">
-              Recognizing the distinguished professionals who have defined the legacy of Komandro since our inception.
+              News, updates, and insights from the Komandro community.
             </p>
           </div>
-          <div class="flex gap-4">
-            <button class="px-6 py-3 border-b-2 border-on-background font-label-md text-label-md uppercase tracking-wider text-on-background">Recent</button>
-            <button class="px-6 py-3 border-b-2 border-transparent hover:border-surface-border font-label-md text-label-md uppercase tracking-wider text-secondary transition-colors">By Batch</button>
-            <button class="px-6 py-3 border-b-2 border-transparent hover:border-surface-border font-label-md text-label-md uppercase tracking-wider text-secondary transition-colors">By Industry</button>
-          </div>
-        </div>
-        
-        {/* Structured List */}
-        <div class="divide-y divide-surface-border border-t border-b border-surface-border mb-16">
-          <div class="py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:bg-surface-container-low transition-colors px-4 -mx-4">
-            <div class="flex-1">
-              <h4 class="text-headline-md-home text-on-background mb-1">Senior Software Engineer</h4>
-              <p class="text-secondary text-body-md">Leading architecture at top regional technology firm.</p>
-            </div>
-            <div class="flex flex-col md:items-end gap-2">
-              <span class="font-label-md text-label-md text-on-background uppercase tracking-widest bg-surface-variant px-4 py-1">Batch 2021</span>
-              <span class="text-secondary text-sm">Engineering Div.</span>
-            </div>
-          </div>
-          <div class="py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:bg-surface-container-low transition-colors px-4 -mx-4">
-            <div class="flex-1">
-              <h4 class="text-headline-md-home text-on-background mb-1">Lead Product Designer</h4>
-              <p class="text-secondary text-body-md">Developing accessible design systems for global fintech.</p>
-            </div>
-            <div class="flex flex-col md:items-end gap-2">
-              <span class="font-label-md text-label-md text-on-background uppercase tracking-widest bg-surface-variant px-4 py-1">Batch 2022</span>
-              <span class="text-secondary text-sm">Design Div.</span>
-            </div>
-          </div>
-          <div class="py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:bg-surface-container-low transition-colors px-4 -mx-4">
-            <div class="flex-1">
-              <h4 class="text-headline-md-home text-on-background mb-1">Principal Data Scientist</h4>
-              <p class="text-secondary text-body-md">Applying artificial intelligence to complex agricultural optimization.</p>
-            </div>
-            <div class="flex flex-col md:items-end gap-2">
-              <span class="font-label-md text-label-md text-on-background uppercase tracking-widest bg-surface-variant px-4 py-1">Batch 2020</span>
-              <span class="text-secondary text-sm">Research Div.</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="text-center">
-          <a href={link('/alumni')} class="inline-flex items-center gap-3 text-on-background border border-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-on-background hover:text-white transition-all duration-300 group">
-            Access Complete Register
-            <i class="bx bx-right-arrow-alt transition-transform group-hover:translate-x-1"></i>
+          <a href={link('/blog')} class="inline-flex items-center gap-2 text-on-background font-label-md text-label-md uppercase tracking-wider hover:text-primary transition-colors">
+            View All Posts
+            <i class="bx bx-right-arrow-alt text-[16px]"></i>
           </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {latestPosts.map((post) => (
+            <article class="group bg-white border border-surface-border overflow-hidden rounded hover:border-primary transition-colors duration-300">
+              {post.data.heroImage && (
+                <div class="aspect-video overflow-hidden bg-surface-container">
+                  <img src={post.data.heroImage} alt={post.data.title} class="w-full h-full object-cover" loading="lazy" />
+                </div>
+              )}
+              <div class="p-6">
+                <div class="flex items-center gap-3 mb-4 font-label-md text-label-md text-secondary uppercase tracking-widest">
+                  <span>{new Date(post.data.pubDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                  <span class="w-1 h-1 bg-secondary" />
+                  <span>{post.data.author}</span>
+                </div>
+                <a href={link(`/blog/${post.slug}`)}>
+                  <h3 class="text-headline-md text-on-background mb-3 group-hover:text-primary transition-colors">{post.data.title}</h3>
+                </a>
+                <p class="text-secondary text-body-md line-clamp-2">{post.data.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   </main>
 </Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

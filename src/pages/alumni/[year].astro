@@ -21,24 +21,24 @@ interface Alumni {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const alumniFiles = import.meta.glob('/src/data/alumni/*.json', { eager: true });
-  
-  const paths = Object.entries(alumniFiles).map(([path, data]) => {
+  const currentYear = new Date().getFullYear();
+  const allYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015 + i);
+
+  const alumniMap: Record<string, Alumni[]> = {};
+  for (const [path, data] of Object.entries(alumniFiles)) {
     const yearMatch = path.match(/(\d{4})\.json$/);
-    if (!yearMatch) return null;
-    
-    const year = yearMatch[1];
+    if (!yearMatch) continue;
     const alumniData = data as { default: Alumni[] };
-    
-    return {
-      params: { year },
-      props: {
-        year: parseInt(year),
-        alumni: alumniData.default || alumniData
-      }
-    };
-  }).filter(Boolean);
-  
-  return paths;
+    alumniMap[yearMatch[1]] = alumniData.default || alumniData;
+  }
+
+  return allYears.map((year) => ({
+    params: { year: String(year) },
+    props: {
+      year,
+      alumni: alumniMap[String(year)] || []
+    }
+  }));
 };
 
 interface Props {
@@ -56,7 +56,8 @@ const sortedAlumni = [...alumni].sort((a, b) => {
 });
 
 const currentYear = new Date().getFullYear();
-const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015 + i).reverse();
+const maxBatchYear = currentYear - 2;
+const availableYears = Array.from({ length: maxBatchYear - 2014 }, (_, i) => 2015 + i).reverse();
 ---
 
 <Layout title={`Alumni Batch ${year} - Komandro CCIT-FTUI`}>
@@ -73,7 +74,10 @@ const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015
             Alumni Batch <span class="text-primary">{year}</span>
           </h1>
           <p class="text-body-lg-home text-secondary max-w-2xl leading-relaxed">
-            Meet the talented members who shaped Komandro CCIT-FTUI in {year}.
+            {year > maxBatchYear
+              ? `Batch ${year} saat ini masih aktif sebagai mahasiswa CCIT-FTUI.`
+              : `Meet the talented members who shaped Komandro CCIT-FTUI in ${year}.`
+            }
           </p>
         </div>
       </div>
@@ -82,23 +86,18 @@ const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015
     <!-- Year Navigation -->
     <section class="bg-white border-b border-surface-border py-4 sticky top-24 z-40">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
-          <span class="font-label-md text-label-md text-secondary uppercase tracking-widest whitespace-nowrap mr-4">
+        <div class="flex items-center gap-3">
+          <label for="year-filter" class="font-label-md text-label-md text-secondary uppercase tracking-widest whitespace-nowrap">
             Filter by Year:
-          </span>
-          {availableYears.map((yr) => (
-            <a
-              href={link(`/alumni/${yr}`)}
-              class:list={[
-                'px-4 py-2 font-label-md text-label-md uppercase tracking-wider whitespace-nowrap transition-colors border-b-2',
-                yr === year
-                  ? 'text-on-background font-bold border-primary'
-                  : 'text-secondary border-transparent hover:text-on-background hover:border-surface-border'
-              ]}
-            >
-              {yr}
-            </a>
-          ))}
+          </label>
+          <select
+            id="year-filter"
+            class="px-4 py-2 border border-surface-border bg-white text-on-background font-label-md text-label-md cursor-pointer focus:outline-none focus:border-primary appearance-none pr-8 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[length:12px] bg-[right_8px_center]"
+          >
+            {availableYears.map((yr) => (
+              <option value={link(`/alumni/${yr}`)} selected={yr === year}>{yr}</option>
+            ))}
+          </select>
         </div>
       </div>
     </section>
@@ -119,10 +118,21 @@ const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015
           <div class="mb-6">
             <i class="bx bx-user-x text-surface-border text-[64px]"></i>
           </div>
-          <h3 class="text-headline-md text-on-background mb-2">No Alumni Data</h3>
-          <p class="text-secondary text-body-md max-w-md mx-auto">
-            No alumni records found for batch {year}. The data might not be available yet.
-          </p>
+          {year > maxBatchYear ? (
+            <>
+              <h3 class="text-headline-md text-on-background mb-2">Angkatan ini masih berjalan</h3>
+              <p class="text-secondary text-body-md max-w-md mx-auto">
+                Batch {year} saat ini masih aktif sebagai mahasiswa dan belum menjadi alumni.
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 class="text-headline-md text-on-background mb-2">No Alumni Data</h3>
+              <p class="text-secondary text-body-md max-w-md mx-auto">
+                No alumni records found for batch {year}. The data might not be available yet.
+              </p>
+            </>
+          )}
         </div>
       ) : (
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -153,14 +163,11 @@ const availableYears = Array.from({ length: currentYear - 2014 }, (_, i) => 2015
       </div>
     </section>
   </main>
+  </main>
 </Layout>
 
-<style>
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-</style>
+<script>
+  document.getElementById('year-filter')?.addEventListener('change', (e) => {
+    window.location.href = e.target.value;
+  });
+</script>

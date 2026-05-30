@@ -5,25 +5,17 @@ import os
 # Config
 EXCEL_FILE = 'Database Study Turtle.xlsx'
 OUTPUT_DIR = 'src/data/alumni'
-MENTORS = [
-    'Muhamad Hudya Ramadhana',
-    'Mutia Ayu DIanita',
-    'Tivo Yudha Perwira',
-    'Natasha Syeikinah Marsauli',
-    'Ugi Ispoyo Widodo',
-    'Jasmine Nabilla',
-    'Jasmine Nabila Novel',
-    'Mudzakki Ahmad',
-]
-
-def is_mentor(name):
-    if pd.isna(name):
-        return True
-    name_clean = str(name).strip()
-    for mentor in MENTORS:
-        if name_clean.lower() == mentor.lower():
-            return True
-    return False
+# Mentor reference (mentors are also alumni — they appear in their respective batches)
+# MENTORS = [
+#     'Muhamad Hudya Ramadhana',
+#     'Mutia Ayu DIanita',
+#     'Tivo Yudha Perwira',
+#     'Natasha Syeikinah Marsauli',
+#     'Ugi Ispoyo Widodo',
+#     'Jasmine Nabilla',
+#     'Jasmine Nabila Novel',
+#     'Mudzakki Ahmad',
+# ]
 
 def normalize_verified(val):
     if pd.isna(val):
@@ -42,8 +34,6 @@ def main():
     for sheet_name, sheet_df in df.items():
         if sheet_name == 'List Mentor':
             continue
-        if sheet_name == 'Database 2022':
-            continue
         
         # Extract year from sheet name (e.g., "Database 2015" -> 2015)
         year_str = sheet_name.replace('Database ', '').strip()
@@ -61,10 +51,6 @@ def main():
         
         for _, row in sheet_df.iterrows():
             name = str(row['Name']).strip()
-            
-            if is_mentor(name):
-                print(f"  Skipping mentor: {name} (year {year})")
-                continue
             
             # Build JSON object
             alumni = {

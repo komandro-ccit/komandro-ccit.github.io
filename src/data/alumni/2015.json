@@ -1,6 +1,6 @@
 [
   {
-    "id": "alumni-2015-004",
+    "id": "alumni-2015-007",
     "name": "Ahmad Farhan Hafidzudin",
     "role": "Anggota",
     "batch": 2015,
@@ -12,7 +12,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-003",
+    "id": "alumni-2015-006",
     "name": "Bagus Bayu Kencana",
     "role": "Anggota",
     "batch": 2015,
@@ -24,7 +24,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-007",
+    "id": "alumni-2015-010",
     "name": "Bowi Andreyano",
     "role": "Anggota",
     "batch": 2015,
@@ -36,7 +36,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-001",
+    "id": "alumni-2015-004",
     "name": "Buce Immanuel",
     "role": "Anggota",
     "batch": 2015,
@@ -48,7 +48,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-002",
+    "id": "alumni-2015-005",
     "name": "David Wijaya",
     "role": "Anggota",
     "batch": 2015,
@@ -60,7 +60,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-010",
+    "id": "alumni-2015-013",
     "name": "Ginfa Ghifari Yahya",
     "role": "Anggota",
     "batch": 2015,
@@ -72,7 +72,31 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-009",
+    "id": "alumni-2015-001",
+    "name": "Muhamad Hudya Ramadhana",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "Backend",
+    "contact": {
+      "linkedin": "https://linkedin.com/in/perogeremmer"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-002",
+    "name": "Mutia Ayu DIanita",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "Frontend",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/mutiadianita"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-012",
     "name": "Rahmawati Putri",
     "role": "Anggota",
     "batch": 2015,
@@ -84,7 +108,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-006",
+    "id": "alumni-2015-009",
     "name": "Salma Shella",
     "role": "Anggota",
     "batch": 2015,
@@ -96,7 +120,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-005",
+    "id": "alumni-2015-008",
     "name": "Siti Aisyah",
     "role": "Anggota",
     "batch": 2015,
@@ -108,7 +132,19 @@
     "achievements": []
   },
   {
-    "id": "alumni-2015-008",
+    "id": "alumni-2015-003",
+    "name": "Tivo Yudha Perwira",
+    "role": "Anggota",
+    "batch": 2015,
+    "consent": false,
+    "currentPosition": "Lead Frontend Engineer",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/tivo-yudha/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2015-011",
     "name": "Zulfi Robbani",
     "role": "Anggota",
     "batch": 2015,

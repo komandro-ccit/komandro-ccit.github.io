@@ -1,6 +1,6 @@
 [
   {
-    "id": "alumni-2016-009",
+    "id": "alumni-2016-011",
     "name": "Daffa Dwiyanti Zulkifli",
     "role": "Anggota",
     "batch": 2016,
@@ -9,7 +9,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2016-006",
+    "id": "alumni-2016-008",
     "name": "Farhan Ramadhany",
     "role": "Anggota",
     "batch": 2016,
@@ -18,7 +18,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2016-007",
+    "id": "alumni-2016-009",
     "name": "Farhan hafidz",
     "role": "Anggota",
     "batch": 2016,
@@ -30,7 +30,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2016-004",
+    "id": "alumni-2016-006",
     "name": "Fransiskus Xaverius Ananda Tri Prasetio",
     "role": "Anggota",
     "batch": 2016,
@@ -54,7 +54,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2016-003",
+    "id": "alumni-2016-005",
     "name": "Garin Ramadhan",
     "role": "Anggota",
     "batch": 2016,
@@ -66,7 +66,31 @@
     "achievements": []
   },
   {
-    "id": "alumni-2016-008",
+    "id": "alumni-2016-004",
+    "name": "Jasmine Nabila Novel",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Quality Assurance",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/jasmine-nabila-novel/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-003",
+    "name": "Mudzakki Ahmad",
+    "role": "Anggota",
+    "batch": 2016,
+    "consent": false,
+    "currentPosition": "Mobile Development",
+    "contact": {
+      "linkedin": "https://www.linkedin.com/in/mudzakki-ahmad-561a81160/"
+    },
+    "achievements": []
+  },
+  {
+    "id": "alumni-2016-010",
     "name": "Muhammad Ramadhan",
     "role": "Anggota",
     "batch": 2016,
@@ -78,7 +102,7 @@
     "achievements": []
   },
   {
-    "id": "alumni-2016-005",
+    "id": "alumni-2016-007",
     "name": "Syukur",
     "role": "Anggota",
     "batch": 2016,
