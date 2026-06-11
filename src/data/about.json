@@ -1,0 +1,24 @@
+{
+  "milestones": [
+    { "year": 2014, "title": "Founded", "description": "Komandro CCIT-FTUI was founded by M. Octaviano Pratama, M.Kom, who appointed Ugi Ispoyo Widodo as the first chairman." },
+    { "year": 2015, "title": "Structural Organization", "description": "A more structured organization was established with formal divisions and roles." },
+    { "year": 2016, "title": "First Workshop", "description": "Organized the first Android development workshop on campus." },
+    { "year": 2018, "title": "Expanded Scope", "description": "Added Backend, Frontend, and DevOps to our learning tracks." },
+    { "year": 2020, "title": "Online Transition", "description": "Successfully transitioned to online learning during the pandemic." },
+    { "year": 2022, "title": "100+ Members", "description": "Reached over 100 registered members across all batches." },
+    { "year": 2026, "title": "Continuous Growth", "description": "Continuing to evolve and adapt to new technologies." }
+  ],
+  "team": [
+    { "role": "Ketua", "name": "Joe Fadlan", "period": "2025", "current": true },
+    { "role": "Administrasi & Dokumen", "name": "Ahmad Faizul Hakim", "period": "2025", "current": true },
+    { "role": "Administrasi & Dokumen", "name": "Aqib Java", "period": "2025", "current": true },
+    { "role": "Media", "name": "Nabil", "period": "2025", "current": true },
+    { "role": "Humas", "name": "Bram", "period": "2025", "current": true }
+  ],
+  "roleColors": {
+    "Ketua": "bg-on-background text-white",
+    "Wakil Ketua": "bg-secondary text-white",
+    "Sekretaris": "bg-primary text-white",
+    "Bendahara": "bg-tertiary text-white"
+  }
+}

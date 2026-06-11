@@ -1,32 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { link } from '../utils/link';
+import aboutData from '../data/about.json';
 
-const currentYear = new Date().getFullYear();
-
-const milestones = [
-  { year: 2014, title: 'Founded', description: 'Komandro CCIT-FTUI was founded by M. Octaviano Pratama, M.Kom, who appointed Ugi Ispoyo Widodo as the first chairman.' },
-  { year: 2015, title: 'Structural Organization', description: 'A more structured organization was established with formal divisions and roles.' },
-  { year: 2016, title: 'First Workshop', description: 'Organized the first Android development workshop on campus.' },
-  { year: 2018, title: 'Expanded Scope', description: 'Added Backend, Frontend, and DevOps to our learning tracks.' },
-  { year: 2020, title: 'Online Transition', description: 'Successfully transitioned to online learning during the pandemic.' },
-  { year: 2022, title: '1000+ Members', description: 'Reached over 1000 registered members across all batches.' },
-  { year: currentYear, title: 'Continuous Growth', description: 'Continuing to evolve and adapt to new technologies.' },
-];
-
-const team = [
-  { role: 'Ketua', name: 'Ahmad Fauzi', period: '2024', current: true },
-  { role: 'Wakil Ketua', name: 'Nurul Aiisyah', period: '2024', current: true },
-  { role: 'Sekretaris', name: 'Rina Wulandari', period: '2024', current: true },
-  { role: 'Bendahara', name: 'Dika Pratama', period: '2024', current: true },
-];
-
-const roleColors: Record<string, string> = {
-  'Ketua': 'bg-on-background text-white',
-  'Wakil Ketua': 'bg-secondary text-white',
-  'Sekretaris': 'bg-primary text-white',
-  'Bendahara': 'bg-tertiary text-white',
-};
+const { milestones, team, roleColors } = aboutData;
 ---
 
 <Layout title="About - Komandro CCIT-FTUI">
