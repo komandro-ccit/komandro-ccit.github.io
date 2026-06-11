@@ -4,6 +4,6 @@ interface Props {
   class?: string;
 }
 
-const { name, class: className = '' } = Astro.props;
+const { name, class: className = '', ...rest } = Astro.props;
 ---
-<i class={`bx ${name} ${className}`}></i>
+<i class={`bx ${name} ${className}`} {...rest}></i>

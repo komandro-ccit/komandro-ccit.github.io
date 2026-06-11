@@ -21,7 +21,7 @@ interface Props {
   activeModuleIndex?: number;
 }
 
-const { modules, category, curriculum, activeModuleIndex = 1 } = Astro.props;
+const { modules, category, curriculum, activeModuleIndex = 0 } = Astro.props;
 ---
 
 <div class="relative space-y-md ml-xs lg:ml-0">
@@ -29,10 +29,10 @@ const { modules, category, curriculum, activeModuleIndex = 1 } = Astro.props;
     const isLast = index === modules.length - 1;
     const isActive = index === activeModuleIndex;
     const isCompleted = index < activeModuleIndex;
-    const modId = `mod-${index}`;
+    const href = link(`/material/${category}/${curriculum}/${mod.lessons[0]?.slug || ''}`);
     
     return (
-      <div class="relative flex gap-md items-start group" data-accordion={modId}>
+      <div class="relative flex gap-md items-start group">
         {!isLast && <div class="path-line" />}
         
         {/* Step Indicator */}
@@ -48,35 +48,17 @@ const { modules, category, curriculum, activeModuleIndex = 1 } = Astro.props;
           {isActive && <span class="w-2 h-2 rounded-full bg-primary-container" />}
         </div>
         
-        {/* Module Card */}
-        <div class:list={[
-          'flex-1 bg-surface-container-lowest rounded-xl p-md transition-all cursor-pointer',
+        {/* Module Card - entire card is a link */}
+        <a href={href} class:list={[
+          'flex-1 bg-surface-container-lowest rounded-xl p-md transition-all block',
           isActive ? 'border-2 border-primary-container shadow-sm' : 'border border-outline-variant card-hover'
         ]}>
           <div class="flex justify-between items-center mb-sm">
-            <div class="flex items-center gap-sm">
-              <a href={link(`/material/${category}/${curriculum}/${mod.lessons[0]?.slug || ''}`)} class="hover:text-primary-m3 transition-colors">
-                <h3 class="font-headline-md text-headline-md text-on-surface">{mod.title}</h3>
-              </a>
-            </div>
-            <MaterialIcon name="bx-chevron-down" class="text-on-surface-variant accordion-icon transition-transform duration-300" data-icon={modId} />
+            <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">{mod.title}</h3>
+            <MaterialIcon name="bx-right-arrow-alt" class="text-on-surface-variant text-[20px]" />
           </div>
           <p class="font-body-md text-body-md text-on-surface-variant mb-0">{mod.description}</p>
-          
-          {/* Accordion Content */}
-          <div class="accordion-content mt-md border-t border-outline-variant pt-md" id={modId}>
-            <ul class="space-y-sm">
-              {mod.lessons.map((lesson) => (
-                <li class="flex items-center gap-sm font-body-md text-body-md text-on-surface">
-                  <MaterialIcon name="bx-play-circle" class="text-outline text-[20px]" />
-                  <a href={link(`/material/${category}/${curriculum}/${lesson.slug}`)} class="hover:text-primary-m3 transition-colors">
-                    {lesson.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        </a>
       </div>
     );
   })}
@@ -97,55 +79,4 @@ const { modules, category, curriculum, activeModuleIndex = 1 } = Astro.props;
     border-width: 2px;
     margin: -1px;
   }
-  .accordion-content {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  }
-  .accordion-content.open {
-    max-height: 500px;
-    opacity: 1;
-  }
 </style>
-
-<script>
-  document.querySelectorAll('[data-accordion]').forEach(el => {
-    el.addEventListener('click', (e) => {
-      // Don't toggle if clicking on a link inside
-      if ((e.target as HTMLElement).closest('a')) return;
-      
-      const id = el.getAttribute('data-accordion');
-      if (!id) return;
-      const content = document.getElementById(id);
-      const icon = document.querySelector(`[data-icon="${id}"]`);
-      
-      if (content && icon) {
-        const isOpen = content.classList.contains('open');
-        // Close all others (optional - for accordion behavior)
-        document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
-        document.querySelectorAll('.accordion-icon').forEach(i => (i as HTMLElement).style.transform = 'rotate(0deg)');
-        
-        if (!isOpen) {
-          content.classList.add('open');
-          (icon as HTMLElement).style.transform = 'rotate(180deg)';
-        }
-      }
-    });
-  });
-  
-  // Auto-open active module
-  document.addEventListener('DOMContentLoaded', () => {
-    const activeContent = document.querySelector('.border-2.border-primary-container + .accordion-content, .border-2.border-primary-container .accordion-content');
-    // Actually, let's just find the module card with active border and open it
-    const activeCard = document.querySelector('.border-2.border-primary-container');
-    if (activeCard) {
-      const content = activeCard.querySelector('.accordion-content');
-      const icon = activeCard.querySelector('.accordion-icon');
-      if (content && icon) {
-        content.classList.add('open');
-        (icon as HTMLElement).style.transform = 'rotate(180deg)';
-      }
-    }
-  });
-</script>

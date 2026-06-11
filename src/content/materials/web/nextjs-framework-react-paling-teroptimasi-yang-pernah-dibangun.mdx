@@ -84,11 +84,11 @@ Sebelum gw lanjut, gw perlu clarify dulu: optimasi itu bukan cuma *satu hal*. In
 
 | Metrik | Artinya |
 |--------|---------|
-| **TTFB (Time to First Byte)** | Waktu dari user request sampe byte pertama HTML diterima. Ideal: < 800ms |
-| **FCP (First Contentful Paint)** | Kapan konten pertama muncul di layar. Ideal: < 1.8s |
-| **LCP (Largest Contentful Paint)** | Kapan konten paling gede (biasanya hero image) selesai render. Ideal: < 2.5s |
-| **INP (Interaction to Next Paint)** | Seberapa responsif halaman ke input user. Ideal: < 200ms |
-| **CLS (Cumulative Layout Shift)** | Seberapa banyak layout "loncat" saat loading. Ideal: < 0.1 |
+| **TTFB (Time to First Byte)** | Waktu dari user request sampe byte pertama HTML diterima. Ideal: &lt; 800ms |
+| **FCP (First Contentful Paint)** | Kapan konten pertama muncul di layar. Ideal: &lt; 1.8s |
+| **LCP (Largest Contentful Paint)** | Kapan konten paling gede (biasanya hero image) selesai render. Ideal: &lt; 2.5s |
+| **INP (Interaction to Next Paint)** | Seberapa responsif halaman ke input user. Ideal: &lt; 200ms |
+| **CLS (Cumulative Layout Shift)** | Seberapa banyak layout "loncat" saat loading. Ideal: &lt; 0.1 |
 | **Developer Productivity** | Seberapa cepat developer bisa ship features. Gak bisa diukur pake milidetik, tapi dampaknya ke bisnis justru paling gede |
 
 Next.js ngakalin semuanya , dari layer build time, server time, network time, browser time, sampe developer time.
@@ -116,11 +116,11 @@ graph TD
     C --> D[Browser Time]
     D --> E[Developer Time]
 
-    A1["&#9679; Turbopack (Rust-based)<br/>&#9679; Static Generation<br/>&#9679; Tree Shaking<br/>&#9679; Code Splitting"] -.-> A
-    B1["&#9679; SSR + Streaming<br/>&#9679; RSC Execution<br/>&#9679; Edge Runtime<br/>&#9679; Cache Components"] -.-> B
-    C1["&#9679; CDN Edge Caching<br/>&#9679; Compressed Assets<br/>&#9679; Incremental Prefetching<br/>&#9679; Optimized Images"] -.-> C
-    D1["&#9679; Automatic Code Split<br/>&#9679; Lazy Loading<br/>&#9679; React Compiler (auto-memo)<br/>&#9679; Font Self-Hosting"] -.-> D
-    E1["&#9679; Convention over Config<br/>&#9679; File-based Routing<br/>&#9679; Fast Refresh<br/>&#9679; TypeScript First-Class"] -.-> E
+    A1["&#9679; Turbopack (Rust-based)&#9679; Static Generation&#9679; Tree Shaking&#9679; Code Splitting"] -.-> A
+    B1["&#9679; SSR + Streaming&#9679; RSC Execution&#9679; Edge Runtime&#9679; Cache Components"] -.-> B
+    C1["&#9679; CDN Edge Caching&#9679; Compressed Assets&#9679; Incremental Prefetching&#9679; Optimized Images"] -.-> C
+    D1["&#9679; Automatic Code Split&#9679; Lazy Loading&#9679; React Compiler (auto-memo)&#9679; Font Self-Hosting"] -.-> D
+    E1["&#9679; Convention over Config&#9679; File-based Routing&#9679; Fast Refresh&#9679; TypeScript First-Class"] -.-> E
 
     style A fill:#ff6b6b,color:#fff
     style B fill:#4ecdc4,color:#fff
@@ -185,7 +185,7 @@ Banyak yang mikir SSR cuma penting buat SEO. Itu mindset yang outdated. SSR juga
 
 - **Performance di device lemah:** User dengan HP murah atau koneksi lambat dapet konten lebih cepat karena server yang ngerjain rendering, bukan device mereka
 - **Social sharing:** Twitter, Facebook, LinkedIn crawler bisa baca meta tags lo dari HTML yang udah dirender , tanpa eksekusi JavaScript
-- **First impression:** User lebih mungkin stay di halaman yang keliatan kontennya dalam < 2 detik
+- **First impression:** User lebih mungkin stay di halaman yang keliatan kontennya dalam &lt; 2 detik
 
 Dan Next.js bikin SSR jadi effortless. Bikin Server Component, fetch data pake async/await — Next.js otomatis render di server. Gak ada `getServerSideProps`. Gak ada config khusus. Gak ada setup bundler manual.
 
@@ -206,7 +206,7 @@ export default async function BlogPost({
     <article>
       <h1>{post.title}</h1>
       <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      <p>Dibaca {post.views} kali</p>
+      Dibaca {post.views} kali
     </article>
   )
 }
@@ -230,7 +230,7 @@ flowchart LR
 
     subgraph "ISR: Runtime Revalidation"
         F[User Request] --> G{Cache valid?}
-        G -->|Yes| H[🚀 Serve cached HTML<br/>instant, CDN]
+        G -->|Yes| H[🚀 Serve cached HTMLinstant, CDN]
         G -->|No, expired| I[Serve stale HTML dulu]
         I --> J[🔄 Regenerate di background]
         J --> K[Update cache]
@@ -316,16 +316,16 @@ RSC memisahkan dunia jadi dua: **Server Components** dan **Client Components.**
 ```mermaid
 graph TD
     subgraph "Server (Node.js / Edge)"
-        SC1["📄 Server Component<br/>Layout (nav, footer)"]
-        SC2["📄 Server Component<br/>BlogPost (fetch data)"]
-        SC3["📄 Server Component<br/>ProductList (DB query)"]
-        SC4["📄 Server Component<br/>MarkdownRenderer (heavy lib)"]
+        SC1["📄 Server ComponentLayout (nav, footer)"]
+        SC2["📄 Server ComponentBlogPost (fetch data)"]
+        SC3["📄 Server ComponentProductList (DB query)"]
+        SC4["📄 Server ComponentMarkdownRenderer (heavy lib)"]
     end
 
     subgraph "Client (Browser)"
-        CC1["🖱️ Client Component<br/>LikeButton (useState)"]
-        CC2["🖱️ Client Component<br/>SearchInput (onChange)"]
-        CC3["🖱️ Client Component<br/>CartDrawer (useEffect)"]
+        CC1["🖱️ Client ComponentLikeButton (useState)"]
+        CC2["🖱️ Client ComponentSearchInput (onChange)"]
+        CC3["🖱️ Client ComponentCartDrawer (useEffect)"]
     end
 
     SC1 -.->|"Hanya HTML + serialized props"| CC1
@@ -358,7 +358,7 @@ export default async function BlogList() {
       {posts.map(post => (
         <li key={post.id}>
           <h2>{post.title}</h2>
-          <p>{post.excerpt}</p>
+          {post.excerpt}
           {/* Client component di dalam Server Component - bisa! */}
           <LikeButton postId={post.id} initialLikes={post.likes} />
         </li>
@@ -433,7 +433,7 @@ sequenceDiagram
 
 ### Gimana Ini Bekerja
 
-React 18 ngenalin `renderToPipeableStream` , API yang memungkinkan server nge-stream HTML ke browser sedikit demi sedikit. Dikombinasiin sama `<Suspense>`, lo bisa nentuin bagian mana yang bisa loading async:
+React 18 ngenalin `renderToPipeableStream` , API yang memungkinkan server nge-stream HTML ke browser sedikit demi sedikit. Dikombinasiin sama `&lt;Suspense&gt;`, lo bisa nentuin bagian mana yang bisa loading async:
 
 ```tsx
 // app/dashboard/page.tsx
@@ -490,16 +490,16 @@ Di Pages Router, lo punya satu layout per halaman (biasanya pake `_app.tsx`). Di
 
 ```mermaid
 graph TD
-    Root["🏠 Root Layout<br/>app/layout.tsx<br/>&lt;html&gt; + providers + global nav"]
+    Root["🏠 Root Layoutapp/layout.tsx&lt;html&gt; + providers + global nav"]
 
-    Root --> Blog["📝 Blog Layout<br/>app/blog/layout.tsx<br/>Sidebar blog + categories"]
-    Root --> Dashboard["📊 Dashboard Layout<br/>app/dashboard/layout.tsx<br/>Auth check + sidebar admin"]
+    Root --> Blog["📝 Blog Layoutapp/blog/layout.tsxSidebar blog + categories"]
+    Root --> Dashboard["📊 Dashboard Layoutapp/dashboard/layout.tsxAuth check + sidebar admin"]
 
-    Blog --> Post1["📄 /blog/post-1<br/>app/blog/post-1/page.tsx<br/>Konten artikel"]
-    Blog --> Post2["📄 /blog/post-2<br/>app/blog/post-2/page.tsx<br/>Konten artikel"]
+    Blog --> Post1["📄 /blog/post-1app/blog/post-1/page.tsxKonten artikel"]
+    Blog --> Post2["📄 /blog/post-2app/blog/post-2/page.tsxKonten artikel"]
 
-    Dashboard --> DashHome["📊 /dashboard<br/>app/dashboard/page.tsx"]
-    Dashboard --> DashSettings["⚙️ /dashboard/settings<br/>app/dashboard/settings/page.tsx"]
+    Dashboard --> DashHome["📊 /dashboardapp/dashboard/page.tsx"]
+    Dashboard --> DashSettings["⚙️ /dashboard/settingsapp/dashboard/settings/page.tsx"]
 
     style Root fill:#0984e3,color:#fff
     style Blog fill:#00b894,color:#fff
@@ -554,13 +554,13 @@ Di dunia tradisional, lo harus milih: render statis semua (cepat tapi stale) ata
 graph LR
     subgraph "Build Time"
         A[Build] --> B[Generate Static Shell]
-        B --> C["HTML Shell<br/>(Header, Footer, Layout,<br/>Static Content)"]
+        B --> C["HTML Shell(Header, Footer, Layout,Static Content)"]
     end
 
     subgraph "Request Time"
         D[User Request] --> E[Serve Static Shell Instant]
         E --> F["Dynamic Holes diisi via Streaming"]
-        F --> G["Final Page<br/>(Static + Dynamic)"]
+        F --> G["Final Page(Static + Dynamic)"]
     end
 
     C --> D
@@ -623,7 +623,7 @@ export default async function ProductPage({
 
 Yang terjadi:
 1. Build time: Next.js render **static shell** (Header, product name, images, Footer). Ini di-cache di CDN.
-2. Request time: Server serve static shell instant (< 100ms dari CDN edge).
+2. Request time: Server serve static shell instant (&lt; 100ms dari CDN edge).
 3. Sementara itu, server nge-fetch `LivePrice` dan `LiveStock`
 4. Begitu data siap, HTML-nya di-stream ke browser
 5. User gak pernah liat full-page spinner , halaman keliatan instant dan data nyusul
@@ -647,25 +647,25 @@ graph TD
     Request --> Layer1
 
     subgraph Layer1["Layer 1: Request Memoization"]
-        RM["React <code>cache()</code><br/>Deduplikasi fetch dalam 1 request<br/>Lifetime: per-render pass"]
+        RM["React `cache()`Deduplikasi fetch dalam 1 requestLifetime: per-render pass"]
     end
 
     Layer1 --> Layer2
 
     subgraph Layer2["Layer 2: Data Cache"]
-        DC["<code>fetch()</code> cache / <code>unstable_cache</code><br/>Cache hasil fetch/data query<br/>Lifetime: persistent (cross-request)"]
+        DC["`fetch()` cache / `unstable_cache`Cache hasil fetch/data queryLifetime: persistent (cross-request)"]
     end
 
     Layer2 --> Layer3
 
     subgraph Layer3["Layer 3: Full Route Cache"]
-        RC["HTML + RSC Payload cache<br/>Cache seluruh output halaman<br/>Lifetime: persistent (di server)"]
+        RC["HTML + RSC Payload cacheCache seluruh output halamanLifetime: persistent (di server)"]
     end
 
     Layer3 --> Layer4
 
     subgraph Layer4["Layer 4: Router Cache"]
-        RtC["Client-side in-memory cache<br/>Cache RSC payload di browser<br/>Lifetime: session / staleTimes"]
+        RtC["Client-side in-memory cacheCache RSC payload di browserLifetime: session / staleTimes"]
     end
 
     Layer4 --> Browser
@@ -731,7 +731,7 @@ updateTag(`user-${userId}`)
 
 ### Layer 3: Full Route Cache
 
-Next.js nge-cache seluruh HTML + RSC payload dari halaman yang di-render statis. Ini disimpan di server dan di-serve langsung tanpa re-render komponen. Untuk static pages, ini artinya response time < 50ms.
+Next.js nge-cache seluruh HTML + RSC payload dari halaman yang di-render statis. Ini disimpan di server dan di-serve langsung tanpa re-render komponen. Untuk static pages, ini artinya response time &lt; 50ms.
 
 ### Layer 4: Router Cache
 
@@ -882,7 +882,7 @@ React Compiler ngehapus seluruh kategori bugs ini. Dan di Next.js 16, ini fully 
 
 Ini mungkin kedengeran sepele. Tapi image dan font adalah dua kontributor terbesar untuk page weight dan CLS (layout shift). Next.js punya solusi built-in yang gak cuma efektif, tapi juga effortless.
 
-### `next/image`: Bukan Sekadar `<img>` Biasa
+### `next/image`: Bukan Sekadar `<img />` Biasa
 
 Komponen `next/image` itu salah satu fitur Next.js yang paling underrated. Di balik API yang sederhana:
 
@@ -974,7 +974,7 @@ sequenceDiagram
     API3-->>Page: Settings data ready
     API2-->>Page: Posts data ready
 
-    Note over Page: Promise.all resolves<br/>Total time ≈ slowest request (not sum!)
+    Note over Page: Promise.all resolvesTotal time ≈ slowest request (not sum!)
 ```
 
 ```tsx
@@ -1082,11 +1082,11 @@ graph TD
     UserEU["👤 User London"]
     UserBR["👤 User Sao Paulo"]
 
-    EdgeJP["🇯🇵 Edge Node Tokyo<br/>< 30ms latency"]
-    EdgeEU["🇬🇧 Edge Node London<br/>< 20ms latency"]
-    EdgeBR["🇧🇷 Edge Node Sao Paulo<br/>< 25ms latency"]
+    EdgeJP["🇯🇵 Edge Node Tokyo< 30ms latency"]
+    EdgeEU["🇬🇧 Edge Node London< 20ms latency"]
+    EdgeBR["🇧🇷 Edge Node Sao Paulo< 25ms latency"]
 
-    Origin["🖥️ Origin Server<br/>US East<br/>150-300ms latency"]
+    Origin["🖥️ Origin ServerUS East150-300ms latency"]
 
     UserJP -->|"Request"| EdgeJP
     UserEU -->|"Request"| EdgeEU
@@ -1245,7 +1245,7 @@ Gw gak punya lab testing kayak web.dev. Tapi gw bisa bikin perbandingan konseptu
 | **CLS** | 🔴 Sering masalah | 🟢 Baik (dengan next/image) | 🟢 Baik (font + image opt) | 🟢 Baik |
 | **DX** | 🟡 Manual setup | 🟢 Konvensi jelas | 🟢 Sangat baik | 🟢 Sangat baik (Turbopack) |
 
-> **Catatan:** Ini simplified comparison. Hasil nyata tergantung implementasi spesifik, ukuran aplikasi, dan infrastruktur. Tapi arahnya jelas: Next.js (terutama App Router + PPR) secara konsisten outperform alternatif.
+&gt; **Catatan:** Ini simplified comparison. Hasil nyata tergantung implementasi spesifik, ukuran aplikasi, dan infrastruktur. Tapi arahnya jelas: Next.js (terutama App Router + PPR) secara konsisten outperform alternatif.
 
 ### Kenapa Gak Ada Angka Presisi?
 

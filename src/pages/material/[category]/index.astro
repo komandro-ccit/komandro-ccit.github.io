@@ -7,7 +7,7 @@ import MaterialIcon from '../../../components/material/MaterialIcon.astro';
 import { link } from '../../../utils/link';
 
 export async function getStaticPaths() {
-  const categories = ['web', 'mobile', 'ui-ux', 'qa', 'devops', 'game'];
+  const categories = ['web', 'mobile', 'ui-ux', 'qa', 'devops', 'iot', 'game'];
   return categories.map(cat => ({ params: { category: cat } }));
 }
 
@@ -36,6 +36,11 @@ const categoryInfo: Record<string, { name: string; description: string; icon: st
     name: 'DevOps',
     description: 'Streamline development with CI/CD and cloud infrastructure.',
     icon: 'bx-cloud'
+  },
+  'iot': {
+    name: 'IoT',
+    description: 'Build connected devices and embedded systems for the Internet of Things.',
+    icon: 'bx-chip'
   },
   'game': {
     name: 'Game Development',

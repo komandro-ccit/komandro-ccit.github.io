@@ -28,7 +28,8 @@ const materialSchema = z.object({
     'Cyber Security',
     'AI/ML',
     'Database',
-    'Cloud'
+    'Cloud',
+    'IoT'
   ]),
   difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).default('Beginner'),
   pubDate: z.coerce.date(),
