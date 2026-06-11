@@ -1,16 +1,41 @@
 ---
 import { link } from '../utils/link';
 
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/alumni', label: 'Alumni' },
-  { href: '/material', label: 'Materials' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/showcase', label: 'Showcase' },
+const pathname = Astro.url.pathname;
+
+const navGroups = [
+  {
+    label: 'Home',
+    href: '/',
+  },
+  {
+    label: 'Organization',
+    children: [
+      { href: '/about', label: 'About' },
+      { href: '/members', label: 'Members' },
+      { href: '/program-kerja', label: 'Programs' },
+      { href: '/alumni', label: 'Alumni' },
+    ],
+  },
+  {
+    label: 'Resources',
+    children: [
+      { href: '/material', label: 'Materials' },
+      { href: '/blog', label: 'Blog' },
+      { href: '/showcase', label: 'Showcase' },
+    ],
+  },
 ];
 
-const pathname = Astro.url.pathname;
+function isGroupActive(group: typeof navGroups[number]): boolean {
+  if ('href' in group && group.href) {
+    return pathname === group.href;
+  }
+  if ('children' in group && group.children) {
+    return group.children.some(c => pathname === c.href || pathname.startsWith(c.href + '/'));
+  }
+  return false;
+}
 ---
 
 <header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-surface-border transition-all duration-300" id="main-header">
@@ -25,20 +50,59 @@ const pathname = Astro.url.pathname;
 
     <!-- Desktop Navigation -->
     <div class="hidden md:flex items-center gap-10">
-      {navLinks.map((navLink) => {
-        const isActive = pathname === navLink.href || pathname.startsWith(navLink.href + '/');
+      {navGroups.map((group) => {
+        if ('href' in group && group.href) {
+          const isActive = pathname === group.href;
+          return (
+            <a
+              href={link(group.href)}
+              class:list={[
+                'font-label-md text-label-md uppercase tracking-wider transition-colors pb-1',
+                isActive
+                  ? 'text-on-background font-bold border-b-2 border-primary'
+                  : 'text-secondary font-medium hover:text-on-background'
+              ]}
+            >
+              {group.label}
+            </a>
+          );
+        }
+
+        const isActive = isGroupActive(group);
         return (
-          <a
-            href={link(navLink.href)}
-            class:list={[
-              'font-label-md text-label-md uppercase tracking-wider transition-colors pb-1',
-              isActive
-                ? 'text-on-background font-bold border-b-2 border-primary'
-                : 'text-secondary font-medium hover:text-on-background'
-            ]}
-          >
-            {navLink.label}
-          </a>
+          <div class="relative dropdown-group">
+            <button
+              class:list={[
+                'font-label-md text-label-md uppercase tracking-wider transition-colors pb-1 flex items-center gap-1',
+                isActive
+                  ? 'text-on-background font-bold border-b-2 border-primary'
+                  : 'text-secondary font-medium hover:text-on-background'
+              ]}
+            >
+              {group.label}
+              <i class="bx bx-chevron-down text-[14px] transition-transform dropdown-arrow"></i>
+            </button>
+            <div class="dropdown-menu absolute top-full left-0 pt-2 opacity-0 invisible pointer-events-none transition-all duration-200">
+              <div class="bg-white border border-surface-border rounded shadow-lg py-2 min-w-[180px]">
+                {group.children.map((child) => {
+                  const childActive = pathname === child.href || pathname.startsWith(child.href + '/');
+                  return (
+                    <a
+                      href={link(child.href)}
+                      class:list={[
+                        'block px-4 py-2 font-label-md text-label-md transition-colors',
+                        childActive
+                          ? 'text-on-background font-bold bg-primary/10'
+                          : 'text-secondary hover:text-on-background hover:bg-surface-container-low'
+                      ]}
+                    >
+                      {child.label}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         );
       })}
     </div>
@@ -56,28 +120,79 @@ const pathname = Astro.url.pathname;
 
   <!-- Mobile Navigation -->
   <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-surface-border">
-    <div class="max-w-container-max mx-auto px-margin-mobile py-4 flex flex-col gap-2">
-      {navLinks.map((navLink) => {
-        const isActive = pathname === navLink.href || pathname.startsWith(navLink.href + '/');
+    <div class="max-w-container-max mx-auto px-margin-mobile py-4 flex flex-col gap-1">
+      {navGroups.map((group) => {
+        if ('href' in group && group.href) {
+          const isActive = pathname === group.href;
+          return (
+            <a
+              href={link(group.href)}
+              class:list={[
+                'px-4 py-3 font-label-md text-label-md uppercase tracking-wider transition-colors',
+                isActive
+                  ? 'text-on-background font-bold bg-primary/10'
+                  : 'text-secondary font-medium hover:bg-surface-container-low'
+              ]}
+            >
+              {group.label}
+            </a>
+          );
+        }
+
+        const isActive = isGroupActive(group);
         return (
-          <a
-            href={link(navLink.href)}
-            class:list={[
-              'px-4 py-3 font-label-md text-label-md uppercase tracking-wider transition-colors',
-              isActive
-                ? 'text-on-background font-bold bg-primary/10'
-                : 'text-secondary font-medium hover:bg-surface-container-low'
-            ]}
-          >
-            {navLink.label}
-          </a>
+          <div class="mobile-dropdown">
+            <button
+              class:list={[
+                'w-full px-4 py-3 font-label-md text-label-md uppercase tracking-wider transition-colors flex items-center justify-between',
+                isActive
+                  ? 'text-on-background font-bold'
+                  : 'text-secondary font-medium'
+              ]}
+              data-mobile-dropdown
+            >
+              {group.label}
+              <i class="bx bx-chevron-down text-[14px] transition-transform mobile-dropdown-arrow"></i>
+            </button>
+            <div class="mobile-dropdown-content hidden pl-4">
+              {group.children.map((child) => {
+                const childActive = pathname === child.href || pathname.startsWith(child.href + '/');
+                return (
+                  <a
+                    href={link(child.href)}
+                    class:list={[
+                      'block px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-colors',
+                      childActive
+                        ? 'text-on-background font-bold bg-primary/10'
+                        : 'text-secondary font-medium hover:bg-surface-container-low'
+                    ]}
+                  >
+                    {child.label}
+                  </a>
+                );
+              })}
+            </div>
+          </div>
         );
       })}
     </div>
   </div>
 </header>
 
+<style>
+  /* Desktop dropdown */
+  .dropdown-group:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .dropdown-group:hover .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+</style>
+
 <script>
+  // Mobile menu toggle
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
@@ -100,4 +215,18 @@ const pathname = Astro.url.pathname;
       });
     });
   }
+
+  // Mobile dropdown toggle
+  document.querySelectorAll('[data-mobile-dropdown]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling as HTMLElement;
+      const arrow = btn.querySelector('.mobile-dropdown-arrow') as HTMLElement;
+      if (content) {
+        content.classList.toggle('hidden');
+      }
+      if (arrow) {
+        arrow.style.transform = content?.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+      }
+    });
+  });
 </script>

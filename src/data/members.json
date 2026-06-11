@@ -1,0 +1,39 @@
+{
+  "members": [
+    {
+      "name": "Joe Fadlan",
+      "role": "Ketua",
+      "contact": {
+        "linkedin": ""
+      }
+    },
+    {
+      "name": "Ahmad Faizul Hakim",
+      "role": "Administrasi & Dokumen",
+      "contact": {
+        "linkedin": ""
+      }
+    },
+    {
+      "name": "Aqib Java",
+      "role": "Administrasi & Dokumen",
+      "contact": {
+        "linkedin": ""
+      }
+    },
+    {
+      "name": "Nabil",
+      "role": "Media",
+      "contact": {
+        "linkedin": ""
+      }
+    },
+    {
+      "name": "Bram",
+      "role": "Humas",
+      "contact": {
+        "linkedin": ""
+      }
+    }
+  ]
+}

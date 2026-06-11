@@ -1,0 +1,52 @@
+{
+  "programs": [
+    {
+      "name": "Komandro Academy",
+      "description": "Program pembelajaran rutin setiap semester mencakup Android, Web Development, UI/UX, dan DevOps dengan kurikulum terstruktur.",
+      "status": "active",
+      "category": "Pendidikan"
+    },
+    {
+      "name": "Bootcamp Intensif",
+      "description": "Program pelatihan intensif 2 minggu menjelang semester baru untuk anggota baru, mencakup dasar pemrograman dan orientasi organisasi.",
+      "status": "active",
+      "category": "Pendidikan"
+    },
+    {
+      "name": "Hackathon Komandro",
+      "description": "Kompetisi pengembangan aplikasi 24 jam antar anggota dengan tema tahunan. Evaluasi berdasarkan inovasi, eksekusi, dan presentasi.",
+      "status": "active",
+      "category": "Kompetisi"
+    },
+    {
+      "name": "Tech Talk Series",
+      "description": "Seri seminar bulanan mengundang practitioner dan alumni untuk berbagi pengalaman di industri teknologi.",
+      "status": "active",
+      "category": "Keorganisasian"
+    },
+    {
+      "name": "Open Recruitment",
+      "description": "Penerimaan anggota baru dua kali setahun (awal semester Ganjil dan Genap) melalui proses seleksi portofolio dan wawancara.",
+      "status": "active",
+      "category": "Keorganisasian"
+    },
+    {
+      "name": "Final Project Showcase",
+      "description": "Pameran proyek akhir semester di mana setiap divisi mempresentasikan hasil kerja terbaik mereka.",
+      "status": "completed",
+      "category": "Pameran"
+    },
+    {
+      "name": "Code Review Session",
+      "description": "Sesi review kode mingguan antar anggota untuk meningkatkan kualitas codebase dan saling belajar best practices.",
+      "status": "active",
+      "category": "Pendidikan"
+    },
+    {
+      "name": "Industry Visit",
+      "description": "Kunjungan ke perusahaan teknologi untuk memberikan wawasan langsung tentang lingkungan kerja di industri.",
+      "status": "planned",
+      "category": "Keorganisasian"
+    }
+  ]
+}

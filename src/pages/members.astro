@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { link } from '../utils/link';
+import membersData from '../data/members.json';
+
+const { members } = membersData;
+
+const roleColors: Record<string, string> = {
+  'Ketua': 'bg-on-background text-white',
+  'Wakil Ketua': 'bg-secondary text-white',
+  'Sekretaris': 'bg-primary text-white',
+  'Bendahara': 'bg-tertiary text-white',
+  'Koordinator': 'bg-secondary text-white',
+  'Staff': 'bg-surface-variant text-on-background',
+};
+---
+
+<Layout title="Members - Komandro CCIT-FTUI">
+  <main class="pt-24">
+    
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
+        <div class="max-w-4xl">
+          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
+            Active <span class="text-primary">Members</span>
+          </h1>
+          <p class="text-body-lg-home text-secondary mb-12 max-w-2xl leading-relaxed">
+            Meet the current team driving Komandro CCIT-FTUI forward.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Members Grid -->
+    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {members.map((member) => {
+            const initials = member.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+            return (
+              <div class="bg-white border border-surface-border rounded p-6 text-center hover:border-primary transition-colors duration-300">
+                <div class="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="text-primary text-headline-lg font-bold">{initials}</span>
+                </div>
+
+                <span class:list={[
+                  'inline-block px-3 py-1 mb-3 font-label-md text-label-md uppercase tracking-widest',
+                  roleColors[member.role] || 'bg-surface-variant text-on-background'
+                ]}>
+                  {member.role}
+                </span>
+
+                <h3 class="text-headline-md text-on-background mb-1">{member.name}</h3>
+
+                {member.contact?.linkedin && (
+                  <a
+                    href={member.contact.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 text-secondary hover:text-primary transition-colors font-label-md text-label-md"
+                  >
+                    <i class="bx bxl-linkedin text-[16px]"></i>
+                    LinkedIn
+                  </a>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- Join CTA -->
+    <section class="py-24 bg-on-background text-white">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+        <h2 class="text-headline-lg-home mb-4">Want to Be Part of This Team?</h2>
+        <p class="text-body-lg-home text-white/70 mb-4 max-w-xl mx-auto">
+          Membership is open to active students of CCIT - FTUI.
+        </p>
+        <p class="text-body-lg-home text-white/70 mb-8 max-w-xl mx-auto">
+          Reach out to us on Instagram to learn more.
+        </p>
+        <a
+          href="https://instagram.com/komandro_ccit"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-white text-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-white transition-colors duration-300"
+        >
+          @komandro_ccit
+          <i class="bx bx-right-arrow-alt text-[20px]"></i>
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>

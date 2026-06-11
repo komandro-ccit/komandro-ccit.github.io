@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import programData from '../data/program-kerja.json';
+
+const { programs } = programData;
+
+const statusConfig: Record<string, { label: string; class: string }> = {
+  active: { label: 'Active', class: 'bg-primary text-white' },
+  completed: { label: 'Completed', class: 'bg-surface-variant text-on-background' },
+  planned: { label: 'Planned', class: 'bg-secondary text-white' },
+};
+
+const categoryIcons: Record<string, string> = {
+  'Pendidikan': 'bx-book-open',
+  'Kompetisi': 'bx-trophy',
+  'Keorganisasian': 'bx-group',
+  'Pameran': 'bx-slideshow',
+};
+---
+
+<Layout title="Work Programs - Komandro CCIT-FTUI">
+  <main class="pt-24">
+    
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
+        <div class="max-w-4xl">
+          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
+            <span class="w-2 h-2 bg-primary"></span>
+            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Our Programs</span>
+          </div>
+          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
+            Work <span class="text-primary">Programs</span>
+          </h1>
+          <p class="text-body-lg-home text-secondary mb-12 max-w-2xl leading-relaxed">
+            A list of Komandro CCIT-FTUI's active, completed, and upcoming work programs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs Grid -->
+    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {programs.map((program) => {
+            const status = statusConfig[program.status] || statusConfig.active;
+            const icon = categoryIcons[program.category] || 'bx-folder';
+            return (
+              <div class="bg-white border border-surface-border rounded p-6 hover:border-primary transition-colors duration-300 flex flex-col">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded">
+                    <i class={`bx ${icon} text-primary text-[24px]`}></i>
+                  </div>
+                  <span class:list={[
+                    'px-3 py-1 font-label-md text-label-md uppercase tracking-widest',
+                    status.class
+                  ]}>
+                    {status.label}
+                  </span>
+                </div>
+                
+                <span class="inline-block px-2 py-1 mb-3 border border-surface-border font-label-md text-label-md text-secondary uppercase tracking-widest w-fit">
+                  {program.category}
+                </span>
+                
+                <h3 class="text-headline-md text-on-background mb-2">{program.name}</h3>
+                <p class="text-secondary text-body-md leading-relaxed flex-1">{program.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24 bg-on-background text-white">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+        <h2 class="text-headline-lg-home mb-4">Have a New Program Idea?</h2>
+        <p class="text-body-lg-home text-white/70 mb-8 max-w-xl mx-auto">
+          We're open to suggestions and collaboration from all members.
+        </p>
+        <a 
+          href="mailto:komandro@ccit-ftui.ac.id" 
+          class="inline-flex items-center gap-2 bg-white text-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-white transition-colors duration-300"
+        >
+          Get in Touch
+          <i class="bx bx-right-arrow-alt text-[20px]"></i>
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>
