@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import ImageLightbox from '../../components/ImageLightbox.astro';
 import { link } from '../../utils/link';
 
 export async function getStaticPaths() {
@@ -94,6 +95,7 @@ const { Content } = await post.render();
       </div>
     </section>
   </main>
+  <ImageLightbox />
 </Layout>
 
 <style is:global>
@@ -101,6 +103,12 @@ const { Content } = await post.render();
   
   .prose img {
     border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .prose img:hover {
+    opacity: 0.85;
   }
   
   .prose blockquote {
