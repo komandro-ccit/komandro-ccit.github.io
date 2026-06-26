@@ -1,0 +1,618 @@
+---
+title: "Kenapa Banyak Developer Salah Menggunakan useEffect?"
+description: "useEffect adalah hook paling populer sekaligus paling sering disalahpahami di React. Pelajari cara benar menggunakannya dan hindari bug, infinite loop, hingga performa buruk."
+category: "Web Development"
+difficulty: "Intermediate"
+pubDate: 2026-06-26
+author: "Bagus Bayu Kencana"
+type: "article"
+estimatedTime: "30 minutes"
+tags: ["react", "useeffect", "frontend", "web", "hooks"]
+---
+
+`useEffect` adalah salah satu `hook` paling populer di React, tetapi juga salah satu yang paling sering disalahpahami. Banyak developer menganggap `useEffect` sebagai pengganti `lifecycle component`, padahal tujuan sebenarnya jauh lebih spesifik. Kesalahan dalam penggunaannya sering menyebabkan bug, `infinite loop`, request API berulang, hingga performa aplikasi yang menurun.
+
+## Pendahuluan
+
+Ketika React memperkenalkan Hooks pada versi 16.8, banyak developer yang sebelumnya terbiasa dengan class component mulai beralih ke function component.
+
+Sebelumnya, lifecycle component ditangani menggunakan:
+
+```
+componentDidMount()
+componentDidUpdate()
+componentWillUnmount()
+```
+
+Ketika Hooks hadir, React memperkenalkan:
+`useEffect()`
+
+Karena dokumentasi awal sering menjelaskan bahwa:
+
+> "useEffect merupakan gabungan dari componentDidMount, componentDidUpdate, dan componentWillUnmount"
+
+muncullah kebiasaan:
+
+> "Kalau ada sesuatu yang perlu dilakukan, masukkan saja ke useEffect."
+
+Dan di sinilah banyak masalah bermula.
+
+## Apa Sebenarnya useEffect?
+
+Banyak orang mengira:
+
+> useEffect digunakan untuk menjalankan kode setelah component dirender.
+
+Padahal secara lebih tepat:
+
+> useEffect digunakan untuk melakukan sinkronisasi dengan sistem di luar React (external system).
+
+Misalnya:
+
+- Memanggil API
+- Berlangganan WebSocket
+- Menambahkan event listener
+- Mengakses localStorage
+- Mengatur timer
+- Berinteraksi dengan DOM secara manual
+
+React sendiri menyebut hal tersebut sebagai **side effects**.
+
+Karena render seharusnya bersifat murni (pure), maka segala sesuatu yang berinteraksi dengan dunia luar dipindahkan ke useEffect.
+
+## Cara Kerja Rendering React
+
+Misalkan:
+
+```jsx
+function App() {
+  console.log("render");
+
+  useEffect(() => {
+    console.log("effect");
+  });
+
+  return <h1>Hello</h1>;
+}
+```
+
+Urutan yang terjadi:
+
+```
+render
+↓
+browser paint
+↓
+effect
+```
+
+Artinya:
+
+useEffect **tidak berjalan saat render.**
+
+Ia berjalan **setelah render selesai.**
+
+## Dependency Array
+
+Struktur dasarnya:
+
+```
+useEffect(callback, dependencies)
+```
+
+Dependency array menentukan kapan effect dijalankan kembali.
+
+### Tanpa dependency
+
+```jsx
+useEffect(() => {
+  console.log("effect");
+});
+```
+
+Setiap render:
+
+```
+render
+effect
+
+render
+effect
+
+render
+effect
+```
+
+Akan selalu dijalankan ulang.
+
+### Dependency kosong ([])
+
+```jsx
+useEffect(() => {
+  console.log("mount");
+}, []);
+```
+
+Effect hanya berjalan sekali saat component pertama kali dibuat.
+
+Mirip dengan:
+
+```
+componentDidMount()
+```
+
+Namun pada React 18 Strict Mode, effect dapat dipanggil dua kali saat development.
+
+### Dependency berisi nilai
+
+```jsx
+useEffect(() => {
+  console.log("user berubah");
+}, [user]);
+```
+
+Effect hanya berjalan ketika nilai `user` berubah.
+
+## Infinite Loop yang Paling Sering Terjadi
+
+Perhatikan kode berikut:
+
+```jsx
+function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setCount(count + 1);
+  });
+
+  return count;
+}
+```
+
+Alurnya:
+
+```
+render
+↓
+effect
+↓
+setState
+↓
+render lagi
+↓
+effect lagi
+↓
+setState lagi
+↓
+...
+```
+
+Akhirnya React akan menampilkan error:
+
+```
+Maximum update depth exceeded
+```
+
+Karena useEffect berjalan setiap render dan selalu mengubah state.
+
+### Infinite Loop Karena Dependency Function
+
+Misalnya:
+
+```jsx
+const fetchData = () => {
+  // ...
+};
+
+useEffect(() => {
+  fetchData();
+}, [fetchData]);
+```
+
+Masalahnya, function akan dibuat ulang setiap render.
+
+Alurnya:
+
+```
+render
+↓
+fetchData baru
+↓
+dependency berubah
+↓
+effect berjalan
+↓
+render lagi
+↓
+fetchData baru lagi
+↓
+...
+```
+
+Akibatnya effect akan terus berjalan.
+
+## Solusinya: useCallback
+
+```jsx
+const fetchData = useCallback(() => {
+  // ...
+}, []);
+
+useEffect(() => {
+  fetchData();
+}, [fetchData]);
+```
+
+`useCallback` membuat referensi function tetap stabil sehingga effect tidak terus berjalan.
+
+## Kesalahan yang Sangat Umum: Derived State
+
+Misalnya:
+
+```jsx
+const [fullName, setFullName] = useState("");
+
+useEffect(() => {
+  setFullName(firstName + " " + lastName);
+}, [firstName, lastName]);
+```
+
+Padahal lebih sederhana:
+
+```jsx
+const fullName = firstName + " " + lastName;
+```
+
+Karena `fullName` sebenarnya hanyalah hasil gabungan dari dua state lain.
+
+Tidak perlu membuat state baru.
+
+## Kesalahan Filtering Data
+
+Banyak developer melakukan:
+
+```jsx
+const [filteredUsers, setFilteredUsers] = useState([]);
+
+useEffect(() => {
+  setFilteredUsers(
+    users.filter(user => user.active)
+  );
+}, [users]);
+```
+
+Padahal cukup:
+
+```jsx
+const filteredUsers = users.filter(user => user.active);
+```
+
+Tidak membutuhkan useEffect.
+
+## Kapan Menggunakan useMemo?
+
+Jika proses filtering cukup berat:
+
+```jsx
+const filteredUsers = useMemo(() => {
+  return users.filter(user => user.active);
+}, [users]);
+```
+
+`useMemo` digunakan untuk menyimpan hasil komputasi agar tidak dihitung ulang setiap render.
+
+Bukan untuk side effect.
+
+## Masalah Fetch API Menggunakan useEffect
+
+Tutorial yang paling sering ditemukan:
+
+```jsx
+useEffect(() => {
+  fetch("/api/users")
+    .then(res => res.json())
+    .then(setUsers);
+}, []);
+```
+
+Kelihatannya sederhana.
+
+Namun sebenarnya kita harus menangani:
+
+- Loading
+- Error
+- Retry
+- Cache
+- Refetch
+- Stale data
+- Race condition
+
+Semuanya harus dibuat sendiri.
+
+## Race Condition
+
+Misalnya:
+
+```jsx
+useEffect(() => {
+  fetch(`/users/${id}`)
+    .then(res => res.json())
+    .then(setUser);
+}, [id]);
+```
+
+Ketika user berpindah cepat:
+
+```
+id = 1
+id = 2
+id = 3
+```
+
+Request pertama bisa saja selesai paling akhir.
+
+Akibatnya data yang tampil justru user pertama, padahal saat ini berada di user ketiga.
+
+## Cleanup Function
+
+Cleanup digunakan untuk membersihkan effect.
+
+Contoh timer:
+
+```jsx
+useEffect(() => {
+  const interval = setInterval(() => {
+    console.log("tick");
+  }, 1000);
+
+  return () => {
+    clearInterval(interval);
+  };
+}, []);
+```
+
+Cleanup biasanya digunakan untuk:
+
+- clearInterval
+- clearTimeout
+- removeEventListener
+- unsubscribe WebSocket
+- membatalkan request
+
+## Event Listener yang Benar
+
+Salah:
+
+```jsx
+useEffect(() => {
+  window.addEventListener("resize", handleResize);
+}, []);
+```
+
+Listener akan terus tersimpan walaupun component sudah hilang.
+
+Yang benar:
+
+```jsx
+useEffect(() => {
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+```
+
+## Mengapa useEffect Berjalan Dua Kali di React 18?
+
+Banyak developer panik ketika melihat:
+
+```jsx
+useEffect(() => {
+  console.log("API");
+}, []);
+```
+
+Output:
+
+```
+API
+API
+```
+
+Padahal tidak ada bug.
+
+Pada development mode, React Strict Mode sengaja melakukan:
+
+```
+mount
+↓
+unmount
+↓
+mount lagi
+```
+
+Tujuannya adalah mendeteksi side effect yang tidak dibersihkan dengan benar.
+
+Pada production, effect hanya dijalankan sekali.
+
+## useEffect Bukan Pengganti Event Handler
+
+Sering ditemukan:
+
+```jsx
+useEffect(() => {
+  if (submit) {
+    saveData();
+  }
+}, [submit]);
+```
+
+Padahal jauh lebih sederhana:
+
+```jsx
+<button onClick={saveData}>
+```
+
+useEffect tidak dibuat untuk merespon klik pengguna.
+
+## Kapan Tidak Perlu useEffect?
+
+### Menghitung Nilai
+
+Jangan:
+
+```jsx
+useEffect(() => {
+  setTotal(price * qty);
+}, [price, qty]);
+```
+
+Gunakan:
+
+```jsx
+const total = price * qty;
+```
+
+### Filtering
+
+Jangan:
+
+```jsx
+useEffect(() => {
+  setFiltered(...);
+}, [items]);
+```
+
+Gunakan:
+
+```jsx
+const filtered = items.filter(...);
+```
+
+### Sorting
+
+Jangan:
+
+```jsx
+useEffect(() => {
+  setSorted(...);
+}, [items]);
+```
+
+Gunakan:
+
+```jsx
+const sorted = useMemo(
+  () => [...items].sort(...),
+  [items]
+);
+```
+
+## Kapan useEffect Memang Diperlukan?
+
+### Fetch API
+
+```jsx
+useEffect(() => {
+  fetchData();
+}, []);
+```
+
+### WebSocket
+
+```jsx
+useEffect(() => {
+  socket.connect();
+
+  return () => socket.disconnect();
+}, []);
+```
+
+### Timer
+
+```jsx
+useEffect(() => {
+  const id = setInterval(...);
+
+  return () => clearInterval(id);
+}, []);
+```
+
+### Event Listener
+
+```jsx
+useEffect(() => {
+  window.addEventListener(...);
+
+  return () => {
+    window.removeEventListener(...);
+  };
+}, []);
+```
+
+## React Query: Mengurangi Kebutuhan useEffect
+
+Daripada:
+
+```jsx
+useEffect(() => {
+  fetch("/users")
+    .then(res => res.json())
+    .then(setUsers);
+}, []);
+```
+
+Dengan React Query:
+
+```jsx
+const { data } = useQuery({
+  queryKey: ["users"],
+  queryFn: fetchUsers
+});
+```
+
+React Query secara otomatis menangani:
+
+- Cache
+- Retry
+- Loading
+- Error
+- Refetch
+- Stale data
+- Background refresh
+- Request deduplication
+
+Tanpa perlu menulis useEffect.
+
+## Filosofi Baru React
+
+Developer pemula biasanya berpikir:
+
+> "Bagaimana cara menjalankan sesuatu setelah render?"
+
+Sedangkan developer yang lebih berpengalaman akan bertanya:
+
+> "Apakah saya benar-benar membutuhkan side effect?"
+
+Karena semakin sedikit useEffect yang digunakan, semakin sederhana dan mudah dipelihara aplikasi yang kita buat.
+
+## Kesimpulan
+
+useEffect bukanlah tempat untuk meletakkan seluruh logika aplikasi.
+
+Tujuan sebenarnya adalah untuk melakukan sinkronisasi dengan dunia luar (external system).
+
+Sebelum menulis useEffect, tanyakan terlebih dahulu:
+
+> "Apakah saya sedang berinteraksi dengan sesuatu di luar React?"
+
+Jika jawabannya **tidak**, kemungkinan besar Anda tidak membutuhkan useEffect.
+
+Dan mungkin pertanyaan yang lebih tepat bukan:
+
+> "Bagaimana cara menggunakan useEffect?"
+
+melainkan:
+
+> **"Apakah useEffect memang diperlukan?"**
