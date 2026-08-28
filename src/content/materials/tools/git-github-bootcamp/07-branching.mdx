@@ -1,0 +1,105 @@
+---
+title: "Branching: Kerja Paralel Tanpa Saling Ganggu"
+description: "Belajar branching biar bisa kerja paralel tanpa saling ganggu."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Ahmad Faizulhakim"
+curriculumSlug: "git-github-bootcamp"
+order: 7
+estimatedTime: "30 minutes"
+tags: ["git","branch"]
+---
+
+### 7.1 Kenapa Perlu Branch?
+
+Bayangin skenario ini: kamu lagi kerja bareng temenmu di 1 repo yang sama untuk tugas kelompok. Repo itu isinya website yang **sudah jadi dan sudah bagus**, ini yang dinamain `main`, versi "resmi" yang boleh dilihat dosen kapan saja.
+
+Sekarang kamu mau nyoba nambahin fitur baru, misal fitur translate inggris. Tapi kamu belum yakin fiturnya bakal jalan mulus. Kalau kamu **langsung edit `main`**, dua hal buruk bisa kejadian:
+
+1. Kalau kodenya error di tengah jalan, `main` (yang harusnya udah bagus) jadi ikut rusak.
+2. Kalau temenmu barengan edit file yang sama di `main`, kerjaan kalian bisa saling timpa tanpa disadari.
+
+Makanya, kamu bikin "cabang" sendiri, sebut aja `translate-inggris`, kerja di situ sepuasnya, coba-coba sampai berhasil, **`main` sama sekali gak kesentuh**. Baru kalau udah oke, digabungin balik ke `main`.
+
+`main` itu ibarat draft final skripsi yang udah di-ACC, kamu gak akan corat-coret langsung di situ. Kamu fotocopy dulu (branch), coret-coret di fotocopy-annya, baru kalau udah fix, salin balik ke draft asli.
+
+### 7.2 Perintah Dasar Branching
+
+**Melihat branch apa saja yang ada saat ini:**
+
+```bash
+git branch
+```
+
+Kalau kamu belum pernah bikin branch lain, hasilnya cuma akan menampilkan `main` (ditandai tanda bintang `*` di depannya, artinya itu branch yang lagi aktif/kamu tempati sekarang).
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-branch.png)
+
+**Membuat branch baru sekaligus pindah ke situ** (paling sering dipakai):
+
+```bash
+git switch -c nama-fitur
+```
+
+Contoh konkret, lanjut dari kasus translate inggris tadi:
+
+```bash
+git switch -c translate-inggris
+```
+
+Setelah Enter, akan muncul pesan seperti `Switched to a new branch 'translate-inggris'`. Ini tandanya kamu sekarang "berada" di cabang baru itu, semua perubahan yang kamu buat setelah ini **tidak akan menyentuh `main`** sampai kamu gabungin manual nanti.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-add-branch.png)
+
+**Pindah balik ke branch lain yang sudah ada:**
+
+```bash
+git switch main          # balik ke main
+git switch translate-inggris     # balik lagi ke branch translate-inggris
+```
+
+**Cara mengecek kamu lagi ada di branch mana** (penting dicek sesering mungkin supaya gak salah edit branch):
+
+```bash
+git branch
+```
+
+Branch yang ada tanda bintang `*` di depannya adalah branch yang lagi aktif sekarang.
+
+### 7.3 Alur Kerja dengan Branch: Contoh Lengkap dari Nol
+
+```bash
+# 1. Pastikan kamu mulai dari main dan sudah versi terbaru
+git switch main
+git pull origin main
+
+# 2. Buat branch baru khusus untuk fitur translate inggris
+git switch -c translate-inggris
+
+# 3. Edit file seperti biasa (misal ubah isi file readme.md), lalu:
+git add .
+git commit -m "feat: tambahkan terjemahan ke inggris"
+
+# 4. Push branch BARU ini ke GitHub (bukan ke main!)
+git push -u origin translate-inggris
+```
+
+Setelah langkah 4, coba buka repo kamu di GitHub lewat browser, akan ada dropdown/pilihan branch di halaman repo, dan branch `translate-inggris` akan muncul di situ sebagai pilihan baru, terpisah dari `main`.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/select-branch-via-github.png)
+
+**Poin yang sering bikin bingung pemula:** push ke branch `translate-inggris` **tidak** mengubah isi `main` sama sekali. Kalau kamu buka branch `main` di GitHub, isinya masih sama seperti sebelumnya. Fitur translate inggris baru akan masuk ke `main` setelah proses Pull Request selesai (lihat Bagian 8).
+
+### 7.4 Konvensi Penamaan Branch
+
+Supaya rapi kalau kerja tim, biasa dipakai format:
+
+```
+feat/nama-fitur       → untuk fitur baru
+fix/nama-bug          → untuk perbaikan bug
+docs/nama-dokumen     → untuk dokumentasi
+```
+
+Contoh: `feat/translate-inggris`, `fix/tombol-login-error`, `docs/update-readme`
+

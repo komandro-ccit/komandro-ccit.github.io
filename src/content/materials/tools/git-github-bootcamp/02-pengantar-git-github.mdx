@@ -1,0 +1,57 @@
+---
+title: "Pengantar: Apa itu Git & GitHub"
+description: "Pengertian Git, GitHub, perbedaannya, dan kenapa version control itu penting."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Ahmad Faizulhakim"
+curriculumSlug: "git-github-bootcamp"
+order: 2
+estimatedTime: "25 minutes"
+tags: ["git","github","version-control","pengantar"]
+---
+
+### 1.1 Git
+
+Git adalah **program di komputer kamu** (aplikasi lain, sama seperti Terminal) yang tugasnya **mencatat setiap perubahan** yang kamu buat pada file-file kerjaan kamu, kapan diubah, dan apa yang diubah.
+
+Bayangkan kamu sedang menulis tugas kuliah. Tanpa Git, biasanya orang menyimpan file dengan nama seperti:
+
+```
+tugas_final.docx
+tugas_final_revisi.docx
+tugas_final_revisi2_FIX.docx
+tugas_final_revisi2_FIX_beneran.docx
+```
+
+Ini berantakan dan gampang salah pakai versi. Git menggantikan cara ini: kamu tetap punya **satu file**, tapi setiap perubahannya otomatis "tercatat" di belakang layar, dan kamu bisa lihat atau kembali ke versi manapun kapan saja, tanpa perlu bikin banyak salinan file dengan nama berbeda-beda.
+
+Git diciptakan oleh **Linus Torvalds** (pencipta sistem operasi Linux) pada tahun **2005**.
+
+### 1.2 GitHub
+
+Kalau Git adalah program yang **jalan di komputer kamu sendiri**, GitHub adalah **website** ([github.com](https://github.com)) tempat kamu meng-upload hasil kerja Git tadi, supaya bisa dilihat, disimpan sebagai cadangan online, dan dikerjakan bareng-bareng dengan orang lain dari komputer yang berbeda-beda.
+
+GitHub diluncurkan pada **2008** oleh Tom Preston-Werner dan kawan-kawan.
+
+### 1.3 Perbedaan Git vs GitHub
+
+"Bedanya apa sih bang git sama github?"
+
+simpelnya : **Git = alat yang jalan di laptop kamu. GitHub = tempat online buat naruh dan berbagi hasil kerja alat itu.**
+
+| | Git | GitHub |
+|---|---|---|
+| **Apa sebenarnya** | Program di komputer kamu (dipakai lewat Terminal) | Website (dibuka lewat browser seperti Chrome) |
+| **Di mana jalan** | Di laptop/komputer kamu, tidak butuh internet | Di internet, butuh koneksi untuk diakses |
+| **Fungsi inti** | Mencatat riwayat perubahan file di komputer kamu | Menyimpan riwayat itu secara online + tempat kerja bareng orang lain |
+| **Analogi paling sederhana** | Seperti aplikasi "Kamera" yang bisa ambil foto (snapshot) kondisi filemu | Seperti "Google Drive/Album" tempat naruh foto-foto itu supaya bisa dilihat orang lain |
+
+### 1.4 Kenapa Version Control Itu Penting
+
+Sebelum masuk ke teknis, penting paham dulu **masalah apa** yang diselesaikan Git:
+
+1. **Riwayat perubahan tersimpan otomatis.** Kamu bisa lihat "file ini dulu kayak apa sebelum diubah", dan kembali ke versi lama kalau perlu.
+2. **Kerja bareng tanpa saling tindih.** Tanpa Git, kalau dua orang edit file yang sama lalu saling kirim lewat WhatsApp, pasti ada yang ketimpa/hilang. Git punya cara menggabungkan perubahan dari banyak orang dengan aman.
+3. **Eksperimen tanpa takut merusak yang sudah jalan.** Lewat *branching* (bagian 7), kamu bisa coba hal baru di "cabang" terpisah tanpa mengganggu kode utama yang sudah stabil.
+4. **Standar industri.** Hampir semua perusahaan software, komunitas open source, dan kompetisi (termasuk CBL) menggunakan Git & GitHub sebagai cara kerja standar.

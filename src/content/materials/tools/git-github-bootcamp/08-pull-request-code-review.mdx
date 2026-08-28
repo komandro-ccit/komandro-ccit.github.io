@@ -1,0 +1,84 @@
+---
+title: "Pull Request & Code Review"
+description: "Mengajukan perubahan lewat Pull Request dan proses code review."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Ahmad Faizulhakim"
+curriculumSlug: "git-github-bootcamp"
+order: 8
+estimatedTime: "30 minutes"
+tags: ["git","github","pull-request"]
+---
+
+### 8.1 Apa itu Pull Request (PR)?
+
+Lanjut dari kasus translate inggris: fitur kamu udah jadi dan udah di-push ke branch `translate-inggris`. Sekarang gimana caranya masukin ke `main`?
+
+Kamu **bisa aja** langsung gabungin sendiri lewat Terminal, tapi di kerja tim itu bukan kebiasaan yang baik, karena artinya kode kamu masuk ke versi utama **tanpa ada yang cek dulu**. Bayangin kalau ternyata ada bug yang kamu gak sadar, langsung nyampur ke `main` dan bikin masalah buat semua orang.
+
+Pull Request adalah cara **resmi minta izin & review** sebelum digabungkan. Istilahnya kayak kamu bilang ke tim: *"Woy, gw udah selesai bikin translate inggris di branch gw, tolong dicek dulu sebelum gw gabungin ke main."*
+
+### 8.2 Langkah Membuat Pull Request: Step by Step
+
+**Langkah 1:** Pastikan branch kamu sudah di-push ke GitHub (lihat Bagian 7.3, pakai `git push -u origin translate-inggris`).
+
+**Langkah 2:** Buka repo kamu di GitHub lewat browser. Biasanya akan muncul kotak kuning bertuliskan **"translate-inggris had recent pushes"** dengan tombol hijau **"Compare & pull request"**, klik tombol itu.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/compare-pull-req-github.png)
+
+Kalau banner itu tidak muncul (kadang hilang setelah beberapa saat), caranya manual:
+1. Klik tab **Pull requests** di bagian atas halaman repo
+2. Klik tombol hijau **New pull request**
+3. Di bagian **compare**, pilih branch kamu (`translate-inggris`)
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/new-pull-req-github.png)
+
+**Langkah 3:** Pastikan pengaturan branch-nya benar:
+- **base:** `main` (branch tujuan, tempat perubahan akan masuk)
+- **compare:** `translate-inggris` (branch kamu, isi perubahannya)
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/manage-branch-pull-req.png)
+
+**Langkah 4:** Isi kolom judul (ringkas, misal: "Tambah fitur translate inggris") dan kolom deskripsi (jelasin apa yang diubah dan kenapa, boleh beberapa kalimat aja).
+
+**Langkah 5:** Klik tombol hijau **Create pull request**.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/fill-title-desc-github-pull-req.png)
+
+Setelah ini, PR kamu akan muncul di tab **Pull requests**, siap direview.
+
+### 8.3 Proses Review
+
+Reviewer (teman satu tim atau mentor) akan membuka PR kamu, melihat baris-baris kode yang berubah (ditandai warna hijau untuk yang ditambah, merah untuk yang dihapus), dan bisa memberi komentar langsung di baris tertentu.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/review-code-pull-req.png)
+
+Kalau reviewer minta revisi, kamu tinggal edit file di komputer kamu lagi (masih di branch yang sama, `translate-inggris`), lalu:
+
+```bash
+git add .
+git commit -m "fix: perbaiki sesuai review"
+git push
+```
+
+PR yang sudah dibuat **akan otomatis ter-update** dengan commit baru ini, kamu tidak perlu bikin PR baru lagi.
+
+### 8.4 Merge Pull Request
+
+Setelah reviewer klik **Approve**, akan muncul tombol hijau **Merge pull request** di halaman PR. Klik tombol itu, lalu klik **Confirm merge**.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/confirm-merge-req.png)
+
+Setelah merge berhasil, fitur translate inggris kamu **resmi masuk ke `main`**. Biasanya GitHub akan menawarkan tombol **Delete branch**, boleh diklik untuk beres-beres, karena branch `translate-inggris` sudah tidak diperlukan lagi setelah masuk ke `main`.
+
+**Langkah terakhir yang sering kelupaan:** update juga `main` di komputer kamu, supaya sinkron dengan GitHub:
+
+```bash
+git switch main
+git pull origin main
+git branch -d translate-inggris
+```
+
+`git branch -d translate-inggris` menghapus branch `translate-inggris` di komputer lokal kamu (aman dihapus karena isinya sudah masuk ke `main`).
+

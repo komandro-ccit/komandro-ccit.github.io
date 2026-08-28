@@ -1,0 +1,72 @@
+---
+title: "Instalasi & Konfigurasi Awal"
+description: "Instalasi Git, buat akun GitHub, dan konfigurasi identitas."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Ahmad Faizulhakim"
+curriculumSlug: "git-github-bootcamp"
+order: 3
+estimatedTime: "30 minutes"
+tags: ["git","github","instalasi"]
+---
+
+### 3.1 Install Git
+
+1. Buka browser favorit atau yang tersedia di laptop kamu (Chrome, Edge, Firefox, Safari/dll), kunjungi [git-scm.com/downloads](https://git-scm.com/downloads)
+2. Website akan otomatis mendeteksi sistem operasi kamu (Windows/Mac/Linux), kalo semisal tidak mendeteksi pilih sesuai sistem operasi yang kamu gunakan, klik tombol download yang muncul
+3. Buka file yang sudah terdownload (biasanya ada di folder **Downloads**), lalu install seperti install aplikasi biasa: klik **Next** terus sampai muncul tombol **Install**, lalu **Finish**. Opsi-opsi yang muncul selama instalasi boleh dibiarkan default (tidak perlu diubah-ubah).
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-download-webpage.png)
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/install-git.png)
+
+### 3.2 Cek Apakah Git Berhasil Terinstall
+
+Buka **Terminal**, klik di dalam jendelanya, lalu ketik:
+
+```bash
+git --version
+```
+
+Tekan `Enter`. Kalau berhasil, akan muncul tulisan seperti `git version 2.43.0` (angkanya boleh beda, yang penting muncul tulisan versi, bukan pesan error).
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-version-check.png)
+
+**Kalau muncul pesan error**
+
+(misal `git is not recognized as an internal or external command, operable program or batch file.`), coba tutup Terminal, buka lagi, lalu ulangi. Kalau masih error, kemungkinan instalasi belum selesai dengan benar, ulangi langkah 3.1.
+
+### 3.3 Buat Akun GitHub
+
+1. Buka browser, kunjungi [github.com](https://github.com)
+2. Klik tombol **Sign up** (biasanya di pojok kanan atas)
+3. Isi email, buat password, pilih username
+4. Ikuti instruksi verifikasi yang dikirim ke email kamu
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/signup-github.png)
+
+### 3.4 Konfigurasi Identitas Git
+
+Git perlu tahu "siapa kamu" supaya setiap perubahan yang kamu buat tercatat atas nama kamu. Ini **dilakukan sekali saja** di komputer kamu.
+
+Di **Terminal**, ketik dua baris ini satu-satu (tekan `Enter` setelah masing-masing baris):
+
+```bash
+git config --global user.name "Nama Kamu"
+```
+
+```bash
+git config --global user.email "email_github_kamu@email.com"
+```
+
+Ganti `"Nama Kamu"` dengan nama kamu, dan email dengan email yang sama dengan akun GitHub yang telah kamu buat di Bagian 3.3.
+
+**Cek konfigurasi yang sudah diset:**
+
+```bash
+git config --list
+```
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-config.png)
+
