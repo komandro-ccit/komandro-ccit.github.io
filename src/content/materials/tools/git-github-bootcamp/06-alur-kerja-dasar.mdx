@@ -1,0 +1,100 @@
+---
+title: "Alur Kerja Dasar: Add, Commit, Push"
+description: "Alur kerja harian Git: git add, git commit, dan git push."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Joe Fadlan"
+curriculumSlug: "git-github-bootcamp"
+order: 6
+estimatedTime: "30 minutes"
+tags: ["git","commit","push"]
+---
+
+Ini alur yang akan kamu ulangi **terus-menerus** setiap kali kerja dengan Git. Wajib hafal luar kepala.
+
+```
+1. Edit file           (di Working Directory — folder biasa di laptop kamu)
+2. git add              (pindahkan ke Staging Area)
+3. git commit           (simpan sebagai riwayat)
+4. git push              (kirim ke GitHub)
+```
+
+### Langkah 1: Cek Status
+
+Sebelum apa-apa, biasakan cek status dulu di Terminal (pastikan kamu masih berada di dalam folder project kamu):
+
+```bash
+git status
+```
+
+Ini akan menampilkan file mana yang berubah sejak commit terakhir. Jika kamu belum menambahkan atau mengubah apapun di dalam folder yang udah kita buat tadi seharusnya tampilannya akan kosong.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-status-no-file.png)
+
+Nah sekarang coba buat 1 file txt, di **Terminal** ketik:
+
+```bash
+echo "Halo Dunia" > readme.md
+```
+
+Setelah itu coba ketik `git status` lagi, seharusnya sekarang ada file bernama `readme.md` yang telah kita buat tadi.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-status-with-file.png)
+
+### Langkah 2: `git add` — Menandai File Siap Disimpan
+
+```bash
+git add nama_file.txt        # tambah satu file spesifik
+git add .                    # tambah SEMUA file yang berubah (titik artinya "semua")
+```
+
+Setelah `git add`, jalankan `git status` lagi — file yang tadi merah akan berubah jadi hijau, menandakan sudah masuk Staging Area.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-status-with-file-after-add.png)
+
+### Langkah 3: `git commit` — Menyimpan Perubahan
+
+```bash
+git commit -m "First Commit"
+```
+
+`-m` diikuti pesan singkat yang menjelaskan **apa** yang diubah, ditulis di antara tanda kutip dua.
+
+**Contoh commit message yang baik vs kurang jelas:**
+
+| ✅ Jelas | ❌ Kurang jelas |
+|---|---|
+| `fix: perbaiki tombol submit yang tidak berfungsi` | `update` |
+| `feat: tambahkan validasi form pendaftaran` | `asdasd` |
+| `docs: perbarui panduan instalasi di README` | `fix lagi` |
+
+### Langkah 4: `git push` — Mengirim ke GitHub
+
+```bash
+git push origin main
+```
+
+Ini mengirim semua commit yang belum ter-upload ke branch `main` di GitHub.
+
+**Untuk push pertama kali**, biasanya dipakai:
+
+```bash
+git push -u origin main
+```
+
+Setelah ini, kamu bisa cek hasilnya dengan membuka halaman repo kamu di GitHub lewat browser — file yang kamu push akan muncul di sana.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/first-commit-github.png)
+
+### Langkah 5 (kalau kerja tim): `git pull`
+
+Sebelum mulai kerja, tarik dulu perubahan terbaru dari GitHub:
+
+```bash
+git pull origin main
+```
+
+Ini akan mengambil riwayat commit terbaru dari repository remote yang sudah kita hubungkan tadi dan langsung menggabungkannya (`merge`) ke dalam `branch` lokal di komputermu secara otomatis. Perintah ini menggabungkan fungsi `git fetch` dan `git merge` agar file projek di laptopmu selalu sinkron dengan kode paling update yang dikerjakan oleh tim. Sangat disarankan untuk menjalankannya setiap kali sebelum kamu mulai menulis kode baru demi mencegah terjadinya bentrokan atau konflik kode (`merge conflict`).
+
+---

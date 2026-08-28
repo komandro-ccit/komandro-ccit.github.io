@@ -1,0 +1,58 @@
+---
+title: "Konsep Dasar yang Wajib Dipahami"
+description: "Repository, commit, branch, merge, staging area, remote, clone vs fork."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Joe Fadlan"
+curriculumSlug: "git-github-bootcamp"
+order: 4
+estimatedTime: "25 minutes"
+tags: ["git","konsep-dasar"]
+---
+
+Sebelum praktik, pahami dulu istilah-istilah ini. Ini fondasi — kalau bagian ini kelewat, bagian selanjutnya akan terasa membingungkan.
+
+### 4.1 Repository (Repo)
+
+Repository adalah **folder project** yang riwayat perubahannya dilacak oleh Git. Bisa ada di komputer kamu (**local repository** — "lokal" artinya di laptop kamu sendiri) atau di GitHub (**remote repository** — "remote" artinya di server/online).
+
+### 4.2 Commit
+
+Commit adalah **"titik simpan"** dari perubahan yang kamu buat, lengkap dengan catatan singkat penjelasan (*commit message*). Bayangkan commit seperti "save point" di video game — kamu bisa kembali ke titik itu kapan saja.
+
+### 4.3 Branch (Cabang)
+
+Branch adalah **jalur pengembangan terpisah** dari kode utama. Secara default, setiap repo punya branch utama bernama `main`.
+
+Analogi: bayangkan `main` adalah jalan raya utama yang sudah stabil dan dipakai semua orang. Kalau kamu mau coba bikin sesuatu yang baru dan belum tentu berhasil, kamu bikin "jalan cabang" (branch) sendiri dulu — kalau berhasil, baru digabung ke jalan utama. Kalau gagal, cabang itu bisa dibuang tanpa merusak jalan utama.
+
+### 4.4 Merge
+
+Merge adalah proses **menggabungkan** perubahan dari satu branch ke branch lain.
+
+### 4.5 Staging Area
+
+Ini konsep yang sering bikin bingung pemula. Git punya 3 "area" tempat file kamu "berada":
+
+```
+Working Directory   →   Staging Area    →   Repository (Commit)
+ (file yang lagi          (file yang            (riwayat yang
+  kamu edit)           "ditandai" siap         udah permanen
+                            disimpan)             tersimpan)
+```
+
+- **Working Directory**: folder project kamu, tempat kamu edit file sehari-hari — ini yang kamu lihat di File Explorer/Finder.
+- **Staging Area**: area "tunggu" — kamu pilih file mana saja yang mau ikut disimpan lewat perintah `git add`.
+- **Repository**: setelah `git commit`, perubahan resmi tersimpan sebagai riwayat permanen.
+
+### 4.6 Remote & Origin
+
+**Remote** adalah alamat repository yang tersimpan online (di GitHub). **Origin** adalah nama panggilan default untuk remote utama kamu, supaya tidak perlu ketik alamat URL panjang setiap kali.
+
+### 4.7 Clone vs Fork
+
+- **Clone**: menyalin repository dari GitHub ke komputer kamu.
+- **Fork**: menyalin repository milik orang lain ke akun GitHub kamu sendiri.
+
+---

@@ -1,0 +1,47 @@
+---
+title: "Cheat Sheet Perintah"
+description: "Ringkasan perintah Git yang paling sering dipakai."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Joe Fadlan"
+curriculumSlug: "git-github-bootcamp"
+order: 13
+estimatedTime: "10 minutes"
+tags: ["git","cheat-sheet"]
+---
+
+```bash
+# Konfigurasi awal
+git config --global user.name "Nama"
+git config --global user.email "email@kamu.com"
+
+# Memulai repo
+git init
+git clone <url>
+
+# Alur dasar
+git status
+git add <file>
+git add .
+git commit -m "pesan"
+git push origin main
+git pull origin main
+
+# Branching
+git branch
+git switch -c nama-branch
+git switch nama-branch
+git push -u origin nama-branch
+git branch -d nama-branch
+
+# Riwayat
+git log
+git log --oneline
+
+# Remote
+git remote -v
+git remote add origin <url>
+```
+
+---

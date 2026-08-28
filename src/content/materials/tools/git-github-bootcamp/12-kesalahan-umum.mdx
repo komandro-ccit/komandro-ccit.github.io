@@ -1,0 +1,22 @@
+---
+title: "Kesalahan Umum & Cara Mengatasinya"
+description: "Kesalahan yang sering dilakukan pemula dan solusinya."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Joe Fadlan"
+curriculumSlug: "git-github-bootcamp"
+order: 12
+estimatedTime: "10 minutes"
+tags: ["git","tips"]
+---
+
+| Masalah | Penyebab | Solusi |
+|---|---|---|
+| `fatal: not a git repository` | Belum `git init`/`clone`, atau salah folder | Pastikan berada di folder yang benar |
+| `rejected... failed to push` | Ada perubahan di remote yang belum ditarik | `git pull origin main` dulu, baru push lagi |
+| `Permission denied` saat push | Autentikasi GitHub belum benar | Cek koneksi akun GitHub (pakai Personal Access Token/SSH) |
+| File besar/salah ikut ter-commit | Lupa buat `.gitignore` | Buat file `.gitignore`, tambahkan nama file yang tidak perlu dilacak |
+| Salah edit di branch yang salah | Lupa cek branch aktif | Selalu `git status`/`git branch` sebelum mulai edit |
+
+---

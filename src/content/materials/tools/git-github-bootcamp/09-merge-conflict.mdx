@@ -1,0 +1,79 @@
+---
+title: "Menangani Konflik (Merge Conflict)"
+description: "Apa itu merge conflict dan cara menyelesaikannya step by step."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Joe Fadlan"
+curriculumSlug: "git-github-bootcamp"
+order: 9
+estimatedTime: "25 minutes"
+tags: ["git","merge","conflict"]
+---
+
+### 9.1 Kenapa Konflik Terjadi
+
+Bayangin kamu dan temenmu **berdua** edit file `readme.md` di baris yang sama, tapi di branch berbeda. Kamu ubah judul jadi "Selamat Datang di Komandro", temenmu ubah baris yang sama jadi "Welcome to Komandro". Keduanya sama-sama di-push dan mau di-merge ke `main`.
+
+Git **tidak tahu versi mana yang benar** — makanya dia berhenti dan minta kamu yang memutuskan. Ini yang disebut **merge conflict**. Ini **bukan error/kesalahan fatal**, ini cuma Git bertanya "yang benar yang mana nih?"
+
+### 9.2 Tanda-Tanda Konflik Muncul
+
+Saat kamu `git pull` atau merge PR, kalau terjadi konflik, Terminal atau GitHub akan menampilkan pesan seperti:
+
+```
+CONFLICT (content): Merge conflict in readme.md
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/terminal-error-conflict-merge.png)
+
+Buka file yang disebut di pesan error itu (`readme.md`) pakai text editor (Notepad, VS Code, atau apapun), kamu akan lihat Git otomatis menambahkan penanda seperti ini di dalam file:
+
+```
+<<<<<<< HEAD
+Selamat Datang di Komandro
+=======
+Welcome to Komandro
+>>>>>>> translate-inggris
+```
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/conflict-merge.png)
+
+Cara baca penanda ini:
+- Baris di antara `<<<<<<< HEAD` dan `=======` → versi kamu (yang lagi aktif di branch kamu sekarang)
+- Baris di antara `=======` dan `>>>>>>> translate-inggris` → versi dari branch lain yang mau digabung
+
+### 9.3 Cara Menyelesaikan — Step by Step
+
+**Langkah 1:** Baca kedua versi, putuskan yang mana yang mau dipakai. Kamu bisa pilih salah satu, atau gabungkan keduanya jadi kalimat baru.
+
+**Langkah 2:** Edit langsung di file itu, **hapus semua tanda** `<<<<<<<`, `=======`, `>>>>>>>` beserta baris nama branch-nya — sisakan cuma teks final yang kamu mau. Contoh, kalau kamu putuskan pakai versi kamu:
+
+```html
+<h1>Selamat Datang di Komandro</h1>
+```
+
+(Perhatikan: tidak ada lagi tanda `<<<<<<<` dkk, file sudah bersih)
+
+**Langkah 3:** Simpan file itu (Ctrl+S / Cmd+S seperti biasa).
+
+**Langkah 4:** Kembali ke Terminal, tandai file itu sudah selesai diperbaiki, lalu commit:
+
+```bash
+git add readme.md
+git commit -m "fix: selesaikan konflik merge di readme.md"
+git push
+```
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/merge-conflict-solved.png)
+
+Selesai — konflik teratasi, dan kedua perubahan (dengan keputusan kamu) sudah masuk ke riwayat.
+
+### 9.4 Tips Supaya Konflik Jarang Terjadi
+
+- **`git pull` sesering mungkin** sebelum mulai kerja, supaya kamu selalu kerja dari versi terbaru
+- **Komunikasi dengan tim** — kalau bisa, bagi tugas per file/bagian biar gak tabrakan di baris yang sama
+- **Commit dalam potongan kecil dan sering**, jangan menumpuk banyak perubahan sekaligus baru di-commit — makin kecil perubahannya, makin gampang kalau harus nyelesain konflik
+
+---

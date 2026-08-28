@@ -1,0 +1,34 @@
+---
+title: "Latihan: Simulasi Kerja Tim"
+description: "Praktik simulasi kerja tim menggunakan Git & GitHub."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Joe Fadlan"
+curriculumSlug: "git-github-bootcamp"
+order: 11
+estimatedTime: "30 minutes"
+tags: ["git","github","latihan"]
+---
+
+Skenario: 3 anggota tim (**A**, **B**, **C**) mengerjakan 1 repo bersama.
+
+```bash
+# Semua clone repo yang sama
+git clone https://github.com/komandro/project-cbl.git
+cd project-cbl
+
+# A, B, C masing-masing bikin branch sendiri
+git switch -c feat/halaman-beranda   # A
+git switch -c feat/halaman-profil    # B
+git switch -c feat/halaman-kontak    # C
+
+# Masing-masing kerja & push
+git add .
+git commit -m "feat: tambahkan halaman beranda"
+git push -u origin feat/halaman-beranda
+```
+
+Setiap orang buka Pull Request dari branch masing-masing ke `main`, minta review, lalu merge satu per satu. Kalau ada konflik, selesaikan seperti Bagian 9.
+
+---

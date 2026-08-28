@@ -1,0 +1,86 @@
+---
+title: "Membuat & Menghubungkan Repository"
+description: "Membuat repository baru dari nol dan menghubungkannya ke GitHub."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Joe Fadlan"
+curriculumSlug: "git-github-bootcamp"
+order: 5
+estimatedTime: "25 minutes"
+tags: ["git","github","repository"]
+---
+
+Ada dua skenario umum: **mulai project dari nol**, atau **melanjutkan project yang sudah ada di GitHub**.
+
+### 5.1 Skenario A — Mulai Project Baru dari Komputer Kamu
+
+**Langkah 1:** Di **Terminal**, buat folder baru untuk project kamu, lalu masuk ke folder itu:
+
+```bash
+mkdir nama-project
+cd nama-project
+```
+
+Penjelasan: `mkdir` (singkatan dari *make directory*) artinya "buat folder baru". `cd` (singkatan dari *change directory*) artinya "masuk/pindah ke folder tersebut" — ini setara dengan kamu klik dua kali sebuah folder di File Explorer, tapi lewat ketikan.
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/terminal-make-directory.png)
+
+**Langkah 2:** Jadikan folder ini sebagai repository Git:
+
+```bash
+git init
+```
+
+Perintah ini membuat folder tersembunyi bernama `.git` di dalam project kamu — di sinilah semua riwayat Git disimpan. Folder ini tersembunyi (tidak akan terlihat di File Explorer/Finder secara normal), dan jangan dihapus.
+
+**Langkah 3:** Buat repository kosong di GitHub lewat browser:
+1. Login ke [github.com](https://github.com)
+2. Klik tombol hijau **New** atau tanda **+** di pojok kanan atas → **New repository**
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/github-homepage.png)
+
+3. Untuk sekarang cukup isi nama repository (samakan dengan nama folder kamu biar tidak bingung)
+4. **Jangan** centang opsi "Add a README file", "Add .gitignore", atau "Choose a license" atau biarkan default karena kita memulainya dari folder lokal yang sudah ada.
+5. Klik **Create repository**
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/github-create-repo.png)
+
+**Langkah 4:** Setelah dibuat, GitHub akan menampilkan sebuah alamat URL (contoh: `https://github.com/username/nama-project.git`). Salin URL itu, lalu di Terminal ketik:
+
+```bash
+git remote add origin [tempel URL kamu di sini]
+```
+
+```bash
+# Contoh
+
+git remote add origin https://github.com/Jofadlan/belajar-git
+```
+
+Cek apakah sudah terhubung dengan benar:
+
+```bash
+git remote -v
+```
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-remote.png)
+
+### 5.2 Skenario B — Melanjutkan Project yang Sudah Ada di GitHub
+
+Kalau repo sudah ada di GitHub (misal punya organisasi Komandro) dan kamu mau mulai kerja dari situ, kamu tinggal **clone** (menyalin) repo itu ke komputer kamu.
+
+1. Buka halaman repo di GitHub, klik tombol hijau **Code**, salin URL yang muncul
+2. Di Terminal, ketik:
+
+```bash
+git clone [tempel URL yang kamu salin]
+```
+
+![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-clone.png)
+
+Perintah ini otomatis: download semua file + riwayat + langsung terhubung ke remote `origin`. Ini jauh lebih simpel daripada Skenario A.
+
+ Namun, cara `git clone` ini tidak disarankan jika kamu sudah terlanjur memiliki folder berisi file kode di komputermu, karena perintah ini hanya bisa mengunduh folder baru dari awal dan akan menolak masuk ke dalam folder yang sudah ada isinya.
+
+---
