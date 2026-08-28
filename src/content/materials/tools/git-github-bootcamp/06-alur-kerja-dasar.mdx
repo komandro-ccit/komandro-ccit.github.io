@@ -14,7 +14,7 @@ tags: ["git","commit","push"]
 Ini alur yang akan kamu ulangi **terus-menerus** setiap kali kerja dengan Git. Wajib hafal luar kepala.
 
 ```
-1. Edit file           (di Working Directory — folder biasa di laptop kamu)
+1. Edit file           (di Working Directory, folder biasa di laptop kamu)
 2. git add              (pindahkan ke Staging Area)
 3. git commit           (simpan sebagai riwayat)
 4. git push              (kirim ke GitHub)
@@ -42,18 +42,18 @@ Setelah itu coba ketik `git status` lagi, seharusnya sekarang ada file bernama `
 
 ![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-status-with-file.png)
 
-### Langkah 2: `git add` — Menandai File Siap Disimpan
+### Langkah 2: `git add`: Menandai File Siap Disimpan
 
 ```bash
 git add nama_file.txt        # tambah satu file spesifik
 git add .                    # tambah SEMUA file yang berubah (titik artinya "semua")
 ```
 
-Setelah `git add`, jalankan `git status` lagi — file yang tadi merah akan berubah jadi hijau, menandakan sudah masuk Staging Area.
+Setelah `git add`, jalankan `git status` lagi, file yang tadi merah akan berubah jadi hijau, menandakan sudah masuk Staging Area.
 
 ![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-status-with-file-after-add.png)
 
-### Langkah 3: `git commit` — Menyimpan Perubahan
+### Langkah 3: `git commit`: Menyimpan Perubahan
 
 ```bash
 git commit -m "First Commit"
@@ -69,7 +69,7 @@ git commit -m "First Commit"
 | `feat: tambahkan validasi form pendaftaran` | `asdasd` |
 | `docs: perbarui panduan instalasi di README` | `fix lagi` |
 
-### Langkah 4: `git push` — Mengirim ke GitHub
+### Langkah 4: `git push`: Mengirim ke GitHub
 
 ```bash
 git push origin main
@@ -83,7 +83,7 @@ Ini mengirim semua commit yang belum ter-upload ke branch `main` di GitHub.
 git push -u origin main
 ```
 
-Setelah ini, kamu bisa cek hasilnya dengan membuka halaman repo kamu di GitHub lewat browser — file yang kamu push akan muncul di sana.
+Setelah ini, kamu bisa cek hasilnya dengan membuka halaman repo kamu di GitHub lewat browser, file yang kamu push akan muncul di sana.
 
 ![screenshot](/materials/tools/material/assets/git-github-bootcamp/first-commit-github.png)
 

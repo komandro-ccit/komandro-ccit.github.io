@@ -13,16 +13,16 @@ tags: ["git","branch"]
 
 ### 7.1 Kenapa Perlu Branch?
 
-Bayangin skenario ini: kamu lagi kerja bareng temenmu di 1 repo yang sama untuk tugas kelompok. Repo itu isinya website yang **sudah jadi dan sudah bagus** — ini yang dinamain `main`, versi "resmi" yang boleh dilihat dosen kapan saja.
+Bayangin skenario ini: kamu lagi kerja bareng temenmu di 1 repo yang sama untuk tugas kelompok. Repo itu isinya website yang **sudah jadi dan sudah bagus**, ini yang dinamain `main`, versi "resmi" yang boleh dilihat dosen kapan saja.
 
 Sekarang kamu mau nyoba nambahin fitur baru, misal fitur translate inggris. Tapi kamu belum yakin fiturnya bakal jalan mulus. Kalau kamu **langsung edit `main`**, dua hal buruk bisa kejadian:
 
 1. Kalau kodenya error di tengah jalan, `main` (yang harusnya udah bagus) jadi ikut rusak.
 2. Kalau temenmu barengan edit file yang sama di `main`, kerjaan kalian bisa saling timpa tanpa disadari.
 
-Makanya, kamu bikin "cabang" sendiri — sebut aja `translate-inggris` — kerja di situ sepuasnya, coba-coba sampai berhasil, **`main` sama sekali gak kesentuh**. Baru kalau udah oke, digabungin balik ke `main`.
+Makanya, kamu bikin "cabang" sendiri, sebut aja `translate-inggris`, kerja di situ sepuasnya, coba-coba sampai berhasil, **`main` sama sekali gak kesentuh**. Baru kalau udah oke, digabungin balik ke `main`.
 
-`main` itu ibarat draft final skripsi yang udah di-ACC — kamu gak akan corat-coret langsung di situ. Kamu fotocopy dulu (branch), coret-coret di fotocopy-annya, baru kalau udah fix, salin balik ke draft asli.
+`main` itu ibarat draft final skripsi yang udah di-ACC, kamu gak akan corat-coret langsung di situ. Kamu fotocopy dulu (branch), coret-coret di fotocopy-annya, baru kalau udah fix, salin balik ke draft asli.
 
 ### 7.2 Perintah Dasar Branching
 
@@ -48,7 +48,7 @@ Contoh konkret, lanjut dari kasus translate inggris tadi:
 git switch -c translate-inggris
 ```
 
-Setelah Enter, akan muncul pesan seperti `Switched to a new branch 'translate-inggris'`. Ini tandanya kamu sekarang "berada" di cabang baru itu — semua perubahan yang kamu buat setelah ini **tidak akan menyentuh `main`** sampai kamu gabungin manual nanti.
+Setelah Enter, akan muncul pesan seperti `Switched to a new branch 'translate-inggris'`. Ini tandanya kamu sekarang "berada" di cabang baru itu, semua perubahan yang kamu buat setelah ini **tidak akan menyentuh `main`** sampai kamu gabungin manual nanti.
 
 ![screenshot](/materials/tools/material/assets/git-github-bootcamp/git-add-branch.png)
 
@@ -67,7 +67,7 @@ git branch
 
 Branch yang ada tanda bintang `*` di depannya adalah branch yang lagi aktif sekarang.
 
-### 7.3 Alur Kerja dengan Branch — Contoh Lengkap dari Nol
+### 7.3 Alur Kerja dengan Branch: Contoh Lengkap dari Nol
 
 ```bash
 # 1. Pastikan kamu mulai dari main dan sudah versi terbaru
@@ -85,7 +85,7 @@ git commit -m "feat: tambahkan terjemahan ke inggris"
 git push -u origin translate-inggris
 ```
 
-Setelah langkah 4, coba buka repo kamu di GitHub lewat browser — akan ada dropdown/pilihan branch di halaman repo, dan branch `translate-inggris` akan muncul di situ sebagai pilihan baru, terpisah dari `main`.
+Setelah langkah 4, coba buka repo kamu di GitHub lewat browser, akan ada dropdown/pilihan branch di halaman repo, dan branch `translate-inggris` akan muncul di situ sebagai pilihan baru, terpisah dari `main`.
 
 ![screenshot](/materials/tools/material/assets/git-github-bootcamp/select-branch-via-github.png)
 
