@@ -1,0 +1,77 @@
+---
+title: "Kesalahan Umum, Cheat Sheet & Glosarium"
+description: "Kesalahan umum pemula dan solusinya, cheat sheet perintah Git, plus glosarium istilah."
+category: "Tools"
+difficulty: "Beginner"
+pubDate: 2026-08-28
+author: "Joe Fadlan"
+curriculumSlug: "git-github-bootcamp"
+order: 11
+estimatedTime: "25 minutes"
+tags: ["git","github","cheat-sheet","glosarium"]
+---
+
+### 11.1 Kesalahan Umum & Cara Mengatasinya
+
+| Masalah | Penyebab | Solusi |
+|---|---|---|
+| `fatal: not a git repository` | Belum `git init`/`clone`, atau salah folder | Pastikan berada di folder yang benar |
+| `rejected... failed to push` | Ada perubahan di remote yang belum ditarik | `git pull origin main` dulu, baru push lagi |
+| `Permission denied` saat push | Autentikasi GitHub belum benar | Cek koneksi akun GitHub (pakai Personal Access Token/SSH) |
+| File besar/salah ikut ter-commit | Lupa buat `.gitignore` | Buat file `.gitignore`, tambahkan nama file yang tidak perlu dilacak |
+| Salah edit di branch yang salah | Lupa cek branch aktif | Selalu `git status`/`git branch` sebelum mulai edit |
+
+### 11.2 Cheat Sheet Perintah
+
+```bash
+# Konfigurasi awal
+git config --global user.name "Nama"
+git config --global user.email "email@kamu.com"
+
+# Memulai repo
+git init
+git clone <url>
+
+# Alur dasar
+git status
+git add <file>
+git add .
+git commit -m "pesan"
+git push origin main
+git pull origin main
+
+# Branching
+git branch
+git switch -c nama-branch
+git switch nama-branch
+git push -u origin nama-branch
+git branch -d nama-branch
+
+# Riwayat
+git log
+git log --oneline
+
+# Remote
+git remote -v
+git remote add origin <url>
+```
+
+### 11.3 Glosarium
+
+- **Terminal**: Aplikasi untuk memberi perintah ke komputer lewat ketikan
+- **Repository (Repo)**: Folder project yang dilacak Git
+- **Commit**: Titik simpan perubahan, lengkap dengan pesan penjelasan
+- **Branch**: Cabang pengembangan terpisah dari kode utama
+- **Merge**: Menggabungkan perubahan dari satu branch ke branch lain
+- **Staging Area**: Area "tunggu" tempat file ditandai sebelum disimpan
+- **Remote**: Alamat repository yang tersimpan online
+- **Origin**: Nama panggilan default untuk remote utama
+- **Clone**: Menyalin repo dari GitHub ke komputer lokal
+- **Fork**: Menyalin repo orang lain ke akun sendiri
+- **Pull Request (PR)**: Permintaan menggabungkan & mereview perubahan
+- **Merge Conflict**: Git tidak bisa otomatis menggabungkan dua perubahan yang bertabrakan
+- **.gitignore**: Daftar file/folder yang sengaja tidak dilacak Git
+
+---
+
+*Materi ini bagian dari persiapan Basic Bootcamp Komandro 2026 (22 Agustus 2026), Logic & Design Track.*
