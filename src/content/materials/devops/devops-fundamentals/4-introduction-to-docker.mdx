@@ -13,40 +13,9 @@ tags: ["devops", "beginner"]
 
 # 4 - Docker Introduction
 
-- [4 - Docker Introduction](#4---docker-introduction)
-  - [Overview](#overview)
-  - [Docker](#docker)
-  - [Arsitektur Docker](#arsitektur-docker)
-    - [Client](#client)
-    - [Docker Host](#docker-host)
-    - [Registry](#registry)
-  - [Alasan Menggunakan Docker](#alasan-menggunakan-docker)
-  - [Instalasi Docker Engine](#instalasi-docker-engine)
-    - [Persiapan Sebelum Instalasi](#persiapan-sebelum-instalasi)
-      - [1. Setup Repository Docker](#1-setup-repository-docker)
-      - [2. Instalasi Paket Docker Engine](#2-instalasi-paket-docker-engine)
-      - [3. Konfirmasi apakah proses instal berhasil](#3-konfirmasi-apakah-proses-instal-berhasil)
-  - [Docker Command Introduction](#docker-command-introduction)
-    - [1. `docker pull`](#1-docker-pull)
-    - [2. `docker run`](#2-docker-run)
-      - [**`OPTIONS/FLAG`**](#optionsflag)
-      - [**`COMMAND` dan `ARG...`**](#command-dan-arg)
-      - [**`IMAGE:TAG`**](#imagetag)
-    - [3. Docker container management command](#3-docker-container-management-command)
-      - [- `docker start`](#--docker-start)
-      - [- `docker stop`](#--docker-stop)
-      - [- `docker ps`](#--docker-ps)
-      - [- `docker build`](#--docker-build)
-      - [- `docker push`](#--docker-push)
-  - [Summary](#summary)
-
-
-
 ## Overview
 
 Setelah kalian mempelajari bagaimana cara build dan deploy aplikasi pada materi sebelumnya, pada materi kali ini kalian akan belajar bagaimana cara mengemas, mendistribusikan dan menjalankan suatu aplikasi menggunakan docker.
-
-
 
 ## Docker
 
@@ -65,8 +34,6 @@ Virtual machine menjalankan sistem operasi terpisah dari host untuk setiap insta
 Sedangkan container ketika menjalankan instances tidak memerlukan sistem operasi terpisah dari host karena instance yang dijalankan berbagi dengan kernel yang ada pada sistem operasi host.
 
 Untuk memahaminya kamu dapat melihat diagram struktur virtual machine dan container:
-
-
 
 ```mermaid
 graph TD
@@ -142,8 +109,6 @@ Container Runtime berperan seperti:
 - Mengatur isolasi proses dan sumber daya
 - Tidak perlu virtualisasi hardware seperti Hypervisor
 
-
-
 ## Arsitektur Docker
 
 Docker menggunakan arsitektur client-server. Docker client akan mengirimkan request ke Docker daemon untuk menjalankan request tersebut, Docker daemon dapat berjalan di mesin yang sama atau secara remote tergantung preferensi dari developer.
@@ -164,8 +129,6 @@ Docker Host adalah server tempat perintah Docker yang dihasilkan oleh pengguna b
 
 Registry adalah lokasi penyimpanan images Docker di mana docker daemon dapat mengaksesnya.
 
-
-
 ## Alasan Menggunakan Docker
 
 &gt; Kenapa sih pas development aplikasi pakai docker?
@@ -176,8 +139,6 @@ Docker menawarkan kelebihan dalam melakukan proses pengembangan aplikasi, contoh
 - **Standarisasi Environment Aplikasi**: Dengan menggunakan docker environment untuk menjalankan dapat distandarisasi untuk semua developer, sehingga mengurangi masalah "Di punyaku jalan kok".
 - **Mempermudah distribusi dan deployment**: Aplikasi yang dikemas menggunakan docker dapat dijalankan dimana saja asal ada docker.
 - **Container lebih ringan dibanding virtual machine**: Karena container tidak memerlukan sistem operasi tersendiri untuk setiap instances yang dijalankan, dibanding VM yang memerlukan sistem operasi tersendiri untuk setiap instance.
-
-
 
 ## Instalasi Docker Engine
 
@@ -239,8 +200,6 @@ Untuk melakukan instalasi jalankan command dibawah pada terminal.
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-
-
 &gt; [!NOTE]
 &gt; Jika nantinya diminta persetujuan [Y/n], ketik 'y' lalu enter.
 
@@ -272,8 +231,6 @@ Artinya setelah dimasukkan dan server / instance / virtual machine di-restart, k
 
 &gt; [!NOTE]
 &gt; Kalau kamu ingin segera mencoba docker tanpa sudo, segera restart servermu lalu masuk kembali melalui multipass shell.
-
-
 
 ## Docker Command Introduction
 
@@ -322,19 +279,14 @@ Selanjutnya adalah command `docker run`, command ini bagaikan jantung dari docke
 
 Disini kalian bisa mengatur bagaimana kalian ingin menjalankan container. Untuk option yang sering digunakan itu seperti:
 
-
   
 `-d` : digunakan untuk langsung menjalankan container setelah dibuat, biasanya dipakai kalau kalian langsung memasukan command saat melakukan `docker run`
-
-
 
 ```bash
 docker run -d --name webnginx nginx:latest
 ```
 
 Nah, perintah di atas berarti kita menjalankan container bernama `webnginx` dengan opsi detach maka container tersebut akan langsung berjalan di background.
-
-
 
 `-p` : Digunakan untuk melakukan port forwarding dari host ke container dengan format `host_port:container_port`. Contohnya seperti `-p 8080:80` artinya kita meneruskan port 8080 dari host ke port 80 yang ada di container.
 
@@ -361,8 +313,6 @@ pada command diatas container bernama `mynginx` akan dijalankan dengan image ngi
 Sebenarnya masih banyak banget loh flag atau option yang bisa kalian pakai di command `docker run` ini, kalau kalian mau tahu lebih lanjut kalian bisa cek di [dokumentasi docker](https://docs.docker.com/reference/cli/docker/container/run/) kalau ingin tahu lebih lanjut apa aja option yang bisa kalian pakai.
 
 #### **`COMMAND` dan `ARG...`**
-
-
 
 Bagian `COMMAND` akan berisi perintah yang akan di eksekusikan langsung kedalam container ketika container tersebut dijalankan. Sedangkan `ARG..` adalah argumen untuk `COMMAND` yang akan dimasukan.
 
@@ -638,8 +588,6 @@ Sekarang kalian akan praktek untuk melakukan push image yang sebelumnya sudah ka
    Jika sudah kalian cek repo kalian apakah ada image kalian atau belum, kalau sudah selamat kalian sudah bisa melakukan push kedalam Docker Hub!
 
    ![](/materials/devops/assets/docker_push-success.png)
-
-
 
 ---
 

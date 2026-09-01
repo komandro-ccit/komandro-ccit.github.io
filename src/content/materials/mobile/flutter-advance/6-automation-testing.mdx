@@ -13,15 +13,6 @@ tags: ["flutter", "mobile", "advanced"]
 
 # Automation Testing
 
-- [Automation Testing](#automation-testing)
-  - [Widget Testing](#widget-testing)
-    - [Menambahkan Dependency `flutter_test`](#menambahkan-dependency-flutter_test)
-    - [Contoh Pengujian Widget](#contoh-pengujian-widget)
-  - [Integration Testing](#integration-testing)
-    - [Menambahkan Dependency `integration_test`](#menambahkan-dependency-integration_test)
-    - [Contoh Pengujian Integrasi](#contoh-pengujian-integrasi)
-    - [Menjalankan Pengujian Integrasi](#menjalankan-pengujian-integrasi)
-
 Pengujian atau testing adalah aspek penting dalam pengembangan aplikasi untuk memastikan bahwa kode yang ditulis bekerja sesuai dengan yang diharapkan. Flutter menyediakan berbagai alat dan teknik untuk pengujian aplikasi, termasuk pengujian widget dan pengujian integrasi. Dalam panduan ini, kita akan membahas dua jenis pengujian utama di Flutter:
 
 ## Widget Testing
@@ -38,7 +29,6 @@ dev_dependencies:
     sdk: flutter
 ```
 <img src="/materials/mobile/assets/flutter-test.png" height="800" />
-
 
 lalu tekan `CRTL` + `S` untuk save sekaligus update depedencies yang ada di `pubspec.yaml`.
 
@@ -98,7 +88,6 @@ void main() {
 ```
 <img src="/materials/mobile/assets/widget-test.gif" width="300" />
 
-
 Tes ini memeriksa apakah teks pada tombol berubah dari "Press me" menjadi "You pressed me!" ketika tombol ditekan.
 
 - **testWidgets**: Fungsi ini digunakan untuk mendefinisikan sebuah pengujian widget.
@@ -123,7 +112,6 @@ dev_dependencies:
     sdk: flutter
 ```
 <img src="/materials/mobile/assets/integration-test.png" height="800" />
-
 
 lalu tekan `CRTL` + `S` untuk save sekaligus update depedencies yang ada di `pubspec.yaml`.
 
@@ -181,7 +169,6 @@ class SecondPage extends StatelessWidget {
 ```
 <img src="/materials/mobile/assets/integration-main.gif" />
 
-
 Lalu buat file bernama `app_test.dart` di dalam direktori `integration_test`:
 
 ```dart
@@ -208,7 +195,6 @@ void main() {
 ```
 <img src="/materials/mobile/assets/integration-app-test.gif" />
 
-
 Tes ini memeriksa apakah aplikasi dapat menavigasi dari halaman beranda ke halaman kedua dan menampilkan teks yang benar.
 
 - `IntegrationTestWidgetsFlutterBinding.ensureInitialized()`: Metode ini menginisialisasi binding untuk pengujian integrasi.
@@ -223,7 +209,6 @@ Untuk menjalankan pengujian integrasi, gunakan perintah berikut di terminal:
 flutter test integration_test/app_test.dart
 ```
 <img src="/materials/mobile/assets/integration-run.gif" width="300" />
-
 
 Pengujian di Flutter dapat dilakukan dengan menggunakan `flutter_test` untuk pengujian widget dan `integration_test` untuk pengujian integrasi. Pengujian widget membantu memastikan bahwa widget individual berfungsi dengan benar, sedangkan pengujian integrasi memastikan bahwa seluruh alur kerja aplikasi berjalan sesuai yang diharapkan. Dengan memahami dan menerapkan teknik pengujian ini, Anda dapat meningkatkan kualitas dan stabilitas aplikasi Flutter Anda.
 

@@ -11,37 +11,7 @@ estimatedTime: "40 minutes"
 tags: ["iot", "embedded", "beginner"]
 ---
 
-# 3 - Message Broker
-
-- [3 - Message Broker](#3---message-broker)
-  - [Overview](#overview)
-    - [Benefit](#benefit)
-    - [Cons](#cons)
-  - [Design System](#design-system)
-  - [RabbitMQ](#rabbitmq)
-    - [Binding](#binding)
-    - [Exchange](#exchange)
-  - [Queue](#queue)
-  - [Install RabbitMQ di Python](#install-rabbitmq-di-python)
-  - [Membuat program RabbitMQ dengan Python](#membuat-program-rabbitmq-dengan-python)
-  - [Sending](#sending)
-    - [Menghubungkan file python dengan server RabbitMQ](#menghubungkan-file-python-dengan-server-rabbitmq)
-    - [Deklarasi Exchange](#deklarasi-exchange)
-    - [Deklarasi Queue](#deklarasi-queue)
-    - [Mengirim pesan ke Queue 'email'](#mengirim-pesan-ke-queue-email)
-    - [Mengirim pesan ke Queue 'whatsapp'](#mengirim-pesan-ke-queue-whatsapp)
-    - [Menutup Koneksi](#menutup-koneksi)
-    - [Keseluruhan Kode](#keseluruhan-kode)
-  - [Receive (email.py)](#receive-emailpy)
-    - [Menghubungkan file python dengan server RabbitMQ](#menghubungkan-file-python-dengan-server-rabbitmq-1)
-    - [Deklarasi Exchange dan Queue](#deklarasi-exchange-dan-queue)
-    - [Binding Queue dengan Exchange](#binding-queue-dengan-exchange)
-    - [Membuat Fungsi untuk menerima pesan](#membuat-fungsi-untuk-menerima-pesan)
-    - [Menerima(consume) pesan dari Queue 'email'](#menerimaconsume-pesan-dari-queue-email)
-    - [Proses menerima pesan](#proses-menerima-pesan)
-    - [Hasil Kode](#hasil-kode)
-  - [Receive (whatsapp.py)](#receive-whatsapppy)
-  - [Menjalankan proses RabbitMQ](#menjalankan-proses-rabbitmq)
+# Message Broker
 
 Author: Ali Ikhwan Habibie (@al_ikhwan.h)
 
@@ -88,7 +58,6 @@ Jadi, data-data yang ingin dikirim aplikasi `Order` ketiga aplikasi yang terhubu
 ## RabbitMQ
 <img width="50%" height="auto" src="/materials/iot/assets/3-message-broker/rabbitmq.jpg" />
 
-
 RabbitMQ merupakan salah satu perangkat lunak Message Broker yang open-source untuk komunikasi Messaging. RabbitMQ merupakan perangkat lunak yang sangat ringan sehingga cocok digunakan di semua sistem operasi seperti Windows, Linux, dan MAC.
 
 Sebenarnya perangkat lunak Message Broker itu banyak, tetapi RabbitMQ mempunyai kelebihan yang cocok untuk kita pakai saat ini, diantaranya:
@@ -118,7 +87,6 @@ graph LR
 
 Jika kita analogikan, sistem RabbitMQ ini sama seperti kita mengirimkan barang menggunakan jasa kurir.
 <img width="25%" height="auto" src="/materials/iot/assets/3-message-broker/kirara.jpeg" />
-
 
 Sebagai contoh, kita ingin mengirimkan 2 barang ke tempat yang berbeda. Alamat kita di Jakarta, sedangkan barang pertama ingin dikirimkan ke Bekasi dan barang kedua akan dikirimkan ke Bandung. Maka alurnya akan seperti berikut:
 

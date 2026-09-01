@@ -13,13 +13,6 @@ tags: ["flutter", "mobile", "beginner"]
 
 # Interaksi dan Input
 
-- [Interaksi dan Input](#interaksi-dan-input)
-  - [Form dan Input](#form-dan-input)
-  - [Membuat Form dan Menggunakan TextField](#membuat-form-dan-menggunakan-textfield)
-  - [Gesture Detection](#gesture-detection)
-    - [Menangani Gesture Tap](#menangani-gesture-tap)
-    - [Menangani Gesture Swipe dan Drag](#menangani-gesture-swipe-dan-drag)
-
 Interaksi dan input adalah aspek penting dalam pengembangan aplikasi untuk memungkinkan pengguna berinteraksi dengan aplikasi. Di Flutter, ini dapat dilakukan dengan menggunakan berbagai widget dan deteksi gesture. Berikut adalah penjelasan tentang cara membuat form, menggunakan `TextField`, memvalidasi input pengguna, dan menangani gesture seperti tap, swipe, dan drag.
 
 ## Form dan Input
@@ -99,7 +92,6 @@ class _InputFormScreenState extends State<InputFormScreen> {
 ```
 <img src="/materials/mobile/assets/input-form.png" width="300" />
 
-
 Kita membuat `InputFormScreen` yang memiliki sebuah `Form` dengan `TextFormField`. `TextFormField` memiliki `validator` untuk memvalidasi input dan onSaved untuk menyimpan nilai input. Tombol submit akan memanggil `_submitForm`, yang akan memvalidasi form dan mencetak nama yang dimasukkan.
 
 ## Gesture Detection
@@ -157,7 +149,6 @@ class GestureDetectionScreen extends StatelessWidget {
 ```
 <img src="/materials/mobile/assets/gesture-tap.png" width="300" />
 
-
 Dalam contoh di atas, ketika `Container` di-tap, pesan akan dicetak ke konsol.
 
 ### Menangani Gesture Swipe dan Drag
@@ -213,7 +204,6 @@ class GestureDetectionScreen extends StatelessWidget {
 }
 ```
 <img src="/materials/mobile/assets/gesture-swipe-drag.png" width="300" />
-
 
 - `onHorizontalDragUpdate` digunakan untuk menangani gesture drag horizontal.
 

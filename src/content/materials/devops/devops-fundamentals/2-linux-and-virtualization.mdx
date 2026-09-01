@@ -20,25 +20,6 @@ tags: ["devops", "beginner"]
 Author: snickerdoodles
 # Chapter 1. Linux and Virtualization
 ***
-- [Chapter 1. Linux and Virtualization](#chapter-1-linux-and-virtualization)
-- [Introduction to Linux](#introduction-to-linux)
-- [Virtualization](#virtualization)
-	- [Multipass](#multipass)
-		- [Installing Multipass](#installing-multipass)
-		- [Launching Multipass](#launching-multipass)
-- [Command Line Interface](#command-line-interface)
-	- [Basic Commands](#basic-commands)
-		- [Navigating Linux System](#navigating-linux-system)
-		- [Managing Files \& Folder](#managing-files--folder)
-	- [Linux Manpages](#linux-manpages)
-	- [Command Line Expansions](#command-line-expansions)
-		- [Redirection](#redirection)
-		- [Pattern, Brace \& Tilde Expansions](#pattern-brace--tilde-expansions)
-		- [Pipes \& Command Separator](#pipes--command-separator)
-	- [Multipass Mounting](#multipass-mounting)
-- [VIM](#vim)
-
-
 
 # Introduction to Linux
  
@@ -57,9 +38,6 @@ Tapi kalian tau gak kalo di komputer itu bisa di install komputer lagi?
 Ayo kita kenalan dengan Virtualisasi! 🤖
 
 ![](/materials/devops/material/assets/vm-meme.png)
-
-
-
 
 # Virtualization
 
@@ -102,19 +80,13 @@ Berikut adalah keuntungan utama menggunakan virtualisasi:
 
 Sekarang, karena kalian sudah paham tentang Virtualisasi, ayo kita praktekan dengan mencoba membuat VM ubuntu di Multipass, let's goo!
 
-
-
 ## Multipass
 
 Sekarang kita akan belajar Ubuntu dengan menggunakan Multipass, jadi pada umumnya Multipass ini adalah sebuah software yang khusus digunakan untuk Virtualisasi operating system khusus untuk Ubuntu.
 
-
-
 &gt; Kenapa pake Multipass? Kan ada yang lain kayak Vbox dan kawan-kawan.
 
 Karena kita hanya pakai Ubuntu aja jadi Multipass solusinya, lagipula Multipass itu lebih ringan, cepat, mudah dan fleksibel jadi kita memutuskan untuk memakai Multipass untuk modul kali ini, misalkan ingin menggunakan Hypervisor maka akan lebih ribet karena kita harus download OS nya terlebih dahulu dalam bentuk CD, ISO, ataupun VM yang sudah jadi, langsung aja cara install Multipass dibawah ini.
-
-
 
 ### Installing Multipass
 
@@ -124,8 +96,6 @@ Setelah terdownload buka Multipass installernya lalu klik next aja terus hingga 
 ![](/materials/devops/material/assets/installing-multipass.gif)
 
 Next buka Windows terminal dengan cara pencet logo Windows + R terus ketik (CMD/Powershell).
-
-
 
 ### Launching Multipass
 
@@ -146,12 +116,8 @@ Untuk remote execution command
 multipass exec ubuntu-instance whoami
 ```
 
-
-
 &gt; [!NOTE]
 &gt; Disini saya menggunakan CMD, kalian bebas bisa gunakan Terminal lain.
-
-
 
 Kalian juga bisa melihat command-command lainnya dari Multipass dengan cara dibawah ini.
 
@@ -160,8 +126,6 @@ Kalian juga bisa melihat command-command lainnya dari Multipass dengan cara diba
 Seperti yang kalian lihat untuk mengetahui command-command dimultipass itu buat apa saja tinggal tambahkan `--help` di belakang command
 
 Nah, sekarang multipass kita sudah siap dipakai selanjutnya kita akan belajar tentang command-line let's go to next section!
-
-
 
 # Command Line Interface
 ***
@@ -187,25 +151,17 @@ ipconfig --all
 # -- all = flag, flag juga dianggap sebagai argument
 ```
 
-
-
 &gt; [!NOTE]
 &gt; Buat kalian yang bingung flag itu apa jadi disetiap command itu pasti punya flag, flag itu bakal diketik dengan character `-` atau `--` contohnya seperti `--help` di section Multipass
-
-
 
 Argumen juga tidak terbatas asalkan kalian mengetikan command yang masuk akal serta menyesuaikan dengan flag yang diberikan command tersebut contohnya seperti ini:
 ```bash
 ping -4 192.168.18.1 -s 100 -c 5 -T tsonly > reportping.txt
 ```
 
-
-
 &gt; Waduh kok banyak amat flag nya itu buat apa aja?
 
 Santai dulu kalian gak usah pahamin dulu perintah diatas buat apa nanti kita bahas yah sabar sekarang kita lanjut belajar basic command Linux dulu skuy 😄.
-
-
 
 ## Basic Commands
 
@@ -216,8 +172,6 @@ Untuk mempraktekan command-command yang akan kita pelajari, kita bakalan menggun
 ```bash
 multipass shell ubuntu-instance
 ```
-
-
 
 ### Navigating Linux System
 
@@ -264,18 +218,12 @@ pwd
 
 Gimana? paham nggak? gampang kan, itu adalah perintah basic Linux buat navigasi atau berpindah pindah folder/direktori, kalau di Windows itu tinggal pencet ⬅️ atau ➡️ arrow untuk berpindah pindah tempat direktori kalian. Next kita bakal belajar cara membuat direktori dan file.
 
-
-
 ### Managing Files & Folder
 
 Untuk manage file atau folder pada Linux System bisa menggunakan perintah `mkdir`, `touch`, `file`, `cat`, `grep` dan `nano`, tanpa basa - basi kalian bisa ikuti perintahnya dibawah ini.
 
-
-
 &gt; [!NOTE]
 &gt;  Untuk cara menggunakan `vim` akan dibahas di next section, sekarang kita hanya menggunakan `nano`.
-
-
 
 ```bash
 #Membuat file kosong dengan touch
@@ -347,12 +295,8 @@ drwxrwxr-x 2 ubuntu ubuntu 4096 Aug  2 09:05 testfolder
 
 Kalian bisa abaikan saja yang lain dan fokus hanya pada testfolder, bisa kalian lihat dipaling awal kiri testfolder itu terdapat character `d` di Linux System itu menandakan bahwa itu adalah sebuah directory/folder.
 
-
-
 &gt; [!NOTE]
 &gt;  Just a quick note, buat kalian yang bingung apa tuh rwxrwxrwx ini sebenernya berkaitan dengan Linux File Permission dan ini akan panjang jika dibahas, simplenya gini `r = read`, `w = write`, `x = execute` dan character `-` itu menandakan no permission alias tidak ada izin, also as you can see ada nama ubuntu di testfolder dan testfile yang artinya mereka berdua punya user ubuntu.
-
-
 
 Kalian juga bisa identifikasi folder menggunakan perintah `file` seperti file diatas.
 
@@ -422,8 +366,6 @@ ls
 
 Sampai sini paham? kalau belum paham santai next section kita bakal bahas tentang dokuentasi dari sebuah perintah agar kalian bisa lebih paham tapi kalau kalian sudah paham, selamat kalian adalah calon-calon Linux System Administrator dan satu langkah maju menuju seorang DevOps, hore! 🥳
 
-
-
 ## Linux Manpages
 
 Kalau kalian merasa kurang mengerti gunanya berbagai flag dalam sebuah command walaupun sudah pakai trick `--help` kalian jangan bingung, Linux sendiri punya official documentation untuk masing masing command yang kalian ingin ketahui, jadi section kali ini gak akan panjang-panjang karena yang akan dibahas sangat simple yaitu gimana caranya membaca dokumentasi dari sebuah command di Linux System, langsung aja dibawah ini.
@@ -456,12 +398,8 @@ Table lengkap cara navigasi man interface:
 | `Shift+G`   | Pergi ke end manpage                    |
 | `Q`         | Keluar dari manpage interface           |
 
-
-
 &gt; [!NOTE]
 &gt; Ada alternative man command yaitu `info` command, bedanya `info` itu lebih complete dan lengkapp hingga penjelasan dan contoh dari setiap flag intinya seperti full documentation dari sebuah command, tapi `info` command sudah tidak dimaintain lagi dikarenakan sudah tidak terlalu relevan dan digantikan dengan `man` command.
-
-
 
 ## Command Line Expansions
 
@@ -469,18 +407,12 @@ Command line expansions yaitu fitur shell bawaan dari Linux System yang memungki
 
 Bingung kan? gapapa kita langsung masuk ke contoh disection berikutnya.
 
-
-
 ### Redirection
 
 Kalian sadar gak disection atas yang membahas CLI dan Argument disalah satu contoh command nya ada yang menggunakan character `&gt;`, ternyata itu ada guna nya lohh, seperti judul section yaitu redirection kegunaan character seperti `&gt;` (output redirection), `&lt;` (input redirection) dan terakhir`&` (both redirection), adalah fitur Linux yang keren buat mempermudah seorang Sysadmin, sebelum mulai ke contoh kalian harus paham dulu konsep standard input (stdin), standard output (stdout) dan standard error (stderr) di Linux System.
 
-
-
 &gt; [!NOTE]
 &gt; Sedikit perkenalan sama yang namanya file descriptor, intinya begini `0` itu melambangkan stdin, `1` stdout, dan `2` stderr, gak usah bingung cukup tau ini aja.
-
-
 
 ![](/materials/devops/material/assets/stdin-stdout-stderr.png)
 
@@ -529,12 +461,8 @@ echo -n " Nice to meet you!" >> hello-world.txt
 # My name is John Doe! Nice to meet you!
 ```
 
-
-
 &gt; [!NOTE]
 &gt; Ada alternative `echo` command yaitu `printf`
-
-
 
 ```bash
 # Redirect error message ke file
@@ -569,8 +497,6 @@ Contoh input redirection itu tidak banyak utility dalam command biasa:
 
 Bisa dilihat tanpa menggunakan `&lt;` hasilnya masih tetap sama.
 
-
-
 ### Pattern, Brace & Tilde Expansions
 
 **Pattern Matching**
@@ -587,9 +513,7 @@ Table Wildcards:
 |   `?`   | Hanya single character.                |
 |  `!()`  | Tidak termasuk didalam bracket         |
 
-
 Petama kita buat dulu beberapa random files untuk dijadikan contoh output ketika menggunakan Pattern Matching, biar gak ribet copas aja codenya dibawah ini kemudian paste di Terminal dengan klik kanan.
-
 
 ```bash
 touch file1.txt file2.txt file0.txt report.txt revshell.php notes.txt data.xlsx suratcintauntuknya.eml
@@ -621,7 +545,6 @@ ls f?le?.txt # length characternya harus sama kalau mau pake ?
 ls !(*.txt)
 # result: data.xlsx  revshell.php  suratcintauntuknya.eml
 ```
-
 
 **Brace Expansions**
 
@@ -658,7 +581,6 @@ touch file{a{1..2},b,c}.txt
 # result: filea1.txt filea2.txt fileb.txt filec.txt
 ```
 
-
 **Tilde Expansions**
 
 Karakter tilde `~`, matching sama direktori home user saat ini.
@@ -668,8 +590,6 @@ Lihat gambar dibawah ini:
 ![](/materials/devops/material/assets/tilde-expansion.gif)
 
 Seperti yang kalian lihat character `~` melambangkan home directory dari user ubuntu.
-
-
 
 ### Pipes & Command Separator
 
@@ -694,12 +614,8 @@ ls
 # result: tmp/
 ```
 
-
-
 &gt; [!NOTE]
 &gt;  Double pipes `||` sebenernya di Linux itu adalah OR logical operator 
-
-
 
 **Command Separator**
 
@@ -708,8 +624,6 @@ ls
 mkdir /tmp/notes/ ; touch notes.txt ; mv notes.txt /tmp/notes ; ls /tmp/notes/
 # result: notes.txt
 ```
-
-
 
 &gt; Bedanya sama pipes apa?
 
@@ -733,13 +647,9 @@ line3
 
 Gimana? sampai sini sudah paham dan terbiasa tentang CLI & Command Linux gak? kalo sudah horee! kalian resmi gabung menjadi Linux nerds 🤓 dan sekali lagi maju satu langkah menjadi seorang DevOps, Mungkin untuk cara penggunaan command-command di Linux sampai sini aja karena kita selanjutnya akan membahas bagaimana cara mounting di Multipass.
 
-
-
 &gt; Apa tuh mounting?
 
 Santai di next section bakal dijelaskan dan kegunaannya juga buat apa, tanpa basa-basi let's goo!
-
-
 
 ## Multipass Mounting
 
@@ -764,8 +674,6 @@ multipass set local.privileged-mounts=true
 &gt; [!WARNING]
 &gt; Command `multipass set local.privileged-mounts=true` rentan terhadap teknik priviledge escalation, dalam sebuah company pakai mounting jika kalian butuh saja dan jika sudah selesai disable mounting kalian.
 
-
-
 5. Next, jalankan perintah dibawah ini untuk mount folder share kalian ke instance kalian (sesuaikan path folder kalian).
 
 ```cmd
@@ -788,8 +696,6 @@ multipass set local.privileged-mounts=false
 ```
 
 Selamat kalian sudah sejauh ini belajar dan sekali lagi maju satu langkah untuk menjadi seorang DevOps 🥳, saya harap kalian semangatnya nya masih membakar dan ingin terus berkembang lagi karena di section selanjutnya kalian akan belajar cara ngoding dengan menggunakan bash scripting language di vim, LET'S GOO!!
-
-
 
 Author: mawlibrahim
 
@@ -818,8 +724,6 @@ Dalam Vim, kita bisa menggunakan beberapa mode, antara lain:
 2. Insert: mode untuk memasukkan teks. Tekan "i" untuk masuk ke mode ini.
 3. Visual: mode untuk memilih teks. Tekan "v" untuk masuk ke mode ini.
 4. Command: mode untuk memberikan perintah pada Vim, seperti untuk menyimpan atau keluar dari file. Tekan ":" di mode normal untuk masuk ke mode ini.
-
-
 
 # Bash Script
 Sebelumnya kita sudah belajar mengenai bash command, seperti ls, cd, cp, dll. 
@@ -940,7 +844,6 @@ Untuk lebih jelasnya, comparison operator di Bash antara lain:
 | &gt;               | -gt              | greater than (lebih besar dari)                              |
 | &gt;=              | -ge              | greater than or equal to (lebih besar dari atau sama dengan) |
 
-
 **Switch**
 Selain if, ada lagi conditional statement yang lain, yaitu switch. 
 
@@ -975,7 +878,6 @@ Setelahnya, apa yang terjadi? Tidak sama dengan if statement yang langsung ke ba
 Dia bertanya lagi, apakah i lebih kecil atau sama dengan 5? Jawabannya masih True, karena i saat ini nilainya adalah 2. 
 
 Command tersebut akan terus dijalankan sampai nilai i lebih besar dari 5.
-
 
 **For loop**
 ```
@@ -1045,5 +947,4 @@ sapa "$1"
 
 ```
 Seperti yang terlihat di atas, untuk menjalankan blok kode dalam function, kita cukup memanggilnya dengan menuliskan `sapa "$1"`. Dan function tersebut pun bisa kita panggil berkali-kali, jadi tidak perlu bersusah payah menulis kembali baris-baris kode yang ada di dalam function tersebut.
-
 
