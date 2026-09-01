@@ -4,29 +4,14 @@ description: "Database dan Penyimpanan - Flutter advanced material"
 category: "Mobile Development"
 difficulty: "Advanced"
 pubDate: 2025-09-01
-author: "| Author                                        | Editor |"
+author: "Komandro Team"
 curriculumSlug: "flutter-advance"
-order: 3
+order: 7
 estimatedTime: "45 minutes"
 tags: ["flutter", "mobile", "advanced"]
 ---
 
 # Database dan Penyimpanan
-
-- [Database dan Penyimpanan](#database-dan-penyimpanan)
-  - [Pengertian Database](#pengertian-database)
-  - [Perbedaan Database Lokal dengan Database Remote](#perbedaan-database-lokal-dengan-database-remote)
-    - [Database Lokal](#database-lokal)
-    - [Database Remote](#database-remote)
-  - [CRUD](#crud)
-  - [Supabase](#supabase)
-    - [Setup Database dan Tabel di Supabase](#setup-database-dan-tabel-di-supabase)
-    - [Buat Tabel di Supabase](#buat-tabel-di-supabase)
-    - [Menambahkan Dependensi Supabase](#menambahkan-dependensi-supabase)
-    - [CRUD dengan Supabase](#crud-dengan-supabase)
-  - [Hive](#hive)
-    - [Menambahkan Dependensi Hive](#menambahkan-dependensi-hive)
-    - [CRUD dengan Hive](#crud-dengan-hive)
 
 ## Pengertian Database
 
@@ -62,30 +47,24 @@ Sebelum menggunakan kode CRUD dengan Supabase, Anda perlu melakukan setup databa
 Buka halaman supabase.io dan klik tombol "Login" di bagian kanan atas.
 <img src="/materials/mobile/assets/supabase-sign-in.png" />
 
-
 Masukkan alamat email dan kata sandi Anda untuk login atau buat akun baru jika belum memiliki akun.
 <img src="/materials/mobile/assets/supabase-create-acc.png" />
-
 
 Setelah login, Anda akan diarahkan ke dashboard Supabase Anda.
 
 Klik tombol "New Project" untuk membuat proyek baru.
 <img src="/materials/mobile/assets/supabase-dashboard.png" />
 
-
 Beri nama proyek Anda dan pilih lokasi wilayah server yang tersedia.
 <img src="/materials/mobile/assets/supabase-create-project.png" />
 
-
 Setelah proyek dibuat, Anda akan diberikan URL proyek dan kunci akses publik. Simpan informasi ini dengan aman karena akan digunakan dalam kode Anda.
 <img src="/materials/mobile/assets/supabase-key.png" />
-
 
 ### Buat Tabel di Supabase
 
 Di dashboard Supabase, pilih proyek yang telah Anda buat.Pilih "SQL Editor" dari menu di sebelah kiri.
 <img src="/materials/mobile/assets/supabase-create-table.png" />
-
 
 Di SQL Editor, jalankan perintah SQL untuk membuat tabel.
 
@@ -97,7 +76,6 @@ CREATE TABLE table_name (
 );
 ```
 <img src="/materials/mobile/assets/supabase-sql-execute.png" />
-
 
 Pastikan untuk mengganti `table_name`, `column1`, dan `column2` sesuai dengan kebutuhan aplikasi Anda.
 
@@ -112,7 +90,6 @@ dependencies:
   supabase_flutter: ^2.5.3
 ```
 <img src="/materials/mobile/assets/supabase-depedencies.png" />
-
 
 lalu tekan `CRTL` + `S` untuk save sekaligus update depedencies yang ada di `pubspec.yaml`.
 
@@ -189,7 +166,6 @@ dependencies:
   hive_flutter: ^1.0.0
 ```
 <img src="/materials/mobile/assets/hive-yaml.png" />
-
 
 lalu tekan `CRTL + S` untuk save sekaligus update depedencies yang ada di `pubspec.yaml`.
 

@@ -1,5 +1,5 @@
 ---
-title: "- Build and Deployment"
+title: "Build and Deployment"
 description: "- Build and Deployment - DevOps fundamentals"
 category: "DevOps"
 difficulty: "Beginner"
@@ -14,19 +14,6 @@ tags: ["devops", "beginner"]
 # 3 - Build and Deployment
 
 Author: Hudya Ramadhana & Kheyral
-
-- [3 - Build and Deployment](#3---build-and-deployment)
-  - [Overview](#overview)
-    - [Build](#build)
-    - [Deployment](#deployment)
-  - [Build and Deployment Process](#build-and-deployment-process)
-  - [Automate Build \& Deploy Processes](#automate-build--deploy-processes)
-    - [Automating Build Process](#automating-build-process)
-    - [Automating Deploy Process](#automating-deploy-process)
-    - [Deploying Another Project](#deploying-another-project)
-  - [Summary](#summary)
-
-
 
 ## Overview
 
@@ -52,8 +39,6 @@ graph LR
     C --> D[Mengemas Hasil Build dengan format tar.gz]
     D --> E[Menyimpan/memindahkan Hasil Build ke Folder Artifact]
 ```
-
-
 
 Proses build sangat bergantung pada perintah proyek tersebut, sebagai contoh apabila kita ingin membangun proyek javascript kita dapat masukkan perintah `npm run build`. Sebagai seorang DevOps, kita perlu bertanya kepada developer bagaimana cara melakukan build terhadap proyek yang dikerjakannya. Kita juga dapat membaca dokumentasi terkait framework atau tools yang digunakan oleh tim developer.
 
@@ -86,8 +71,6 @@ graph LR
     C --> D[Ekstrak file tar.gz]
     D --> E[Memindahkan ke path yang sesuai pada server tersebut]
 ```
-
-
 
 ## Build and Deployment Process
 
@@ -142,20 +125,14 @@ Setelah dijalankan akses browser kamu menggunakan ip multipass kamu dan kamu aka
 
 ![alt text](/materials/devops/assets/3-build-and-deploy/1.png)
 
-
-
 ## Automate Build & Deploy Processes
 
 Karena kalian sudah paham bagaimana proses dari Build & Deployment, Sekarang kita akan membuat script untuk melakukan automasi dalam proses Build & Deployment, proses ini penting untuk diautomatisasi agar proses lebih cepat dan efisien dalam masa development.
 
 Bayangkan jika kalian bekerja dalam satu tim dan masing-masing developer meng-update kodenya dan ngepush kodenya ke repositori dan kalian yang bertanggung jawab atas proses Build & Deployment itu akan sangat merepotkan kalian, masa kita harus standby setiap saat hanya untuk update proses Build & Deploymentnya? repot kan maka dari itu masalah ini kita bisa membuat solusinya dengan cara automatisasi.
 
-
-
 &gt; [!WARNING]
 &gt; Disarankan mengikuti command dibawah untuk membuat struktur foldernya dan tidak membuat struktur folder sendiri agar scriptnya tidak error.
-
-
 
 Langsung saja langkah-langkah untuk automatisasi dibawah ini.
 
@@ -376,12 +353,8 @@ Jika tidak install terlebih dahulu.
 sudo apt install python3 -y
 ```
 
-
-
 &gt; [!NOTE]
 &gt; Perlu diketahui, seharusnya proses deployment ini menggunakan web server seperti `nginx`, tapi karena kita belum ke materinya kita gunakan modul `http.server` dari `python` saja agar lebih simple.
-
-
 
 Selanjutnya kembali ke folder `projects`, buat file baru bernama `automate-deploy.sh` lalu masukkan kode di bawah:
 
@@ -555,13 +528,9 @@ Terakhir, deploy artifact dan akses project yang sudah dideploy di browser.
 
 ![](/materials/devops/material/assets/3-build-and-deploy/3.png)
 
-
-
 &gt; Kenapa file `vite.config.js` harus diganti terlebih dahulu?
 
 Apabila kalian lihat pada script `automate-deploy.sh`, ada line code dimana tempat modul python `http.server` nya di deploy, yaitu di direktori `out`, dan kalau kalian lihat lagi di settingan `vite.config.js` ada line code yang menambahkan output direktori dari proses deploymentnya yaitu `outDir: 'out'`, ini bisa dijadikan salah satu contoh kesepakatan/konsensus bersama, yaitu setiap project yang dibuat harus memisahkan hasil build nya kedalam folder tersendiri agar terpisah dari product development dan product yang sudah jadi.
-
-
 
 ## Summary
 

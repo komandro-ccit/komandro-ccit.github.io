@@ -4,26 +4,14 @@ description: "Networking - Flutter advanced material"
 category: "Mobile Development"
 difficulty: "Advanced"
 pubDate: 2025-09-01
-author: "| Author                                        | Editor |"
+author: "Komandro Team"
 curriculumSlug: "flutter-advance"
-order: 2
+order: 4
 estimatedTime: "45 minutes"
 tags: ["flutter", "mobile", "advanced"]
 ---
 
 # Networking
-
-- [Networking](#networking)
-  - [HTTP](#http)
-    - [Apa itu http?](#apa-itu-http)
-  - [Request dan Response](#request-dan-response)
-    - [Request](#request)
-    - [Response](#response)
-    - [Menggunakan package HTTP](#menggunakan-package-http)
-    - [Membuat Permintaan HTTP](#membuat-permintaan-http)
-  - [JSON Parsing](#json-parsing)
-    - [Mengapa Menggunakan Map untuk Menyimpan Data JSON di Flutter?](#mengapa-menggunakan-map-untuk-menyimpan-data-json-di-flutter)
-    - [Mengonversi JSON menjadi Objek Dart](#mengonversi-json-menjadi-objek-dart)
 
 Dalam pengembangan aplikasi, sering kali kita perlu berkomunikasi dengan server atau API eksternal untuk mendapatkan atau mengirim data. Di Flutter, kita bisa menggunakan paket `http` untuk membuat permintaan HTTP dan mengonversi data JSON menjadi objek Dart.
 
@@ -44,7 +32,6 @@ Permintaan (request) adalah pesan yang dikirim oleh klien (aplikasi Flutter) ke 
 Respon (response) adalah pesan yang dikirim oleh server sebagai tanggapan atas permintaan yang diterima. Respon ini berisi informasi seperti status kode (200 OK, 404 Not Found, dll.), header, body, dan data yang diminta.
 <img src="/materials/mobile/assets/http.png" />
 
-
 Gambar di atas adalah visualisasi sederhana dari proses HTTP request dan response. Ketika aplikasi Flutter membuat permintaan (request) ke server, server akan memproses permintaan tersebut dan mengirimkan respons (response) kembali ke aplikasi. Respons ini kemudian dapat digunakan oleh aplikasi untuk menampilkan data atau melakukan tindakan tertentu.
 
 ### Menggunakan package HTTP
@@ -58,7 +45,6 @@ dependencies:
   http: ^0.13.3
 ```
 <img src="/materials/mobile/assets/http-package.png" />
-
 
 setelah itu tekan `CTRL` + `S` untuk save sekaligus mengunduh depedensi.
 
@@ -128,7 +114,6 @@ class _HttpExampleState extends State<HttpExample> {
 }
 ```
 <img src="/materials/mobile/assets/http-example.png" width="300" />
-
 
 Kita menggunakan`http.get` untuk membuat permintaan `GET` ke `https://jsonplaceholder.typicode.com/posts/1.`
 
@@ -238,7 +223,6 @@ class _JsonParsingExampleState extends State<JsonParsingExample> {
 }
 ```
 <img src="/materials/mobile/assets/json-parsing.png" width="300" />
-
 
 Membuat kelas `Post` yang merepresentasikan data JSON. Membuat metode`Post.fromJson`untuk mengonversi data JSON menjadi objek `Post`. Menggunakan `FutureBuilder` untuk menunggu hasil dari `fetchPost` dan menampilkan data di UI setelah data berhasil diambil dan diparsing.
 

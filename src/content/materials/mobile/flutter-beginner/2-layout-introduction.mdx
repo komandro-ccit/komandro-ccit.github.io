@@ -4,29 +4,14 @@ description: "Layout Dasar - Flutter beginner material"
 category: "Mobile Development"
 difficulty: "Beginner"
 pubDate: 2025-09-01
-author: "| Author                                        | Editor |"
+author: "Komandro Team"
 curriculumSlug: "flutter-beginner"
-order: 2
+order: 4
 estimatedTime: "40 minutes"
 tags: ["flutter", "mobile", "beginner"]
 ---
 
 # Layout Dasar
-
-- [Layout Dasar](#layout-dasar)
-  - [Padding](#padding)
-  - [Align](#align)
-  - [Center](#center)
-  - [Expanded](#expanded)
-  - [SizedBox](#sizedbox)
-  - [Flexible dan Expanded](#flexible-dan-expanded)
-    - [Flexible](#flexible)
-    - [Expanded](#expanded-1)
-- [ListView dan GridView](#listview-dan-gridview)
-    - [ListView](#listview)
-    - [ListView.builder](#listviewbuilder)
-    - [GridView](#gridview)
-    - [PageView](#pageview)
 
 Flutter menyediakan berbagai widget layout yang memungkinkan Anda untuk mengatur tampilan dan posisi elemen-elemen dalam aplikasi. Beberapa widget dasar yang sering digunakan adalah Padding, Align, Center, Expanded, SizedBox, ListView.builder, dan PageView. Berikut adalah penjelasan dan contoh penggunaan masing-masing widget.
 
@@ -56,7 +41,6 @@ class MyApp extends StatelessWidget {
 ```
 <img src="/materials/mobile/assets/padding-widget.png" width="300" />
 
-
 Dalam contoh ini, `Padding` memberikan jarak 16 piksel di semua sisi dari teks `"This is a padded text."`.
 
 ## Align
@@ -85,7 +69,6 @@ class MyApp extends StatelessWidget {
 ```
 <img src="/materials/mobile/assets/align-widget.png" width="300" />
 
-
 Di sini, `Align` mengatur teks agar berada di sudut kanan bawah dari area yang tersedia.
 
 ## Center
@@ -112,7 +95,6 @@ class MyApp extends StatelessWidget {
 }
 ```
 <img src="/materials/mobile/assets/center-widget.png" width="300" />
-
 
 Dengan menggunakan `Center`, teks "Centered text" akan ditempatkan tepat di tengah layar.
 
@@ -191,7 +173,6 @@ class MyApp extends StatelessWidget {
 ```
 <img src="/materials/mobile/assets/sizedBox-widget.png" width="300" />
 
-
 Di sini, `SizedBox` memberikan jarak tetap setinggi 50 piksel pada widget pertama dan jarak kosong setinggi 20 piksel sebagai pemisah.
 
 ## Flexible dan Expanded
@@ -236,7 +217,6 @@ Widget build(BuildContext context) {
 ```
 <img src="/materials/mobile/assets/flexible-widget.png" width="300" />
 
-
 Pada contoh ini, `Flexible` dengan `flex` 1 akan mengambil setengah ruang dari `Flexible` dengan `flex` 2, membuat perbandingan ruang antara keduanya menjadi 1:2.
 
 ### Expanded
@@ -274,7 +254,6 @@ Widget build(BuildContext context) {
 }
 ```
 <img src="/materials/mobile/assets/expanded-widget.png" width="300" />
-
 
 Pada contoh ini, widget `Expanded` akan mengambil semua ruang yang tersedia di dalam `Row`, sementara widget `Container` biru hanya akan mengambil ruang yang dibutuhkannya.
 
@@ -318,7 +297,6 @@ Widget build(BuildContext context) {
 ```
 <img src="/materials/mobile/assets/listView-widget.png" width="300" />
 
-
 Dalam contoh ini, `ListView` berisi tiga item `ListTile` yang masing-masing memiliki ikon dan teks.
 
 ### ListView.builder
@@ -351,7 +329,6 @@ Widget build(BuildContext context) {
 }
 ```
 <img src="/materials/mobile/assets/listViewBuilder-widget.png" width="300" />
-
 
 Dalam contoh ini, `ListView.builder` membuat daftar dengan 20 item, masing-masing menampilkan ikon bintang dan teks "Item `{index}`".
 
@@ -387,7 +364,6 @@ Widget build(BuildContext context) {
 }
 ```
     <img src="/materials/mobile/assets/gridView-widget.png" width="300" />
-
 
 Dalam contoh ini, `GridView.count` digunakan untuk membuat grid dengan dua kolom (`crossAxisCount: 2`). `List.generate` digunakan untuk membuat empat item dalam grid, masing-masing item ditampilkan di tengah kotak dengan teks "Item 0", "Item 1", dan seterusnya.
 

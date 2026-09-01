@@ -4,18 +4,14 @@ description: "State Management Dasar - Flutter beginner material"
 category: "Mobile Development"
 difficulty: "Beginner"
 pubDate: 2025-09-01
-author: "| Author                                        | Editor |"
+author: "Komandro Team"
 curriculumSlug: "flutter-beginner"
-order: 4
+order: 10
 estimatedTime: "40 minutes"
 tags: ["flutter", "mobile", "beginner"]
 ---
 
 # State Management Dasar
-
-- [State Management Dasar](#state-management-dasar)
-  - [setState](#setstate)
-  - [InheritedWidget](#inheritedwidget)
 
 State management adalah salah satu aspek paling penting dalam pengembangan aplikasi Flutter. Ada beberapa teknik untuk mengelola state di Flutter, mulai dari yang paling dasar seperti `setState`, hingga yang lebih kompleks seperti menggunakan `InheritedWidget` atau berbagai state management library. Di bagian ini, kita akan membahas cara mengelola state lokal dengan `setState` dan memahami cara kerja `InheritedWidget` yang sebelumnya sudah kita bahas pada materi widget dasar untuk berbagi state.
 
@@ -81,7 +77,6 @@ class _CounterScreenState extends State<CounterScreen> {
 }
 ```
 <img src="/materials/mobile/assets/set-state.gif" width="300" />
-
 
 Dalam contoh di atas, ketika tombol `FloatingActionButton` ditekan, metode `_incrementCounter` dipanggil, yang kemudian memanggil setState untuk memperbarui nilai `_counter` dan memicu pembaruan UI.
 
@@ -176,7 +171,6 @@ class CounterScreen extends StatelessWidget {
 }
 ```
 <img src="/materials/mobile/assets/inherited-widget.gif" width="300" />
-
 
 Dalam contoh di atas, `CounterProvider` adalah `InheritedWidget` yang menyediakan nilai counter dan metode `incrementCounter` kepada widget dalam sub-tree-nya. `CounterScreen` mengakses nilai counter dan metode incrementCounter menggunakan `CounterProvider.of(context)`. Pembaruan state dilakukan di `CounterManager`, dan `CounterProvider` memperbarui widget di sub-tree-nya ketika nilai counter berubah.
 
