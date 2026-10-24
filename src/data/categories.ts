@@ -1,5 +1,15 @@
 export type AccentName = 'violet' | 'pink' | 'mint' | 'amber' | 'sky' | 'lime' | 'orange' | 'magenta';
 
+/** Class Tailwind yang HARUS statis (tidak bisa di-template) */
+export const ACCENT_BG: Record<AccentName, string> = {
+  violet: 'bg-violet', pink: 'bg-pink', mint: 'bg-mint', amber: 'bg-amber',
+  sky: 'bg-sky', lime: 'bg-lime', orange: 'bg-orange', magenta: 'bg-magenta'
+};
+export const ACCENT_TEXT: Record<AccentName, string> = {
+  violet: 'text-violet', pink: 'text-pink', mint: 'text-mint', amber: 'text-amber',
+  sky: 'text-sky', lime: 'text-lime', orange: 'text-orange', magenta: 'text-magenta'
+};
+
 export interface CategoryInfo {
   slug: string;
   label: string;

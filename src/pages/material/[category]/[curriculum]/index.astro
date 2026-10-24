@@ -4,7 +4,7 @@ import Layout from '../../../../layouts/Layout.astro';
 import SeriesStepper from '../../../../components/material/SeriesStepper.astro';
 import Pill from '../../../../components/ui/Pill.astro';
 import { link } from '../../../../utils/link';
-import { categoryOf, DIFFICULTY_TONE, DIFFICULTY_LABEL, type AccentName } from '../../../../data/categories';
+import { categoryOf, DIFFICULTY_TONE, DIFFICULTY_LABEL, ACCENT_BG } from '../../../../data/categories';
 
 export async function getStaticPaths() {
   const materials = await getCollection('materials');
@@ -94,7 +94,7 @@ const activeModuleIndex = 0;
     <section class="px-margin-mobile md:px-margin-desktop -mt-5 relative z-20 max-w-container-max mx-auto pb-8">
       <div class="max-w-4xl mx-auto">
         <div class="bg-white rounded-lg overflow-hidden shadow-card-md relative">
-          <div class:list={['h-1.5', `bg-${accent}`]} aria-hidden="true"></div>
+          <div class:list={['h-1.5', ACCENT_BG[accent]]} aria-hidden="true"></div>
 
           <div class="p-7 md:p-9">
             <div class="flex flex-wrap items-center gap-2.5 mb-5">

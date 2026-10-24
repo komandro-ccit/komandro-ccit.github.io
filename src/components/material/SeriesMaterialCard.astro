@@ -1,6 +1,6 @@
 ---
 import { link } from '../../utils/link';
-import { DIFFICULTY_TONE, DIFFICULTY_LABEL } from '../../data/categories';
+import { DIFFICULTY_TONE, DIFFICULTY_LABEL, ACCENT_TEXT, type AccentName } from '../../data/categories';
 import Pill from '../ui/Pill.astro';
 
 interface Props {
@@ -36,7 +36,7 @@ const { href, title, description, moduleCount, modules, difficulty, accent = 'vi
     <ul class="text-body-sm text-ink-2 space-y-1.5 mb-3">
       {modules.slice(0, 3).map((mod) => (
         <li class="flex items-start gap-2">
-          <i class:list={['bx bx-check-circle mt-0.5 text-[16px]', `text-${accent}`]} aria-hidden="true"></i>
+          <i class:list={['bx bx-check-circle mt-0.5 text-[16px]', ACCENT_TEXT[accent as AccentName]]} aria-hidden="true"></i>
           <span>{mod}</span>
         </li>
       ))}
