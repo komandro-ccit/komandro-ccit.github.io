@@ -1,5 +1,4 @@
 ---
-import MaterialIcon from './MaterialIcon.astro';
 import ImageLightbox from '../ImageLightbox.astro';
 import { link } from '../../utils/link';
 
@@ -22,11 +21,11 @@ interface Props {
   tags?: string[];
 }
 
-const { 
-  title, 
-  description, 
-  backUrl, 
-  backLabel, 
+const {
+  title,
+  description,
+  backUrl,
+  backLabel,
   type = 'LESSON',
   author,
   pubDate,
@@ -35,57 +34,66 @@ const {
   prerequisites,
   tags
 } = Astro.props;
+
+const tagTones = [
+  'bg-violet-soft text-violet-deep',
+  'bg-mint-soft text-mint-deep',
+  'bg-amber-soft text-amber-deep',
+  'bg-sky-soft text-sky-deep',
+  'bg-pink-soft text-pink-deep'
+];
 ---
 
-<main class="min-h-screen bg-surface-light pt-24">
+<main class="min-h-screen bg-canvas pt-[100px]">
   {/* Content Grid */}
-  <div class="max-w-container-max mx-auto px-4 md:px-gutter pb-lg pt-lg grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+  <div class="max-w-container-max mx-auto px-4 md:px-6 pb-16 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
     {/* Main Content */}
-    <main class="lg:col-span-9 md:bg-surface-container-lowest md:border md:border-outline-variant md:rounded p-4 md:p-xl">
+    <main class="lg:col-span-9 bg-white rounded-lg shadow-card p-5 md:p-10">
       {/* Header */}
       <div class="mb-lg border-b border-outline-variant pb-md">
-        <div class="flex justify-between items-center mb-lg">
-          <a href={link(backUrl)} class="inline-flex items-center gap-2 text-primary hover:underline font-label-md text-label-md">
-            <MaterialIcon name="bx-arrow-back" class="text-[20px]" />
+        <div class="flex justify-between items-center mb-8">
+          <a href={link(backUrl)} class="inline-flex items-center gap-2 bg-canvas text-ink-2 hover:text-violet px-4 h-10 rounded-full text-[13.5px] font-bold transition-colors">
+            <i class="bx bx-arrow-back text-[17px]" aria-hidden="true"></i>
             {backLabel}
           </a>
-          
-          <span class="inline-block bg-surface-variant text-secondary px-3 py-1 rounded-sm font-label-md text-label-md uppercase tracking-widest">
+
+          <span class="inline-flex px-3.5 h-8 items-center rounded-full bg-violet-soft text-violet-deep text-[12px] font-bold uppercase tracking-widest">
             {type.toUpperCase()}
           </span>
         </div>
-        
-        <h1 class="font-headline-xl text-headline-xl text-on-surface mb-sm">{title}</h1>
-        
-        <div class="flex flex-wrap items-center gap-md text-on-surface-variant font-body-md text-body-md">
-          <div class="flex items-center gap-2">
-            <MaterialIcon name="bx-user" class="text-[20px]" />
+
+        <h1 class="font-display text-display-md md:text-display-lg text-ink mb-5">{title}</h1>
+
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2.5 text-[13.5px] font-semibold text-ink-2">
+          <span class="inline-flex items-center gap-2">
+            <i class="bx bx-user text-ink-3 text-[16px]" aria-hidden="true"></i>
             {author}
-          </div>
-          <div class="flex items-center gap-2">
-            <MaterialIcon name="bx-calendar" class="text-[20px]" />
-            {new Date(pubDate).toLocaleDateString('id-ID', { 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
+          </span>
+          <span class="w-1 h-1 rounded-full bg-ink-3" aria-hidden="true"></span>
+          <span class="inline-flex items-center gap-2">
+            <i class="bx bx-calendar text-ink-3 text-[16px]" aria-hidden="true"></i>
+            {new Date(pubDate).toLocaleDateString('id-ID', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
             })}
-          </div>
+          </span>
           {estimatedTime && (
-            <div class="flex items-center gap-2">
-              <MaterialIcon name="bx-time" class="text-[20px]" />
+            <span class="inline-flex items-center gap-2">
+              <i class="bx bx-time text-ink-3 text-[16px]" aria-hidden="true"></i>
               {estimatedTime}
-            </div>
+            </span>
           )}
         </div>
       </div>
       
       {prerequisites && prerequisites.length > 0 && (
-        <div class="mb-8 p-6 bg-surface-container border border-outline-variant rounded">
-          <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-3">Prerequisites</h3>
+        <div class="mb-8 p-6 bg-mint-soft rounded-md">
+          <h3 class="text-label uppercase tracking-widest text-mint-deep mb-3">Prasyarat</h3>
           <ul class="space-y-2">
             {prerequisites.map((prereq) => (
-              <li class="flex items-center gap-2 text-on-surface-variant">
-                <MaterialIcon name="bx-check" class="text-primary text-[16px]" />
+              <li class="flex items-center gap-2 text-body-sm text-ink-2">
+                <i class="bx bx-check text-mint-deep text-[16px]" aria-hidden="true"></i>
                 {prereq}
               </li>
             ))}
@@ -94,37 +102,38 @@ const {
       )}
       
       {/* Article Body */}
-      <article class="prose prose-lg max-w-none text-body-lg font-body-lg text-on-surface space-y-6
-        prose-headings:text-on-surface 
-        prose-headings:font-bold
-        prose-h1:text-3xl prose-h1:mb-6 prose-h1:mt-8
-        prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-8 prose-h2:scroll-mt-24
-        prose-h3:text-xl prose-h3:mb-3 prose-h3:mt-6 prose-h3:scroll-mt-24
-        prose-h4:text-lg prose-h4:mb-2 prose-h4:mt-4
-        prose-p:text-on-surface-variant prose-p:mb-4 prose-p:text-justify
-        prose-a:text-primary-m3 prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-on-surface prose-strong:font-semibold
+      <article class="prose prose-lg max-w-none text-body-lg text-ink space-y-6
+        prose-headings:text-ink
+        prose-headings:font-display
+        prose-headings:font-semibold
+        prose-h1:text-[30px] prose-h1:mb-6 prose-h1:mt-8 prose-h1:tracking-tight
+        prose-h2:text-[24px] prose-h2:mb-4 prose-h2:mt-8 prose-h2:tracking-tight prose-h2:scroll-mt-28
+        prose-h3:text-[20px] prose-h3:mb-3 prose-h3:mt-6 prose-h3:tracking-tight prose-h3:scroll-mt-28
+        prose-h4:text-[17px] prose-h4:mb-2 prose-h4:mt-4
+        prose-p:text-ink-2 prose-p:mb-4
+        prose-a:text-violet prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-ink prose-strong:font-semibold
         prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-4
         prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-4
-        prose-li:text-on-surface-variant prose-li:mb-1
+        prose-li:text-ink-2 prose-li:mb-1.5 prose-li:marker:text-violet
         prose-table:mb-6
-        prose-th:bg-surface-container-high prose-th:text-on-surface prose-th:font-semibold prose-th:p-3 prose-th:text-left prose-th:border prose-th:border-outline-variant
-        prose-td:p-3 prose-td:border prose-td:border-outline-variant prose-td:text-on-surface-variant
-        prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-surface-container-low prose-blockquote:pl-4 prose-blockquote:py-2 prose-blockquote:pr-4 prose-blockquote:mb-6
-        prose-img:border prose-img:border-outline-variant prose-img:mb-6 prose-img:rounded-lg prose-img:cursor-zoom-in
-        prose-hr:border-outline-variant prose-hr:my-8
-        prose-pre:bg-slate-dark prose-pre:p-4 prose-pre:relative
-        prose-code:text-primary prose-code:bg-surface-container prose-code:px-1
+        prose-th:bg-soft prose-th:text-ink prose-th:font-semibold prose-th:p-3 prose-th:text-left prose-th:border prose-th:border-ink/10
+        prose-td:p-3 prose-td:border prose-td:border-ink/10 prose-td:text-ink-2
+        prose-blockquote:border-l-4 prose-blockquote:border-violet prose-blockquote:bg-soft prose-blockquote:rounded-r-[14px] prose-blockquote:pl-5 prose-blockquote:py-3 prose-blockquote:pr-5 prose-blockquote:mb-6 prose-blockquote:not-italic
+        prose-img:mb-6 prose-img:rounded-[18px] prose-img:shadow-card-md prose-img:cursor-zoom-in prose-img:border-0
+        prose-hr:border-ink/10 prose-hr:my-8
+        prose-pre:bg-[#10161A] prose-pre:p-0 prose-pre:relative prose-pre:rounded-[18px]
+        prose-code:text-violet-deep prose-code:bg-soft prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-[6px] prose-code:font-normal
       ">
         <slot />
       </article>
       
       {tags && tags.length > 0 && (
-        <div class="mt-12 pt-8 border-t border-outline-variant">
-          <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-3">Tags</h3>
+        <div class="mt-12 pt-8 border-t border-ink/8">
+          <h3 class="text-label uppercase tracking-widest text-ink-3 mb-3">Tag</h3>
           <div class="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span class="px-3 py-1 bg-surface-variant text-on-background rounded-sm font-label-md text-label-md uppercase tracking-widest">
+            {tags.map((tag, i) => (
+              <span class:list={['px-3.5 h-[28px] inline-flex items-center rounded-full text-[12px] font-bold', tagTones[i % tagTones.length]]}>
                 {tag}
               </span>
             ))}
@@ -138,15 +147,15 @@ const {
     
     {/* Sidebar TOC */}
     <aside class="hidden lg:block lg:col-span-3">
-      <div class="sticky top-24 bg-surface-container-lowest border border-outline-variant rounded p-md">
-        <h3 class="font-headline-md text-headline-md text-on-surface mb-md pb-sm border-b border-outline-variant">On this page</h3>
-        <nav class="flex flex-col gap-sm font-body-md text-body-md" id="toc-nav">
+      <div class="sticky top-[100px] bg-white rounded-md shadow-card p-6">
+        <h3 class="font-display text-[17px] text-ink mb-4 pb-3 border-b border-ink/8">Di Halaman Ini</h3>
+        <nav class="flex flex-col gap-0.5 text-[14px]" id="toc-nav">
           {tocItems.map((item, index) => (
-            <a 
+            <a
               href={item.href}
               class:list={[
-                'border-l-2 pl-3 py-1 transition-colors',
-                index === 0 ? 'text-primary border-primary font-bold' : 'text-on-surface-variant border-transparent hover:text-primary-m3'
+                'border-l-2 pl-3.5 py-[5px] transition-colors',
+                index === 0 ? 'text-violet border-violet font-bold' : 'text-ink-2 border-transparent hover:text-violet'
               ]}
             >
               {item.text}
@@ -162,10 +171,10 @@ const {
 
 <style is:global>
   .prose pre {
-    background-color: #1e1e1e !important;
+    background-color: #10161A !important;
     color: #d4d4d4 !important;
     padding: 0 !important;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     overflow-x: auto;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
@@ -191,9 +200,9 @@ const {
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1.25rem;
-    background-color: #2d2d2d;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    background-color: #1B2229;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     font-size: 0.75rem;
     font-family: ui-monospace, monospace;
     color: #999;
@@ -226,12 +235,12 @@ const {
   }
 
   .code-block-header .copy-btn.copied {
-    color: #4ade80;
+    color: #3DDC84;
   }
 
   .prose :not(pre) > code {
-    color: #006d3b;
-    background-color: #f3f4f6;
+    color: #4A2FCC;
+    background-color: #F6F2FF;
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -242,9 +251,9 @@ const {
     justify-content: center;
     margin: 1.5rem 0;
     padding: 1rem;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
+    background: #FFF9F3;
+    border: 1px solid rgba(42, 35, 64, 0.08);
+    border-radius: 1rem;
     overflow-x: auto;
   }
   .mermaid svg {
@@ -277,11 +286,11 @@ const {
         
         if (entry.isIntersecting && tocLink) {
           document.querySelectorAll('#toc-nav a').forEach(a => {
-            a.classList.remove('text-primary', 'border-primary', 'font-bold');
-            a.classList.add('text-on-surface-variant', 'border-transparent');
+            a.classList.remove('text-violet', 'border-violet', 'font-bold');
+            a.classList.add('text-ink-2', 'border-transparent');
           });
-          tocLink.classList.remove('text-on-surface-variant', 'border-transparent');
-          tocLink.classList.add('text-primary', 'border-primary', 'font-bold');
+          tocLink.classList.remove('text-ink-2', 'border-transparent');
+          tocLink.classList.add('text-violet', 'border-violet', 'font-bold');
         }
       });
     }, { rootMargin: '-100px 0px -66% 0px' });
