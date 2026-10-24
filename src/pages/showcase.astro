@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import IconBadge from '../components/ui/IconBadge.astro';
+import HeroBg from '../components/ui/HeroBg.astro';
 import { link } from '../utils/link';
 
 const projects = [
@@ -78,119 +81,119 @@ const typeBadgeStyles: Record<string, string> = {
   description="Showcase of amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community members.">
   <main class="pt-24">
     
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
-        <div class="max-w-4xl">
-          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
-            <span class="w-2 h-2 bg-primary"></span>
-            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Projects</span>
+    {/* Hero */}
+    <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-16 md:py-24">
+      <HeroBg />
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
+            <span class="w-2 h-2 rounded-full bg-violet" aria-hidden="true"></span>
+            <span class="text-[13px] font-semibold text-ink-2">Karya</span>
           </div>
-          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
-            Project <span class="text-primary">Showcase</span>
+          <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-5">
+            <span class="text-pink">Karya</span> Komunitas
           </h1>
-          <p class="text-body-lg-home text-secondary max-w-2xl leading-relaxed">
-            Amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community.
+          <p class="text-body-lg text-ink-2 max-w-2xl">
+            Karya-karya keren dari alumni Komandro. Temukan desain inovatif dan repositori kode dari anggota komunitas kami yang berbakat.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Filter Stats -->
-    <section class="py-16 bg-surface-container-low border-b border-surface-border">
+    {/* Ringkasan */}
+    <section class="py-14 md:py-20 bg-canvas">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="flex items-center gap-4">
-            <i class="bx bx-palette text-on-background text-[32px]"></i>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="flex items-center gap-4 bg-pink-soft rounded-md px-7 py-6 shadow-card">
+            <IconBadge icon="bx-palette" accent="pink" />
             <div>
-              <div class="text-headline-md-home text-on-background">{designProjects.length}</div>
-              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Design Projects</div>
+              <div class="font-display text-display-md text-ink">{designProjects.length}</div>
+              <div class="text-[12px] font-bold uppercase tracking-widest text-pink-deep">Proyek Desain</div>
             </div>
           </div>
-          
-          <div class="flex items-center gap-4">
-            <i class="bx bx-code-alt text-on-background text-[32px]"></i>
+
+          <div class="flex items-center gap-4 bg-sky-soft rounded-md px-7 py-6 shadow-card">
+            <IconBadge icon="bx-code-alt" accent="sky" />
             <div>
-              <div class="text-headline-md-home text-on-background">{codeProjects.length}</div>
-              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Code Projects</div>
+              <div class="font-display text-display-md text-ink">{codeProjects.length}</div>
+              <div class="text-[12px] font-bold uppercase tracking-widest text-sky-deep">Proyek Kode</div>
             </div>
           </div>
-          
-          <div class="flex items-center gap-4">
-            <i class="bx bx-collection text-on-background text-[32px]"></i>
+
+          <div class="flex items-center gap-4 bg-violet-soft rounded-md px-7 py-6 shadow-card">
+            <IconBadge icon="bx-collection" accent="violet" />
             <div>
-              <div class="text-headline-md-home text-on-background">{projects.length}</div>
-              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Total Projects</div>
+              <div class="font-display text-display-md text-ink">{projects.length}</div>
+              <div class="text-[12px] font-bold uppercase tracking-widest text-violet-deep">Total Proyek</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Design Projects Section -->
+    {/* Proyek Desain */}
     {designProjects.length > 0 && (
-      <section class="py-32 bg-white border-b border-surface-border">
+      <section class="py-16 md:py-24 bg-white">
         <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div class="flex items-center gap-4 mb-12">
-            <i class="bx bx-palette text-on-background text-[28px]"></i>
-            <h2 class="text-headline-lg-home text-on-background">Design Projects</h2>
-            <div class="flex-1 h-px bg-surface-border"></div>
-            <span class="px-3 py-1 bg-primary text-white font-label-md text-label-md uppercase tracking-widest">
-              UI/UX
-            </span>
-          </div>
+          <SectionHeader
+            kicker="Karya Desain"
+            accent="pink"
+            title="Proyek Desain"
+          />
 
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {designProjects.map((project) => (
               <a
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group bg-white border border-surface-border overflow-hidden rounded hover:border-primary transition-colors duration-300"
+                class="group bg-canvas rounded-md overflow-hidden shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce"
               >
-                <div class="aspect-video bg-surface-container relative overflow-hidden">
-                  {project.image ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      class="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div class="w-full h-full flex items-center justify-center">
-                      <i class="bx bx-image text-surface-border text-[48px]"></i>
-                    </div>
-                  )}
-                  
-                  <div class="absolute top-3 right-3">
-                    <span class="px-3 py-1 bg-primary text-white font-label-md text-label-md uppercase tracking-widest">
-                      Design
+                <div class="p-3 pb-0">
+                  <div class="aspect-video rounded-[16px] relative overflow-hidden bg-pink-soft">
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div class="w-full h-full flex items-center justify-center">
+                        <i class="bx bx-image text-pink text-[48px]" aria-hidden="true"></i>
+                      </div>
+                    )}
+
+                    <span class="absolute top-3 right-3 px-3 h-7 inline-flex items-center rounded-full bg-pink text-white text-[11.5px] font-bold uppercase tracking-widest">
+                      Desain
                     </span>
                   </div>
                 </div>
-                
+
                 <div class="p-6">
-                  <h3 class="text-headline-md text-on-background mb-2 group-hover:text-primary transition-colors line-clamp-1">
+                  <h3 class="font-display text-[19px] text-ink mb-2 group-hover:text-pink transition-colors line-clamp-1">
                     {project.title}
                   </h3>
-                  
-                  <p class="text-secondary text-body-md mb-6 line-clamp-3">
+
+                  <p class="text-body-sm text-ink-2 mb-5 line-clamp-3">
                     {project.description}
                   </p>
-                  
-                  <div class="flex items-center justify-between pt-4 border-t border-surface-border">
+
+                  <div class="flex items-center justify-between pt-4 border-t border-ink/6">
                     <div class="flex items-center gap-3">
-                      <div class="w-8 h-8 bg-surface-container flex items-center justify-center text-on-background text-xs font-bold">
+                      <div class="w-9 h-9 rounded-full bg-pink-soft grid place-items-center text-pink-deep text-[13px] font-bold" aria-hidden="true">
                         {project.author.charAt(0)}
                       </div>
-                      <div class="text-body-md">
-                        <div class="text-on-background font-medium">{project.author}</div>
-                        <div class="text-secondary">Batch {project.batch}</div>
+                      <div class="text-body-sm">
+                        <div class="text-ink font-bold">{project.author}</div>
+                        <div class="text-ink-3">Batch {project.batch}</div>
                       </div>
                     </div>
-                    
-                    <span class="inline-flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity font-label-md text-label-md uppercase tracking-wider">
-                      View
-                      <i class="bx bx-right-arrow-alt text-[14px]"></i>
+
+                    <span class="inline-flex items-center gap-1 text-[13.5px] font-bold text-pink" aria-hidden="true">
+                      Lihat
+                      <i class="bx bx-right-arrow-alt text-[15px] transition-transform group-hover:translate-x-1"></i>
                     </span>
                   </div>
                 </div>
@@ -201,70 +204,69 @@ const typeBadgeStyles: Record<string, string> = {
       </section>
     )}
 
-    <!-- Code Projects Section -->
+    {/* Proyek Kode */}
     {codeProjects.length > 0 && (
-      <section class="py-32 bg-surface-container-low border-b border-surface-border">
+      <section class="py-16 md:py-24 bg-canvas">
         <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div class="flex items-center gap-4 mb-12">
-            <i class="bx bx-code-alt text-on-background text-[28px]"></i>
-            <h2 class="text-headline-lg-home text-on-background">Code Projects</h2>
-            <div class="flex-1 h-px bg-surface-border"></div>
-            <span class="px-3 py-1 bg-secondary text-white font-label-md text-label-md uppercase tracking-widest">
-              GitHub
-            </span>
-          </div>
+          <SectionHeader
+            kicker="Open Source"
+            accent="sky"
+            title="Proyek Kode"
+          />
 
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {codeProjects.map((project) => (
               <a
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group bg-white border-0 md:border border-surface-border overflow-hidden rounded-none md:rounded hover:border-primary transition-colors duration-300"
+                class="group bg-white rounded-md overflow-hidden shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce"
               >
-                <div class="aspect-video bg-slate-dark relative overflow-hidden">
-                  {project.image ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      class="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div class="w-full h-full flex items-center justify-center">
-                      <i class="bx bx-code-block text-white/30 text-[48px]"></i>
-                    </div>
-                  )}
-                  
-                  <div class="absolute top-3 right-3">
-                    <span class="px-3 py-1 bg-secondary text-white font-label-md text-label-md uppercase tracking-widest">
-                      Code
+                <div class="p-3 pb-0">
+                  <div class="aspect-video rounded-[16px] relative overflow-hidden bg-ink-band">
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div class="w-full h-full flex items-center justify-center">
+                        <i class="bx bx-code-block text-white/30 text-[48px]" aria-hidden="true"></i>
+                      </div>
+                    )}
+
+                    <span class="absolute top-3 right-3 px-3 h-7 inline-flex items-center rounded-full bg-sky text-white text-[11.5px] font-bold uppercase tracking-widest">
+                      Kode
                     </span>
                   </div>
                 </div>
                 
                 <div class="p-6">
-                  <h3 class="text-headline-md text-on-background mb-2 group-hover:text-primary transition-colors line-clamp-1">
+                  <h3 class="font-display text-[19px] text-ink mb-2 group-hover:text-sky-deep transition-colors line-clamp-1">
                     {project.title}
                   </h3>
-                  
-                  <p class="text-secondary text-body-md mb-6 line-clamp-3">
+
+                  <p class="text-body-sm text-ink-2 mb-5 line-clamp-3">
                     {project.description}
                   </p>
-                  
-                  <div class="flex items-center justify-between pt-4 border-t border-surface-border">
+
+                  <div class="flex items-center justify-between pt-4 border-t border-ink/6">
                     <div class="flex items-center gap-3">
-                      <div class="w-8 h-8 bg-surface-container flex items-center justify-center text-on-background text-xs font-bold">
+                      <div class="w-9 h-9 rounded-full bg-sky-soft grid place-items-center text-sky-deep text-[13px] font-bold" aria-hidden="true">
                         {project.author.charAt(0)}
                       </div>
-                      <div class="text-body-md">
-                        <div class="text-on-background font-medium">{project.author}</div>
-                        <div class="text-secondary">Batch {project.batch}</div>
+                      <div class="text-body-sm">
+                        <div class="text-ink font-bold">{project.author}</div>
+                        <div class="text-ink-3">Batch {project.batch}</div>
                       </div>
                     </div>
-                    
-                    <span class="inline-flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity font-label-md text-label-md uppercase tracking-wider">
+
+                    <span class="inline-flex items-center gap-1 text-[13.5px] font-bold text-sky" aria-hidden="true">
                       GitHub
-                      <i class="bx bx-right-arrow-alt text-[14px]"></i>
+                      <i class="bx bx-right-arrow-alt text-[15px] transition-transform group-hover:translate-x-1"></i>
                     </span>
                   </div>
                 </div>
@@ -275,15 +277,16 @@ const typeBadgeStyles: Record<string, string> = {
       </section>
     )}
 
-    <!-- Update Schedule Info -->
-    <section class="py-32 bg-white">
+    {/* Pembaruan Rutin */}
+    <section class="py-16 md:py-24 bg-white">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="border border-surface-border rounded p-8 md:p-16 text-center">
-          <i class="bx bx-time text-on-background text-[48px] mb-6"></i>
-          <h2 class="text-headline-lg-home text-on-background mb-4">Regular Updates</h2>
-          <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
-          <p class="text-body-lg-home text-secondary max-w-2xl mx-auto leading-relaxed">
-            Projects are updated at the end of each batch period. Stay tuned for new showcases from every graduating class!
+        <div class="bg-amber-soft rounded-lg p-10 md:p-16 text-center shadow-card">
+          <div class="w-20 h-20 mx-auto rounded-[24px] bg-white shadow-card-md grid place-items-center mb-6" aria-hidden="true">
+            <i class="bx bx-time text-amber-deep text-[38px]"></i>
+          </div>
+          <h2 class="font-display text-display-md text-ink mb-4">Pembaruan Rutin</h2>
+          <p class="text-body-lg text-ink-2 max-w-2xl mx-auto">
+            Karya diperbarui di akhir setiap periode batch. Tunggu karya baru dari setiap angkatan yang tamat!
           </p>
         </div>
       </div>
