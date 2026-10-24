@@ -1,3 +1,5 @@
+export type AccentName = 'violet' | 'pink' | 'mint' | 'amber' | 'sky' | 'lime' | 'orange' | 'magenta';
+
 export interface CategoryInfo {
   slug: string;
   label: string;
