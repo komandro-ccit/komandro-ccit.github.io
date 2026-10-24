@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komandro — Mockup C: Android-First (M3)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#006d3b; --on-primary:#fff; --primary-container:#3ddc84; --on-primary-container:#005c31;
+    --secondary:#555f6f; --secondary-container:#d6e0f3; --on-secondary-container:#596373;
+    --tertiary:#006e1c; --tertiary-container:#74d873;
+    --surface:#f7f9fb; --surface-c-low:#f2f4f6; --surface-c:#eceef0; --surface-c-high:#e6e8ea;
+    --on-surface:#191c1e; --on-surface-var:#3c4a3f; --outline:#6c7b6e; --outline-var:#bbcbbc;
+    --scrim:rgba(0,0,0,.12);
+    --radius-l:28px; --radius-m:16px; --radius-s:12px;
+  }
+  html[data-theme="dark"]{
+    --primary:#43e188; --on-primary:#00391d; --primary-container:#005c31; --on-primary-container:#66fea2;
+    --secondary:#bbc7db; --secondary-container:#3d4756; --on-secondary-container:#d9e3f6;
+    --tertiary:#96d97f; --tertiary-container:#005313;
+    --surface:#101512; --surface-c-low:#171d19; --surface-c:#1c221e; --surface-c-high:#232a25;
+    --on-surface:#e2e8e0; --on-surface-var:#bfc9c0; --outline:#8a978e; --outline-var:#3d4841;
+    --scrim:rgba(0,0,0,.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--surface);color:var(--on-surface);font-family:'Roboto',system-ui,sans-serif;line-height:1.6;transition:background .3s,color .3s}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  .mono{font-family:'Roboto Mono',monospace}
+  /* top app bar */
+  .appbar{position:sticky;top:0;background:var(--surface);z-index:60;transition:background .3s}
+  .appbar.scrolled{background:var(--surface-c-low);box-shadow:0 1px 0 var(--outline-var)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--on-surface);font-weight:900;letter-spacing:-.01em;font-size:21px}
+  .logo .mark{width:40px;height:40px;border-radius:14px;background:var(--primary);color:var(--on-primary);display:grid;place-items:center;font-size:19px}
+  .tabs{display:flex;gap:6px}
+  .tab{padding:10px 18px;border-radius:999px;text-decoration:none;color:var(--on-surface-var);font-size:14px;font-weight:500;transition:.25s}
+  .tab:hover{background:var(--surface-c-high);color:var(--on-surface)}
+  .tab.on{background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700}
+  .bar-actions{display:flex;gap:10px;align-items:center}
+  .iconbtn{width:44px;height:44px;border-radius:50%;border:0;background:var(--surface-c-high);color:var(--on-surface-var);cursor:pointer;font-size:17px;display:grid;place-items:center;transition:.2s}
+  .iconbtn:hover{background:var(--surface-c-high);color:var(--on-surface)}
+  .cta-btn{padding:12px 22px;border-radius:999px;background:var(--primary);color:var(--on-primary);border:0;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.25s cubic-bezier(.2,0,0,1)}
+  .cta-btn:hover{filter:brightness(1.08);box-shadow:0 6px 20px var(--scrim)}
+  .cta-btn.tonal{background:var(--primary-container);color:var(--on-primary-container)}
+  /* hero */
+  .hero{padding:56px 0 40px}
+  .hero h1{font-size:clamp(32px,5vw,52px);line-height:1.15;font-weight:900;letter-spacing:-.025em;max-width:760px}
+  .hero h1 span{color:var(--primary)}
+  .hero p{font-size:18px;color:var(--on-surface-var);max-width:640px;margin:20px 0 30px}
+  .search{display:flex;align-items:center;gap:14px;background:var(--surface-c-low);border:1px solid var(--outline-var);border-radius:999px;padding:6px 6px 6px 22px;max-width:620px;box-shadow:0 1px 3px var(--scrim)}
+  .search input{flex:1;border:0;background:transparent;font-family:inherit;font-size:16px;color:var(--on-surface);padding:14px 0;outline:none}
+  .search input::placeholder{color:var(--outline)}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .chip{padding:9px 18px;border-radius:999px;background:var(--surface-c);color:var(--on-surface-var);font-size:13px;font-weight:500;text-decoration:none;border:1px solid transparent;transition:.2s}
+  .chip:hover{background:var(--surface-c-high);color:var(--on-surface)}
+  .chip.on{background:var(--primary-container);color:var(--on-primary-container);font-weight:700}
+  /* cards */
+  .section-head{display:flex;align-items:center;justify-content:space-between;margin:56px 0 20px;gap:20px}
+  .section-head h2{font-size:26px;font-weight:800;letter-spacing:-.01em}
+  .section-head a{color:var(--primary);font-size:14px;font-weight:600;text-decoration:none}
+  .grid{display:grid;gap:16px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{background:var(--surface-c-low);border-radius:var(--radius-m);padding:22px;text-decoration:none;color:inherit;transition:.3s cubic-bezier(.2,0,0,1);border:1px solid transparent}
+  .card:hover{background:var(--surface-c);border-color:var(--outline-var);transform:translateY(-3px);box-shadow:0 8px 24px var(--scrim)}
+  .path-card{background:var(--surface-c-low);border-radius:var(--radius-l);padding:28px;text-decoration:none;color:inherit;transition:.3s cubic-bezier(.2,0,0,1);position:relative;overflow:hidden}
+  .path-card:hover{background:var(--primary-container);color:var(--on-primary-container);transform:translateY(-4px)}
+  .path-card:hover .pc-icon{background:rgba(0,0,0,.12)}
+  .path-card:hover .pc-meta{color:inherit;opacity:.75}
+  .pc-icon{width:52px;height:52px;border-radius:18px;background:var(--surface-c-high);display:grid;place-items:center;font-size:22px;margin-bottom:18px;transition:.3s}
+  .path-card h3{font-size:20px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em}
+  .path-card p{font-size:14px;color:var(--on-surface-var);margin-bottom:16px}
+  .pc-meta{font-size:12px;color:var(--on-surface-var);display:flex;gap:12px;flex-wrap:wrap}
+  .progress{height:6px;border-radius:999px;background:var(--surface-c-high);overflow:hidden;margin-top:14px}
+  .progress i{display:block;height:100%;background:var(--primary);border-radius:999px}
+  .mat-card{display:flex;gap:16px;align-items:flex-start}
+  .mat-thumb{width:64px;height:64px;border-radius:var(--radius-s);background:var(--surface-c-high);display:grid;place-items:center;font-size:24px;flex-shrink:0}
+  .mat-card h4{font-size:16px;font-weight:700;margin-bottom:5px;line-height:1.35}
+  .mat-card .m{font-size:13px;color:var(--on-surface-var);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--surface-c-high);color:var(--on-surface-var)}
+  .badge.b{background:#d6e0f3;color:#33415c}
+  .badge.i{background:var(--tertiary-container);color:#005d16}
+  .badge.a{background:#ffdad6;color:#93000a}
+  .stat{text-align:center;padding:26px 18px;background:var(--surface-c-low);border-radius:var(--radius-m)}
+  .stat b{display:block;font-size:34px;font-weight:900;letter-spacing:-.02em;color:var(--primary)}
+  .stat span{font-size:13px;color:var(--on-surface-var)}
+  .members{display:flex;gap:-8px}
+  .av{width:42px;height:42px;border-radius:50%;background:var(--secondary-container);color:var(--on-secondary-container);display:grid;place-items:center;font-size:14px;font-weight:700;border:2px solid var(--surface);margin-left:-10px}
+  .av:first-child{margin-left:0}
+  /* reading preview */
+  .reader{background:var(--surface-c-low);border-radius:var(--radius-l);padding:34px;border:1px solid var(--outline-var)}
+  .reader-bar{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--on-surface-var);margin-bottom:22px;flex-wrap:wrap}
+  .reader h3{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+  .reader .crumb{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--primary)}
+  .tabs2{display:flex;gap:4px;background:var(--surface-c);border-radius:999px;padding:4px;margin:24px 0}
+  .tabs2 button{flex:1;border:0;background:transparent;padding:10px;border-radius:999px;font-family:inherit;font-size:14px;font-weight:600;color:var(--on-surface-var);cursor:pointer}
+  .tabs2 button.on{background:var(--primary-container);color:var(--on-primary-container)}
+  .code{background:#10161a;color:#e6edf3;border-radius:var(--radius-m);overflow:hidden;font-family:'Roboto Mono',monospace;font-size:13px}
+  .code .fn{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:#1b2229;font-size:12px;color:#9fb0bf}
+  .code pre{margin:0;padding:18px 16px;overflow-x:auto;line-height:1.7}
+  .code .c-key{color:#7ee787}.code .c-str{color:#a5d6ff}.code .c-cm{color:#8b949e}
+  /* bottom nav (mobile) */
+  .bottomnav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface-c-low);border-top:1px solid var(--outline-var);padding:10px 8px calc(10px + env(safe-area-inset-bottom));z-index:60}
+  .bottomnav ul{list-style:none;display:flex;justify-content:space-around}
+  .bottomnav a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;color:var(--on-surface-var);text-decoration:none;padding:4px 10px;border-radius:12px}
+  .bottomnav a.on{color:var(--on-primary);background:var(--primary-container);font-weight:700}
+  .bottomnav .pill{width:64px;height:32px;border-radius:999px;background:var(--primary-container);display:grid;place-items:center;color:var(--on-primary-container);font-size:16px;margin-top:-22px;box-shadow:0 4px 12px var(--scrim)}
+  footer{background:var(--surface-c-low);border-top:1px solid var(--outline-var);padding:44px 0;margin-top:64px;color:var(--on-surface-var);font-size:14px}
+  .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+  footer h5{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--on-surface);margin-bottom:14px}
+  footer a{display:block;color:var(--on-surface-var);text-decoration:none;margin-bottom:9px;font-size:14px}
+  footer a:hover{color:var(--primary)}
+  .fbot{border-top:1px solid var(--outline-var);margin-top:32px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px}
+  @media(max-width:960px){.tabs{display:none}.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.fgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:700px){.g4,.g3,.g2{grid-template-columns:1fr}.bottomnav{display:block}.wrap{padding-bottom:90px}.cta-btn.hide-m{display:none}}
+</style>
+</head>
+<body>
+<header class="appbar" id="appbar">
+  <div class="wrap bar">
+    <a class="logo" href="#"><span class="mark">▣</span>Komandro</a>
+    <nav class="tabs">
+      <a class="tab on" href="#">Beranda</a>
+      <a class="tab" href="#">Materi</a>
+      <a class="tab" href="#">Komunitas</a>
+      <a class="tab" href="#">Alumni</a>
+      <a class="tab" href="#">Blog</a>
+    </nav>
+    <div class="bar-actions">
+      <button class="iconbtn" id="themeBtn" title="Ganti tema">◐</button>
+      <a class="cta-btn hide-m" href="#">Gabung</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Mau belajar <span>apa hari ini?</span></h1>
+    <p>Komunitas Android &amp; Teknologi CCIT-FTUI. 133 materi terstruktur dari fundamental sampai cloud engineering — cari, mulai, dan lanjutkan.</p>
+    <div class="search">
+      <span style="color:var(--outline);font-size:18px">⌕</span>
+      <input type="text" placeholder="Cari materi: Flutter, Docker, Git, Figma…" />
+      <button class="cta-btn">Cari</button>
+    </div>
+    <div class="chips">
+      <a class="chip on" href="#">Sedang populer</a>
+      <a class="chip" href="#">Flutter</a>
+      <a class="chip" href="#">Web</a>
+      <a class="chip" href="#">DevOps</a>
+      <a class="chip" href="#">UI/UX</a>
+      <a class="chip" href="#">QA</a>
+    </div>
+  </section>
+
+  <!-- PATHS -->
+  <div class="section-head"><h2>Jalur belajar</h2><a href="#">Lihat semua →</a></div>
+  <div class="grid g3">
+    <a class="path-card" href="#">
+      <div class="pc-icon">📱</div>
+      <h3>Mobile Development</h3>
+      <p>Dart &amp; Flutter lengkap: widget, state management, networking, testing.</p>
+      <div class="pc-meta"><span>3 kurikulum</span><span>48 materi</span><span>Beginner–Advanced</span></div>
+      <div class="progress"><i style="width:100%"></i></div>
+    </a>
+    <a class="path-card" href="#">
+      <div class="pc-icon">🌐</div>
+      <h3>Web Development</h3>
+      <p>HTML, CSS, JavaScript, PHP, dan Laravel dari fundamental sampai fullstack.</p>
+      <div class="pc-meta"><span>4 kurikulum</span><span>24 materi</span><span>Beginner–Advanced</span></div>
+      <div class="progress"><i style="width:70%"></i></div>
+    </a>
+    <a class="path-card" href="#">
+      <div class="pc-icon">☁️</div>
+      <h3>DevOps &amp; Cloud</h3>
+      <p>Linux, Docker, CI/CD, dan infrastructure as code untuk engineer.</p>
+      <div class="pc-meta"><span>1 kurikulum</span><span>9 materi</span><span>Intermediate</span></div>
+      <div class="progress"><i style="width:45%"></i></div>
+    </a>
+  </div>
+
+  <!-- MATERIALS -->
+  <div class="section-head"><h2>Materi terbaru</h2><a href="#">Semua materi →</a></div>
+  <div class="grid g3">
+    <a class="card mat-card" href="#">
+      <div class="mat-thumb">🐙</div>
+      <div>
+        <h4>HTTP Requests di Flutter</h4>
+        <div class="m"><span class="badge i">Intermediate</span><span>25 menit</span></div>
+      </div>
+    </a>
+    <a class="card mat-card" href="#">
+      <div class="mat-thumb">🐳</div>
+      <div>
+        <h4>Introduction to Docker</h4>
+        <div class="m"><span class="badge b">Beginner</span><span>30 menit</span></div>
+      </div>
+    </a>
+    <a class="card mat-card" href="#">
+      <div class="mat-thumb">🎨</div>
+      <div>
+        <h4>Figma Components</h4>
+        <div class="m"><span class="badge b">Beginner</span><span>18 menit</span></div>
+      </div>
+    </a>
+  </div>
+
+  <!-- READING PREVIEW -->
+  <div class="section-head"><h2>Contoh halaman baca</h2><a href="#">Lihat materi →</a></div>
+  <div class="reader">
+    <div class="reader-bar">
+      <span class="crumb">~/materials/mobile/flutter-advance/02-http-requests</span>
+      <span style="margin-left:auto">Lesson 2 dari 12</span>
+    </div>
+    <h3>HTTP Requests</h3>
+    <div class="reader-bar">
+      <span>Flutter Team Komandro</span><span>·</span><span>16 Januari 2026</span><span>·</span><span>25 menit</span>
+    </div>
+    <div class="tabs2">
+      <button class="on">Materi</button>
+      <button>Jawaban</button>
+      <button>Latihan</button>
+    </div>
+    <div class="code">
+      <div class="fn"><span>http_request.dart</span><span>copy</span></div>
+      <pre><span class="c-cm">//ambil data dari API</span>
+<span class="c-key">final</span> response = <span class="c-key">await</span> http.<span class="c-key">get</span>(Uri.<span class="c-key">parse</span>(<span class="c-str">'https://api.komandro.id/users'</span>));
+
+<span class="c-key">if</span> (response.statusCode == <span class="c-str">200</span>) {
+  <span class="c-key">final</span> data = json.<span class="c-key">decode</span>(response.body);
+  <span class="c-cm">// tampilkan di UI</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="section-head"><h2>Impact</h2></div>
+  <div class="grid g4">
+    <div class="stat"><b>133</b><span>Materi</span></div>
+    <div class="stat"><b>500+</b><span>Alumni</span></div>
+    <div class="stat"><b>50+</b><span>Workshop</span></div>
+    <div class="stat"><b>11</b><span>Batch</span></div>
+  </div>
+
+  <!-- COMMUNITY -->
+  <div class="section-head"><h2>Komunitas aktif</h2><a href="#">Semua anggota →</a></div>
+  <div class="card" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <div class="members">
+      <div class="av">JF</div><div class="av">AH</div><div class="av">AJ</div><div class="av">NB</div><div class="av">BR</div>
+      <div class="av" style="background:var(--primary-container);color:var(--on-primary-container)">+95</div>
+    </div>
+    <div style="flex:1;min-width:220px">
+      <h4 style="font-size:16px;font-weight:700;margin-bottom:4px">Open recruitment — Ganjil &amp; Genap</h4>
+      <p style="font-size:14px;color:var(--on-surface-var)">Seleksi portofolio dan wawancara. Tidak ada biaya, hanya commitment.</p>
+    </div>
+    <a class="cta-btn tonal" href="#">Daftar</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:12px"><span class="mark">▣</span>Komandro</div>
+        <p style="max-width:320px;font-size:14px">Komunitas Android &amp; Teknologi CCIT-FTUI. Belajar, berkarya, dan berkembang bersama sejak 2015.</p>
+      </div>
+      <div><h5>Belajar</h5><a href="#">Semua Materi</a><a href="#">Web</a><a href="#">Mobile</a><a href="#">DevOps</a></div>
+      <div><h5>Komunitas</h5><a href="#">Tentang</a><a href="#">Anggota</a><a href="#">Program Kerja</a><a href="#">Alumni</a></div>
+      <div><h5>Kontak</h5><a href="#">komandro@ccit-ftui.ac.id</a><a href="#">Instagram</a><a href="#">GitHub</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 Komandro CCIT-FTUI</span><span>Engineering Center, CCIT-FTUI · Universitas Indonesia, Depok</span></div>
+  </div>
+</footer>
+
+<nav class="bottomnav">
+  <ul>
+    <li><a class="on" href="#"><span>⌂</span>Beranda</a></li>
+    <li><a href="#"><span>▤</span>Materi</a></li>
+    <li><a href="#"><span class="pill">＋</span></a></li>
+    <li><a href="#"><span>◎</span>Komunitas</a></li>
+    <li><a href="#"><span>☺</span>Profil</a></li>
+  </ul>
+</nav>
+
+<script>
+  const btn = document.getElementById('themeBtn');
+  const saved = localStorage.getItem('kd-theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+  btn.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('kd-theme', next);
+  });
+  const bar = document.getElementById('appbar');
+  window.addEventListener('scroll', () => bar.classList.toggle('scrolled', window.scrollY > 8));
+  document.querySelectorAll('.tabs2 button').forEach(b => b.addEventListener('click', () => {
+    b.parentElement.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+  }));
+</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komandro — Mockup A: Neo-Brutalist Dev</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1117; --fg:#e6edf3; --muted:#8b949e; --line:#30363d;
+    --accent:#3ddc84; --amber:#f0a202; --panel:#161b22;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;line-height:1.6}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .mono{font-family:'JetBrains Mono',monospace}
+  /* header */
+  header{border-bottom:2px solid var(--line);position:sticky;top:0;background:rgba(13,17,23,.92);backdrop-filter:blur(6px);z-index:50}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}
+  .logo .box{width:36px;height:36px;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-size:16px}
+  .links{display:flex;gap:28px;align-items:center}
+  .links a{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);text-decoration:none}
+  .links a:hover{color:var(--fg)}
+  .links a.on{color:var(--accent)}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--fg);background:transparent;color:var(--fg);padding:12px 22px;font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;text-decoration:none;box-shadow:4px 4px 0 var(--fg);transition:.14s}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--accent);border-color:var(--accent);color:var(--accent)}
+  .btn.solid{background:var(--accent);border-color:var(--accent);color:#04140b;box-shadow:4px 4px 0 var(--fg)}
+  .btn.solid:hover{color:#04140b;background:#5cf09c}
+  /* hero terminal */
+  .hero{padding:80px 0 72px;border-bottom:2px solid var(--line)}
+  .term{border:2px solid var(--line);background:var(--panel);max-width:860px;box-shadow:8px 8px 0 #000}
+  .term-bar{display:flex;gap:8px;align-items:center;border-bottom:2px solid var(--line);padding:10px 14px;font-size:12px;color:var(--muted)}
+  .dot{width:11px;height:11px;border:1px solid var(--line);border-radius:50%}
+  .term-body{padding:28px;font-family:'JetBrains Mono',monospace;font-size:15px;line-height:1.9}
+  .term-body .p{color:var(--accent)}
+  .term-body .c{color:var(--muted)}
+  .term-body .a{color:var(--amber)}
+  .term-body h1{font-size:clamp(22px,3.4vw,34px);line-height:1.35;color:var(--fg);margin:6px 0 14px;font-weight:800;letter-spacing:-.02em}
+  .term-body h1 span{color:var(--accent)}
+  .term-body p{color:var(--muted);font-family:'Inter',sans-serif;font-size:16px;max-width:640px;margin-bottom:26px}
+  .cta{display:flex;gap:16px;flex-wrap:wrap}
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid var(--line)}
+  .stats div{padding:28px 24px;border-right:2px solid var(--line)}
+  .stats div:last-child{border-right:0}
+  .stats b{display:block;font-size:38px;font-weight:800;letter-spacing:-.03em;color:var(--fg)}
+  .stats span{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
+  /* section */
+  section{padding:76px 0;border-bottom:2px solid var(--line)}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .sec-head .p{color:var(--accent);font-family:'JetBrains Mono',monospace;font-weight:700}
+  .sec-head h2{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.02em}
+  .sec-sub{color:var(--muted);max-width:620px;margin-bottom:34px}
+  /* path cards */
+  .paths{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .path{border:2px solid var(--line);background:var(--panel);padding:26px;text-decoration:none;color:inherit;display:block;transition:.14s}
+  .path:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--accent);border-color:var(--accent)}
+  .path h3{font-size:19px;font-weight:700;margin:12px 0 8px}
+  .path p{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .steps{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);flex-wrap:wrap}
+  .steps i{width:9px;height:9px;border:1px solid var(--muted);display:block;font-style:normal}
+  .steps i.f{border-color:var(--accent);background:var(--accent)}
+  /* ls list */
+  .ls{border:2px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:13px;overflow-x:auto}
+  .ls div{display:flex;justify-content:space-between;gap:16px;padding:11px 16px;border-bottom:1px solid var(--line);color:var(--muted)}
+  .ls div:last-child{border-bottom:0}
+  .ls b{color:var(--fg);font-weight:500}
+  .ls .m{color:var(--amber)}
+  /* timeline */
+  .tl{border-left:2px solid var(--line);padding-left:26px;display:grid;gap:22px}
+  .tl-item{position:relative}
+  .tl-item:before{content:'';position:absolute;left:-33px;top:7px;width:12px;height:12px;border:2px solid var(--accent);background:var(--bg)}
+  .tl-item .y{font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:13px;font-weight:700}
+  .tl-item h4{font-size:16px;margin:4px 0 5px}
+  .tl-item p{color:var(--muted);font-size:14px}
+  /* join */
+  .join{border:2px solid var(--accent);padding:52px;text-align:center;box-shadow:8px 8px 0 var(--accent)}
+  .join h2{font-size:clamp(24px,3.6vw,40px);font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+  .join p{color:var(--muted);max-width:560px;margin:0 auto 26px}
+  footer{border-top:2px solid var(--line);padding:40px 0;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  @media(max-width:900px){.paths{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.links{display:none}}
+  @media(max-width:560px){.stats{grid-template-columns:1fr}.stats div{border-right:0;border-bottom:2px solid var(--line)}.join{padding:32px 20px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo mono" href="#"><span class="box">&gt;_</span><span>KOMANDRO</span></a>
+    <nav class="links mono">
+      <a href="#">Home</a><a href="#">Organization</a><a href="#">Resources</a><a href="#">Alumni</a>
+    </nav>
+    <a class="btn" href="#">Gabung</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="term">
+      <div class="term-bar mono"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>komandro — zsh — 96×32</span></div>
+      <div class="term-body">
+        <div><span class="p">$</span> <span class="c">komandro --whoami</span></div>
+        <h1>Komunitas Android &amp; Teknologi<br>CCIT-FTUI <span>sejak 2015</span></h1>
+        <p>Belajar, berkarya, dan berkembang bersama. 133 materi terstruktur, 11 batch alumni, dan Satu engineering collective di Universitas Indonesia.</p>
+        <div class="cta">
+          <a class="btn solid mono" href="#">&gt; Mulai Belajar</a>
+          <a class="btn mono" href="#">&gt; Lihat Materi</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats mono">
+    <div><b>133</b><span>Materi</span></div>
+    <div><b>500+</b><span>Alumni</span></div>
+    <div><b>50+</b><span>Workshop</span></div>
+    <div><b>11</b><span>Batch</span></div>
+  </div>
+
+  <section>
+    <div class="sec-head mono"><span class="p">&gt;</span><h2>Pilih Jalur Belajar</h2></div>
+    <p class="sec-sub">Mulai dari yang paling dekat dengan tujuanmu. Setiap jalur punya kurikulum berurutan dari materi dasar.</p>
+    <div class="paths">
+      <a class="path" href="#">
+        <div class="mono" style="color:var(--accent);font-size:12px">&gt; web</div>
+        <h3>Web Development</h3>
+        <p>HTML, CSS, JavaScript, PHP, Laravel — dari fundamental sampai backend production.</p>
+        <div class="steps"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div>
+      </a>
+      <a class="path" href="#">
+        <div class="mono" style="color:var(--accent);font-size:12px">&gt; mobile</div>
+        <h3>Mobile Development</h3>
+        <p>Flutter &amp; Dart lengkap: widget, state management, networking, testing.</p>
+        <div class="steps"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div>
+      </a>
+      <a class="path" href="#">
+        <div class="mono" style="color:var(--accent);font-size:12px">&gt; devops</div>
+        <h3>DevOps &amp; Cloud</h3>
+        <p>Linux, Docker, CI/CD, dan infrastructur as code untuk engineer.</p>
+        <div class="steps"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head mono"><span class="p">&gt;</span><h2>Materi Terbaru</h2></div>
+    <p class="sec-sub">Diberi label agar mudah dipindai — seperti output <span class="mono">ls -la</span>.</p>
+    <div class="ls mono">
+      <div><b>01-terminal.mdx</b><span class="m">tools/git-github-bootcamp · 8 menit</span></div>
+      <div><b>02-http-requests.mdx</b><span class="m">mobile/flutter-advance · 25 menit</span></div>
+      <div><b>06-automatisation-testing.mdx</b><span class="m">qa · 40 menit</span></div>
+      <div><b>04-introduction-to-docker.mdx</b><span class="m">devops/devops-fundamentals · 30 menit</span></div>
+      <div><b>figma-components.mdx</b><span class="m">ui-ux · 18 menit</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head mono"><span class="p">&gt;</span><h2>Sejarah</h2></div>
+    <p class="sec-sub">Satu decade, ditandai seperti <span class="mono">git log</span>.</p>
+    <div class="tl">
+      <div class="tl-item"><div class="y">2014</div><h4>Didirikan</h4><p>Komandro CCIT-FTUI didirikan oleh M. Octaviano Pratama, M.Kom.</p></div>
+      <div class="tl-item"><div class="y">2016</div><h4>Workshop pertama</h4><p><p>Workshop pengembangan Android pertama di kampus.</p></div>
+      <div class="tl-item"><div class="y">2022</div><h4>100+ anggota</h4><p>Melampaui 100 anggota terdaftar di seluruh batch.</p></div>
+      <div class="tl-item"><div class="y">2026</div><h4>Terus berkembang</h4><p>Terus beradaptasi pada teknologi baru: AI/ML, IoT, Cloud.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="join">
+      <h2 class="mono">&gt; join_the_collective</h2>
+      <p>Open recruitment dua kali setahun. Kalau kamu suka ngoprek, belajar bareng, dan bikin sesuatu yang jalan — kami butuh kamu.</p>
+      <a class="btn solid mono" href="#">&gt; Daftar Sekarang</a>
+    </div>
+  </section>
+</div>
+
+<footer class="wrap mono">
+  <span>&copy; 2026 KOMANDRO CCIT-FTUI</span>
+  <span>DEPOK · UNIVERSITAS INDONESIA</span>
+</footer>
+</body>
+</html>

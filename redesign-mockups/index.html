@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komandro — Konsep Redesign</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#12101B;color:#EDEBF5;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;line-height:1.65;padding:56px 24px}
+  .wrap{max-width:1180px;margin:0 auto}
+  .h1{font-size:36px;font-weight:800;letter-spacing:-.025em;margin-bottom:10px}
+  .sub{color:#9B96B0;margin-bottom:16px;max-width:700px}
+  .tabs{display:flex;gap:8px;margin-bottom:36px;flex-wrap:wrap}
+  .tabs a{padding:9px 18px;border-radius:999px;background:#1E1B2E;color:#B9B3D0;text-decoration:none;font-size:14px;font-weight:600;transition:.2s}
+  .tabs a:hover{background:#2A2640;color:#fff}
+  .tabs a.on{background:#7C5CFC;color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+  .card{border:1px solid #272338;border-radius:18px;padding:26px;background:#191624;text-decoration:none;color:inherit;transition:.2s;display:block;position:relative;overflow:hidden}
+  .card:hover{border-color:#3A3352;transform:translateY(-3px)}
+  .swatch{position:absolute;top:0;left:0;right:0;height:5px}
+  .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:10px;display:block}
+  .card h2{font-size:21px;margin-bottom:9px;letter-spacing:-.02em}
+  .card p{font-size:14px;color:#9B96B0;margin-bottom:16px}
+  ul{list-style:none;font-size:13.5px;color:#C8C3DC}
+  li{padding-left:17px;position:relative;margin-bottom:6px}
+  li:before{content:'·';position:absolute;left:4px;color:#7C5CFC;font-weight:700}
+  .go{margin-top:18px;font-weight:700;font-size:14px}
+  .grp{margin:52px 0 20px;display:flex;align-items:center;gap:14px}
+  .grp h3{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#7C5CFC;font-weight:800}
+  .grp:after{content:'';flex:1;height:1px;background:#272338}
+  .note{margin-top:46px;padding:24px;border:1px solid #272338;border-radius:16px;color:#9B96B0;font-size:14px}
+  .note b{color:#EDEBF5}
+  .stars{color:#FFC93C;font-size:12px;letter-spacing:1px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="h1">Konsep Redesign Web Komandro</h1>
+  <p class="sub">Semua mockup adalah file HTML statis mandiri — bisa dibuka langsung di browser tanpa build. PRD &amp; audit teknis ada di <b>PRD-REDESIGN.md</b> di root repo.</p>
+
+  <div class="tabs">
+    <a href="#casual" class="on">✨ Casual &amp; Colorful</a>
+    <a href="#serius">🎯 Serius / Profesional</a>
+  </div>
+
+  <div class="grp" id="casual"><h3>Casual &amp; Colorful — untuk mahasiswa</h3></div>
+  <div class="grid">
+    <a class="card" href="concept-d-campus-pop.html" style="--c:linear-gradient(90deg,#6C4DF6,#FF5C9A,#12C9A0,#FFB020)">
+      <span class="swatch" style="background:linear-gradient(90deg,#6C4DF6,#FF5C9A,#12C9A0,#FFB020)"></span>
+      <span class="tag" style="color:#FF8FB8">Konsep D · Paling Ramai</span>
+      <h2>Campus Pop</h2>
+      <p>Bold, playful, warna-warni. Kayak poster event mahasiswa. Hero dengan kartu miring, marquee teknologi, kartu jalur warna-warni, section agenda &amp; anggota aktif.</p>
+      <ul>
+        <li>Palet: ungu–pink–mint–amber (4 warna)</li>
+        <li>Font Fredoka (display) + Plus Jakarta Sans</li>
+        <li>Blob gradient, shape miring, marquee berjalan</li>
+        <li>Copy santai: “Bikin Aplikasi”, “Gabung Yuk ✨”</li>
+        <li>Section baru: Agenda, Anggota Aktif, Stats colorful</li>
+      </ul>
+      <div class="go" style="color:#FF8FB8">Buka mockup →</div>
+    </a>
+
+    <a class="card" href="concept-e-sticker-club.html" style="--c:linear-gradient(90deg,#7B4BFF,#FF6B6B,#FFC93C,#3DD9B0)">
+      <span class="swatch" style="background:linear-gradient(90deg,#7B4BFF,#FF6B6B,#FFC93C,#3DD9B0)"></span>
+      <span class="tag" style="color:#FFC93C">Konsep E · Paling Unik</span>
+      <h2>Sticker Club</h2>
+      <p>Estetika stiker &amp; doodle. Border tebal, hard shadow, balon rounded. Terasa seperti papan bulletin UKM — playful tapi rapi, super &ldquo;gampus&rdquo;.</p>
+      <ul>
+        <li>Palet: grape–coral–sun–mint, bubble pink</li>
+        <li>Font Baloo 2 (rounded playful) + Nunito</li>
+        <li>Border 3px + hard shadow 5px, sticker miring</li>
+        <li>Copy paling ramah &amp; humor (“freshly dropped”)</li>
+        <li>Quote testimoni alumni, jadwal dengan badge</li>
+      </ul>
+      <div class="go" style="color:#FFC93C">Buka mockup →</div>
+    </a>
+
+    <a class="card" href="concept-f-soft-friendly.html" style="--c:linear-gradient(90deg,#7C5CFC,#FF8FB1,#5CC9A9,#F5B445)">
+      <span class="swatch" style="background:linear-gradient(90deg,#7C5CFC,#FF8FB1,#5CC9A9,#F5B445)"></span>
+      <span class="tag" style="color:#9C83FF">Konsep F · Paling Aman</span>
+      <h2>Soft &amp; Friendly</h2>
+      <p>Pastel, lembut, modern. Tetap rapi &amp; profesional tapi nggak kaku. Pilihan paling aman kalau mau “casual” tanpa kehilangan credibility.</p>
+      <ul>
+        <li>Palet pastel: lavender–pink–mint–amber</li>
+        <li>Font Outfit + Manrope, radius besar 24px</li>
+        <li>Glow blur lembut, card tanpa border tebal</li>
+        <li>Copy hangat tapi tetap rapi</li>
+        <li>Progress bar di kartu materi, testimonial card</li>
+      </ul>
+      <div class="go" style="color:#9C83FF">Buka mockup →</div>
+    </a>
+  </div>
+
+  <div class="grp" id="serius"><h3>Serius / Profesional — untuk audiens industri</h3></div>
+  <div class="grid">
+    <a class="card" href="concept-a-neobrutalist.html">
+      <span class="swatch" style="background:linear-gradient(90deg,#0d1117,#3ddc84,#f0a202)"></span>
+      <span class="tag" style="color:#3ddc84">Konsep A</span>
+      <h2>Neo-Brutalist Dev</h2>
+      <p>Terminal &amp; monospace, kontras tinggi. Tampilan seperti tools engineer.</p>
+      <div class="go" style="color:#3ddc84">Buka mockup →</div>
+    </a>
+    <a class="card" href="concept-b-editorial.html">
+      <span class="swatch" style="background:linear-gradient(90deg,#006d3b,#ff6b35,#fbfbf9)"></span>
+      <span class="tag" style="color:#ff6b35">Konsep B</span>
+      <h2>Modern Editorial</h2>
+      <p>Serif, Swiss grid, rasa premium &amp; akademis.</p>
+      <div class="go" style="color:#ff6b35">Buka mockup →</div>
+    </a>
+    <a class="card" href="concept-c-android-first.html">
+      <span class="swatch" style="background:linear-gradient(90deg,#006d3b,#3ddc84,#191c1e)"></span>
+      <span class="tag" style="color:#3ddc84">Konsep C</span>
+      <h2>Android-First (M3)</h2>
+      <p>Material 3, dark mode, search-first. Paling sesuai brand Android.</p>
+      <div class="go" style="color:#3ddc84">Buka mockup →</div>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>Rekomendasi untuk brief “casual + colorful untuk mahasiswa”:</b> <b>Konsep D (Campus Pop)</b> — paling energik, paling “mahasiswa”, dan paling beda dari tampilan korporat sekarang. Kalau mau sedikit lebih rapi/tidak terlalu ramai: <b>Konsep F (Soft &amp; Friendly)</b>. Kalau mau yang paling unik secara visual: <b>Konsep E (Sticker Club)</b>.<br><br>
+    <span class="stars">Catatan:</span> ketiga konsep di atas bisa dijadikan satu sistem desain yang konsisten — tinggal pilih satu sebagai homepage hero, lalu pakai kartu &amp; tipografi yang sama di halaman materi.
+  </div>
+</div>
+</body>
+</html>
