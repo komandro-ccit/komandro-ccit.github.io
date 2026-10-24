@@ -1,0 +1,40 @@
+---
+interface Props {
+  kicker?: string;
+  accent?: 'violet' | 'pink' | 'mint' | 'amber' | 'sky';
+  title: string;
+  description?: string;
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const { kicker, accent = 'violet', title, description, align = 'left', class: className = '' } = Astro.props;
+
+const accentText: Record<string, string> = {
+  violet: 'text-violet',
+  pink: 'text-pink',
+  mint: 'text-mint-deep',
+  amber: 'text-amber-deep',
+  sky: 'text-sky-deep',
+};
+const accentBg: Record<string, string> = {
+  violet: 'bg-violet',
+  pink: 'bg-pink',
+  mint: 'bg-mint',
+  amber: 'bg-amber',
+  sky: 'bg-sky',
+};
+---
+
+<div class:list={['mb-8 md:mb-11', align === 'center' && 'text-center flex flex-col items-center', className]}>
+  {kicker && (
+    <p class:list={['text-label uppercase tracking-widest mb-3', accentText[accent]]}>
+      {kicker}
+    </p>
+  )}
+  <h2 class="font-display text-display-md md:text-display-lg text-ink">{title}</h2>
+  <span class:list={['block w-[88px] h-[6px] rounded-full mt-5', accentBg[accent]]} aria-hidden="true"></span>
+  {description && (
+    <p class="text-body-lg text-ink-2 mt-5 max-w-[620px]">{description}</p>
+  )}
+</div>

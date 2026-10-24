@@ -1,0 +1,25 @@
+---
+interface Props {
+  label: string;
+  tone?: 'violet' | 'pink' | 'mint' | 'amber' | 'sky' | 'lime' | 'orange' | 'magenta' | 'neutral';
+  class?: string;
+}
+
+const { label, tone = 'neutral', class: className = '' } = Astro.props;
+
+const tones: Record<string, string> = {
+  violet: 'bg-violet-soft text-violet-deep',
+  pink: 'bg-pink-soft text-pink-deep',
+  mint: 'bg-mint-soft text-mint-deep',
+  amber: 'bg-amber-soft text-amber-deep',
+  sky: 'bg-sky-soft text-sky-deep',
+  lime: 'bg-lime-soft text-lime-deep',
+  orange: 'bg-orange-soft text-orange-deep',
+  magenta: 'bg-magenta-soft text-magenta-deep',
+  neutral: 'bg-ink/5 text-ink-2',
+};
+---
+
+<span class:list={['inline-flex items-center gap-1.5 px-3 h-[28px] rounded-full text-[12px] font-bold whitespace-nowrap', tones[tone], className]}>
+  {label}
+</span>

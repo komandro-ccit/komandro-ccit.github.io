@@ -1,0 +1,32 @@
+---
+import { link } from '../../utils/link';
+
+interface Props {
+  href: string;
+  label: string;
+  variant?: 'primary' | 'ghost' | 'sun' | 'white';
+  arrow?: boolean;
+  class?: string;
+}
+
+const { href, label, variant = 'primary', arrow = false, class: className = '' } = Astro.props;
+
+const variants: Record<string, string> = {
+  primary: 'bg-violet text-white shadow-card-md hover:bg-violet-deep hover:shadow-card-lg',
+  ghost: 'bg-white text-ink border-[1.5px] border-ink/10 hover:bg-soft hover:border-ink/20',
+  sun: 'bg-amber text-[#4A3200] shadow-card-md hover:bg-[#FFC74A] hover:shadow-card-lg',
+  white: 'bg-white text-ink shadow-card-md hover:shadow-card-lg',
+};
+---
+
+<a
+  href={href.startsWith('http') || href.startsWith('mailto:') ? href : link(href)}
+  class:list={[
+    'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[14.5px] font-bold transition-all duration-300 ease-bounce hover:-translate-y-0.5',
+    variants[variant],
+    className
+  ]}
+>
+  {label}
+  {arrow && <i class="bx bx-right-arrow-alt text-[18px]" aria-hidden="true"></i>}
+</a>
