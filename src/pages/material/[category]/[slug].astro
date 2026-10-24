@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import ReadingLayout from '../../../components/material/ReadingLayout.astro';
 import { link } from '../../../utils/link';
+import { categoryOf } from '../../../data/categories';
 
 export async function getStaticPaths() {
   const materials = await getCollection('materials');
@@ -27,6 +28,7 @@ export async function getStaticPaths() {
 
 const { material } = Astro.props;
 const { category } = Astro.params;
+const cat = categoryOf(category);
 
 const { Content, headings } = await material.render();
 
@@ -44,7 +46,7 @@ const tocItems = headings
     title={material.data.title}
     description={material.data.description}
     backUrl={`/material/${category}`}
-    backLabel={`Back to ${category}`}
+    backLabel={`Kembali ke ${cat.label}`}
     type="TUTORIAL"
     author={material.data.author}
     pubDate={material.data.pubDate}
