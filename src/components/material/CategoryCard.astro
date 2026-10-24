@@ -1,30 +1,37 @@
 ---
-import MaterialIcon from './MaterialIcon.astro';
+import { categoryOf } from '../../data/categories';
+import MaterialIcon from '../material/MaterialIcon.astro';
 import { link } from '../../utils/link';
 
 interface Props {
-  href: string;
-  title: string;
-  description: string;
-  icon: string;
+  slug: string;
+  featured?: boolean;
 }
 
-const { href, title, description, icon } = Astro.props;
+const { slug, featured = false } = Astro.props;
+const cat = categoryOf(slug);
 ---
 
 <a
-  href={link(href)}
-  class="group block bg-surface-container-lowest border border-outline-variant rounded p-md flex flex-col h-full hover:border-primary transition-colors duration-300"
+  href={link(`/material/${cat.slug}`)}
+  class:list={[
+    'group block rounded-lg p-6 text-white relative overflow-hidden flex flex-col h-full transition-all duration-300 ease-bounce hover:-translate-y-1.5 hover:rotate-[-0.6deg] hover:shadow-hover',
+    cat.bg,
+    featured && 'md:col-span-2 lg:col-span-1 xl:col-span-2'
+  ]}
 >
-  <div class="w-12 h-12 bg-surface-container flex items-center justify-center mb-md text-on-surface group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
-    <MaterialIcon name={icon} class="text-[24px]" />
+  <div class="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/12 group-hover:scale-125 transition-transform duration-500 ease-bounce" aria-hidden="true"></div>
+  <div class="w-12 h-12 rounded-[16px] bg-white/25 grid place-items-center text-[24px] mb-4 relative" aria-hidden="true">
+    <MaterialIcon name={cat.icon} />
   </div>
-  <h3 class="font-headline-md text-headline-md text-on-surface mb-xs">{title}</h3>
-  <p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">
-    {description}
+  <h3 class="relative font-display text-display-sm text-white mb-2">{cat.label}</h3>
+  <p class="relative text-body-sm text-white/90 mb-4 flex-grow leading-relaxed">
+    {cat.description}
   </p>
-  <div class="flex items-center text-primary font-label-md text-label-md mt-auto pt-sm border-t border-surface-container">
-    <span>View Materials</span>
-    <MaterialIcon name="bx-right-arrow-alt" class="ml-xs text-[18px]" />
+  <div class="relative mt-auto">
+    <span class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur px-4 h-9 rounded-full text-[13px] font-bold text-white">
+      Lihat Materi
+      <i class="bx bx-right-arrow-alt text-[16px] transition-transform group-hover:translate-x-1" aria-hidden="true"></i>
+    </span>
   </div>
 </a>

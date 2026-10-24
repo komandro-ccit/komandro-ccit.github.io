@@ -1,93 +1,41 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CategoryCard from '../../components/material/CategoryCard.astro';
+import HeroBg from '../../components/ui/HeroBg.astro';
+import { CATEGORIES } from '../../data/categories';
 
-const categories = [
-  {
-    id: 'web',
-    name: 'Web Development',
-    description: 'Build robust, responsive applications for the browser using modern HTML, CSS, JavaScript, and advanced frameworks.',
-    icon: 'bx-globe'
-  },
-  {
-    id: 'mobile',
-    name: 'Mobile Development',
-    description: 'Create native and cross-platform applications for smartphones using Kotlin, Swift, or Flutter for seamless user experiences.',
-    icon: 'bx-mobile-alt'
-  },
-  {
-    id: 'ui-ux',
-    name: 'UI/UX Design',
-    description: 'Master the principles of layout, color theory, typography, and user research to craft intuitive and engaging digital interfaces.',
-    icon: 'bx-paint'
-  },
-  {
-    id: 'qa',
-    name: 'Quality Assurance',
-    description: 'Ensure software reliability through rigorous manual testing, automated test scripts, and structured bug tracking methodologies.',
-    icon: 'bx-bug'
-  },
-  {
-    id: 'devops',
-    name: 'DevOps',
-    description: 'Streamline development lifecycles with continuous integration/deployment (CI/CD), cloud infrastructure, and containerization strategies.',
-    icon: 'bx-cloud'
-  },
-  {
-    id: 'iot',
-    name: 'Internet of Things',
-    description: 'Build connected devices and embedded systems using Raspberry Pi, message brokers, and event-driven architectures.',
-    icon: 'bx-chip'
-  },
-  {
-    id: 'game',
-    name: 'Game Development',
-    description: 'Design and program interactive entertainment experiences utilizing modern game engines, physics systems, and rendering techniques.',
-    icon: 'bx-game'
-  },
-  {
-    id: 'tools',
-    name: 'Tools',
-    description: 'Master essential developer tools like Git, GitHub, and version control to work efficiently and collaborate with teams.',
-    icon: 'bx-wrench'
-  }
-];
+const categoryOrder = ['mobile', 'web', 'ui-ux', 'devops', 'qa', 'iot', 'tools', 'game'];
+const categories = categoryOrder.map((slug) => ({ slug, ...CATEGORIES[slug] }));
 ---
 
-<Layout title="Learning Materials - Komandro CCIT-FTUI">
-  <main class="min-h-screen bg-surface-light pt-24">
-    <div class="flex-grow w-full relative">
-      {/* Hero Section with Grid Background */}
-      <section class="relative py-32 overflow-hidden bg-white border-b border-surface-border hero-pattern">
-        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
-          <div class="max-w-4xl">
-            <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
-              <span class="w-2 h-2 bg-primary"></span>
-              <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Academic Resources</span>
-            </div>
-            <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
-              Choose Your <span class="text-primary">Learning Path</span>
-            </h1>
-            <p class="text-body-lg-home text-secondary max-w-2xl leading-relaxed">
-              Master the technical domains required to build the future. Select a specialization below to access structured, developer-centric learning materials.
-            </p>
+<Layout title="Sumber Belajar - Komandro CCIT-FTUI">
+  <main class="min-h-screen bg-canvas pt-[92px]">
+    {/* Hero */}
+    <section class="relative py-20 md:py-28 overflow-hidden bg-canvas hero-pattern border-b border-ink/6">
+      <HeroBg />
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
+            <span class="w-2 h-2 rounded-full bg-violet" aria-hidden="true"></span>
+            <span class="text-[13px] font-semibold text-ink-2">Sumber Belajar</span>
           </div>
+          <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-5">
+            Pilih <span class="relative text-violet">Jalur Belajar</span><svg class="absolute" aria-hidden="true" style="display:none"></svg>
+          </h1>
+          <p class="text-body-lg text-ink-2 max-w-xl">
+            Kuasai domain teknis yang dibutuhkan untuk membangun masa depan. Pilih spesialisasi di bawah untuk mengakses materi belajar terstruktur.
+          </p>
         </div>
-      </section>
-      
-      {/* Bento Grid Category Layout */}
-      <section class="pb-32 pt-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
-          {categories.map((cat) => (
-            <CategoryCard 
-              href={`/material/${cat.id}`}
-              title={cat.name}
-              description={cat.description}
-              icon={cat.icon}
-            />
-          ))}
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    {/* Grid Kategori */}
+    <section class="py-14 md:py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {categories.map((cat) => (
+          <CategoryCard slug={cat.slug} />
+        ))}
+      </div>
+    </section>
   </main>
 </Layout>
