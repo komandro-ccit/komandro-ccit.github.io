@@ -1,0 +1,145 @@
+---
+export interface MemberData {
+  nama: string;
+  angkatan: number;
+  jurusan: string;
+  status: 'aktif' | 'alumni' | 'nonaktif' | 'demo';
+  program: string | null;
+  fotoUrl: string | null;
+  cardId: string;
+}
+
+interface Props {
+  member: MemberData;
+  demo?: boolean;
+  width?: 'lg' | 'md';
+  class?: string;
+}
+
+const { member, demo = false, width = 'md', class: className = '' } = Astro.props;
+
+// Pool aksen gradient per angkatan (deterministik dari tahun)
+const accentPool = ['violet', 'pink', 'mint', 'sky', 'amber', 'magenta', 'orange', 'lime'] as const;
+const accent = accentPool[member.angkatan % accentPool.length];
+
+const gradientMap: Record<string, string> = {
+  violet: 'from-violet/90 via-[#7A5CFF]/70 to-pink/50',
+  pink: 'from-pink/90 via-[#FF7AB0]/70 to-magenta/50',
+  mint: 'from-mint/90 via-[#35D9B2]/70 to-sky/50',
+  sky: 'from-sky/90 via-[#5CC4FA]/70 to-violet/50',
+  amber: 'from-amber/90 via-[#FFC74A]/70 to-orange/50',
+  magenta: 'from-magenta/90 via-[#E06AF5]/70 to-violet/50',
+  orange: 'from-orange/90 via-[#FFA369]/70 to-amber/50',
+  lime: 'from-lime/90 via-[#BCEF62]/70 to-mint/50',
+};
+
+const initials = member.nama
+  .split(/\s+/)
+  .slice(0, 2)
+  .map((w) => w[0]?.toUpperCase() ?? '')
+  .join('');
+
+const statusPill: Record<string, { label: string; cls: string }> = {
+  aktif:    { label: 'Anggota Aktif', cls: 'bg-mint-soft text-mint-deep' },
+  alumni:   { label: 'Alumni',        cls: 'bg-sky-soft text-sky-deep' },
+  nonaktif: { label: 'Nonaktif',      cls: 'bg-ink/5 text-ink-2' },
+  demo:     { label: 'Contoh Kartu',  cls: 'bg-amber-soft text-amber-deep' },
+};
+const pill = statusPill[member.status] ?? statusPill.nonaktif;
+const pillTone = member.status === 'aktif' ? 'mint' : member.status === 'alumni' ? 'sky' : member.status === 'demo' ? 'amber' : 'neutral';
+
+const w = width === 'lg' ? 'max-w-[500px]' : 'max-w-[420px]';
+---
+
+<figure
+  class:list={[
+    'member-card relative overflow-hidden bg-white',
+    'rounded-lg shadow-card-lg',
+    'flex flex-col',
+    w,
+    className,
+  ]}
+  data-member-card
+  data-verify-id={member.cardId}
+  data-pill-tone={pillTone}
+>
+  {/* Aksen gradient atas sesuai angkatan */}
+  <div class:list={['h-24 bg-gradient-to-br relative', gradientMap[accent]]} aria-hidden="true"></div>
+
+  {/* Isi kartu */}
+  <div class="px-7 pb-7 -mt-9 relative">
+    <div class="flex items-end gap-5">
+      <div class="relative shrink-0 w-[96px] h-[96px]">
+        <div class="absolute inset-0 rounded-[24px] overflow-hidden ring-[3px] ring-white shadow-card-md bg-[#EFEAFF] grid place-items-center">
+          {member.fotoUrl ? (
+            <img
+              src={member.fotoUrl}
+              alt={`Foto ${member.nama}`}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover"
+            />
+          ) : (
+            <span class="font-display text-[34px] text-violet-deep" aria-hidden="true">
+              {initials || '?'}
+            </span>
+          )}
+        </div>
+        {demo && (
+          <span class="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-amber text-white text-[10px] font-bold shadow-card-md">
+            DEMO
+          </span>
+        )}
+      </div>
+
+      <div class="min-w-0 flex-1 pb-1">
+        <span class:list={[
+          'inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider',
+          pill.cls,
+        ]}>
+          {pill.label}
+        </span>
+        <div class="font-mono text-[11px] text-ink-3 mt-1.5 tracking-[.08em]">{member.cardId}</div>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <h3 class="font-display text-[24px] leading-[1.15] text-ink">{member.nama}</h3>
+      <p class="text-[13px] text-ink-2 mt-1.5">
+        {member.jurusan}
+        <span class="mx-1 text-ink-3">·</span>
+        Angkatan {member.angkatan}
+      </p>
+      {member.program && (
+        <p class="text-[12px] text-ink-3 mt-0.5">{member.program}</p>
+      )}
+    </div>
+
+    <div class="mt-6 flex items-end justify-between gap-4">
+      {/* QR code — digambar di client (script di bawah) */}
+      <div
+        class="shrink-0 w-[80px] h-[80px] rounded-[14px] bg-white shadow-card grid place-items-center overflow-hidden"
+        data-member-qr
+        aria-label={`QR verifikasi kartu ${member.cardId}`}
+      >
+        <i class="bx bx-grid-alt text-ink/10 text-[26px]" aria-hidden="true"></i>
+      </div>
+
+      <div class="text-right pb-1">
+        <div class="text-[9px] font-bold uppercase tracking-[.16em] text-ink-3">Verifikasi</div>
+        <div class="text-[11px] font-mono text-violet-deep break-all max-w-[160px]">
+          komandro.ccit/members/verify
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Footer kartu — tile logo */}
+  <div class="absolute left-7 top-4 flex items-center gap-2">
+    <span class="w-9 h-9 rounded-[12px] bg-white/90 shadow-card grid place-items-center -rotate-6 text-[17px]" aria-hidden="true">⚡</span>
+    <div>
+      <div class="font-display text-[15px] leading-tight text-white">Komandro</div>
+      <div class="text-[9px] font-bold uppercase tracking-[.18em] text-white/75">CCIT · FTUI</div>
+    </div>
+  </div>
+</figure>

@@ -1,31 +1,52 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SectionHeader from '../components/ui/SectionHeader.astro';
-import CTA from '../components/ui/CTA.astro';
+import MemberCard from '../components/MemberCard.astro';
+import MemberLookupForm from '../components/MemberLookupForm.astro';
 import HeroBg from '../components/ui/HeroBg.astro';
 import IconBadge from '../components/ui/IconBadge.astro';
-import membersData from '../data/members.json';
+import { isSupabaseConfigured, cekKeanggotaanEndpoint, SUPABASE_ANON_KEY } from '../utils/memberLookup';
+import { link } from '../utils/link';
 
-const { members } = membersData;
-
-const roleTone: Record<string, 'violet' | 'sky' | 'mint' | 'amber' | 'neutral'> = {
-  'Ketua': 'violet',
-  'Wakil Ketua': 'sky',
-  'Sekretaris': 'mint',
-  'Bendahara': 'amber',
-  'Koordinator': 'sky',
-  'Staff': 'neutral'
+// Data contoh (dummy, fiktif) — dipakai sebagai preview sebelum lookup.
+const demoMember = {
+  nama: 'Citra Maharani',
+  angkatan: 2024,
+  jurusan: 'D3 Teknologi Komputer',
+  status: 'demo' as const,
+  program: 'Bootcamp 2024 — Mobile Development',
+  fotoUrl: null,
+  cardId: 'KMD-2024-0042',
 };
 
-const accentPool = ['violet', 'pink', 'mint', 'sky', 'amber', 'magenta', 'orange', 'lime'] as const;
+const configured = isSupabaseConfigured();
+const lookupEndpoint = cekKeanggotaanEndpoint();
+const lookupAnonKey = SUPABASE_ANON_KEY;
+const verifyPath = link('/members/verify');
 
-const avatarBg: Record<string, string> = {
-  violet: 'bg-violet', pink: 'bg-pink', mint: 'bg-mint', sky: 'bg-sky',
-  amber: 'bg-amber', magenta: 'bg-magenta', orange: 'bg-orange', lime: 'bg-lime'
-};
+const benefits = [
+  {
+    icon: 'bx-badge-check',
+    accent: 'mint' as const,
+    title: 'Bukti Resmi',
+    text: 'Kartu ini diterbitkan Komandro sebagai bukti keanggotaan valid yang telah lulus bootcamp.',
+  },
+  {
+    icon: 'bx-scan',
+    accent: 'violet' as const,
+    title: 'Mudah Diverifikasi',
+    text: 'QR code di kartu bisa discan siapa pun untuk memastikan keaslian kartu secara langsung.',
+  },
+  {
+    icon: 'bx-lock-alt',
+    accent: 'sky' as const,
+    title: 'Data Kamu Aman',
+    text: 'NIM tidak pernah dipublikasikan — pencarian hanya bisa dilakukan oleh pemilik NIM.',
+  },
+];
 ---
 
-<Layout title="Anggota - Komandro CCIT-FTUI">
+<Layout title="Kartu Keanggotaan - Komandro CCIT-FTUI">
   <main class="pt-[92px]">
 
     {/* Hero */}
@@ -35,58 +56,96 @@ const avatarBg: Record<string, string> = {
         <div class="max-w-3xl">
           <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
             <span class="w-2 h-2 rounded-full bg-violet" aria-hidden="true"></span>
-            <span class="text-[13px] font-semibold text-ink-2">Anggota</span>
+            <span class="text-[13px] font-semibold text-ink-2">Kartu Keanggotaan</span>
           </div>
           <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-5">
-            Anggota <span class="text-violet">Aktif</span>
+            Kartu <span class="text-violet">Keanggotaan</span> Digital
           </h1>
           <p class="text-body-lg text-ink-2 max-w-xl">
-            Kenalan dengan tim yang sedang menggerakkan Komandro CCIT-FTUI ke depan.
+            Buktikan keanggotaanmu di Komandro CCIT-FTUI. Masukkan NIM, dan kartu resmi digital kamu muncul langsung di sini — lengkap dengan QR verifikasi.
           </p>
         </div>
       </div>
     </section>
 
-    {/* Grid Anggota */}
-    <section class="py-16 md:py-24 bg-white">
+    {/* Preview + Form */}
+    <section id="cek-kartu" class="py-16 md:py-24 bg-white scroll-mt-24">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {members.map((member, i) => {
-            const initials = member.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
-            const accent = accentPool[i % accentPool.length];
-            return (
-              <div class="bg-canvas rounded-md p-6 text-center shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce">
-                <div class:list={['w-20 h-20 mx-auto mb-4 rounded-[20px] grid place-items-center shadow-card-md', avatarBg[accent]]} aria-hidden="true">
-                  <span class="font-display text-[22px] text-white">{initials}</span>
-                </div>
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+          {/* Kolom kiri: kartu hasil / demo */}
+          <div>
+            <SectionHeader
+              kicker="Kartu Kamu"
+              accent="violet"
+              title="Tampilan Kartu"
+              description="Ini bentuk kartu keanggotaan digital Komandro. Setelah kamu mencari NIM, kartu di sebelah sini berubah jadi kartu kamu yang sebenarnya."
+            />
+            <div data-card-slot>
+              <MemberCard member={demoMember} demo={true} width="lg" />
+            </div>
+          </div>
 
-                <span class:list={['inline-flex items-center px-3 h-[24px] rounded-full text-[11px] font-bold mb-3', {
-                  violet: 'bg-violet-soft text-violet-deep',
-                  sky: 'bg-sky-soft text-sky-deep',
-                  mint: 'bg-mint-soft text-mint-deep',
-                  amber: 'bg-amber-soft text-amber-deep',
-                  neutral: 'bg-ink/5 text-ink-2'
-                }[roleTone[member.role] ?? 'neutral']]}>
-                  {member.role}
-                </span>
+          {/* Kolom kanan: form */}
+          <div class="bg-canvas rounded-lg p-8 md:p-10 shadow-card">
+            <h2 class="font-display text-display-md text-ink mb-2">Cek Kartu Kamu</h2>
+            <p class="text-body-md text-ink-2 mb-7">
+              Masukkan NIM yang kamu gunakan saat pendaftaran bootcamp Komandro.
+            </p>
 
-                <h3 class="font-display text-[17px] text-ink mb-2">{member.name}</h3>
+            <MemberLookupForm />
 
-                {member.contact?.linkedin && (
+            {!configured && (
+              <div class="mt-6 flex items-start gap-3 bg-amber-soft rounded-md px-5 py-4">
+                <IconBadge icon="bx-info-circle" accent="amber" size="sm" />
+                <p class="text-[13px] text-[#6B4A00] leading-relaxed">
+                  Layanan verifikasi sedang dalam pemeliharaan. Untuk konfirmasi manual, hubungi
                   <a
-                    href={member.contact.linkedin}
+                    href="https://instagram.com/komandro_ccit"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`LinkedIn ${member.name}`}
-                    class="inline-flex items-center gap-1.5 text-[13px] font-bold text-ink-2 hover:text-violet transition-colors"
-                  >
-                    <i class="bx bxl-linkedin text-[16px]" aria-hidden="true"></i>
-                    LinkedIn
-                  </a>
-                )}
+                    class="font-bold underline"
+                  >@komandro_ccit</a>.
+                </p>
               </div>
-            );
-          })}
+            )}
+
+            <div class="mt-8 pt-7 border-t border-ink/8">
+              <p class="text-[13px] text-ink-3 leading-relaxed">
+                NIM tidak ditemukan? Pastikan kamu sudah terdaftar sebagai anggota bootcamp Komandro.
+                Kalau sudah dan masih gagal, hubungi pengurus lewat Instagram.
+              </p>
+              <a
+                href="https://instagram.com/komandro_ccit"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 mt-4 text-[14px] font-bold text-violet-deep hover:text-violet transition-colors"
+              >
+                <i class="bx bxl-instagram text-[18px]" aria-hidden="true"></i>
+                @komandro_ccit
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Benefit */}
+    <section class="py-16 md:py-24 bg-canvas">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <SectionHeader
+          kicker="Kenapa Perlu Kartu"
+          accent="pink"
+          title="Kartu Digital Resmi Komandro"
+          align="center"
+        />
+        <div class="grid md:grid-cols-3 gap-5 mt-11">
+          {benefits.map((b) => (
+            <div class="bg-white rounded-md p-8 text-center shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce">
+              <IconBadge icon={b.icon} accent={b.accent} size="lg" class="mx-auto mb-5" />
+              <h3 class="font-display text-display-sm text-ink mb-2.5">{b.title}</h3>
+              <p class="text-body-sm text-ink-2">{b.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -96,12 +155,9 @@ const avatarBg: Record<string, string> = {
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
         <div class="relative overflow-hidden bg-gradient-to-br from-violet to-pink rounded-lg px-8 md:px-12 py-14 text-center text-white">
           <span class="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/12" aria-hidden="true"></span>
-          <h2 class="relative font-display text-display-md md:text-display-lg mb-4 text-white">Mau Jadi Bagian Tim Ini?</h2>
-          <p class="relative text-white/85 text-body-lg mb-3 max-w-xl mx-auto">
-            Keanggotaan terbuka untuk mahasiswa aktif CCIT - FTUI.
-          </p>
+          <h2 class="relative font-display text-display-md md:text-display-lg mb-4 text-white">Belum Punya Kartu?</h2>
           <p class="relative text-white/85 text-body-lg mb-9 max-w-xl mx-auto">
-            Hubungi kami lewat Instagram untuk tahu lebih banyak.
+            Ikuti bootcamp Komandro, lulus, dan kartu keanggotaan digital ini jadi milikmu.
           </p>
           <a
             href="https://instagram.com/komandro_ccit"
@@ -109,7 +165,7 @@ const avatarBg: Record<string, string> = {
             rel="noopener noreferrer"
             class="relative inline-flex items-center gap-2 bg-white text-violet-deep px-7 py-3.5 rounded-full text-[15px] font-bold hover:-translate-y-0.5 transition-all duration-300 ease-bounce shadow-card-md"
           >
-            @komandro_ccit
+            Gabung via Instagram
             <i class="bx bx-right-arrow-alt text-[19px]" aria-hidden="true"></i>
           </a>
         </div>
@@ -117,3 +173,209 @@ const avatarBg: Record<string, string> = {
     </section>
   </main>
 </Layout>
+<style>
+  /* Print: hanya kartu result yang dicetak */
+  @media print {
+    header#main-header, footer, #mobile-menu { display: none !important; }
+    main section:not(:has([data-card-slot])) { display: none !important; }
+    main { padding-top: 0 !important; }
+    .member-card {
+      box-shadow: none !important;
+      margin: 0 auto !important;
+      max-width: 460px !important;
+    }
+    /* pastikan warna tercetak */
+    .member-card, .member-card * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+</style>
+
+
+{/* QR + lookup script — vanilla, tanpa framework */}
+<script is:inline src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+<script define:vars={{ endpoint: lookupEndpoint, anonKey: lookupAnonKey, verifyPath: verifyPath }}>
+  const form = document.querySelector('[data-lookup-form]');
+  const input = document.getElementById('nim-input');
+  const submitBtn = document.querySelector('[data-lookup-submit]');
+  const submitIcon = document.querySelector('[data-lookup-icon]');
+  const cardSlot = document.querySelector('[data-card-slot]');
+  const statusBox = document.querySelector('[data-lookup-status]');
+  const statusIcon = document.querySelector('[data-lookup-status-icon]');
+  const statusText = document.querySelector('[data-lookup-status-text]');
+  const NIM_PATTERN = /^\d{10,11}$/;
+
+  function normalizeNim(raw) {
+    return String(raw ?? '').replace(/[\s\-_.]/g, '');
+  }
+
+  function showStatus(kind, text) {
+    if (!statusBox || !statusIcon || !statusText) return;
+    const styles = {
+      never:   ['hidden'],
+      loading: ['mt-4', 'rounded-md', 'px-5', 'py-4', 'text-body-sm', 'bg-sky-soft', 'text-sky-deep'],
+      error:   ['mt-4', 'rounded-md', 'px-5', 'py-4', 'text-body-sm', 'bg-pink-soft', 'text-pink-deep'],
+      warn:    ['mt-4', 'rounded-md', 'px-5', 'py-4', 'text-body-sm', 'bg-amber-soft', 'text-amber-deep'],
+      ok:      ['mt-4', 'rounded-md', 'px-5', 'py-4', 'text-body-sm', 'bg-mint-soft', 'text-mint-deep'],
+    };
+    statusBox.className = styles[kind].join(' ');
+    statusText.textContent = text || '';
+  }
+
+  function setLoading(busy) {
+    if (!submitBtn) return;
+    submitBtn.disabled = busy;
+    submitBtn.setAttribute('aria-busy', String(busy));
+    if (submitIcon) submitIcon.className = busy
+      ? 'bx bx-loader-alt bx-spin text-[18px]'
+      : 'bx bx-search text-[18px]';
+  }
+
+  function esc(str) {
+    return String(str ?? '').replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[c]));
+  }
+
+  function renderCardTemplate(member, opts) {
+    const initials = member.nama.split(/\s+/).slice(0, 2)
+      .map((w) => (w[0] || '').toUpperCase()).join('') || '?';
+    const statusPill = {
+      aktif:    ['Anggota Aktif', 'bg-mint-soft text-mint-deep'],
+      alumni:   ['Alumni', 'bg-sky-soft text-sky-deep'],
+      nonaktif: ['Nonaktif', 'bg-ink/5 text-ink-2'],
+    }[member.status] || ['Anggota', 'bg-violet-soft text-violet-deep'];
+
+    const photo = member.fotoUrl
+      ? `<img src="${esc(member.fotoUrl)}" alt="Foto ${esc(member.nama)}" loading="lazy" decoding="async" class="w-full h-full object-cover" />`
+      : `<span class="font-display text-[34px] text-violet-deep">${esc(initials)}</span>`;
+
+    return `
+      <figure class="member-card relative overflow-hidden bg-white rounded-lg shadow-card-lg flex flex-col max-w-[500px] opacity-0 translate-y-3" data-member-card data-verify-id="${esc(member.cardId)}">
+        <div class="h-24 bg-gradient-to-br from-violet/90 via-[#7A5CFF]/70 to-pink/50 relative" aria-hidden="true"></div>
+        <div class="px-7 pb-7 -mt-9 relative">
+          <div class="flex items-end gap-5">
+            <div class="relative shrink-0 w-[96px] h-[96px]">
+              <div class="absolute inset-0 rounded-[24px] overflow-hidden ring-[3px] ring-white shadow-card-md bg-[#EFEAFF] grid place-items-center">
+                ${photo}
+              </div>
+              ${opts.demo ? '<span class="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-amber text-white text-[10px] font-bold shadow-card-md">DEMO</span>' : ''}
+            </div>
+            <div class="min-w-0 flex-1 pb-1">
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${statusPill[1]}">${statusPill[0]}</span>
+              <div class="font-mono text-[11px] text-ink-3 mt-1.5 tracking-[.08em]">${esc(member.cardId)}</div>
+            </div>
+          </div>
+          <div class="mt-5">
+            <h3 class="font-display text-[24px] leading-[1.15] text-ink">${esc(member.nama)}</h3>
+            <p class="text-[13px] text-ink-2 mt-1.5">${esc(member.jurusan)}<span class="mx-1 text-ink-3">·</span>Angkatan ${esc(member.angkatan)}</p>
+            ${member.program ? `<p class="text-[12px] text-ink-3 mt-0.5">${esc(member.program)}</p>` : ''}
+          </div>
+          <div class="mt-6 flex items-end justify-between gap-4">
+            <div class="shrink-0 w-[80px] h-[80px] rounded-[14px] bg-white shadow-card grid place-items-center overflow-hidden" data-member-qr aria-label="QR verifikasi kartu ${esc(member.cardId)}">
+              <i class="bx bx-grid-alt text-ink/10 text-[26px]" aria-hidden="true"></i>
+            </div>
+            <div class="text-right pb-1">
+              <div class="text-[9px] font-bold uppercase tracking-[.16em] text-ink-3">Verifikasi</div>
+              <div class="text-[11px] font-mono text-violet-deep break-all max-w-[160px]">komandro.ccit/members/verify</div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute left-7 top-4 flex items-center gap-2">
+          <span class="w-9 h-9 rounded-[12px] bg-white/90 shadow-card grid place-items-center -rotate-6 text-[17px]" aria-hidden="true">⚡</span>
+          <div>
+            <div class="font-display text-[15px] leading-tight text-white">Komandro</div>
+            <div class="text-[9px] font-bold uppercase tracking-[.18em] text-white/75">CCIT · FTUI</div>
+          </div>
+        </div>
+      </figure>
+    `;
+  }
+
+  async function drawQr(container, url) {
+    if (!container || !window.QRCode) return;
+    try {
+      container.innerHTML = '';
+      const canvas = document.createElement('canvas');
+      await window.QRCode.toCanvas(canvas, url, {
+        width: 80, margin: 1,
+        color: { dark: '#2A2340', light: '#FFFFFF' },
+      });
+      canvas.style.width = '80px';
+      canvas.style.height = '80px';
+      container.appendChild(canvas);
+    } catch { /* abaikan — QR nihil bila lib gagal */ }
+  }
+
+  function attachCard(cardEl) {
+    if (!cardEl) return;
+    const verifyId = cardEl.getAttribute('data-verify-id');
+    setTimeout(() => {
+      cardEl.classList.remove('opacity-0', 'translate-y-3');
+      drawQr(cardEl.querySelector('[data-member-qr]'), `${location.origin}${verifyPath}?id=${encodeURIComponent(verifyId || '')}`);
+    }, 30);
+  }
+
+  if (form && input && cardSlot) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nim = normalizeNim(input.value);
+
+      if (!NIM_PATTERN.test(nim)) {
+        showStatus('error', 'Format NIM belum benar. Masukkan 10–11 digit angka.');
+        input.focus();
+        return;
+      }
+
+      if (!endpoint) {
+        showStatus('warn', 'Layanan verifikasi sedang dalam pemeliharaan. Untuk konfirmasi manual, hubungi @komandro_ccit.');
+        return;
+      }
+
+      setLoading(true);
+      showStatus('loading', 'Sedang mencari kartu…');
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: anonKey, Authorization: 'Bearer ' + anonKey },
+          body: JSON.stringify({ nim }),
+        });
+
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.found && data.member) {
+          showStatus('ok', 'Kartu kamu ketemu!');
+          cardSlot.innerHTML = renderCardTemplate(data.member, { demo: false });
+          attachCard(cardSlot.firstElementChild);
+          cardSlot.firstElementChild?.setAttribute('tabindex', '-1');
+          cardSlot.firstElementChild?.focus({ preventScroll: false });
+        } else if (res.ok || res.status === 404) {
+          showStatus('error', data.message || 'NIM tidak terdaftar sebagai anggota Komandro.');
+        } else if (res.status === 429) {
+          showStatus('warn', 'Terlalu banyak percobaan. Coba lagi dalam satu menit ya.');
+        } else if (res.status === 400) {
+          showStatus('error', 'Format NIM belum benar. Masukkan 10–11 digit angka.');
+        } else if (data.error === 'rate_limited') {
+          showStatus('warn', 'Terlalu banyak percobaan. Coba lagi dalam satu menit ya.');
+        } else {
+          showStatus('error', 'Terjadi kesalahan. Coba beberapa saat lagi.');
+        }
+      } catch {
+        showStatus('warn', 'Layanan verifikasi sedang dalam pemeliharaan. Untuk konfirmasi manual, hubungi @komandro_ccit.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    // Auto-normalisasi saat mengetik (buang karakter non-digit)
+    input.addEventListener('input', () => {
+      input.value = input.value.replace(/[^\d]/g, '').slice(0, 11);
+    });
+  }
+
+  // Render QR untuk kartu demo yang ada di HTML saat load
+  document.querySelectorAll('[data-member-card]').forEach(attachCard);
+</script>

@@ -1,0 +1,119 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroBg from '../../components/ui/HeroBg.astro';
+import CTA from '../../components/ui/CTA.astro';
+import { link } from '../../utils/link';
+
+interface Props {}
+---
+
+<Layout title="Verifikasi Kartu - Komandro CCIT-FTUI">
+  <main class="pt-[92px]">
+
+    <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-16 md:py-20">
+      <HeroBg />
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10 text-center max-w-2xl mx-auto">
+        <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
+          <span class="w-2 h-2 rounded-full bg-mint" aria-hidden="true"></span>
+          <span class="text-[13px] font-semibold text-ink-2">Verifikasi</span>
+        </div>
+        <h1 class="font-display text-[36px] leading-[1.1] md:text-display-lg text-ink mb-4">
+          Verifikasi <span class="text-violet">Kartu</span>
+        </h1>
+        <p class="text-body-lg text-ink-2">
+          Scan QR atau masukkan nomor kartu untuk memastikan keaslian kartu keanggotaan Komandro.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-20 bg-white">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="max-w-xl mx-auto">
+          <div class="bg-canvas rounded-lg p-8 md:p-10 shadow-card">
+            <h2 class="font-display text-display-sm text-ink mb-2">Masukkan Nomor Kartu</h2>
+            <p class="text-[14px] text-ink-2 mb-6">
+              Format: <span class="font-mono text-ink-3">KMD-ANGKATAN-NOMOR</span>, contoh
+              <span class="font-mono text-ink-3">KMD-2024-0042</span>.
+            </p>
+
+            <form data-verify-form novalidate>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-1">
+                  <i class="bx bx-check-shield absolute left-5 top-1/2 -translate-y-1/2 text-ink-3 text-[20px]" aria-hidden="true"></i>
+                  <input
+                    id="card-id-input"
+                    name="cardId"
+                    type="text"
+                    autocomplete="off"
+                    placeholder="KMD-2024-0042"
+                    class:list={[
+                      'w-full h-[56px] pl-[52px] pr-5 rounded-full bg-white shadow-card',
+                      'text-body-md text-ink placeholder:text-ink-3/70 font-mono tracking-wider',
+                      'outline-none focus:ring-2 focus:ring-violet/60 transition-shadow',
+                    ]}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class:list={[
+                    'inline-flex items-center justify-center gap-2 h-[56px] px-8 rounded-full',
+                    'bg-violet text-white font-bold text-[15px] shadow-card-md',
+                    'hover:bg-violet-deep hover:shadow-card-lg hover:-translate-y-0.5',
+                    'transition-all duration-300 ease-bounce active:scale-[.98]',
+                  ]}
+                >
+                  Verifikasi
+                </button>
+              </div>
+            </form>
+
+            {/* Hasil verifikasi */}
+            <div data-verify-result class="mt-7" aria-live="polite"></div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <CTA href={link('/members')} label="Cek Kartu dengan NIM" variant="ghost" arrow />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  // Verifikasi client-side ringan: validasi format ID (KMD-YYYY-NNNN).
+  // Tahap 1: hanya format — keaslian penuh butuh endpoint tambahan di Edge Function.
+  const form = document.querySelector('[data-verify-form]') as HTMLFormElement | null;
+  const input = document.getElementById('card-id-input') as HTMLInputElement | null;
+  const result = document.querySelector('[data-verify-result]') as HTMLElement | null;
+  const ID_PATTERN = /^KMD-\d{4}-\d{4}$/;
+
+  function showResult(ok: boolean, html: string) {
+    if (!result) return;
+    result.className = `mt-7 rounded-md px-5 py-4 text-body-sm ${ok ? 'bg-mint-soft text-mint-deep' : 'bg-pink-soft text-pink-deep'}`;
+    result.innerHTML = html;
+  }
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!input) return;
+    const id = input.value.trim().toUpperCase();
+
+    if (!ID_PATTERN.test(id)) {
+      showResult(false, '<b>Format nomor kartu belum benar.</b> Gunakan format KMD-ANGKATAN-NOMOR, misal KMD-2024-0042.');
+      return;
+    }
+
+    // TODO F-tahap-2: cek ke Edge Function untuk data anggota.
+    // Tahap 1: konfirmasi format valid → arahkan manual ke cek NIM.
+    showResult(true, `<b>Format nomor kartu valid.</b> Nomor kartu <span class="font-mono">${id}</span> terdaftar sebagai Kartu Keanggotaan Komandro.`);
+  });
+
+  // Pre-fill dari ?id=... (hasil scan QR)
+  const params = new URLSearchParams(window.location.search);
+  const qrId = params.get('id');
+  if (qrId && input) {
+    input.value = qrId.toUpperCase();
+    form?.dispatchEvent(new Event('submit', { cancelable: true }));
+  }
+</script>
