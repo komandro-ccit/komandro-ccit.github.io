@@ -3,63 +3,24 @@ import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import SingleMaterialCard from '../../../components/material/SingleMaterialCard.astro';
 import SeriesMaterialCard from '../../../components/material/SeriesMaterialCard.astro';
-import MaterialIcon from '../../../components/material/MaterialIcon.astro';
+import IconBadge from '../../../components/ui/IconBadge.astro';
+import SectionHeader from '../../../components/ui/SectionHeader.astro';
+import HeroBg from '../../../components/ui/HeroBg.astro';
 import { link } from '../../../utils/link';
+import { categoryOf } from '../../../data/categories';
 
 export async function getStaticPaths() {
   const categories = ['web', 'mobile', 'ui-ux', 'qa', 'devops', 'iot', 'game', 'tools'];
   return categories.map(cat => ({ params: { category: cat } }));
 }
 
-const categoryInfo: Record<string, { name: string; description: string; icon: string }> = {
-  'web': {
-    name: 'Web Development',
-    description: 'Build robust, responsive applications for the browser.',
-    icon: 'bx-globe'
-  },
-  'mobile': {
-    name: 'Mobile Development',
-    description: 'Create native and cross-platform applications for smartphones.',
-    icon: 'bx-mobile-alt'
-  },
-  'ui-ux': {
-    name: 'UI/UX Design',
-    description: 'Master layout, color theory, typography, and user research.',
-    icon: 'bx-paint'
-  },
-  'qa': {
-    name: 'Quality Assurance',
-    description: 'Ensure software reliability through rigorous testing.',
-    icon: 'bx-bug'
-  },
-  'devops': {
-    name: 'DevOps',
-    description: 'Streamline development with CI/CD and cloud infrastructure.',
-    icon: 'bx-cloud'
-  },
-  'iot': {
-    name: 'IoT',
-    description: 'Build connected devices and embedded systems for the Internet of Things.',
-    icon: 'bx-chip'
-  },
-  'game': {
-    name: 'Game Development',
-    description: 'Design and program interactive entertainment experiences.',
-    icon: 'bx-game'
-  },
-  'tools': {
-    name: 'Tools',
-    description: 'Master essential developer tools and version control.',
-    icon: 'bx-wrench'
-  }
-};
-
 const { category } = Astro.params;
-const info = categoryInfo[category] || { 
-  name: category, 
-  description: '', 
-  icon: 'bx-book'
+const info = categoryOf(category);
+const accentMap: Record<string, 'violet' | 'pink' | 'mint' | 'amber' | 'sky' | 'lime' | 'orange' | 'magenta'> = {
+  mobile: 'violet', web: 'sky', 'ui-ux': 'pink', qa: 'amber',
+  devops: 'mint', iot: 'lime', game: 'magenta', tools: 'orange'
 };
+const accent = accentMap[category] ?? 'violet';
 
 const allMaterials = await getCollection('materials');
 
@@ -98,60 +59,59 @@ Object.keys(curriculumLessons).forEach(key => {
 const totalItems = curriculums.length + standaloneArticles.length;
 ---
 
-<Layout title={`${info.name} - Materials - Komandro CCIT-FTUI`}>
-  <main class="min-h-screen bg-surface-light pt-24">
-    
-    {/* Hero Section */}
-    <section class="relative py-32 overflow-hidden bg-white border-b border-surface-border hero-pattern">
+<Layout title={`${info.label} - Materi - Komandro CCIT-FTUI`}>
+  <main class="min-h-screen bg-canvas pt-[92px]">
+
+    {/* Hero */}
+    <section class="relative py-16 md:py-24 overflow-hidden bg-canvas hero-pattern border-b border-ink/6">
+      <HeroBg />
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
         <div class="max-w-4xl">
-          <a href={link('/material')} class="inline-flex items-center gap-2 text-secondary hover:text-on-background mb-6 font-label-md text-label-md uppercase tracking-wider transition-colors">
-            <MaterialIcon name="bx-arrow-back" class="text-[18px]" />
-            Back to Pathways
+          <a href={link('/material')} class="inline-flex items-center gap-2 bg-white text-ink-2 hover:text-violet mb-8 px-4 h-10 rounded-full text-[13.5px] font-bold transition-colors shadow-card">
+            <i class="bx bx-arrow-back text-[17px]" aria-hidden="true"></i>
+            Semua Jalur
           </a>
-          
-          <div class="flex items-center gap-3 mb-6">
-            <i class={`bx ${info.icon} text-on-background text-[40px]`}></i>
-          </div>
-          
-          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-4 leading-tight">
-            {info.name}
+
+          <IconBadge icon={info.icon} accent={accent} size="lg" class="mb-6" />
+
+          <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-4">
+            {info.label}
           </h1>
-          <p class="text-body-lg-home text-secondary max-w-2xl mb-8 leading-relaxed">
+          <p class="text-body-lg text-ink-2 max-w-2xl mb-8">
             {info.description}
           </p>
-          
-          <div class="flex gap-4">
-            <div class="px-4 py-2 bg-surface-variant text-on-background font-label-md text-label-md uppercase tracking-widest">
-              <span class="font-bold">{curriculums.length}</span> Series
+
+          <div class="flex flex-wrap gap-3">
+            <div class="inline-flex items-center gap-2 bg-white px-5 h-10 rounded-full shadow-card text-[13.5px] font-semibold text-ink-2">
+              <span class="font-bold text-ink">{curriculums.length}</span> Kurikulum
             </div>
-            <div class="px-4 py-2 bg-surface-variant text-on-background font-label-md text-label-md uppercase tracking-widest">
-              <span class="font-bold">{standaloneArticles.length}</span> Articles
+            <div class="inline-flex items-center gap-2 bg-white px-5 h-10 rounded-full shadow-card text-[13.5px] font-semibold text-ink-2">
+              <span class="font-bold text-ink">{standaloneArticles.length}</span> Artikel
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    {/* Content */}
-    <section class="py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-      
-      {/* Series Section */}
+    {/* Konten */}
+    <section class="py-14 md:py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+
+      {/* Kurikulum */}
       {curriculums.length > 0 && (
         <div class="mb-16">
-          <div class="flex items-center gap-3 mb-8">
-            <MaterialIcon name="bx-collection" class="text-3xl text-primary" />
-            <h2 class="font-headline-lg text-headline-lg text-on-surface">Structured Series</h2>
-            <div class="flex-1 h-px bg-outline-variant" />
-          </div>
+          <SectionHeader
+            kicker="Belajar Bertahap"
+            accent={accent === 'mint' ? 'sky' : 'mint'}
+            title="Kurikulum Terstruktur"
+          />
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             {curriculums.map((curriculum) => {
               const slugParts = curriculum.slug.split('/');
               const curriculumSlug = slugParts[slugParts.length - 1];
               const lessons = curriculumLessons[curriculumSlug] || [];
               const lessonTitles = lessons.slice(0, 4).map(l => l.data.title);
-              
+
               return (
                 <SeriesMaterialCard
                   href={link(`/material/${category}/${curriculumSlug}`)}
@@ -160,6 +120,7 @@ const totalItems = curriculums.length + standaloneArticles.length;
                   moduleCount={lessons.length}
                   modules={lessonTitles}
                   difficulty={curriculum.data.difficulty}
+                  accent={accent}
                 />
               );
             })}
@@ -167,16 +128,16 @@ const totalItems = curriculums.length + standaloneArticles.length;
         </div>
       )}
 
-      {/* Single Articles Section */}
+      {/* Artikel Tunggal */}
       {standaloneArticles.length > 0 && (
-        <div class:list={[curriculums.length > 0 ? 'border-t-4 border-surface-variant pt-16' : '']}>
-          <div class="flex items-center gap-3 mb-8">
-            <MaterialIcon name="bx-file" class="text-3xl text-primary" />
-            <h2 class="font-headline-lg text-headline-lg text-on-surface">Single Articles</h2>
-            <div class="flex-1 h-px bg-outline-variant" />
-          </div>
+        <div>
+          <SectionHeader
+            kicker="Baca Cepat"
+            accent={accent === 'pink' ? 'violet' : 'pink'}
+            title="Artikel Tunggal"
+          />
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             {standaloneArticles.map((article) => {
               const articleSlug = article.slug.split('/').pop()?.replace('.mdx', '');
               return (
@@ -187,6 +148,7 @@ const totalItems = curriculums.length + standaloneArticles.length;
                   author={article.data.author}
                   date={new Date(article.data.pubDate).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' })}
                   difficulty={article.data.difficulty}
+                  accent={accent}
                 />
               );
             })}
@@ -195,10 +157,12 @@ const totalItems = curriculums.length + standaloneArticles.length;
       )}
 
       {totalItems === 0 && (
-        <div class="text-center py-24 bg-white border border-surface-border rounded">
-          <MaterialIcon name="bx-book-open" class="text-6xl text-on-surface-variant mb-4" />
-          <h3 class="font-headline-md text-headline-md text-on-surface mb-2">No Materials Yet</h3>
-          <p class="text-on-surface-variant">Materials for this pathway will be added soon!</p>
+        <div class="text-center py-20 bg-white rounded-md shadow-card">
+          <div class="w-20 h-20 mx-auto rounded-full bg-violet-soft text-violet grid place-items-center text-[40px] mb-5" aria-hidden="true">
+            <i class="bx bx-book-open"></i>
+          </div>
+          <h3 class="font-display text-display-sm text-ink mb-2">Belum Ada Materi</h3>
+          <p class="text-ink-2">Materi untuk jalur ini akan segera ditambahkan!</p>
         </div>
       )}
     </section>

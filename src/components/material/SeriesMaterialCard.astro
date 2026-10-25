@@ -1,6 +1,7 @@
 ---
-import MaterialIcon from './MaterialIcon.astro';
 import { link } from '../../utils/link';
+import { DIFFICULTY_TONE, DIFFICULTY_LABEL, ACCENT_TEXT, type AccentName } from '../../data/categories';
+import Pill from '../ui/Pill.astro';
 
 interface Props {
   href: string;
@@ -9,46 +10,47 @@ interface Props {
   moduleCount: number;
   modules: string[];
   difficulty?: string;
+  accent?: 'violet' | 'pink' | 'mint' | 'amber' | 'sky' | 'lime' | 'orange' | 'magenta';
 }
 
-const { href, title, description, moduleCount, modules, difficulty } = Astro.props;
-
-const difficultyColors: Record<string, string> = {
-  'Beginner': 'bg-primary text-white',
-  'Intermediate': 'bg-secondary text-white',
-  'Advanced': 'bg-on-background text-white',
-};
+const { href, title, description, moduleCount, modules, difficulty, accent = 'violet' } = Astro.props;
 ---
 
 <a
   href={link(href)}
-  class="group bg-surface-container-lowest border border-surface-variant border-l-4 border-l-primary rounded p-md flex flex-col gap-sm hover:border-primary transition-colors duration-200"
+  class="group bg-white rounded-md p-6 flex flex-col gap-3.5 shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce relative overflow-hidden"
 >
-  <div class="flex justify-between items-start">
-    <span class="font-label-md text-label-md text-secondary">{moduleCount} Modules</span>
-    <span class="bg-primary text-white font-label-md text-label-md uppercase tracking-widest px-2 py-1">SERIES</span>
+  <span class:list={['absolute top-0 left-0 w-full h-1.5', {
+      violet: 'bg-violet', pink: 'bg-pink', mint: 'bg-mint', amber: 'bg-amber',
+      sky: 'bg-sky', lime: 'bg-lime', orange: 'bg-orange', magenta: 'bg-magenta'
+    }[accent]]} aria-hidden="true"></span>
+
+  <div class="flex justify-between items-start pt-1.5">
+    <span class="text-[13px] font-semibold text-ink-3">{moduleCount} Modul</span>
+    <Pill label="SERI" tone={accent} />
   </div>
-  <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">{title}</h3>
+
+  <h3 class="font-display text-display-sm text-ink group-hover:text-violet transition-colors">{title}</h3>
+
   {modules.length > 0 && (
-    <ul class="font-body-md text-body-md text-secondary list-disc list-inside mb-4">
-      {modules.map((mod) => (
-        <li>{mod}</li>
+    <ul class="text-body-sm text-ink-2 space-y-1.5 mb-3">
+      {modules.slice(0, 3).map((mod) => (
+        <li class="flex items-start gap-2">
+          <i class:list={['bx bx-check-circle mt-0.5 text-[16px]', ACCENT_TEXT[accent as AccentName]]} aria-hidden="true"></i>
+          <span>{mod}</span>
+        </li>
       ))}
     </ul>
   )}
   {!modules.length && description && (
-    <p class="font-body-md text-body-md text-secondary line-clamp-2 mb-4">{description}</p>
+    <p class="text-body-sm text-ink-2 line-clamp-2 mb-3">{description}</p>
   )}
-  <div class="mt-auto">
-    <div class="flex justify-between items-center mb-2">
-      {difficulty && (
-        <span class:list={['px-2 py-1 font-label-md text-label-md uppercase tracking-widest', difficultyColors[difficulty] || 'bg-surface-variant text-on-background']}>
-          {difficulty}
-        </span>
-      )}
-    </div>
-    <button class="w-full bg-transparent border border-on-background text-on-background font-bold font-body-md text-body-md py-2 hover:bg-surface-variant transition-colors">
-      Start Learning
-    </button>
+
+  <div class="mt-auto flex items-center justify-between pt-3.5 border-t border-ink/6">
+    {difficulty && <Pill label={DIFFICULTY_LABEL[difficulty] ?? difficulty} tone={DIFFICULTY_TONE[difficulty] ?? 'neutral'} />}
+    <span class="inline-flex items-center gap-1 text-[13.5px] font-bold text-violet">
+      Mulai Belajar
+      <i class="bx bx-right-arrow-alt text-[16px] transition-transform group-hover:translate-x-1" aria-hidden="true"></i>
+    </span>
   </div>
 </a>

@@ -1,6 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import IconBadge from '../components/ui/IconBadge.astro';
+import CTA from '../components/ui/CTA.astro';
+import HeroBg from '../components/ui/HeroBg.astro';
 import { link } from '../utils/link';
 
 const currentYear = new Date().getFullYear();
@@ -10,184 +14,201 @@ const blogPosts = await getCollection('blog', ({ data }) => !data.draft);
 const latestPosts = blogPosts
   .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
   .slice(0, 3);
+
+const stats = [
+  { value: `${yearsActive}+`, label: 'Tahun Dedikasi', accent: 'violet' },
+  { value: '200+', label: 'Alumni', accent: 'pink' },
+  { value: '30+', label: 'Workshop Teknis', accent: 'mint' },
+  { value: '50+', label: 'Proyek Tercipta', accent: 'amber' }
+] as const;
+
+const pillars = [
+  {
+    icon: 'bx-trophy',
+    accent: 'violet',
+    title: 'Aktif dan Kompetitif',
+    description: 'Mengikuti kompetisi skala nasional dan internasional guna mencari pengalaman akademis di bidang IT.'
+  },
+  {
+    icon: 'bx-briefcase',
+    accent: 'pink',
+    title: 'Alumni Profesional',
+    description: 'Alumni lulus sebagai profesional IT yang telah bekerja di perusahaan nasional dan multinasional.'
+  },
+  {
+    icon: 'bx-buildings',
+    accent: 'mint',
+    title: 'Integrasi Industri',
+    description: 'Menjalin kerjasama lewat alumni untuk menghadirkan pengetahuan terbaru seputar teknologi untuk kemajuan anggota komunitas.'
+  }
+] as const;
+
+const directory = [
+  {
+    icon: 'bx-map-pin',
+    accent: 'violet',
+    label: 'Lokasi Kampus',
+    name: 'Engineering Center',
+    detail: 'Fakultas Teknik<br/>Universitas Indonesia<br/>Depok, Jawa Barat 16424'
+  },
+  {
+    icon: 'bx-desktop',
+    accent: 'sky',
+    label: 'Fasilitas',
+    name: 'Laboratorium Komputer',
+    detail: 'Lantai 2<br/>Gedung Engineering Center'
+  },
+  {
+    icon: 'bx-time-five',
+    accent: 'mint',
+    label: 'Jadwal Rutin',
+    name: 'Rapat Mingguan',
+    detail: 'Kamis, 16:00 - 18:00 WIB'
+  }
+] as const;
 ---
 
 <Layout title="Komandro | CCIT-FTUI Android & Technology Community">
-  <main class="pt-24">
-    {/* Hero Section */}
-    <section class="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-white hero-pattern border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10 w-full py-32">
-        <div class="max-w-4xl">
-          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
-            <span class="w-2 h-2 bg-primary animate-pulse"></span>
-            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Est. 2015 &bull; Engineering Excellence</span>
+  <main class="pt-[92px]">
+
+    {/* Hero */}
+    <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-16 md:py-24">
+      <HeroBg />
+      <div class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="max-w-3xl flex flex-col items-start">
+          <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
+            <span class="w-2 h-2 rounded-full bg-violet animate-pulse" aria-hidden="true"></span>
+            <span class="text-[13px] font-semibold text-ink-2">Berdiri 2015 · Komunitas Teknologi</span>
           </div>
-          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
-            Cultivating the Next Generation of <span class="text-primary">Technology Leaders</span>
+          <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-6">
+            Menumbuhkan Generasi <span class="relative text-violet">Teknologi<svg class="absolute left-0 -bottom-1 w-full h-[14px]" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 10 C60 2, 140 2, 198 9" stroke="#FFB020" stroke-width="7" fill="none" stroke-linecap="round" opacity=".45"/></svg></span> Masa Depan
           </h1>
-          <p class="text-body-lg-home text-secondary mb-12 max-w-2xl leading-relaxed">
-            Komunitas Android &amp; Teknologi CCIT-FTUI. We are an institution dedicated to advancing software engineering practice, fostering innovation, and building a prestigious network of technology professionals.
+          <p class="text-body-lg text-ink-2 max-w-2xl mb-9">
+            Komunitas Android CCIT - FTUI adalah Unit Kegiatan Mahasiswa di bawah akademik CCIT - Fakultas Teknik Universitas Indonesia. Kami menghadirkan pendidikan IT non-formal agar mahasiswa tetap relevan dengan perkembangan zaman.
           </p>
-          <div class="flex flex-col sm:flex-row gap-6">
-            <a href={link('/material')} class="inline-flex items-center justify-center gap-2 bg-on-background text-white px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-white transition-colors duration-300">
-              Explore Programs
-              <i class="bx bx-right-arrow-alt text-[20px]"></i>
-            </a>
-            <a href={link('/alumni')} class="inline-flex items-center justify-center gap-2 bg-white text-on-background border-2 border-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-surface-variant transition-colors duration-300">
-              View Alumni
-            </a>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <CTA href="/material" label="Jelajahi Program" variant="primary" arrow />
+            <CTA href="/alumni" label="Lihat Alumni" variant="ghost" />
           </div>
         </div>
       </div>
     </section>
 
-    {/* Stats Section */}
-    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+    {/* Stats */}
+    <section class="py-16 md:py-24 bg-canvas">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="mb-20">
-          <h2 class="text-headline-lg-home text-on-background mb-6">Institutional Impact</h2>
-          <div class="w-24 h-1 bg-primary mb-8"></div>
-          <p class="text-secondary max-w-3xl text-body-lg-home leading-relaxed">
-            A decade of sustained excellence in technical education, practical engineering, and community building at Universitas Indonesia.
-          </p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 border-t border-surface-border pt-16">
-          <div>
-            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">{yearsActive}+</div>
-            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Years of Excellence</div>
-          </div>
-          <div>
-            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">500+</div>
-            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Prestigious Alumni</div>
-          </div>
-          <div>
-            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">50+</div>
-            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Technical Workshops</div>
-          </div>
-          <div>
-            <div class="text-on-background text-headline-xl-home-mobile md:text-headline-xl-home mb-4 font-light tracking-tighter">100+</div>
-            <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Engineering Projects</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Core Pillars Section */}
-    <section class="py-32 bg-white border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="mb-20">
-          <h2 class="text-headline-lg-home text-on-background mb-6">Core Pillars of Excellence</h2>
-          <div class="w-24 h-1 bg-primary mb-8"></div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
-          {/* Pillar 1 */}
-          <div class="group border-l-4 border-surface-border hover:border-primary pl-8 transition-colors duration-300">
-            <i class="bx bx-trophy text-on-background text-4xl mb-6 font-light"></i>
-            <h3 class="text-headline-md-home mb-4 text-on-background">Competitive Engineering</h3>
-            <p class="text-secondary text-body-md leading-relaxed">
-              Multiple national and international competition victories demonstrating exceptional capability in mobile development and software engineering.
-            </p>
-          </div>
-          {/* Pillar 2 */}
-          <div class="group border-l-4 border-surface-border hover:border-primary pl-8 transition-colors duration-300">
-            <i class="bx bx-briefcase text-on-background text-4xl mb-6 font-light"></i>
-            <h3 class="text-headline-md-home mb-4 text-on-background">Professional Trajectory</h3>
-            <p class="text-secondary text-body-md leading-relaxed">
-              Alumni establishing distinguished careers at top global technology firms and innovative startups, carrying forward the institution's rigor.
-            </p>
-          </div>
-          {/* Pillar 3 */}
-          <div class="group border-l-4 border-surface-border hover:border-primary pl-8 transition-colors duration-300">
-            <i class="bx bx-buildings text-on-background text-4xl mb-6 font-light"></i>
-            <h3 class="text-headline-md-home mb-4 text-on-background">Industry Integration</h3>
-            <p class="text-secondary text-body-md leading-relaxed">
-              Strategic partnerships with leading technology enterprises facilitating advanced research, internships, and curriculum development.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Location Directory Section */}
-    <section class="py-32 bg-surface-container-low border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex flex-col lg:flex-row justify-between items-start gap-16">
-          <div class="lg:w-1/3">
-            <h2 class="text-headline-lg-home text-on-background mb-6">Institutional Directory</h2>
-            <div class="w-24 h-1 bg-primary mb-8"></div>
-            <p class="text-secondary text-body-md leading-relaxed mb-8">
-              Komandro is headquartered within the Faculty of Engineering at Universitas Indonesia, providing a premier academic environment for technological advancement.
-            </p>
-            <a href="https://maps.google.com/?q=Faculty+of+Engineering+Universitas+Indonesia" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-on-background font-label-md text-label-md uppercase tracking-wider hover:text-primary transition-colors duration-300 group">
-              <i class="bx bx-right-arrow-alt text-[20px] group-hover:translate-x-1 transition-transform"></i>
-              View on Map
-            </a>
-          </div>
-          <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 w-full">
-            <div class="border-t border-surface-border pt-6">
-              <h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">Campus Location</h4>
-              <p class="text-headline-md-home text-on-background mb-2">Engineering Center</p>
-              <p class="text-secondary text-body-md leading-relaxed">
-                Faculty of Engineering<br/>Universitas Indonesia<br/>Depok, West Java 16424
-              </p>
+        <SectionHeader
+          kicker="Dampak Komunitas"
+          accent="violet"
+          title="Satu dekade dedikasi untuk belajar &amp; berkarya"
+          description="Sepuluh tahun konsistensi dalam pendidikan teknis, rekayasa praktis, dan pembangunan komunitas di CCIT - Fakultas Teknik Universitas Indonesia."
+        />
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {stats.map((s) => (
+            <div class:list={['rounded-[22px] py-8 md:py-10 text-center shadow-card hover:shadow-card-md transition-shadow duration-300', {
+              violet: 'bg-violet-soft',
+              pink: 'bg-pink-soft',
+              mint: 'bg-mint-soft',
+              amber: 'bg-amber-soft'
+            }[s.accent]]}>
+              <div class="font-display text-[38px] md:text-[48px] leading-none tracking-tight text-ink mb-3">{s.value}</div>
+              <span class="text-label uppercase tracking-widest text-ink-2">{s.label}</span>
             </div>
-            <div class="border-t border-surface-border pt-6">
-              <h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">Facility</h4>
-              <p class="text-headline-md-home text-on-background mb-2">Computer Laboratory</p>
-              <p class="text-secondary text-body-md leading-relaxed">
-                Level 2<br/>Engineering Center Building
-              </p>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Pilar Utama */}
+    <section class="py-16 md:py-24 bg-white">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <SectionHeader
+          kicker="Kepercayaan Kami"
+          accent="pink"
+          title="Tiga pilar yang membentuk Komandro"
+        />
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {pillars.map((p) => (
+            <div class="bg-canvas rounded-md p-7 shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce">
+              <IconBadge icon={p.icon} accent={p.accent} class="mb-5" />
+              <h3 class="font-display text-display-sm text-ink mb-3">{p.title}</h3>
+              <p class="text-body-md text-ink-2 leading-relaxed">{p.description}</p>
             </div>
-            <div class="border-t border-surface-border pt-6 md:col-span-2">
-              <h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">Official Convening</h4>
-              <p class="text-headline-md-home text-on-background mb-2">Weekly Assembly</p>
-              <p class="text-secondary text-body-md leading-relaxed">
-                Thursdays, 16:00 - 18:00 WIB
-              </p>
-            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Direktori Komunitas */}
+    <section class="py-16 md:py-24 bg-canvas">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-10">
+          <div class="lg:w-1/3 shrink-0">
+            <SectionHeader
+              kicker="Kenal Kami Lebih Dekat"
+              accent="mint"
+              title="Direktori Komunitas"
+              description="Komandro berkedudukan di Fakultas Teknik Universitas Indonesia, menyediakan lingkungan akademik unggul untuk kemajuan teknologi."
+            />
+            <CTA href="https://maps.google.com/?q=Faculty+of+Engineering+Universitas+Indonesia" label="Lihat di Peta" variant="ghost" arrow />
+          </div>
+          <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            {directory.map((d) => (
+              <div class="bg-white rounded-md p-7 shadow-card">
+                <div class="flex items-center gap-3 mb-5">
+                  <IconBadge icon={d.icon} accent={d.accent} size="sm" />
+                  <span class="text-label uppercase tracking-widest text-ink-3">{d.label}</span>
+                </div>
+                <p class="font-display text-lg text-ink mb-1.5">{d.name}</p>
+                <p class="text-body-md text-ink-2 leading-relaxed" set:html={d.detail} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
 
-    {/* Latest from Blog */}
-    <section class="py-32 bg-white">
+    {/* Blog Terbaru */}
+    <section class="py-16 md:py-24 bg-white">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-          <div>
-            <h2 class="text-headline-lg-home text-on-background mb-6">Latest from Blog</h2>
-            <div class="w-24 h-1 bg-primary mb-8"></div>
-            <p class="text-secondary max-w-2xl text-body-lg-home leading-relaxed">
-              News, updates, and insights from the Komandro community.
-            </p>
-          </div>
-          <a href={link('/blog')} class="inline-flex items-center gap-2 text-on-background font-label-md text-label-md uppercase tracking-wider hover:text-primary transition-colors">
-            View All Posts
-            <i class="bx bx-right-arrow-alt text-[16px]"></i>
+        <div class="flex flex-col md:flex-row justify-between items-start gap-6 mb-10 md:mb-14">
+          <SectionHeader
+            kicker="Jurnal Komunitas"
+            accent="amber"
+            title="Terbaru dari Blog"
+            description="Berita, pembaruan, dan wawasan dari komunitas Komandro."
+          />
+          <a href={link('/blog')} class="hidden md:inline-flex items-center gap-2 text-[14.5px] font-bold text-ink hover:text-violet transition-colors shrink-0 self-end mb-11">
+            Lihat Semua Artikel
+            <i class="bx bx-right-arrow-alt text-[18px]"></i>
           </a>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {latestPosts.map((post) => (
-            <article class="group bg-white border-0 md:border border-surface-border overflow-hidden rounded-none md:rounded hover:border-primary transition-colors duration-300">
+            <article class="group bg-canvas rounded-md overflow-hidden shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce">
               {post.data.heroImage && (
-                <div class="aspect-video overflow-hidden bg-surface-container">
-                  <img src={post.data.heroImage} alt={post.data.title} class="w-full h-full object-cover" loading="lazy" />
+                <div class="p-3 pb-0">
+                  <img src={post.data.heroImage} alt={post.data.title} loading="lazy" decoding="async" class="w-full aspect-video object-cover rounded-[16px]" />
                 </div>
               )}
               <div class="p-6">
-                <div class="flex items-center gap-3 mb-4 font-label-md text-label-md text-secondary uppercase tracking-widest">
+                <div class="flex items-center gap-2.5 mb-4 text-[12.5px] font-semibold text-ink-3">
                   <span>{new Date(post.data.pubDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-                  <span class="w-1 h-1 bg-secondary" />
+                  <span class="w-1 h-1 rounded-full bg-ink-3" aria-hidden="true"></span>
                   <span>{post.data.author}</span>
                 </div>
                 <a href={link(`/blog/${post.slug}`)}>
-                  <h3 class="text-headline-md text-on-background mb-3 group-hover:text-primary transition-colors">{post.data.title}</h3>
+                  <h3 class="font-display text-[19px] leading-snug text-ink mb-3 group-hover:text-violet transition-colors">{post.data.title}</h3>
                 </a>
-                <p class="text-secondary text-body-md line-clamp-2">{post.data.description}</p>
+                <p class="text-body-sm text-ink-2 line-clamp-2">{post.data.description}</p>
               </div>
             </article>
           ))}
+        </div>
+
+        <div class="mt-8 md:hidden text-center">
+          <CTA href="/blog" label="Lihat Semua Artikel" variant="ghost" arrow />
         </div>
       </div>
     </section>

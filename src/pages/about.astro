@@ -1,166 +1,201 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import IconBadge from '../components/ui/IconBadge.astro';
+import CTA from '../components/ui/CTA.astro';
+import HeroBg from '../components/ui/HeroBg.astro';
 import { link } from '../utils/link';
 import aboutData from '../data/about.json';
 
-const { milestones, team, roleColors } = aboutData;
+const { milestones, team } = aboutData;
+
+const timelineAccents = ['violet', 'pink', 'mint', 'amber', 'sky', 'magenta', 'orange', 'lime'] as const;
+const accentDot: Record<string, string> = {
+  violet: 'bg-violet', pink: 'bg-pink', mint: 'bg-mint', amber: 'bg-amber',
+  sky: 'bg-sky', magenta: 'bg-magenta', orange: 'bg-orange', lime: 'bg-lime'
+};
+
+const roleTone: Record<string, 'violet' | 'sky' | 'mint' | 'amber' | 'neutral'> = {
+  'Ketua': 'violet',
+  'Wakil Ketua': 'sky',
+  'Sekretaris': 'mint',
+  'Bendahara': 'amber'
+};
+
+const memberDash = [
+  { icon: 'bx-target-lock', accent: 'violet' as const, title: 'Misi Kami', text: 'Mendorong lingkungan belajar yang kolaboratif tempat mahasiswa mengembangkan keterampilan teknis di bidang pengembangan Android dan teknologi modern, sekaligus membangun jaringan profesional yang langgeng dan berkontribusi pada komunitas teknologi.' },
+  { icon: 'bx-star', accent: 'pink' as const, title: 'Visi Kami', text: 'Menjadi komunitas teknologi mahasiswa terdepan yang menghasilkan lulusan siap industri, unggul di pengembangan mobile, rekayasa perangkat lunak, dan teknologi baru, serta berkontribusi pada transformasi digital Indonesia.' }
+];
+
+const avatarBg: Record<string, string> = {
+  violet: 'bg-violet', pink: 'bg-pink', mint: 'bg-mint', sky: 'bg-sky', amber: 'bg-amber'
+};
 ---
 
-<Layout title="About - Komandro CCIT-FTUI">
-  <main class="pt-24">
-    
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
-        <div class="max-w-4xl">
-          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
-            <span class="w-2 h-2 bg-primary"></span>
-            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Institution</span>
+<Layout title="Tentang Kami - Komandro CCIT-FTUI">
+  <main class="pt-[92px]">
+
+    {/* Hero */}
+    <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-16 md:py-24">
+      <HeroBg />
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
+            <span class="w-2 h-2 rounded-full bg-violet" aria-hidden="true"></span>
+            <span class="text-[13px] font-semibold text-ink-2">Tentang</span>
           </div>
-          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
-            About <span class="text-primary">Komandro</span>
+          <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-5">
+            Tentang <span class="text-violet">Komandro</span>
           </h1>
-          <p class="text-body-lg-home text-secondary mb-12 max-w-2xl leading-relaxed">
-            Learn about our journey, mission, and the community we've built since 2015. We are dedicated to cultivating the next generation of technology professionals.
+          <p class="text-body-lg text-ink-2 max-w-2xl">
+            Pelajari perjalanan kami, misi, dan komunitas yang telah kami bangun sejak 2015. Kami bermisi menumbuhkan generasi profesional teknologi berikutnya.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Mission & Vision -->
-    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+    {/* Misi & Visi */}
+    <section class="py-16 md:py-24 bg-white">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="mb-20">
-          <h2 class="text-headline-lg-home text-on-background mb-6">Mission & Vision</h2>
-          <div class="w-24 h-1 bg-primary mb-8"></div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-          <!-- Mission -->
-          <div class="group border-l-4 border-surface-border hover:border-primary pl-8 transition-colors duration-300">
-            <i class="bx bx-target-lock text-on-background text-4xl mb-6 font-light"></i>
-            <h3 class="text-headline-md-home mb-4 text-on-background">Our Mission</h3>
-            <p class="text-secondary text-body-md leading-relaxed">
-              To foster a collaborative learning environment where students can develop 
-              technical skills in Android development and modern technologies, while 
-              building lasting professional networks and contributing to the tech community.
-            </p>
-          </div>
-          <!-- Vision -->
-          <div class="group border-l-4 border-surface-border hover:border-primary pl-8 transition-colors duration-300">
-            <i class="bx bx-star text-on-background text-4xl mb-6 font-light"></i>
-            <h3 class="text-headline-md-home mb-4 text-on-background">Our Vision</h3>
-            <p class="text-secondary text-body-md leading-relaxed">
-              To become the leading student technology community that produces 
-              industry-ready graduates who excel in mobile development, software 
-              engineering, and emerging technologies, contributing to Indonesia's 
-              digital transformation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+        <SectionHeader
+          kicker="Arah Kami"
+          accent="violet"
+          title="Misi &amp; Visi"
+        />
 
-    <!-- Timeline -->
-    <section class="py-32 bg-white border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="mb-20">
-          <h2 class="text-headline-lg-home text-on-background mb-6">Timeline of Achievement</h2>
-          <div class="w-24 h-1 bg-primary mb-8"></div>
-        </div>
-
-        <div class="space-y-0">
-          {milestones.map((milestone, index) => (
-            <div class="relative flex gap-8 border-t border-surface-border py-10">
-              <div class="w-24 flex-shrink-0">
-                <span class="font-label-md text-label-md text-on-background uppercase tracking-widest">{milestone.year}</span>
-              </div>
-              <div class="flex-1">
-                <h3 class="text-headline-md-home text-on-background mb-2">{milestone.title}</h3>
-                <p class="text-secondary text-body-md leading-relaxed">{milestone.description}</p>
-              </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {memberDash.map((m) => (
+            <div class="bg-canvas rounded-lg p-8 shadow-card hover:shadow-card-md transition-shadow duration-300">
+              <IconBadge icon={m.icon} accent={m.accent} size="lg" class="mb-5" />
+              <h3 class="font-display text-display-sm text-ink mb-3">{m.title}</h3>
+              <p class="text-body-md text-ink-2 leading-relaxed">{m.text}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- Organizational Structure -->
-    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+    {/* Timeline */}
+    <section class="py-16 md:py-24 bg-canvas">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="mb-20">
-          <h2 class="text-headline-lg-home text-on-background mb-6">Current Leadership</h2>
-          <div class="w-24 h-1 bg-primary mb-8"></div>
-        </div>
+        <SectionHeader
+          kicker="Perjalanan Jejak"
+          accent="pink"
+          title="Sejarah Komunitas"
+        />
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {team.map((member) => (
-            <div class="bg-white border border-surface-border rounded p-6 text-center hover:border-primary transition-colors duration-300">
-              <div class="w-20 h-20 mx-auto mb-4 bg-surface-container flex items-center justify-center">
-                <i class="bx bx-user text-on-background text-[32px]"></i>
-              </div>
-              
-              <span class:list={[
-                'inline-block px-3 py-1 font-label-md text-label-md uppercase tracking-widest mb-3',
-                roleColors[member.role] || 'bg-surface-variant text-on-background'
-              ]}>
-                {member.role}
-              </span>
-              
-              <h3 class="text-headline-md text-on-background mb-1">{member.name}</h3>
-              <p class="text-secondary text-body-md">{member.period}</p>
-              
-              {member.current && (
-                <div class="mt-3 inline-block px-3 py-1 border border-primary text-primary font-label-md text-label-md uppercase tracking-widest">
-                  Active
+        <div class="relative max-w-3xl">
+          <span class="absolute left-[10px] top-2 bottom-2 w-[3px] rounded-full bg-gradient-to-b from-violet via-pink to-mint opacity-30" aria-hidden="true"></span>
+          <div class="space-y-9">
+            {milestones.map((milestone, index) => {
+              const accent = timelineAccents[index % timelineAccents.length];
+              return (
+                <div class="relative flex gap-6 pl-0">
+                  <span class:list={['relative z-10 mt-1.5 w-[23px] h-[23px] rounded-full shrink-0 ring-4 ring-canvas shadow-card-md', accentDot[accent]]} aria-hidden="true"></span>
+                  <div class="flex-1 pb-1">
+                    <span class="font-display text-[15px] text-violet">{milestone.year}</span>
+                    <h3 class="font-display text-[19px] text-ink mb-1.5 mt-0.5">{milestone.title}</h3>
+                    <p class="text-body-sm md:text-body-md text-ink-2 leading-relaxed">{milestone.description}</p>
+                  </div>
                 </div>
-              )}
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Location Section -->
-    <section class="py-32 bg-white border-b border-surface-border">
+    {/* Kepemimpinan */}
+    <section class="py-16 md:py-24 bg-white">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex flex-col lg:flex-row justify-between items-start gap-16">
-          <div class="lg:w-1/3">
-            <h2 class="text-headline-lg-home text-on-background mb-6">Visit Us</h2>
-            <div class="w-24 h-1 bg-primary mb-8"></div>
-            <p class="text-secondary text-body-md leading-relaxed mb-8">
-              Komandro is headquartered within the Faculty of Engineering at Universitas Indonesia, providing a premier academic environment for technological advancement.
-            </p>
-            <a href="https://maps.google.com/?q=Faculty+of+Engineering+Universitas+Indonesia" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-on-background font-label-md text-label-md uppercase tracking-wider hover:text-primary transition-colors duration-300 group">
-              <i class="bx bx-right-arrow-alt text-[20px] group-hover:translate-x-1 transition-transform"></i>
-              View on Map
-            </a>
+        <SectionHeader
+          kicker="Struktur Organisasi"
+          accent="mint"
+          title="Kepemimpinan Saat Ini"
+        />
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {team.map((member, i) => {
+            const accents = ['violet', 'pink', 'mint', 'sky', 'amber'] as const;
+            const accent = accents[i % accents.length];
+            return (
+              <div class="bg-canvas rounded-md p-6 text-center shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce">
+                <div class:list={['w-16 h-16 mx-auto mb-4 rounded-[18px] grid place-items-center shadow-card-md text-white font-display text-[19px]', avatarBg[accent]]} aria-hidden="true">
+                  {member.name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase()}
+                </div>
+
+                <h3 class="font-display text-[17px] text-ink mb-1.5">{member.name}</h3>
+
+                <span class:list={['inline-flex items-center px-3 h-[24px] rounded-full text-[11px] font-bold mb-2', {
+                  violet: 'bg-violet-soft text-violet-deep',
+                  sky: 'bg-sky-soft text-sky-deep',
+                  mint: 'bg-mint-soft text-mint-deep',
+                  amber: 'bg-amber-soft text-amber-deep',
+                  neutral: 'bg-ink/5 text-ink-2'
+                }[roleTone[member.role] ?? 'neutral']]}>
+                  {member.role}
+                </span>
+
+                <p class="text-[12.5px] font-semibold text-ink-3">{member.period}</p>
+
+                {member.current && (
+                  <div class="mt-3 inline-flex items-center gap-1.5 px-3 h-[26px] rounded-full bg-mint-soft text-mint-deep text-[11px] font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-mint animate-pulse" aria-hidden="true"></span>
+                    Aktif
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* Lokasi */}
+    <section class="py-16 md:py-24 bg-canvas">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-12">
+          <div class="lg:w-1/3 shrink-0">
+            <SectionHeader
+              kicker="Kunjungi Kami"
+              accent="amber"
+              title="Kampus Kami"
+              description="Komandro berkedudukan di Fakultas Teknik Universitas Indonesia, menyediakan lingkungan akademik unggul untuk kemajuan teknologi."
+            />
+            <CTA href="https://maps.google.com/?q=Faculty+of+Engineering+Universitas+Indonesia" label="Lihat di Peta" variant="ghost" arrow />
           </div>
           <div class="lg:w-2/3 w-full">
-            <div class="border border-surface-border overflow-hidden rounded h-[350px] mb-12">
-              <iframe 
+            <div class="rounded-lg overflow-hidden shadow-card-md h-[350px] mb-10">
+              <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.184555262124!2d106.82348637590873!3d-6.362763762257183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ec1a90b7b85d%3A0x76f9f05a69e55d5a!2sFaculty%20of%20Engineering%20-%20Universitas%20Indonesia!5e0!3m2!1sen!2sid!4v1709899200000!5m2!1sen!2sid"
-                width="100%" 
-                height="100%" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                title="FT UI Location"
+                title="Lokasi FT UI"
               ></iframe>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div class="border-t border-surface-border pt-6">
-                <h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">Address</h4>
-                <p class="text-headline-md-home text-on-background mb-2">Engineering Center</p>
-                <p class="text-secondary text-body-md leading-relaxed">
-                  Faculty of Engineering<br/>Universitas Indonesia<br/>Depok, West Java 16424
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-white rounded-md p-7 shadow-card">
+                <div class="flex items-center gap-3 mb-4">
+                  <IconBadge icon="bx-map-pin" accent="violet" size="sm" />
+                  <span class="text-label uppercase tracking-widest text-ink-3">Alamat</span>
+                </div>
+                <p class="font-display text-lg text-ink mb-1.5">Engineering Center</p>
+                <p class="text-body-md text-ink-2 leading-relaxed">
+                  Fakultas Teknik<br/>Universitas Indonesia<br/>Depok, Jawa Barat 16424
                 </p>
               </div>
-              <div class="border-t border-surface-border pt-6">
-                <h4 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">Meeting Schedule</h4>
-                <p class="text-headline-md-home text-on-background mb-2">Weekly Assembly</p>
-                <p class="text-secondary text-body-md leading-relaxed">
-                  Every Thursday<br/>16:00 - 18:00 WIB
+              <div class="bg-white rounded-md p-7 shadow-card">
+                <div class="flex items-center gap-3 mb-4">
+                  <IconBadge icon="bx-time-five" accent="mint" size="sm" />
+                  <span class="text-label uppercase tracking-widest text-ink-3">Jadwal Rapat</span>
+                </div>
+                <p class="font-display text-lg text-ink mb-1.5">Rapat Mingguan</p>
+                <p class="text-body-md text-ink-2 leading-relaxed">
+                  Setiap Kamis<br/>16:00 - 18:00 WIB
                 </p>
               </div>
             </div>
@@ -169,26 +204,29 @@ const { milestones, team, roleColors } = aboutData;
       </div>
     </section>
 
-    <!-- Join CTA -->
-    <section class="py-32 bg-on-background text-white">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
-        <h2 class="text-headline-lg-home mb-6">Want to Join Our Team?</h2>
-        <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
-        <p class="text-body-lg-home text-white/70 mb-4 max-w-2xl mx-auto leading-relaxed">
-          Membership is open to active students of CCIT - FTUI.
-        </p>
-        <p class="text-body-lg-home text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Reach out to us on Instagram to learn more about recruitment and how to get involved.
-        </p>
-        <a 
-          href="https://instagram.com/komandro_ccit" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-white text-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-white transition-colors duration-300"
-        >
-          @komandro_ccit
-          <i class="bx bx-right-arrow-alt text-[20px]"></i>
-        </a>
+    {/* CTA Gabung */}
+    <section class="pb-20">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="relative overflow-hidden bg-gradient-to-br from-violet to-pink rounded-lg px-8 md:px-12 py-14 text-center text-white">
+          <span class="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/12" aria-hidden="true"></span>
+          <span class="pointer-events-none absolute -bottom-20 -left-12 w-56 h-56 rounded-full bg-white/10" aria-hidden="true"></span>
+          <h2 class="relative font-display text-display-md md:text-display-lg mb-4 text-white">Mau Gabung Bersama Kami?</h2>
+          <p class="relative text-white/85 text-body-lg mb-3 max-w-2xl mx-auto">
+            Keanggotaan terbuka untuk mahasiswa aktif CCIT - FTUI.
+          </p>
+          <p class="relative text-white/85 text-body-lg mb-9 max-w-2xl mx-auto">
+            Hubungi kami lewat Instagram untuk tahu lebih banyak soal rekrutmen dan cara bergabung.
+          </p>
+          <a
+            href="https://instagram.com/komandro_ccit"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative inline-flex items-center gap-2 bg-white text-violet-deep px-7 py-3.5 rounded-full text-[15px] font-bold hover:-translate-y-0.5 transition-all duration-300 ease-bounce shadow-card-md"
+          >
+            @komandro_ccit
+            <i class="bx bx-right-arrow-alt text-[19px]" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
     </section>
   </main>

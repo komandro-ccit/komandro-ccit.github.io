@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komandro — Mockup F: Soft &amp; Friendly</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F4FB; --card:#FFFFFF; --ink:#23203A; --muted:#6E6A87;
+    --p:#7C5CFC; --p-soft:#EFEAFE; --pink:#FF8FB1; --pink-soft:#FFEFF4;
+    --mint:#5CC9A9; --mint-soft:#E4F7F1; --amber:#F5B445; --amber-soft:#FFF3DC;
+    --sky:#5BB8F0; --sky-soft:#E6F4FE;
+    --r:24px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;line-height:1.65}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:'Outfit',sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.14}
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:rgba(246,244,251,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(35,32,58,.06)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);font-family:'Outfit',sans-serif;font-weight:800;font-size:21px}
+  .mark{width:40px;height:40px;border-radius:13px;background:var(--p);color:#fff;display:grid;place-items:center;font-size:19px}
+  .links{display:flex;gap:6px;align-items:center}
+  .links a{padding:9px 17px;border-radius:999px;font-size:14.5px;font-weight:600;color:var(--muted);text-decoration:none;transition:.2s}
+  .links a:hover{background:var(--p-soft);color:var(--p)}
+  .links a.on{background:var(--p-soft);color:var(--p)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 25px;border-radius:999px;font-size:14.5px;font-weight:700;text-decoration:none;border:0;cursor:pointer;transition:.22s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.p{background:var(--p);color:#fff;box-shadow:0 10px 24px rgba(124,92,252,.28)}
+  .btn.o{background:#fff;color:var(--ink);border:1.5px solid rgba(35,32,58,.1)}
+  /* hero */
+  .hero{padding:70px 0 66px;position:relative;overflow:hidden}
+  .glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45;pointer-events:none}
+  .g1{width:420px;height:420px;background:#DCD2FF;top:-120px;right:-80px}
+  .g2{width:340px;height:340px;background:#FFD9E6;bottom:-140px;left:-100px}
+  .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center;position:relative;z-index:2}
+  .tag{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:7px 16px;font-size:13px;font-weight:700;color:var(--p);margin-bottom:22px;box-shadow:0 3px 14px rgba(35,32,58,.07)}
+  .tag i{width:8px;height:8px;border-radius:50%;background:var(--mint);display:block}
+  .hero h1{font-size:clamp(36px,5.2vw,58px);margin-bottom:20px}
+  .hero h1 em{font-style:normal;color:var(--p)}
+  .hero p{font-size:18px;color:var(--muted);max-width:510px;margin-bottom:28px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .proof{display:flex;align-items:center;gap:12px;margin-top:28px;font-size:14px;color:var(--muted);font-weight:600}
+  .proof .avs{display:flex}
+  .proof .avs i{width:34px;height:34px;border-radius:50%;border:3px solid var(--bg);display:grid;place-items:center;font-size:11.5px;font-weight:800;color:#fff;margin-left:-9px;font-style:normal}
+  .proof .avs i:first-child{margin-left:0}
+  /* right visual */
+  .vis{position:relative;height:420px}
+  .vcard{position:absolute;border-radius:var(--r);background:#fff;box-shadow:0 20px 50px rgba(35,32,58,.1)}
+  .v1{top:0;right:0;width:290px;padding:24px;background:linear-gradient(150deg,var(--p),#9C83FF);color:#fff}
+  .v1 h4{font-size:19px;margin-bottom:14px}
+  .v1 .li{display:flex;align-items:center;gap:9px;font-size:13.5px;padding:7px 0;opacity:.94}
+  .v1 .li:before{content:'✓';width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:11px;font-weight:700}
+  .v2{bottom:0;left:0;width:250px;padding:22px}
+  .v2 .lbl{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:12px}
+  .v2 .bar{height:10px;border-radius:999px;background:var(--p-soft);overflow:hidden;margin-bottom:8px}
+  .v2 .bar i{display:block;height:100%;background:var(--p);border-radius:999px}
+  .v3{top:150px;left:70px;width:200px;padding:18px;text-align:center}
+  .v3 .e{font-size:30px;margin-bottom:6px}
+  .v3 b{font-family:'Outfit',sans-serif;font-size:15px;display:block}
+  .v3 span{font-size:12.5px;color:var(--muted)}
+  /* trust bar */
+  .tbar{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:10px 0 62px}
+  .tb{background:#fff;border-radius:18px;padding:20px;text-align:center}
+  .tb b{display:block;font-family:'Outfit',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.02em}
+  .tb span{font-size:13px;color:var(--muted)}
+  .tb.v b{color:var(--p)}.tb.k b{color:var(--pink)}.tb.g b{color:var(--mint)}.tb.y b{color:#D99A21}
+  /* sections */
+  section{padding:20px 0 62px}
+  .sec-head{margin-bottom:30px;max-width:640px}
+  .sec-head .kicker{font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--p);margin-bottom:12px}
+  .sec-head h2{font-size:clamp(27px,3.6vw,38px);margin-bottom:12px}
+  .sec-head p{color:var(--muted);font-size:16.5px}
+  .sec-row{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+  /* path cards */
+  .paths{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .pc{background:#fff;border-radius:var(--r);padding:26px;text-decoration:none;color:inherit;transition:.25s;border:1px solid rgba(35,32,58,.05)}
+  .pc:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(35,32,58,.1)}
+  .pc .ic{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;font-size:25px;margin-bottom:18px}
+  .pc h3{font-size:19px;margin-bottom:8px}
+  .pc p{font-size:14px;color:var(--muted);margin-bottom:16px;min-height:56px}
+  .pc .meta{display:flex;gap:7px;flex-wrap:wrap}
+  .pc .meta b{font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px}
+  .pc .cta2{margin-top:16px;font-size:14px;font-weight:700;color:var(--p);display:flex;align-items:center;gap:6px}
+  /* materials */
+  .mats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .mat{background:#fff;border-radius:var(--r);padding:22px;text-decoration:none;color:inherit;transition:.25s;border:1px solid rgba(35,32,58,.05)}
+  .mat:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(35,32,58,.09)}
+  .mat .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .mat .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:21px}
+  .mat .pill{font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px}
+  .mat h4{font-size:16.5px;font-weight:700;margin-bottom:8px;line-height:1.35}
+  .mat .meta{font-size:13px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .mat .prog{height:6px;border-radius:999px;background:#F0EEF7;margin-top:14px;overflow:hidden}
+  .mat .prog i{display:block;height:100%;border-radius:999px}
+  /* schedule */
+  .sched{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .ev{background:#fff;border-radius:var(--r);padding:24px;border:1px solid rgba(35,32,58,.05);transition:.25s}
+  .ev:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(35,32,58,.09)}
+  .ev .date{display:inline-block;font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:999px;margin-bottom:15px}
+  .ev h4{font-size:18px;margin-bottom:8px}
+  .ev p{font-size:14px;color:var(--muted);margin-bottom:14px}
+  .ev .who{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+  /* people */
+  .people{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .per{background:#fff;border-radius:20px;padding:22px 16px;text-align:center;border:1px solid rgba(35,32,58,.05)}
+  .per .av{width:56px;height:56px;border-radius:18px;margin:0 auto 12px;display:grid;place-items:center;font-size:19px;font-weight:800;color:#fff}
+  .per h4{font-size:15px;font-weight:700}
+  .per p{font-size:12.5px;color:var(--muted)}
+  /* quote */
+  .quote{background:#fff;border-radius:28px;padding:48px;text-align:center;border:1px solid rgba(35,32,58,.05);position:relative}
+  .quote .mark{position:absolute;top:26px;left:50%;transform:translateX(-50%);width:46px;height:46px;border-radius:50%;background:var(--p-soft);color:var(--p);font-size:22px;display:grid;place-items:center}
+  .quote p{font-family:'Outfit',sans-serif;font-size:clamp(20px,2.8vw,27px);font-weight:600;line-height:1.4;max-width:760px;margin:44px auto 16px}
+  .quote .by{font-size:14px;color:var(--muted)}
+  /* join */
+  .join{background:linear-gradient(140deg,var(--p),#9C83FF 60%,var(--pink));border-radius:28px;padding:52px 44px;color:#fff;text-align:center;margin-bottom:66px;position:relative;overflow:hidden}
+  .join:after{content:'';position:absolute;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.12);top:-90px;right:-60px}
+  .join h2{color:#fff;font-size:clamp(27px,3.8vw,40px);margin-bottom:14px;position:relative}
+  .join p{opacity:.92;max-width:540px;margin:0 auto 26px;font-size:17px;position:relative}
+  .join .btn{background:#fff;color:var(--p);position:relative;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+  footer{border-top:1px solid rgba(35,32,58,.07);padding:44px 0;color:var(--muted);font-size:14px}
+  .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:26px}
+  footer h5{color:var(--ink);font-size:14px;font-weight:700;margin-bottom:13px}
+  footer a{display:block;color:var(--muted);text-decoration:none;margin-bottom:8px}
+  footer a:hover{color:var(--p)}
+  .fbot{border-top:1px solid rgba(35,32,58,.07);margin-top:32px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px}
+  @media(max-width:980px){.hero-grid{grid-template-columns:1fr}.vis{height:340px}.paths{grid-template-columns:1fr 1fr}.mats{grid-template-columns:1fr 1fr}.sched{grid-template-columns:1fr 1fr}.people{grid-template-columns:repeat(3,1fr)}.fgrid{grid-template-columns:1fr 1fr}.links{display:none}}
+  @media(max-width:640px){.paths,.mats,.sched{grid-template-columns:1fr}.tbar{grid-template-columns:1fr 1fr}.people{grid-template-columns:1fr 1fr}.quote{padding:40px 24px}.join{padding:38px 22px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="logo" href="#"><span class="mark">⚡</span>Komandro</a>
+      <div class="links">
+        <a class="on" href="#">Beranda</a><a href="#">Belajar</a><a href="#">Agenda</a><a href="#">Anggota</a><a href="#">Alumni</a><a href="#">Blog</a>
+      </div>
+      <a class="btn p" href="#">Gabung</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="glow g1"></div><div class="glow g2"></div>
+    <div class="hero-grid">
+      <div>
+        <div class="tag"><i></i> Komunitas Android &amp; Teknologi · FTUI · sejak 2015</div>
+        <h1>Belajar bikin aplikasi bareng <em>teman-teman seper asesores.</em></h1>
+        <p>Komandro itu komunitas mahasiswa yang mau saling bantu belajar teknologi. Nggak ada yang diawasi, nggak ada yang dikasih nilai — cuma mau bikin sesuatu.</p>
+        <div class="cta">
+          <a class="btn p" href="#">Mulai Belajar →</a>
+          <a class="btn o" href="#">Lihat Agenda</a>
+        </div>
+        <div class="proof">
+          <span class="avs"><i style="background:#7C5CFC">JF</i><i style="background:#FF8FB1">AH</i><i style="background:#5CC9A9">AJ</i><i style="background:#5BB8F0">NB</i><i style="background:#F5B445">BR</i></span>
+          <span>500+ alumni dari 11 batch sudah lewat</span>
+        </div>
+      </div>
+      <div class="vis">
+        <div class="vcard v1">
+          <h4>Jalur belajar kamu</h4>
+          <div class="li">Flutter &amp; Dart</div>
+          <div class="li">Web Development</div>
+          <div class="li">DevOps &amp; Cloud</div>
+          <div class="li">UI/UX &amp; QA</div>
+        </div>
+        <div class="vcard v3">
+          <div class="e">🎯</div>
+          <b>133 materi</b>
+          <span>siap diakses kapan aja</span>
+        </div>
+        <div class="vcard v2">
+          <div class="lbl">Progress belajar kamu</div>
+          <div class="bar"><i style="width:72%"></i></div>
+          <div class="bar"><i style="width:45%"></i></div>
+          <div class="bar"><i style="width:28%"></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tbar">
+    <div class="tb v"><b>133</b><span>Materi</span></div>
+    <div class="tb k"><b>500+</b><span>Alumni</span></div>
+    <div class="tb g"><b>50+</b><span>Workshop &amp; event</span></div>
+    <div class="tb y"><b>11</b><span>Batch</span></div>
+  </div>
+
+  <section>
+    <div class="sec-row">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="kicker">Mulai dari yang kamu suka</div>
+        <h2>Empat jalur belajar</h2>
+        <p>Setiap jalur punya urutan yang jelas — tinggal ikuti step by step, nggak perlu mikir sendiri mau mulai dari mana.</p>
+      </div>
+      <a href="#" style="font-weight:700;color:var(--p);text-decoration:none">Semua materi →</a>
+    </div>
+    <div class="paths">
+      <a class="pc" href="#">
+        <div class="ic" style="background:var(--pink-soft)">📱</div>
+        <h3>Mobile</h3>
+        <p>Dart &amp; Flutter dari nol sampai app yang bisa di-install sendiri.</p>
+        <div class="meta"><b style="background:var(--pink-soft);color:#C4567A">48 materi</b><b style="background:#F4F3F8;color:var(--muted)">Pemula</b></div>
+        <div class="cta2">Mulai <span>→</span></div>
+      </a>
+      <a class="pc" href="#">
+        <div class="ic" style="background:var(--sky-soft)">🌐</div>
+        <h3>Web</h3>
+        <p>HTML, CSS, JavaScript, PHP, dan Laravel plus backend.</p>
+        <div class="meta"><b style="background:var(--sky-soft);color:#2277B8">24 materi</b><b style="background:#F4F3F8;color:var(--muted)">Pemula</b></div>
+        <div class="cta2">Mulai <span>→</span></div>
+      </a>
+      <a class="pc" href="#">
+        <div class="ic" style="background:var(--p-soft)">☁️</div>
+        <h3>DevOps</h3>
+        <p>Linux, Docker, CI/CD, dan deploy ke server sungguhan.</p>
+        <div class="meta"><b style="background:var(--p-soft);color:var(--p)">9 materi</b><b style="background:#F4F3F8;color:var(--muted)">Menengah</b></div>
+        <div class="cta2">Mulai <span>→</span></div>
+      </a>
+      <a class="pc" href="#">
+        <div class="ic" style="background:var(--amber-soft)">🎨</div>
+        <h3>UI/UX &amp; QA</h3>
+        <p>Design dasar, Figma, wireframe, sampai automation testing.</p>
+        <div class="meta"><b style="background:var(--amber-soft);color:#B57E12">21 materi</b><b style="background:#F4F3F8;color:var(--muted)">Pemula</b></div>
+        <div class="cta2">Mulai <span>→</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-row">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="kicker">Update terbaru</div>
+        <h2>Materi yang baru rilis</h2>
+      </div>
+      <a href="#" style="font-weight:700;color:var(--p);text-decoration:none">Lihat semua →</a>
+    </div>
+    <div class="mats">
+      <a class="mat" href="#">
+        <div class="head"><div class="ic" style="background:var(--sky-soft)">🐙</div><span class="pill" style="background:var(--amber-soft);color:#B57E12">Menengah</span></div>
+        <h4>HTTP Requests di Flutter</h4>
+        <div class="meta"><span>25 menit</span><span>·</span><span>Mobile</span></div>
+        <div class="prog"><i style="width:60%;background:var(--p)"></i></div>
+      </a>
+      <a class="mat" href="#">
+        <div class="head"><div class="ic" style="background:var(--mint-soft)">🐳</div><span class="pill" style="background:var(--sky-soft);color:#2277B8">Pemula</span></div>
+        <h4>Introduction to Docker</h4>
+        <div class="meta"><span>30 menit</span><span>·</span><span>DevOps</span></div>
+        <div class="prog"><i style="width:35%;background:var(--mint)"></i></div>
+      </a>
+      <a class="mat" href="#">
+        <div class="head"><div class="ic" style="background:var(--p-soft)">🎨</div><span class="pill" style="background:var(--mint-soft);color:#2E8E70">Pemula</span></div>
+        <h4>Figma Components</h4>
+        <div class="meta"><span>18 menit</span><span>·</span><span>UI/UX</span></div>
+        <div class="prog"><i style="width:20%;background:var(--pink)"></i></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-row">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="kicker">Agenda</div>
+        <h2>Datang aja, nggak harus punya basic</h2>
+      </div>
+      <a href="#" style="font-weight:700;color:var(--p);text-decoration:none">Semua agenda →</a>
+    </div>
+    <div class="sched">
+      <div class="ev">
+        <span class="date" style="background:var(--p-soft);color:var(--p)">12 Oktober 2026</span>
+        <h4>Flutter Study Group</h4>
+        <p>Ngobrolin satu chapter sambil ngoprek bareng. Bawa laptop, sisanya kita sediain.</p>
+        <div class="who">👥 25 peserta · Lab Komputasi</div>
+      </div>
+      <div class="ev">
+        <span class="date" style="background:var(--pink-soft);color:#C4567A">20 Oktober 2026</span>
+        <h4>Tech Talk: Karir di Teknologi</h4>
+        <p>Alumni yang sudah kerja di perusahaan teknologi cerita jalannya dari kampus sampai sekarang.</p>
+        <div class="who">👥 60 peserta · Auditorium</div>
+      </div>
+      <div class="ev">
+        <span class="date" style="background:var(--mint-soft);color:#2E8E70">2 November 2026</span>
+        <h4>Hackathon Komandro 2026</h4>
+        <p>24 jam bikin aplikasi dari nol. Tim acak, mentor dari senior, hadiah &amp; sushi.</p>
+        <div class="who">👥 32 tim · SCE FTUI</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="kicker">Komunitas</div>
+      <h2>Yang aktif di kampus</h2>
+      <p>Alaminya boleh, tapi approachable. Suka ngobrol soal project? Mampir.</p>
+    </div>
+    <div class="people">
+      <div class="per"><div class="av" style="background:#7C5CFC">JF</div><h4>Joe Fadlan</h4><p>Ketua</p></div>
+      <div class="per"><div class="av" style="background:#FF8FB1">AH</div><h4>Faizul Hakim</h4><p>Administrasi</p></div>
+      <div class="per"><div class="av" style="background:#5CC9A9">AJ</div><h4>Aqib Java</h4><p>Administrasi</p></div>
+      <div class="per"><div class="av" style="background:#5BB8F0">NB</div><h4>Nabil</h4><p>Media</p></div>
+      <div class="per"><div class="av" style="background:#F5B445">BR</div><h4>Bram</h4><p>Humas</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="quote">
+      <div class="mark">“</div>
+      <p>Awalnya cuma ikut workshop karena penasaran. Sekarang aplikasinya sendiri sudah ada di Play Store, dan semua berawal dari obrolan di grup.</p>
+      <div class="by">— Alumni Batch 2022, Mobile Engineer</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="join">
+      <h2>Mau gabung? Prosesnya gampang.</h2>
+      <p>Isi form singkat, sekilas profile, masuk bootcamp dua minggu. Gratis, tanpa biaya — tapi harus mau belajar serius dikit.</p>
+      <a class="btn" href="#">Daftar Sekarang</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="logo" href="#" style="margin-bottom:10px"><span class="mark">⚡</span>Komandro</a>
+        <p style="max-width:300px">Komunitas Android &amp; Teknologi CCIT-FTUI. Belajar, berkarya, berkembang bareng sejak 2015.</p>
+      </div>
+      <div><h5>Belajar</h5><a href="#">Semua Materi</a><a href="#">Mobile</a><a href="#">Web</a><a href="#">DevOps</a></div>
+      <div><h5>Komunitas</h5><a href="#">Tentang Kami</a><a href="#">Anggota</a><a href="#">Agenda</a><a href="#">Alumni</a></div>
+      <div><h5>Sosial</h5><a href="#">Instagram</a><a href="#">GitHub</a><a href="#">komandro@ccit-ftui.ac.id</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 Komandro CCIT-FTUI</span><span>Engineering Center, CCIT-FTUI · Universitas Indonesia, Depok</span></div>
+  </div>
+</footer>
+</body>
+</html>

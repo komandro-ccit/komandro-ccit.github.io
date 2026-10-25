@@ -5,29 +5,29 @@ const pathname = Astro.url.pathname;
 
 const navGroups = [
   {
-    label: 'Home',
+    label: 'Beranda',
     href: '/',
   },
   {
-    label: 'Organization',
+    label: 'Tentang',
     children: [
-      { href: '/about', label: 'About' },
-      { href: '/members', label: 'Members' },
-      { href: '/program-kerja', label: 'Programs' },
+      { href: '/about', label: 'Tentang Kami' },
+      { href: '/members', label: 'Anggota' },
+      { href: '/program-kerja', label: 'Program Kerja' },
       { href: '/alumni', label: 'Alumni' },
     ],
   },
   {
-    label: 'Resources',
+    label: 'Belajar',
     children: [
-      { href: '/material', label: 'Materials' },
+      { href: '/material', label: 'Materi' },
       { href: '/blog', label: 'Blog' },
-      { href: '/showcase', label: 'Showcase' },
+      { href: '/showcase', label: 'Karya' },
     ],
   },
 ];
 
-function isGroupActive(group: typeof navGroups[number]): boolean {
+function isGroupActive(group: (typeof navGroups)[number]): boolean {
   if ('href' in group && group.href) {
     return pathname === group.href;
   }
@@ -36,64 +36,148 @@ function isGroupActive(group: typeof navGroups[number]): boolean {
   }
   return false;
 }
+
+let index = -1;
+for (const g of navGroups) index++;
+const gid = (i: number) => `nav-group-${i}`;
 ---
 
-<header class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-surface-border transition-all duration-300" id="main-header">
-  <nav class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-24 flex justify-between items-center">
-    <!-- Logo -->
-    <a href={link('/')} class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-slate-dark flex items-center justify-center">
-        <i class="bx bx-terminal text-white text-[24px]"></i>
-      </div>
-      <span class="text-headline-md-home font-bold text-on-surface tracking-tight uppercase">Komandro</span>
-    </a>
+<header class="fixed top-0 left-0 w-full z-50 pt-3.5" id="main-header">
+  <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+    <nav class="flex justify-between items-center bg-white/90 backdrop-blur-md rounded-full pl-6 pr-3.5 py-2.5 shadow-nav transition-shadow duration-300 h-[68px]">
+      <!-- Logo -->
+      <a href={link('/')} class="flex items-center gap-3">
+        <span class="w-9 h-9 rounded-[13px] bg-gradient-to-br from-violet to-pink text-white grid place-items-center -rotate-6 text-[18px]" aria-hidden="true">⚡</span>
+        <span class="font-display font-bold text-[20px] text-ink tracking-tight">Komandro</span>
+      </a>
 
-    <!-- Desktop Navigation -->
-    <div class="hidden md:flex items-center gap-10">
-      {navGroups.map((group) => {
-        if ('href' in group && group.href) {
-          const isActive = pathname === group.href;
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-1" id="desktop-nav">
+        {navGroups.map((group, i) => {
+          if ('href' in group && group.href) {
+            const isActive = pathname === group.href;
+            return (
+              <a
+                href={link(group.href)}
+                class:list={[
+                  'px-4 py-2 rounded-full text-[14.5px] font-semibold transition-colors duration-200',
+                  isActive ? 'bg-soft text-violet' : 'text-ink-2 hover:bg-soft hover:text-ink'
+                ]}
+              >
+                {group.label}
+              </a>
+            );
+          }
+
+          const isActive = isGroupActive(group);
           return (
-            <a
-              href={link(group.href)}
-              class:list={[
-                'font-label-md text-label-md uppercase tracking-wider transition-colors pb-1',
-                isActive
-                  ? 'text-on-background font-bold border-b-2 border-primary'
-                  : 'text-secondary font-medium hover:text-on-background'
-              ]}
-            >
-              {group.label}
-            </a>
+            <div class="relative" data-dropdown-group>
+              <button
+                type="button"
+                class:list={[
+                  'flex items-center gap-1 px-4 py-2 rounded-full text-[14.5px] font-semibold transition-colors duration-200 cursor-pointer',
+                  isActive ? 'bg-soft text-violet' : 'text-ink-2 hover:bg-soft hover:text-ink'
+                ]}
+                aria-expanded="false"
+                aria-controls={gid(i)}
+                data-dropdown-toggle
+              >
+                {group.label}
+                <i class="bx bx-chevron-down text-[15px] transition-transform duration-200" data-dropdown-arrow aria-hidden="true"></i>
+              </button>
+              <div
+                id={gid(i)}
+                data-dropdown-menu
+                class="hidden absolute top-full left-0 pt-2 w-max min-w-[190px]"
+              >
+                <div class="bg-white rounded-[18px] shadow-card-lg py-2.5 border border-ink/6">
+                  {group.children.map((child) => {
+                    const childActive = pathname === child.href || pathname.startsWith(child.href + '/');
+                    return (
+                      <a
+                        href={link(child.href)}
+                        class:list={[
+                          'block px-5 py-2.5 text-[14px] font-medium transition-colors',
+                          childActive
+                            ? 'bg-soft text-violet font-semibold'
+                            : 'text-ink-2 hover:bg-canvas hover:text-ink'
+                        ]}
+                      >
+                        {child.label}
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
           );
-        }
+        })}
+      </div>
 
-        const isActive = isGroupActive(group);
-        return (
-          <div class="relative dropdown-group">
-            <button
-              class:list={[
-                'font-label-md text-label-md uppercase tracking-wider transition-colors pb-1 flex items-center gap-1',
-                isActive
-                  ? 'text-on-background font-bold border-b-2 border-primary'
-                  : 'text-secondary font-medium hover:text-on-background'
-              ]}
-            >
-              {group.label}
-              <i class="bx bx-chevron-down text-[14px] transition-transform dropdown-arrow"></i>
-            </button>
-            <div class="dropdown-menu absolute top-full left-0 pt-2 opacity-0 invisible pointer-events-none transition-all duration-200">
-              <div class="bg-white border border-surface-border rounded shadow-lg py-2 min-w-[180px]">
+      <!-- CTA -->
+      <a
+        href={link('/about')}
+        class="hidden md:inline-flex items-center gap-2 bg-violet text-white px-5 py-2.5 rounded-full text-[14.5px] font-bold shadow-card-md hover:-translate-y-0.5 hover:shadow-card-lg transition-all duration-300 ease-bounce"
+      >Gabung ✨</a>
+
+      <!-- Mobile Menu Button -->
+      <button
+        type="button"
+        class="md:hidden text-ink w-11 h-11 rounded-full bg-canvas grid place-items-center"
+        id="mobile-menu-btn"
+        aria-label="Buka menu"
+        aria-expanded="false"
+      >
+        <i class="bx bx-menu text-2xl" id="menu-icon"></i>
+        <i class="bx bx-x text-2xl hidden" id="close-icon"></i>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <div id="mobile-menu" class="hidden md:hidden mt-2">
+    <div class="max-w-container-max mx-auto px-margin-mobile">
+      <div class="bg-white rounded-[26px] shadow-card-lg p-3 flex flex-col gap-1">
+        {navGroups.map((group) => {
+          if ('href' in group && group.href) {
+            const isActive = pathname === group.href;
+            return (
+              <a
+                href={link(group.href)}
+                class:list={[
+                  'px-5 py-3.5 rounded-[16px] text-[15.5px] font-semibold transition-colors',
+                  isActive ? 'bg-soft text-violet' : 'text-ink-2 hover:bg-canvas'
+                ]}
+              >
+                {group.label}
+              </a>
+            );
+          }
+
+          const isActive = isGroupActive(group);
+          return (
+            <div>
+              <button
+                type="button"
+                class:list={[
+                  'w-full flex items-center justify-between px-5 py-3.5 rounded-[16px] text-[15.5px] font-semibold transition-colors cursor-pointer',
+                  isActive ? 'bg-soft text-violet' : 'text-ink-2 hover:bg-canvas'
+                ]}
+                aria-expanded="false"
+                data-mobile-dropdown
+              >
+                {group.label}
+                <i class="bx bx-chevron-down text-[17px] transition-transform duration-200" data-mobile-dropdown-arrow aria-hidden="true"></i>
+              </button>
+              <div class="hidden pl-4 pb-1 flex flex-col" data-mobile-dropdown-content>
                 {group.children.map((child) => {
                   const childActive = pathname === child.href || pathname.startsWith(child.href + '/');
                   return (
                     <a
                       href={link(child.href)}
                       class:list={[
-                        'block px-4 py-2 font-label-md text-label-md transition-colors',
-                        childActive
-                          ? 'text-on-background font-bold bg-primary/10'
-                          : 'text-secondary hover:text-on-background hover:bg-surface-container-low'
+                        'block px-5 py-2.5 rounded-[12px] text-[14.5px] font-medium transition-colors',
+                        childActive ? 'bg-soft text-violet font-semibold' : 'text-ink-2 hover:bg-canvas'
                       ]}
                     >
                       {child.label}
@@ -102,131 +186,107 @@ function isGroupActive(group: typeof navGroups[number]): boolean {
                 })}
               </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
-
-    <!-- Mobile Menu Button -->
-    <button
-      class="md:hidden text-on-background p-2"
-      id="mobile-menu-btn"
-      aria-label="Toggle menu"
-    >
-      <i class="bx bx-menu text-2xl" id="menu-icon"></i>
-      <i class="bx bx-x text-2xl hidden" id="close-icon"></i>
-    </button>
-  </nav>
-
-  <!-- Mobile Navigation -->
-  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-surface-border">
-    <div class="max-w-container-max mx-auto px-margin-mobile py-4 flex flex-col gap-1">
-      {navGroups.map((group) => {
-        if ('href' in group && group.href) {
-          const isActive = pathname === group.href;
-          return (
-            <a
-              href={link(group.href)}
-              class:list={[
-                'px-4 py-3 font-label-md text-label-md uppercase tracking-wider transition-colors',
-                isActive
-                  ? 'text-on-background font-bold bg-primary/10'
-                  : 'text-secondary font-medium hover:bg-surface-container-low'
-              ]}
-            >
-              {group.label}
-            </a>
           );
-        }
-
-        const isActive = isGroupActive(group);
-        return (
-          <div class="mobile-dropdown">
-            <button
-              class:list={[
-                'w-full px-4 py-3 font-label-md text-label-md uppercase tracking-wider transition-colors flex items-center justify-between',
-                isActive
-                  ? 'text-on-background font-bold'
-                  : 'text-secondary font-medium'
-              ]}
-              data-mobile-dropdown
-            >
-              {group.label}
-              <i class="bx bx-chevron-down text-[14px] transition-transform mobile-dropdown-arrow"></i>
-            </button>
-            <div class="mobile-dropdown-content hidden pl-4">
-              {group.children.map((child) => {
-                const childActive = pathname === child.href || pathname.startsWith(child.href + '/');
-                return (
-                  <a
-                    href={link(child.href)}
-                    class:list={[
-                      'block px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-colors',
-                      childActive
-                        ? 'text-on-background font-bold bg-primary/10'
-                        : 'text-secondary font-medium hover:bg-surface-container-low'
-                    ]}
-                  >
-                    {child.label}
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+        })}
+        <a
+          href={link('/about')}
+          class="mt-2 inline-flex items-center justify-center gap-2 bg-violet text-white px-5 py-3.5 rounded-[16px] text-[15px] font-bold"
+        >Gabung ✨</a>
+      </div>
     </div>
   </div>
 </header>
 
-<style>
-  /* Desktop dropdown */
-  .dropdown-group:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-  .dropdown-group:hover .dropdown-arrow {
-    transform: rotate(180deg);
-  }
-</style>
-
 <script>
-  // Mobile menu toggle
+  // Dropdown desktop: klik untuk buka/tutup, tutup dengan Escape / klik luar
+  document.querySelectorAll('[data-dropdown-toggle]').forEach((btn) => {
+    const menu = btn.parentElement?.querySelector('[data-dropdown-menu]');
+    const arrow = btn.querySelector('[data-dropdown-arrow]');
+
+    const close = () => {
+      menu?.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+      arrow?.classList.remove('rotate-180');
+    };
+
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('[data-dropdown-toggle]').forEach((b) => {
+        if (b !== btn) {
+          const m = b.parentElement?.querySelector('[data-dropdown-menu]');
+          const a = b.querySelector('[data-dropdown-arrow]');
+          m?.classList.add('hidden');
+          (b as HTMLElement).setAttribute('aria-expanded', 'false');
+          a?.classList.remove('rotate-180');
+        }
+      });
+      btn.setAttribute('aria-expanded', String(!expanded));
+      menu?.classList.toggle('hidden', expanded);
+      arrow?.classList.toggle('rotate-180', !expanded);
+    });
+
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!(e.target as HTMLElement).closest('[data-dropdown-group]')) {
+      document.querySelectorAll('[data-dropdown-menu]').forEach((m) => m.classList.add('hidden'));
+      document.querySelectorAll('[data-dropdown-toggle]').forEach((b) => {
+        (b as HTMLElement).setAttribute('aria-expanded', 'false');
+        b.querySelector('[data-dropdown-arrow]')?.classList.remove('rotate-180');
+      });
+    }
+  });
+
+  // Menu mobile
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
   const closeIcon = document.getElementById('close-icon');
+  const header = document.getElementById('main-header');
 
-  if (mobileMenuBtn && mobileMenu && menuIcon && closeIcon) {
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      menuIcon.classList.toggle('hidden');
-      closeIcon.classList.toggle('hidden');
-    });
-
-    // Close menu when clicking on a link
-    const mobileLinks = mobileMenu.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-      });
-    });
+  function setMenu(open: boolean) {
+    if (!mobileMenuBtn || !mobileMenu || !menuIcon || !closeIcon) return;
+    mobileMenu.classList.toggle('hidden', !open);
+    mobileMenuBtn.setAttribute('aria-expanded', String(open));
+    mobileMenuBtn.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+    menuIcon.classList.toggle('hidden', open);
+    closeIcon.classList.toggle('hidden', !open);
+    if (header) header.classList.toggle('z-50', true);
   }
 
-  // Mobile dropdown toggle
-  document.querySelectorAll('[data-mobile-dropdown]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const content = btn.nextElementSibling as HTMLElement;
-      const arrow = btn.querySelector('.mobile-dropdown-arrow') as HTMLElement;
-      if (content) {
-        content.classList.toggle('hidden');
-      }
-      if (arrow) {
-        arrow.style.transform = content?.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-      }
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      setMenu(mobileMenu.classList.contains('hidden'));
     });
+    mobileMenu.querySelectorAll('a').forEach((l) => l.addEventListener('click', () => setMenu(false)));
+  }
+
+  // Dropdown mobile: accordion
+  document.querySelectorAll('[data-mobile-dropdown]').forEach((btn) => {
+    const content = btn.nextElementSibling as HTMLElement | null;
+    const arrow = btn.querySelector('[data-mobile-dropdown-arrow]');
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      content?.classList.toggle('hidden', expanded);
+      arrow?.classList.toggle('rotate-180', !expanded);
+    });
+  });
+</script>
+
+<style>
+  /* Sticky shadow ketika scroll */
+  #main-header.scrolled nav {
+    box-shadow: 0 10px 30px rgba(42, 35, 64, 0.12);
+  }
+</style>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('main-header');
+    if (header) header.classList.toggle('scrolled', window.scrollY > 12);
   });
 </script>

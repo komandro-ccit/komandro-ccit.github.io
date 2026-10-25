@@ -1,0 +1,33 @@
+---
+import MaterialIcon from '../material/MaterialIcon.astro';
+
+interface Props {
+  icon: string;
+  accent: 'violet' | 'pink' | 'mint' | 'amber' | 'sky' | 'lime' | 'orange' | 'magenta';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { icon, accent, size = 'md', class: className = '' } = Astro.props;
+
+const accentBg: Record<string, string> = {
+  violet: 'bg-violet-soft text-violet',
+  pink: 'bg-pink-soft text-pink',
+  mint: 'bg-mint-soft text-mint-deep',
+  amber: 'bg-amber-soft text-amber-deep',
+  sky: 'bg-sky-soft text-sky-deep',
+  lime: 'bg-lime-soft text-lime-deep',
+  orange: 'bg-orange-soft text-orange-deep',
+  magenta: 'bg-magenta-soft text-magenta-deep',
+};
+
+const sizeMap: Record<string, string> = {
+  sm: 'w-10 h-10 rounded-[12px] text-[20px]',
+  md: 'w-12 h-12 rounded-[16px] text-[22px]',
+  lg: 'w-14 h-14 rounded-[18px] text-[26px]',
+};
+---
+
+<div class:list={['grid place-items-center shrink-0', sizeMap[size], accentBg[accent], className]} aria-hidden="true">
+  <MaterialIcon name={icon} class="text-inherit" />
+</div>

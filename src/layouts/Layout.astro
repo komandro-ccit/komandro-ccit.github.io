@@ -7,12 +7,41 @@ interface Props {
   description?: string;
 }
 
-const { 
-  title, 
+const {
+  title,
   description = "Komandro CCIT-FTUI - Komunitas Android dan Teknologi sejak 2015. Belajar, Berkarya, Berkomunitas."
 } = Astro.props;
 
 const currentYear = new Date().getFullYear();
+
+const footerNav = [
+  {
+    heading: 'Belajar',
+    links: [
+      { label: 'Semua Materi', href: '/material' },
+      { label: 'Mobile', href: '/material/mobile' },
+      { label: 'Web', href: '/material/web' },
+      { label: 'DevOps', href: '/material/devops' }
+    ]
+  },
+  {
+    heading: 'Komunitas',
+    links: [
+      { label: 'Tentang Kami', href: '/about' },
+      { label: 'Anggota', href: '/members' },
+      { label: 'Program Kerja', href: '/program-kerja' },
+      { label: 'Alumni', href: '/alumni' }
+    ]
+  },
+  {
+    heading: 'Kontak',
+    links: [
+      { label: 'komandro@ccit-ftui.ac.id', href: 'mailto:komandro@ccit-ftui.ac.id' },
+      { label: 'Instagram', href: 'https://instagram.com/komandro_ccit' },
+      { label: 'GitHub', href: 'https://github.com/komandro-ccit' }
+    ]
+  }
+];
 ---
 
 <!DOCTYPE html>
@@ -24,55 +53,65 @@ const currentYear = new Date().getFullYear();
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Box Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
+
     <style is:global>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-      
+
       html {
         scroll-behavior: smooth;
       }
-      
+
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        line-height: 1.6;
-        color: #191c1e;
-        background-color: #f8fafc;
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+        line-height: 1.65;
+        color: #2A2340;
+        background-color: #FFF9F3;
       }
-      
+
       img {
         max-width: 100%;
         height: auto;
       }
-      
+
       a {
         text-decoration: none;
         color: inherit;
       }
-      
+
       .prose {
         overflow-wrap: break-word;
         word-break: break-word;
       }
-      
+
       .prose pre {
         overflow-x: auto;
         max-width: 100%;
       }
-      
+
       .prose img {
         max-width: 100%;
         height: auto;
+      }
+
+      /* Aksesibilitas: reduksi motion */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
       }
     </style>
   </head>
@@ -81,66 +120,49 @@ const currentYear = new Date().getFullYear();
       <Navbar />
     </slot>
     <slot />
-    
+
     <!-- Global Footer -->
-    <footer class="bg-slate-dark text-white py-24">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-16 mb-16 border-b border-white/20 pb-16">
-          {/* Brand Column */}
-          <div class="col-span-1 md:col-span-5">
-            <div class="flex items-center gap-3 mb-8">
-              <div class="w-10 h-10 bg-white flex items-center justify-center">
-                <i class="bx bx-terminal text-slate-dark text-[24px]"></i>
-              </div>
-              <span class="text-headline-md-home font-bold tracking-tight uppercase">Komandro</span>
+    <footer class="relative bg-ink-band text-white overflow-hidden">
+      <span class="pointer-events-none absolute -top-24 -right-16 w-[280px] h-[280px] rounded-full bg-violet/25 blur-3xl" aria-hidden="true"></span>
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+          <div class="md:col-span-6">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-[13px] bg-gradient-to-br from-violet to-pink grid place-items-center -rotate-6 text-[19px]" aria-hidden="true">⚡</div>
+              <span class="font-display font-bold text-[21px] tracking-tight">Komandro</span>
             </div>
-            <p class="text-white/70 font-body-md text-body-md max-w-sm leading-relaxed mb-8">
-              An institution of engineering excellence at CCIT-FTUI, cultivating technology leadership since 2015.
+            <p class="text-white/70 text-body-sm max-w-sm leading-relaxed mb-8">
+              Komunitas Android &amp; Teknologi CCIT-FTUI. Belajar, berkarya, berkembang bareng sejak 2015.
             </p>
-            <div class="flex gap-4">
-              <a href="https://instagram.com/komandro_ccit" target="_blank" rel="noopener noreferrer" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-slate-dark transition-colors">
-                <i class="bx bxl-instagram text-[20px]"></i>
+            <div class="flex gap-3">
+              <a href="https://instagram.com/komandro_ccit" target="_blank" rel="noopener noreferrer" aria-label="Instagram Komandro" class="w-10 h-10 rounded-full bg-white/10 grid place-items-center hover:bg-violet transition-colors duration-300">
+                <i class="bx bxl-instagram text-[19px]"></i>
               </a>
-              <a href="https://github.com/komandro-ccit" target="_blank" rel="noopener noreferrer" class="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-slate-dark transition-colors">
-                <i class="bx bxl-github text-[20px]"></i>
+              <a href="https://github.com/komandro-ccit" target="_blank" rel="noopener noreferrer" aria-label="GitHub Komandro" class="w-10 h-10 rounded-full bg-white/10 grid place-items-center hover:bg-violet transition-colors duration-300">
+                <i class="bx bxl-github text-[19px]"></i>
               </a>
             </div>
           </div>
-          
-          {/* Directory Column */}
-          <div class="col-span-1 md:col-span-3">
-            <h4 class="font-label-md text-label-md mb-8 uppercase tracking-widest text-white/50 border-b border-white/20 pb-4">Directory</h4>
-            <ul class="space-y-4">
-              <li><a href={link('/')} class="text-white/80 hover:text-primary transition-colors font-body-md">Overview</a></li>
-              <li><a href={link('/about')} class="text-white/80 hover:text-primary transition-colors font-body-md">Institution</a></li>
-              <li><a href={link('/alumni')} class="text-white/80 hover:text-primary transition-colors font-body-md">Hall of Fame</a></li>
-              <li><a href={link('/material')} class="text-white/80 hover:text-primary transition-colors font-body-md">Academic Resources</a></li>
-              <li><a href={link('/blog')} class="text-white/80 hover:text-primary transition-colors font-body-md">Publications</a></li>
-            </ul>
-          </div>
-          
-          {/* Contact Column */}
-          <div class="col-span-1 md:col-span-4">
-            <h4 class="font-label-md text-label-md mb-8 uppercase tracking-widest text-white/50 border-b border-white/20 pb-4">Contact</h4>
-            <ul class="space-y-6">
-              <li>
-                <span class="block text-white/50 text-sm uppercase tracking-wider mb-1">Email Correspondence</span>
-                <a href="mailto:komandro@ccit-ftui.ac.id" class="text-white hover:text-primary transition-colors font-body-md">komandro@ccit-ftui.ac.id</a>
-              </li>
-              <li>
-                <span class="block text-white/50 text-sm uppercase tracking-wider mb-1">Headquarters</span>
-                <span class="text-white/80 font-body-md leading-relaxed">Engineering Center, CCIT-FTUI<br/>Universitas Indonesia, Depok</span>
-              </li>
-            </ul>
-          </div>
+
+          {footerNav.map((col) => (
+              <div class="md:col-span-2">
+              <h4 class="text-[12.5px] font-bold uppercase tracking-widest text-white/45 mb-4">{col.heading}</h4>
+              <ul class="space-y-2.5">
+                {col.links.map((item) => (
+                  <li>
+                    <a href={item.href} class="text-[14.5px] text-white/75 hover:text-amber transition-colors">
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="text-white/50 font-label-md text-label-md uppercase tracking-wider">&copy; {currentYear} Komandro CCIT-FTUI. All Rights Reserved.</p>
-          <div class="flex gap-8 text-white/50 font-label-md text-label-md uppercase tracking-wider">
-            <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-          </div>
+
+        <div class="border-t border-white/12 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
+          <p class="text-[13px] text-white/45">&copy; {currentYear} Komandro CCIT-FTUI. Semua hak dilindungi.</p>
+          <span class="text-[13px] text-white/45">Engineering Center, CCIT-FTUI · Universitas Indonesia, Depok</span>
         </div>
       </div>
     </footer>
@@ -148,24 +170,12 @@ const currentYear = new Date().getFullYear();
 </html>
 
 <script>
-  // Header scroll effect for default navbar
-  window.addEventListener('scroll', () => {
-    const header = document.getElementById('main-header');
-    if (header) {
-      if (window.scrollY > 20) {
-        header.classList.add('shadow-sm');
-      } else {
-        header.classList.remove('shadow-sm');
-      }
-    }
-  });
-
-
+  // Efek scroll pada header ditangani Navbar sendiri
 </script>
 
 <style is:global>
   .hero-pattern {
-    background-image: linear-gradient(to right, #f1f5f9 1px, transparent 1px), linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
-    background-size: 40px 40px;
+    background-image: radial-gradient(circle at 1px 1px, rgba(42, 35, 64, 0.06) 1px, transparent 0);
+    background-size: 24px 24px;
   }
 </style>

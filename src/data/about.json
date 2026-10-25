@@ -1,12 +1,12 @@
 {
   "milestones": [
-    { "year": 2014, "title": "Founded", "description": "Komandro CCIT-FTUI was founded by M. Octaviano Pratama, M.Kom, who appointed Ugi Ispoyo Widodo as the first chairman." },
-    { "year": 2015, "title": "Structural Organization", "description": "A more structured organization was established with formal divisions and roles." },
-    { "year": 2016, "title": "First Workshop", "description": "Organized the first Android development workshop on campus." },
-    { "year": 2018, "title": "Expanded Scope", "description": "Added Backend, Frontend, and DevOps to our learning tracks." },
-    { "year": 2020, "title": "Online Transition", "description": "Successfully transitioned to online learning during the pandemic." },
-    { "year": 2022, "title": "100+ Members", "description": "Reached over 100 registered members across all batches." },
-    { "year": 2026, "title": "Continuous Growth", "description": "Continuing to evolve and adapt to new technologies." }
+    { "year": 2014, "title": "Berdiri", "description": "Komandro CCIT-FTUI didirikan oleh M. Octaviano Pratama, M.Kom, yang menunjuk Ugi Ispoyo Widodo sebagai ketua pertama." },
+    { "year": 2015, "title": "Struktur Organisasi", "description": "Organisasi yang lebih terstruktur dibentuk dengan pembagian bidang dan peran yang formal." },
+    { "year": 2016, "title": "Workshop Pertama", "description": "Menyelenggarakan workshop pengembangan Android pertama di kampus." },
+    { "year": 2018, "title": "Perluasan Bidang", "description": "Menambahkan Backend, Frontend, dan DevOps ke jalur belajar kami." },
+    { "year": 2020, "title": "Transisi Daring", "description": "Berhasil beralih ke pembelajaran daring saat masa pandemi." },
+    { "year": 2022, "title": "100+ Anggota", "description": "Melampaui 100 anggota terdaftar di seluruh batch." },
+    { "year": 2026, "title": "Terus Tumbuh", "description": "Terus berkembang dan beradaptasi dengan teknologi baru." }
   ],
   "team": [
     { "role": "Ketua", "name": "Joe Fadlan", "period": "2025", "current": true },

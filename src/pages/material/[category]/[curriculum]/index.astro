@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../../../layouts/Layout.astro';
-import MaterialIcon from '../../../../components/material/MaterialIcon.astro';
 import SeriesStepper from '../../../../components/material/SeriesStepper.astro';
+import Pill from '../../../../components/ui/Pill.astro';
 import { link } from '../../../../utils/link';
+import { categoryOf, DIFFICULTY_TONE, DIFFICULTY_LABEL, ACCENT_BG } from '../../../../data/categories';
 
 export async function getStaticPaths() {
   const materials = await getCollection('materials');
@@ -30,6 +31,8 @@ export async function getStaticPaths() {
 
 const { category, curriculum } = Astro.params;
 const { curriculumSlug } = Astro.props;
+const cat = categoryOf(category);
+const accent = cat.tone;
 
 const allMaterials = await getCollection('materials');
 
@@ -74,76 +77,67 @@ const activeModuleIndex = 0;
 ---
 
 <Layout title={`${curriculumData.title} - Komandro CCIT-FTUI`}>
-  <main class="min-h-screen bg-surface-light pt-24">
-    
-    {/* Hero / Back Navigation */}
-    <section class="relative py-16 overflow-hidden bg-white border-b border-surface-border hero-pattern">
+  <main class="min-h-screen bg-canvas pt-[92px]">
+
+    {/* Back nav */}
+    <section class="relative py-10 overflow-hidden bg-canvas hero-pattern border-b border-ink/6">
+      <span class="pointer-events-none absolute -top-24 right-[-60px] w-[300px] h-[300px] rounded-full bg-violet opacity-[.14] blur-[90px]" aria-hidden="true"></span>
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
-        <a href={link(`/material/${category}`)} class="inline-flex items-center gap-sm text-secondary hover:text-on-background mb-6 transition-colors font-label-md text-label-md uppercase tracking-wider">
-          <MaterialIcon name="bx-arrow-back" class="text-[18px]" />
-          Back to {category}
+        <a href={link(`/material/${category}`)} class="inline-flex items-center gap-2 bg-white text-ink-2 hover:text-violet px-4 h-10 rounded-full text-[13.5px] font-bold shadow-card transition-colors">
+          <i class="bx bx-arrow-back text-[17px]" aria-hidden="true"></i>
+          Kembali ke {cat.label}
         </a>
       </div>
     </section>
 
-    {/* Curriculum Overview Card */}
-    <section class="py-8 px-margin-mobile md:px-margin-desktop -mt-8 max-w-container-max mx-auto">
+    {/* Kartu Kurikulum */}
+    <section class="px-margin-mobile md:px-margin-desktop -mt-5 relative z-20 max-w-container-max mx-auto pb-8">
       <div class="max-w-4xl mx-auto">
-        <div class="bg-surface-container-lowest border border-surface-variant overflow-hidden rounded">
-          <div class="h-2 bg-primary" />
-          
-          <div class="p-8">
-            <div class="flex flex-wrap items-center gap-3 mb-4">
-              <span class="bg-primary text-white px-3 py-1 font-label-md text-label-md uppercase tracking-widest">
-                Series
-              </span>
-              
+        <div class="bg-white rounded-lg overflow-hidden shadow-card-md relative">
+          <div class:list={['h-1.5', ACCENT_BG[accent]]} aria-hidden="true"></div>
+
+          <div class="p-7 md:p-9">
+            <div class="flex flex-wrap items-center gap-2.5 mb-5">
+              <Pill label="SERI" tone={accent} />
+
               {curriculumData.difficulty && (
-                <span class="px-3 py-1 bg-surface-variant text-on-background font-label-md text-label-md uppercase tracking-widest">
-                  {curriculumData.difficulty}
-                </span>
+                <Pill label={DIFFICULTY_LABEL[curriculumData.difficulty] ?? curriculumData.difficulty} tone={DIFFICULTY_TONE[curriculumData.difficulty] ?? 'neutral'} />
               )}
-              
+
               {curriculumData.estimatedTime && (
-                <span class="px-3 py-1 bg-surface-variant text-on-background font-label-md text-label-md uppercase tracking-widest flex items-center gap-1">
-                  <MaterialIcon name="bx-time" class="text-[14px]" />
-                  {curriculumData.estimatedTime}
-                </span>
+                <Pill label={`${curriculumData.estimatedTime}`} tone="neutral" />
               )}
-              
-              <span class="px-3 py-1 bg-surface-variant text-on-background font-label-md text-label-md uppercase tracking-widest flex items-center gap-1">
-                <MaterialIcon name="bx-book" class="text-[14px]" />
-                {lessons.length} Lessons
-              </span>
+
+              <Pill label={`${lessons.length} Materi`} tone="neutral" />
             </div>
 
-            <h1 class="font-headline-xl text-headline-xl text-on-surface mb-4">{curriculumData.title}</h1>
-            
-            <p class="text-lg text-on-surface-variant mb-6">{curriculumData.description}</p>
-            
-            <div class="flex items-center gap-4 text-sm text-on-surface-variant mb-6">
-              <div class="flex items-center gap-2">
-                <MaterialIcon name="bx-user" class="text-[16px]" />
-                By {curriculumData.author}
-              </div>
-              
-              <div class="flex items-center gap-2">
-                <MaterialIcon name="bx-calendar" class="text-[16px]" />
-                {new Date(curriculumData.pubDate).toLocaleDateString('id-ID', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
+            <h1 class="font-display text-display-md md:text-display-lg text-ink mb-4">{curriculumData.title}</h1>
+
+            <p class="text-body-lg text-ink-2 mb-6">{curriculumData.description}</p>
+
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13.5px] font-semibold text-ink-2 mb-6">
+              <span class="inline-flex items-center gap-2">
+                <i class="bx bx-user text-ink-3" aria-hidden="true"></i>
+                {curriculumData.author}
+              </span>
+              <span class="w-1 h-1 rounded-full bg-ink-3 hidden sm:block" aria-hidden="true"></span>
+              <span class="inline-flex items-center gap-2">
+                <i class="bx bx-calendar text-ink-3" aria-hidden="true"></i>
+                {new Date(curriculumData.pubDate).toLocaleDateString('id-ID', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
                 })}
-              </div>
+              </span>
             </div>
 
             {curriculumData.prerequisites && curriculumData.prerequisites.length > 0 && (
-              <div class="bg-surface-container p-4 border border-outline-variant rounded">
-                <h4 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-2">Prerequisites</h4>
-                <ul class="space-y-1">
+              <div class="bg-mint-soft rounded-md p-5">
+                <h4 class="text-label uppercase tracking-widest text-mint-deep mb-3">Prasyarat</h4>
+                <ul class="space-y-1.5">
                   {curriculumData.prerequisites.map((prereq) => (
-                    <li class="flex items-center gap-2 text-sm text-on-surface-variant">
-                      <MaterialIcon name="bx-check" class="text-primary text-[14px]" />
+                    <li class="flex items-center gap-2 text-body-sm text-ink-2">
+                      <i class="bx bx-check text-mint-deep text-[15px]" aria-hidden="true"></i>
                       {prereq}
                     </li>
                   ))}
@@ -155,25 +149,28 @@ const activeModuleIndex = 0;
       </div>
     </section>
 
-    {/* Lessons Stepper */}
-    <section class="py-8 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    {/* Stepper */}
+    <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-8">
       <div class="max-w-4xl mx-auto">
         <div class="flex items-center justify-between mb-8">
-          <h2 class="font-headline-lg text-headline-lg text-on-surface">Course Content</h2>
-          <span class="text-sm text-on-surface-variant">{lessons.length} Lessons</span>
+          <h2 class="font-display text-display-md text-ink">Isi Kurikulum</h2>
+          <span class="text-body-sm font-semibold text-ink-2">{lessons.length} Materi</span>
         </div>
 
         {lessons.length === 0 ? (
-          <div class="bg-surface-container-lowest border border-surface-variant rounded p-12 text-center">
-            <MaterialIcon name="bx-edit" class="text-6xl text-on-surface-variant mb-4" />
-            <p class="text-on-surface-variant">Lessons will be added soon!</p>
+          <div class="bg-white rounded-md p-12 text-center shadow-card">
+            <div class="w-20 h-20 mx-auto rounded-full bg-violet-soft text-violet grid place-items-center text-[38px] mb-4" aria-hidden="true">
+              <i class="bx bx-edit"></i>
+            </div>
+            <p class="text-ink-2">Materi akan segera ditambahkan!</p>
           </div>
         ) : (
-          <SeriesStepper 
+          <SeriesStepper
             modules={modules}
             category={category}
             curriculum={curriculum}
             activeModuleIndex={activeModuleIndex}
+            accent={accent}
           />
         )}
       </div>

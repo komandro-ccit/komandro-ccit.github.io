@@ -1,5 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import IconBadge from '../components/ui/IconBadge.astro';
+import CTA from '../components/ui/CTA.astro';
+import HeroBg from '../components/ui/HeroBg.astro';
 import { link } from '../utils/link';
 
 const projects = [
@@ -67,228 +71,49 @@ const projects = [
 
 const designProjects = projects.filter(p => p.type === 'design');
 const codeProjects = projects.filter(p => p.type === 'code');
-
-const typeBadgeStyles: Record<string, string> = {
-  'design': 'bg-primary text-white',
-  'code': 'bg-secondary text-white',
-};
 ---
 
 <Layout title="Showcase - Komandro CCIT-FTUI"
   description="Showcase of amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community members.">
   <main class="pt-24">
     
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
-        <div class="max-w-4xl">
-          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
-            <span class="w-2 h-2 bg-primary"></span>
-            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Projects</span>
+    {/* Hero */}
+    <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-16 md:py-24">
+      <HeroBg />
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
+            <span class="w-2 h-2 rounded-full bg-violet" aria-hidden="true"></span>
+            <span class="text-[13px] font-semibold text-ink-2">Karya</span>
           </div>
-          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
-            Project <span class="text-primary">Showcase</span>
+          <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-5">
+            <span class="text-pink">Karya</span> Komunitas
           </h1>
-          <p class="text-body-lg-home text-secondary max-w-2xl leading-relaxed">
-            Amazing projects by Komandro alumni. Discover innovative designs and code repositories from our talented community.
+          <p class="text-body-lg text-ink-2 max-w-2xl">
+            Wadah karya terbaik anggota Komandro — sedang dalam pembaruan.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Filter Stats -->
-    <section class="py-16 bg-surface-container-low border-b border-surface-border">
+    {/* Konten disementara disembunyikan — kartu disimpan sebagai referensi (lihat git history) */}
+
+    {/* Empty state — konten disembunyikan sementara; kartu-kartu proyek lama tersimpan sebagai referensi (lihat git history) */}
+    <section class="py-20 md:py-28 bg-white">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="flex items-center gap-4">
-            <i class="bx bx-palette text-on-background text-[32px]"></i>
-            <div>
-              <div class="text-headline-md-home text-on-background">{designProjects.length}</div>
-              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Design Projects</div>
-            </div>
+        <div class="bg-canvas rounded-lg p-12 md:p-16 text-center shadow-card max-w-2xl mx-auto">
+          <div class="w-20 h-20 mx-auto rounded-[24px] bg-pink-soft grid place-items-center mb-6" aria-hidden="true">
+            <i class="bx bx-wrench text-pink text-[38px]"></i>
           </div>
-          
-          <div class="flex items-center gap-4">
-            <i class="bx bx-code-alt text-on-background text-[32px]"></i>
-            <div>
-              <div class="text-headline-md-home text-on-background">{codeProjects.length}</div>
-              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Code Projects</div>
-            </div>
-          </div>
-          
-          <div class="flex items-center gap-4">
-            <i class="bx bx-collection text-on-background text-[32px]"></i>
-            <div>
-              <div class="text-headline-md-home text-on-background">{projects.length}</div>
-              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Total Projects</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Design Projects Section -->
-    {designProjects.length > 0 && (
-      <section class="py-32 bg-white border-b border-surface-border">
-        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div class="flex items-center gap-4 mb-12">
-            <i class="bx bx-palette text-on-background text-[28px]"></i>
-            <h2 class="text-headline-lg-home text-on-background">Design Projects</h2>
-            <div class="flex-1 h-px bg-surface-border"></div>
-            <span class="px-3 py-1 bg-primary text-white font-label-md text-label-md uppercase tracking-widest">
-              UI/UX
-            </span>
-          </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {designProjects.map((project) => (
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group bg-white border border-surface-border overflow-hidden rounded hover:border-primary transition-colors duration-300"
-              >
-                <div class="aspect-video bg-surface-container relative overflow-hidden">
-                  {project.image ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      class="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div class="w-full h-full flex items-center justify-center">
-                      <i class="bx bx-image text-surface-border text-[48px]"></i>
-                    </div>
-                  )}
-                  
-                  <div class="absolute top-3 right-3">
-                    <span class="px-3 py-1 bg-primary text-white font-label-md text-label-md uppercase tracking-widest">
-                      Design
-                    </span>
-                  </div>
-                </div>
-                
-                <div class="p-6">
-                  <h3 class="text-headline-md text-on-background mb-2 group-hover:text-primary transition-colors line-clamp-1">
-                    {project.title}
-                  </h3>
-                  
-                  <p class="text-secondary text-body-md mb-6 line-clamp-3">
-                    {project.description}
-                  </p>
-                  
-                  <div class="flex items-center justify-between pt-4 border-t border-surface-border">
-                    <div class="flex items-center gap-3">
-                      <div class="w-8 h-8 bg-surface-container flex items-center justify-center text-on-background text-xs font-bold">
-                        {project.author.charAt(0)}
-                      </div>
-                      <div class="text-body-md">
-                        <div class="text-on-background font-medium">{project.author}</div>
-                        <div class="text-secondary">Batch {project.batch}</div>
-                      </div>
-                    </div>
-                    
-                    <span class="inline-flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity font-label-md text-label-md uppercase tracking-wider">
-                      View
-                      <i class="bx bx-right-arrow-alt text-[14px]"></i>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- Code Projects Section -->
-    {codeProjects.length > 0 && (
-      <section class="py-32 bg-surface-container-low border-b border-surface-border">
-        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div class="flex items-center gap-4 mb-12">
-            <i class="bx bx-code-alt text-on-background text-[28px]"></i>
-            <h2 class="text-headline-lg-home text-on-background">Code Projects</h2>
-            <div class="flex-1 h-px bg-surface-border"></div>
-            <span class="px-3 py-1 bg-secondary text-white font-label-md text-label-md uppercase tracking-widest">
-              GitHub
-            </span>
-          </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {codeProjects.map((project) => (
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group bg-white border-0 md:border border-surface-border overflow-hidden rounded-none md:rounded hover:border-primary transition-colors duration-300"
-              >
-                <div class="aspect-video bg-slate-dark relative overflow-hidden">
-                  {project.image ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      class="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div class="w-full h-full flex items-center justify-center">
-                      <i class="bx bx-code-block text-white/30 text-[48px]"></i>
-                    </div>
-                  )}
-                  
-                  <div class="absolute top-3 right-3">
-                    <span class="px-3 py-1 bg-secondary text-white font-label-md text-label-md uppercase tracking-widest">
-                      Code
-                    </span>
-                  </div>
-                </div>
-                
-                <div class="p-6">
-                  <h3 class="text-headline-md text-on-background mb-2 group-hover:text-primary transition-colors line-clamp-1">
-                    {project.title}
-                  </h3>
-                  
-                  <p class="text-secondary text-body-md mb-6 line-clamp-3">
-                    {project.description}
-                  </p>
-                  
-                  <div class="flex items-center justify-between pt-4 border-t border-surface-border">
-                    <div class="flex items-center gap-3">
-                      <div class="w-8 h-8 bg-surface-container flex items-center justify-center text-on-background text-xs font-bold">
-                        {project.author.charAt(0)}
-                      </div>
-                      <div class="text-body-md">
-                        <div class="text-on-background font-medium">{project.author}</div>
-                        <div class="text-secondary">Batch {project.batch}</div>
-                      </div>
-                    </div>
-                    
-                    <span class="inline-flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity font-label-md text-label-md uppercase tracking-wider">
-                      GitHub
-                      <i class="bx bx-right-arrow-alt text-[14px]"></i>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- Update Schedule Info -->
-    <section class="py-32 bg-white">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="border border-surface-border rounded p-8 md:p-16 text-center">
-          <i class="bx bx-time text-on-background text-[48px] mb-6"></i>
-          <h2 class="text-headline-lg-home text-on-background mb-4">Regular Updates</h2>
-          <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
-          <p class="text-body-lg-home text-secondary max-w-2xl mx-auto leading-relaxed">
-            Projects are updated at the end of each batch period. Stay tuned for new showcases from every graduating class!
+          <h2 class="font-display text-display-md text-ink mb-3">Sedang Diperbarui</h2>
+          <p class="text-body-md text-ink-2 mb-8 max-w-md mx-auto">
+            Koleksi karya anggota sedang kami siapkan. Datang lagi nanti ya!
           </p>
+          <CTA href="/" label="Kembali ke Beranda" variant="ghost" arrow />
         </div>
       </div>
     </section>
-  </main>
+  </main>  </main>
 </Layout>
 
 <style>

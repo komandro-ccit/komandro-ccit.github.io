@@ -1,5 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import CTA from '../../components/ui/CTA.astro';
+import HeroBg from '../../components/ui/HeroBg.astro';
+import IconBadge from '../../components/ui/IconBadge.astro';
+import Pill from '../../components/ui/Pill.astro';
 import { link } from '../../utils/link';
 
 const currentYear = new Date().getFullYear();
@@ -7,162 +12,165 @@ const maxBatchYear = currentYear - 2;
 const availableYears = Array.from({ length: maxBatchYear - 2013 }, (_, i) => 2014 + i).reverse();
 
 const getYearDescription = (year: number): string => {
-  if (year === 2015) return 'Founding Year';
-  if (year === maxBatchYear) return 'Latest Batch';
+  if (year === 2015) return 'Tahun Berdiri';
+  if (year === maxBatchYear) return 'Angkatan Terbaru';
   return `Batch ${year - 2014}`;
+};
+
+const yearAccents = ['violet', 'pink', 'mint', 'amber', 'sky', 'magenta', 'orange', 'lime'] as const;
+
+const featured = [
+  {
+    initials: 'HR',
+    name: 'Muhamad Hudya Ramadhana',
+    role: 'Lead Backend Engineer',
+    batch: 'Batch 2015',
+    href: 'https://linkedin.com/in/perogeremmer',
+    accent: 'violet' as const
+  },
+  {
+    initials: 'NS',
+    name: 'Natasha Syeikinah Marsauli',
+    role: 'Product Manager',
+    batch: 'Batch 2018',
+    href: 'https://www.linkedin.com/in/natassm/',
+    accent: 'pink' as const
+  },
+  {
+    initials: 'TY',
+    name: 'Tivo Yudha Perwira',
+    role: 'Lead Frontend Engineer',
+    batch: 'Batch 2015',
+    href: 'https://www.linkedin.com/in/tivo-yudha/',
+    accent: 'mint' as const
+  }
+];
+
+const avatarBg: Record<string, string> = {
+  violet: 'bg-violet',
+  pink: 'bg-pink',
+  mint: 'bg-mint'
+};
+
+const softBg: Record<string, string> = {
+  violet: 'bg-violet-soft', pink: 'bg-pink-soft', mint: 'bg-mint-soft',
+  amber: 'bg-amber-soft', sky: 'bg-sky-soft', magenta: 'bg-magenta-soft',
+  orange: 'bg-orange-soft', lime: 'bg-lime-soft'
+};
+const deepText: Record<string, string> = {
+  violet: 'text-violet-deep', pink: 'text-pink-deep', mint: 'text-mint-deep',
+  amber: 'text-amber-deep', sky: 'text-sky-deep', magenta: 'text-magenta-deep',
+  orange: 'text-orange-deep', lime: 'text-lime-deep'
 };
 ---
 
 <Layout title="Alumni - Komandro CCIT-FTUI">
-  <main class="pt-24">
-    
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
-        <div class="max-w-4xl">
-          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
-            Alumni <span class="text-primary">Directory</span>
+  <main class="pt-[92px]">
+
+    {/* Hero */}
+    <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-16 md:py-24">
+      <HeroBg />
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
+            <span class="w-2 h-2 rounded-full bg-violet" aria-hidden="true"></span>
+            <span class="text-[13px] font-semibold text-ink-2">Alumni</span>
+          </div>
+          <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-5">
+            Direktori <span class="text-violet">Alumni</span>
           </h1>
-          <p class="text-body-lg-home text-secondary mb-12 max-w-2xl leading-relaxed">
-            Explore our {availableYears.length} batches of talented alumni who have shaped Komandro's journey since 2015.
+          <p class="text-body-lg text-ink-2 max-w-xl">
+            {availableYears.length} angkatan alumni berbakat yang telah membentuk perjalanan Komandro sejak 2015.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Featured Alumni -->
-    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+    {/* Alumni Unggulan */}
+    <section class="py-16 md:py-24 bg-white">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="mb-20 text-center">
-          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white mb-10">
-            <span class="w-2 h-2 bg-primary"></span>
-            <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Hall of Fame</span>
-          </div>
-          <h2 class="text-headline-lg-home text-on-background mb-6">Featured Alumni</h2>
-          <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
-          <p class="text-secondary max-w-xl mx-auto text-body-lg-home leading-relaxed">
-            Alumni who have made significant impact on the Komandro community.
-          </p>
-        </div>
+        <SectionHeader
+          kicker="Hall of Fame"
+          accent="pink"
+          title="Alumni Unggulan"
+          description="Alumni yang memberikan dampak besar pada komunitas Komandro."
+          align="center"
+        />
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Hudya -->
-          <div class="bg-white border border-surface-border rounded p-8 text-center hover:border-primary transition-colors duration-300">
-            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-              <span class="text-primary text-headline-lg font-bold">HR</span>
-            </div>
-            <h3 class="text-headline-md text-on-background mb-1">Muhamad Hudya Ramadhana</h3>
-            <p class="text-primary font-label-md text-label-md uppercase tracking-widest mb-4">Lead Backend Engineer</p>
-            <p class="text-secondary text-body-md">Batch 2015</p>
-            <a href="https://linkedin.com/in/perogeremmer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 mt-4 text-secondary hover:text-primary transition-colors font-label-md text-label-md">
-              <i class="bx bxl-linkedin text-[16px]"></i>
-              LinkedIn
-            </a>
-          </div>
-
-          <!-- Natasha -->
-          <div class="bg-white border border-surface-border rounded p-8 text-center hover:border-primary transition-colors duration-300">
-            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-              <span class="text-primary text-headline-lg font-bold">NS</span>
-            </div>
-            <h3 class="text-headline-md text-on-background mb-1">Natasha Syeikinah Marsauli</h3>
-            <p class="text-primary font-label-md text-label-md uppercase tracking-widest mb-4">Product Manager</p>
-            <p class="text-secondary text-body-md">Batch 2018</p>
-            <a href="https://www.linkedin.com/in/natassm/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 mt-4 text-secondary hover:text-primary transition-colors font-label-md text-label-md">
-              <i class="bx bxl-linkedin text-[16px]"></i>
-              LinkedIn
-            </a>
-          </div>
-
-          <!-- Tivo -->
-          <div class="bg-white border border-surface-border rounded p-8 text-center hover:border-primary transition-colors duration-300">
-            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-              <span class="text-primary text-headline-lg font-bold">TY</span>
-            </div>
-            <h3 class="text-headline-md text-on-background mb-1">Tivo Yudha Perwira</h3>
-            <p class="text-primary font-label-md text-label-md uppercase tracking-widest mb-4">Lead Frontend Engineer</p>
-            <p class="text-secondary text-body-md">Batch 2015</p>
-            <a href="https://www.linkedin.com/in/tivo-yudha/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 mt-4 text-secondary hover:text-primary transition-colors font-label-md text-label-md">
-              <i class="bx bxl-linkedin text-[16px]"></i>
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Year Grid -->
-    <section class="py-32 bg-white border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="mb-20">
-          <h2 class="text-headline-lg-home text-on-background mb-6">Select a Batch Year</h2>
-          <div class="w-24 h-1 bg-primary mb-8"></div>
-          <p class="text-secondary max-w-xl text-body-lg-home leading-relaxed">
-            Click on any year to view the alumni who were part of that batch.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {availableYears.map((year) => (
-            <a
-              href={link(`/alumni/${year}`)}
-              class="group bg-white border border-surface-border rounded p-6 text-center hover:border-primary transition-colors duration-300"
-            >
-              <div class="mb-4">
-                <i class="bx bx-calendar text-on-background text-[32px] group-hover:text-primary transition-colors"></i>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {featured.map((f) => (
+            <div class="bg-canvas rounded-md p-8 text-center shadow-card hover:shadow-card-md hover:-translate-y-1 transition-all duration-300 ease-bounce">
+              <div class:list={['w-20 h-20 mx-auto mb-6 rounded-[20px] grid place-items-center shadow-card-md', avatarBg[f.accent]]} aria-hidden="true">
+                <span class="font-display text-[24px] text-white">{f.initials}</span>
               </div>
-              
-              <div class="text-headline-lg text-on-background mb-1">{year}</div>
-              
-              <div class="font-label-md text-label-md text-secondary uppercase tracking-widest">{getYearDescription(year)}</div>
-              
-              <div class="mt-4 inline-flex items-center gap-1 text-primary opacity-0 group-hover:opacity-100 transition-opacity font-label-md text-label-md uppercase tracking-wider">
-                <span>View</span>
-                <i class="bx bx-right-arrow-alt text-[14px]"></i>
-              </div>
-            </a>
+              <h3 class="font-display text-lg text-ink mb-1.5">{f.name}</h3>
+              <p class="text-[12.5px] font-bold uppercase tracking-widest text-violet mb-4">{f.role}</p>
+              <Pill label={f.batch} tone="neutral" />
+              <a href={f.href} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-1.5 text-[13.5px] font-bold text-ink-2 hover:text-violet transition-colors">
+                <i class="bx bxl-linkedin text-[16px]" aria-hidden="true"></i>
+                LinkedIn
+              </a>
+            </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- Study Turtle Section -->
-    <section class="py-32 bg-surface-container-low border-b border-surface-border">
+    {/* Pilih Tahun Angkatan */}
+    <section class="py-16 md:py-24 bg-canvas">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex flex-col lg:flex-row justify-between items-start gap-16">
+        <SectionHeader
+          kicker="Direktori"
+          accent="violet"
+          title="Pilih Tahun Angkatan"
+          description="Klik tahun mana pun untuk melihat alumni yang menjadi bagian dari angkatan itu."
+        />
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {availableYears.map((year, i) => {
+            const accent = yearAccents[i % yearAccents.length];
+            return (
+              <a
+                href={link(`/alumni/${year}`)}
+                class:list={['group rounded-md p-6 text-center shadow-card hover:shadow-card-md hover:-translate-y-1 hover:scale-[1.03] transition-all duration-300 ease-bounce', softBg[accent]]}
+              >
+                <div class="font-display text-[26px] md:text-[30px] text-ink mb-1.5">{year}</div>
+                <div class:list={['text-[11.5px] font-bold uppercase tracking-widest', deepText[accent]]}>{getYearDescription(year)}</div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* Study Turtle */}
+    <section class="py-16 md:py-24 bg-white">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-12">
           <div class="lg:w-1/2">
-          <div class="inline-flex items-center gap-3 border border-surface-border px-4 py-2 bg-white rounded-sm mb-10">
-              <span class="w-2 h-2 bg-primary"></span>
-              <span class="text-secondary font-label-md text-label-md uppercase tracking-widest">Alumni Program</span>
-            </div>
-            <h2 class="text-headline-lg-home text-on-background mb-6">Study Turtle (Stutle)</h2>
-            <div class="w-24 h-1 bg-primary mb-8"></div>
-            <p class="text-secondary text-body-md leading-relaxed mb-4">
-              All alumni who graduated from CCIT-FTUI and former Komandro members automatically 
-              become part of Study Turtle (Stutle) — an exclusive alumni organization dedicated 
-              to continuous growth and professional development.
+            <SectionHeader
+              kicker="Program Alumni"
+              accent="amber"
+              title="Study Turtle (Stutle)"
+            />
+            <p class="text-body-md text-ink-2 leading-relaxed mb-4 -mt-3">
+              Semua alumni yang tamat dari CCIT-FTUI dan mantan anggota Komandro otomatis menjadi bagian dari Study Turtle (Stutle) — organisasi alumni eksklusif yang didedikasikan untuk pertumbuhan berkelanjutan dan pengembangan profesional.
             </p>
-            <p class="text-secondary text-body-md leading-relaxed mb-8">
-              Stutle provides comprehensive programs designed to enhance the capabilities of 
-              Komandro alumni in the professional world, including one-on-one mentoring, 
-              career coaching, networking opportunities, and industry workshops.
+            <p class="text-body-md text-ink-2 leading-relaxed mb-8">
+              Stutle menyediakan program komprehensif untuk meningkatkan kapabilitas alumni Komandro di dunia profesional, termasuk mentoring satu lawan satu, pendampingan karier, peluang networking, dan workshop industri.
             </p>
-            <a 
-            href={link('/alumni/2015')} 
-            class="inline-flex items-center gap-2 bg-on-background text-white px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-white transition-colors duration-300"
-            >
-              Explore Alumni Network
-              <i class="bx bx-right-arrow-alt text-[20px]"></i>
-            </a>
+            <CTA href="/alumni/2015" label="Jelajahi Jaringan Alumni" variant="primary" arrow />
           </div>
-          
-          <div class="lg:w-1/2 flex items-center justify-center">
-            <div class="border border-surface-border bg-white rounded p-12 w-full max-w-md aspect-square flex items-center justify-center">
+
+          <div class="lg:w-1/2 flex items-center justify-center w-full">
+            <div class="bg-mint-soft rounded-lg p-12 w-full max-w-md aspect-square flex items-center justify-center">
               <div class="text-center">
-                <i class="bx bx-group text-surface-border text-[80px] mb-6"></i>
-                <div class="text-headline-lg text-on-background mb-2">Study Turtle</div>
-                <div class="text-secondary text-body-md mb-1">Alumni Organization</div>
-                <div class="text-secondary text-body-md">Mentoring &bull; Growth &bull; Success</div>
+                <div class="w-24 h-24 mx-auto rounded-[24px] bg-white shadow-card-md grid place-items-center mb-6" aria-hidden="true">
+                  <i class="bx bx-group text-mint-deep text-[44px]"></i>
+                </div>
+                <div class="font-display text-display-sm text-ink mb-2">Study Turtle</div>
+                <div class="text-body-sm text-ink-2 mb-1">Organisasi Alumni</div>
+                <div class="text-body-sm text-ink-2 font-semibold">Mentoring · Berkembang · Sukses</div>
               </div>
             </div>
           </div>

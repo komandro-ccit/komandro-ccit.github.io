@@ -2,6 +2,8 @@
 import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 import AlumniCard from '../../components/AlumniCard.astro';
+import CTA from '../../components/ui/CTA.astro';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
 import { link } from '../../utils/link';
 
 interface Alumni {
@@ -61,38 +63,36 @@ const availableYears = Array.from({ length: maxBatchYear - 2013 }, (_, i) => 201
 ---
 
 <Layout title={`Alumni Batch ${year} - Komandro CCIT-FTUI`}>
-  <main class="pt-24">
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32">
+  <main class="pt-[92px]">
+    {/* Hero */}
+    <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-14 md:py-20">
+      <span class="pointer-events-none absolute -top-24 right-[-60px] w-[320px] h-[320px] rounded-full bg-pink opacity-[.13] blur-[90px]" aria-hidden="true"></span>
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
         <div class="max-w-4xl">
-          <a href={link('/alumni')} class="inline-flex items-center gap-2 text-secondary hover:text-on-background mb-6 font-label-md text-label-md uppercase tracking-wider transition-colors">
-            <i class="bx bx-left-arrow-alt text-[18px]"></i>
-            Back to Alumni
+          <a href={link('/alumni')} class="inline-flex items-center gap-2 bg-white text-ink-2 hover:text-violet mb-7 px-4 h-10 rounded-full text-[13.5px] font-bold shadow-card transition-colors">
+            <i class="bx bx-left-arrow-alt text-[17px]" aria-hidden="true"></i>
+            Kembali ke Alumni
           </a>
-          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background mb-6 leading-tight">
-            Alumni Batch <span class="text-primary">{year}</span>
+          <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-5">
+            Alumni Batch <span class="text-violet">{year}</span>
           </h1>
-          <p class="text-body-lg-home text-secondary max-w-2xl leading-relaxed">
-            {year > maxBatchYear
-              ? `Batch ${year} saat ini masih aktif sebagai mahasiswa CCIT-FTUI.`
-              : `Meet the talented members who shaped Komandro CCIT-FTUI in ${year}.`
-            }
+          <p class="text-body-lg text-ink-2 max-w-2xl">
+            Perkenalkan anggota berbakat yang membentuk Komandro CCIT-FTUI pada {year}.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Year Navigation -->
-    <section class="bg-white border-b border-surface-border py-4 sticky top-24 z-40">
+    {/* Navigasi Tahun */}
+    <section class="py-4 sticky top-[84px] z-40">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="flex items-center gap-3">
-          <label for="year-filter" class="font-label-md text-label-md text-secondary uppercase tracking-widest whitespace-nowrap">
-            Filter by Year:
+        <div class="bg-white/90 backdrop-blur-md rounded-full shadow-nav px-5 py-3 inline-flex items-center gap-3 max-w-full">
+          <label for="year-filter" class="text-[12.5px] font-bold uppercase tracking-widest text-ink-3 whitespace-nowrap">
+            Tahun:
           </label>
           <select
             id="year-filter"
-            class="px-4 py-2 border border-surface-border bg-white text-on-background font-label-md text-label-md cursor-pointer focus:outline-none focus:border-primary appearance-none pr-8 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[length:12px] bg-[right_8px_center]"
+            class="bg-transparent text-[14.5px] font-bold text-ink cursor-pointer focus:outline-none"
           >
             {availableYears.map((yr) => (
               <option value={link(`/alumni/${yr}`)} selected={yr === year}>{yr}</option>
@@ -102,42 +102,38 @@ const availableYears = Array.from({ length: maxBatchYear - 2013 }, (_, i) => 201
       </div>
     </section>
 
-    <!-- Alumni Grid -->
-    <section class="py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-      <div class="flex items-center justify-between mb-12">
-        <div>
-          <h2 class="text-headline-lg-home text-on-background">
-            {alumni.length} Member{alumni.length !== 1 ? 's' : ''}
-          </h2>
-          <p class="text-secondary text-body-md">The {year} generation</p>
-        </div>
+    {/* Grid Alumni */}
+    <section class="py-12 md:py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="mb-10 md:mb-12">
+        <h2 class="font-display text-display-md text-ink">{alumni.length} Anggota</h2>
+        <p class="text-ink-2 text-body-md mt-1">Angkatan {year}</p>
       </div>
 
       {alumni.length === 0 ? (
-        <div class="text-center py-24 bg-white border border-surface-border rounded">
-          <div class="mb-6">
-            <i class="bx bx-user-x text-surface-border text-[64px]"></i>
+        <div class="text-center py-20 bg-white rounded-md shadow-card">
+          <div class="w-20 h-20 mx-auto rounded-full bg-canvas grid place-items-center text-[38px] text-ink-3 mb-5" aria-hidden="true">
+            <i class="bx bx-user-x"></i>
           </div>
           {year > maxBatchYear ? (
             <>
-              <h3 class="text-headline-md text-on-background mb-2">Angkatan ini masih berjalan</h3>
-              <p class="text-secondary text-body-md max-w-md mx-auto">
+              <h3 class="font-display text-display-sm text-ink mb-2">Angkatan ini masih berjalan</h3>
+              <p class="text-ink-2 text-body-md max-w-md mx-auto">
                 Batch {year} saat ini masih aktif sebagai mahasiswa dan belum menjadi alumni.
               </p>
             </>
           ) : (
             <>
-              <h3 class="text-headline-md text-on-background mb-2">No Alumni Data</h3>
-              <p class="text-secondary text-body-md max-w-md mx-auto">
-                No alumni records found for batch {year}. The data might not be available yet.
+              <h3 class="font-display text-display-sm text-ink mb-2">Belum Ada Data Alumni</h3>
+              <p class="text-ink-2 text-body-md max-w-md mx-auto">
+                Belum ada data alumni untuk batch {year}. Datanya mungkin belum tersedia.
               </p>
             </>
           )}
         </div>
       ) : (
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {sortedAlumni.map((person) => (
-            <AlumniCard 
+            <AlumniCard
               alumni={person}
             />
           ))}
@@ -145,29 +141,25 @@ const availableYears = Array.from({ length: maxBatchYear - 2013 }, (_, i) => 201
       )}
     </section>
 
-    <!-- Join CTA -->
-    <section class="py-32 bg-on-background text-white">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
-        <h2 class="text-headline-lg-home mb-6">Be Part of Our Story</h2>
-        <div class="w-24 h-1 bg-primary mx-auto mb-8"></div>
-        <p class="text-body-lg-home text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Join Komandro CCIT-FTUI and become the next generation of tech leaders.
-        </p>
-        <a 
-          href={link('/')} 
-          class="inline-flex items-center gap-2 bg-white text-on-background px-8 py-4 rounded font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-white transition-colors duration-300"
-        >
-          Join Us Today
-          <i class="bx bx-right-arrow-alt text-[20px]"></i>
-        </a>
+    {/* CTA */}
+    <section class="pb-20">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="relative overflow-hidden bg-gradient-to-br from-violet to-pink rounded-lg px-8 md:px-12 py-14 text-center text-white">
+          <span class="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/12" aria-hidden="true"></span>
+          <span class="pointer-events-none absolute -bottom-20 -left-12 w-56 h-56 rounded-full bg-white/10" aria-hidden="true"></span>
+          <h2 class="relative font-display text-display-md md:text-display-lg mb-4 text-white">Jadilah Bagian dari Cerita Kami</h2>
+          <p class="relative text-white/85 text-body-lg mb-9 max-w-2xl mx-auto">
+            bergabung Komandro CCIT-FTUI dan menjadi generasi penerus pemimpin teknologi.
+          </p>
+          <CTA href="/" label="Gabung Sekarang" variant="white" arrow class="relative" />
+        </div>
       </div>
     </section>
-  </main>
   </main>
 </Layout>
 
 <script>
   document.getElementById('year-filter')?.addEventListener('change', (e) => {
-    window.location.href = e.target.value;
+    window.location.href = (e.target as HTMLSelectElement).value;
   });
 </script>

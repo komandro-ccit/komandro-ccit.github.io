@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Komandro — Mockup E: Sticker Club (Playful)</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFDF7; --ink:#231942; --ink2:#4B3F73;
+    --grape:#7B4BFF; --coral:#FF6B6B; --sun:#FFC93C; --mint:#3DD9B0; --sky:#4CC9F0; --bubble:#FFE3F1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;line-height:1.62;overflow-x:hidden}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  .disp{font-family:'Baloo 2',cursive;font-weight:700;line-height:1.08}
+  /* decorative shapes */
+  .shape{position:absolute;z-index:0;pointer-events:none}
+  .d1{width:120px;height:120px;border-radius:36px;background:var(--sun);transform:rotate(18deg);opacity:.9}
+  .d2{width:70px;height:70px;border-radius:50%;background:var(--mint)}
+  .d3{width:0;height:0;border-left:44px solid transparent;border-right:44px solid transparent;border-bottom:76px solid var(--coral)}
+  /* header */
+  header{position:relative;z-index:20;padding:16px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between;background:#fff;border:3px solid var(--ink);border-radius:26px;padding:10px 14px 10px 18px;box-shadow:5px 5px 0 var(--ink)}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:40px;height:40px;border-radius:14px;background:var(--coral);border:3px solid var(--ink);display:grid;place-items:center;font-size:20px;transform:rotate(-8deg);box-shadow:2px 2px 0 var(--ink)}
+  .links{display:flex;gap:2px}
+  .links a{padding:9px 15px;border-radius:14px;font-size:14.5px;font-weight:800;color:var(--ink2);text-decoration:none;transition:.18s}
+  .links a:hover{background:var(--bubble);color:var(--ink)}
+  .links a.on{background:var(--grape);color:#fff}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:18px;font-size:15px;font-weight:800;text-decoration:none;border:3px solid var(--ink);background:#fff;color:var(--ink);box-shadow:4px 4px 0 var(--ink);transition:.15s}
+  .btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.p{background:var(--sun);color:var(--ink)}
+  .btn.v{background:var(--grape);color:#fff}
+  /* hero */
+  .hero{padding:54px 0 60px;position:relative;z-index:1}
+  .hero-in{position:relative;text-align:center;max-width:840px;margin:0 auto}
+  .badge{display:inline-flex;align-items:center;gap:9px;background:#fff;border:3px solid var(--ink);border-radius:999px;padding:8px 20px;font-weight:800;font-size:14px;box-shadow:3px 3px 0 var(--ink);margin-bottom:26px;transform:rotate(-1.5deg)}
+  .hero h1{font-size:clamp(38px,6vw,66px);margin-bottom:20px}
+  .hero h1 .u{position:relative;display:inline-block;color:var(--grape)}
+  .hero h1 .u svg{position:absolute;left:-6px;right:-6px;bottom:2px;width:calc(100% + 12px);height:18px;overflow:visible}
+  .hero p{font-size:19px;color:var(--ink2);max-width:600px;margin:0 auto 30px;font-weight:600}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .trust{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:26px;font-size:14px;color:var(--ink2);font-weight:700}
+  .trust .av{width:32px;height:32px;border-radius:50%;border:3px solid var(--ink);display:grid;place-items:center;font-size:12px;font-weight:800;color:#fff;margin-left:-8px}
+  /* sticker clouds */
+  .sticker{display:inline-block;background:#fff;border:3px solid var(--ink);border-radius:20px;padding:10px 18px;font-weight:800;font-size:14.5px;box-shadow:4px 4px 0 var(--ink);transform:rotate(var(--r,0deg))}
+  /* feature tiles */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+  .tile{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:22px;text-align:center;box-shadow:5px 5px 0 var(--ink);transition:.18s}
+  .tile:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink)}
+  .tile .e{font-size:32px;margin-bottom:10px;display:block}
+  .tile h4{font-family:'Baloo 2',cursive;font-size:18px;line-height:1.2;margin-bottom:5px}
+  .tile p{font-size:13px;color:var(--ink2)}
+  /* section */
+  section{padding:26px 0 58px;position:relative;z-index:1}
+  .sec-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(28px,4vw,42px)}
+  .sec-head .sub{color:var(--ink2);font-size:16px;max-width:520px;margin-top:6px;font-weight:600}
+  /* path grid */
+  .paths{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .pc{border:3px solid var(--ink);border-radius:26px;padding:24px;background:#fff;box-shadow:6px 6px 0 var(--ink);text-decoration:none;color:inherit;display:flex;gap:18px;align-items:flex-start;transition:.18s}
+  .pc:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+  .pc .ic{width:62px;height:62px;border-radius:20px;border:3px solid var(--ink);display:grid;place-items:center;font-size:28px;flex-shrink:0}
+  .pc h3{font-family:'Baloo 2',cursive;font-size:21px;margin-bottom:4px}
+  .pc p{font-size:14px;color:var(--ink2);margin-bottom:10px}
+  .pc .meta{display:flex;gap:8px;flex-wrap:wrap}
+  .pc .meta b{border:2px solid var(--ink);border-radius:999px;padding:3px 11px;font-size:11.5px;font-weight:800;background:var(--bubble)}
+  .pc .badge{margin-left:auto;box-shadow:2px 2px 0 var(--ink);font-size:12px;padding:6px 13px}
+  /* material cards */
+  .mats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .mat{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:20px;box-shadow:5px 5px 0 var(--ink);text-decoration:none;color:inherit;transition:.18s}
+  .mat:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink)}
+  .mat .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .mat .e{font-size:28px}
+  .mat .tag{font-size:11.5px;font-weight:800;padding:4px 11px;border-radius:999px;border:2px solid var(--ink)}
+  .mat h4{font-family:'Baloo 2',cursive;font-size:19px;line-height:1.25;margin-bottom:8px}
+  .mat .bar{height:9px;border:2px solid var(--ink);border-radius:999px;overflow:hidden;margin-top:12px;background:#fff}
+  .mat .bar i{display:block;height:100%;background:var(--mint)}
+  .mat .mt{font-size:12.5px;color:var(--ink2);font-weight:700;display:flex;justify-content:space-between;margin-top:9px}
+  /* schedule */
+  .sched{background:var(--bubble);border:3px solid var(--ink);border-radius:28px;padding:28px;box-shadow:6px 6px 0 var(--ink)}
+  .row{display:grid;grid-template-columns:110px 1fr auto;gap:18px;align-items:center;padding:16px 0;border-bottom:2px dashed rgba(35,25,66,.22)}
+  .row:last-child{border-bottom:0}
+  .row .d{font-weight:800;font-size:14px;color:var(--grape)}
+  .row h4{font-family:'Baloo 2',cursive;font-size:19px}
+  .row p{font-size:13.5px;color:var(--ink2)}
+  .row .pill{border:2px solid var(--ink);border-radius:999px;padding:5px 14px;font-size:12px;font-weight:800;background:#fff}
+  /* quote */
+  .quote{background:var(--grape);color:#fff;border:3px solid var(--ink);border-radius:28px;padding:44px 40px;text-align:center;box-shadow:7px 7px 0 var(--ink)}
+  .quote p{font-family:'Baloo 2',cursive;font-size:clamp(21px,3vw,30px);line-height:1.35;margin-bottom:16px}
+  .quote .by{font-weight:800;font-size:14px;opacity:.85}
+  /* join */
+  .join{display:grid;grid-template-template-columns:1.2fr .8fr;gap:30px;align-items:center;background:var(--sun);border:3px solid var(--ink);border-radius:28px;padding:38px;box-shadow:7px 7px 0 var(--ink);margin-bottom:66px}
+  .join h2{font-size:clamp(28px,3.8vw,42px);margin-bottom:12px}
+  .join p{font-size:16px;color:var(--ink2);font-weight:600;max-width:520px}
+  .join .cta{justify-content:flex-end}
+  footer{border-top:3px solid var(--ink);padding:36px 0;color:var(--ink2);font-size:14px}
+  .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px}
+  footer h5{color:var(--ink);font-size:14px;font-weight:800;margin-bottom:12px}
+  footer a{display:block;color:var(--ink2);text-decoration:none;margin-bottom:7px}
+  footer a:hover{color:var(--grape)}
+  .fbot{border-top:2px dashed rgba(35,25,66,.2);margin-top:26px;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px}
+  @media(max-width:900px){.tiles{grid-template-columns:repeat(2,1fr)}.paths{grid-template-columns:1fr}.mats{grid-template-columns:1fr 1fr}.join{grid-template-columns:1fr}.fgrid{grid-template-columns:1fr 1fr}.links{display:none}}
+  @media(max-width:560px){.tiles,.mats{grid-template-columns:1fr}.row{grid-template-columns:1fr;gap:6px}.quote{padding:32px 22px}.join{padding:28px 22px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="logo" href="#"><span class="mark">⚡</span><span class="disp" style="font-size:22px">Komandro</span></a>
+      <div class="links">
+        <a class="on" href="#">Home</a><a href="#">Belajar</a><a href="#">Agenda</a><a href="#">Anak Organization</a><a href="#">Alumni</a>
+      </div>
+      <a class="btn p" href="#">Gabung Yuk 🎉</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-in">
+      <div class="badge">⚡ Android &amp; Technology Community · FTUI</div>
+      <h1 class="disp">Tempat kamu <span class="u">belajar coding<svg viewBox="0 0 200 18" preserveAspectRatio="none"><path d="M2 12 C50 4, 150 4, 198 11" stroke="#FFC93C" stroke-width="8" fill="none" stroke-linecap="round"/></svg></span> bareng.</h1>
+      <p>UKM yang ngajarin Flutter, Web, sampai DevOps — dengan cara yang nggak ribet. Datang, ngobrol, bangun sesuatu. Selesai.</p>
+      <div class="cta">
+        <a class="btn v" href="#">Mulai Belajar →</a>
+        <a class="btn" href="#">Lihat Program</a>
+      </div>
+      <div class="trust">
+        <span class="av" style="background:#7B4BFF">JF</span>
+        <span class="av" style="background:#FF6B6B">AH</span>
+        <span class="av" style="background:#3DD9B0">AJ</span>
+        <span class="av" style="background:#4CC9F0">NB</span>
+        <span class="av" style="background:#FFC93C">BR</span>
+        <span>500+ alumni, 11 batch, satu komunitas ✨</span>
+      </div>
+
+      <div class="tiles">
+        <div class="tile"><span class="e">📚</span><h4>133 Materi</h4><p>Terstruktur &amp; lengkap</p></div>
+        <div class="tile"><span class="e">🧑‍🏫</span><h4>Senior Membantu</h4><p>Review code bareng</p></div>
+        <div class="tile"><span class="e">🏆</span><h4>50+ Event</h4><p>Workshop &amp; hackathon</p></div>
+        <div class="tile"><span class="e">🚀</span><h4>Job Ready</h4><p>Alumni di banyak perusahaan</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div>
+        <h2 class="disp">Pilih Jurusanmu 🧭</h2>
+        <p class="sub">Nggak harus pilih sekarang — bisa ganti kapan aja. Tapi ini yang paling sering dicari anggota.</p>
+      </div>
+      <a href="#" style="font-weight:800;color:var(--grape);text-decoration:none">Semua materi →</a>
+    </div>
+    <div class="paths">
+      <a class="pc" href="#">
+        <div class="ic" style="background:#FFE3F1">📱</div>
+        <div>
+          <h3>Mobile Development</h3>
+          <p>Dart &amp; Flutter dari widget dasar sampai bisa deploy app sendiri.</p>
+          <div class="meta"><b>3 jalur</b><b>48 materi</b><b>Pemula → Lanjut</b></div>
+        </div>
+        <span class="badge" style="--r:-4deg;background:#FFC93C">Populer</span>
+      </a>
+      <a class="pc" href="#">
+        <div class="ic" style="background:#E1F6FF">🌐</div>
+        <div>
+          <h3>Web Development</h3>
+          <p>HTML, CSS, JavaScript, PHP, Laravel — plus backend &amp; database.</p>
+          <div class="meta"><b>4 jalur</b><b>24 materi</b><b>Pemula → Lanjut</b></div>
+        </div>
+        <span class="badge" style="--r:5deg;background:#3DD9B0">Baru</span>
+      </a>
+      <a class="pc" href="#">
+        <div class="ic" style="background:#EDE4FF">☁️</div>
+        <div>
+          <h3>DevOps &amp; Cloud</h3>
+          <p>Linux, Docker, CI/CD, dan infrastructure as code.</p>
+          <div class="meta"><b>1 jalur</b><b>9 materi</b><b>Menengah</b></div>
+        </div>
+        <span class="badge" style="--r:-3deg;background:#4CC9F0">Baru</span>
+      </a>
+      <a class="pc" href="#">
+        <div class="ic" style="background:#FFF3D6">🎨</div>
+        <div>
+          <h3>UI/UX &amp; QA</h3>
+          <p>Design fundamental, Figma, wireframe, sampai automation testing.</p>
+          <div class="meta"><b>21 materi</b><b>Pemula</b></div>
+        </div>
+        <span class="badge" style="--r:6deg;background:#FF6B6B">Baru</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div>
+        <h2 class="disp">Materi freshly dropped 🆕</h2>
+        <p class="sub">Tiap minggu ada materi baru. Yang projeknya bisa langsung kamu eksekusi.</p>
+      </div>
+    </div>
+    <div class="mats">
+      <a class="mat" href="#">
+        <div class="top"><span class="e">🐙</span><span class="tag" style="background:#FFE3F1">Menengah</span></div>
+        <h4>HTTP Requests di Flutter</h4>
+        <div class="mt"><span>25 menit</span><span>Flutter</span></div>
+        <div class="bar"><i style="width:62%"></i></div>
+      </a>
+      <a class="mat" href="#">
+        <div class="top"><span class="e">🐳</span><span class="tag" style="background:#E1F6FF">Pemula</span></div>
+        <h4>Introduction to Docker</h4>
+        <div class="mt"><span>30 menit</span><span>DevOps</span></div>
+        <div class="bar"><i style="width:38%"></i></div>
+      </a>
+      <a class="mat" href="#">
+        <div class="top"><span class="e">🎨</span><span class="tag" style="background:#EDE4FF">Pemula</span></div>
+        <h4>Figma Components</h4>
+        <div class="mt"><span>18 menit</span><span>UI/UX</span></div>
+        <div class="bar"><i style="width:22%"></i></div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div>
+        <h2 class="disp">Agenda minggu ini 📅</h2>
+        <p class="sub">Datang aja kalau penasaran. Nggak perlu basic, semua orang welcome.</p>
+      </div>
+    </div>
+    <div class="sched">
+      <div class="row">
+        <div class="d">12 Okt</div>
+        <div><h4>Flutter Study Group</h4><p>Ngoprek bareng, chapter demi chapter. Bawa laptop.</p></div>
+        <span class="pill" style="background:#FFC93C">Belajar</span>
+      </div>
+      <div class="row">
+        <div class="d">20 Okt</div>
+        <div><h4>Tech Talk: Karir di Teknologi</h4><p>Alumni cerita perjalanan dari kampus ke industri.</p></div>
+        <span class="pill" style="background:#FF6B6B">Seminar</span>
+      </div>
+      <div class="row">
+        <div class="d">2 Nov</div>
+        <div><h4>Hackathon Komandro 2026</h4><p>24 jam bikin app dari nol. Tim acak, mentor senior, hadiah &amp; sushi.</p></div>
+        <span class="pill" style="background:#3DD9B0">Kompetisi</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="quote">
+      <p>“Datang karena penasaran, tetap karena cinta temannya. Setelah beberapa bulan, kamu udah bisa bikin aplikasi sendiri.”</p>
+      <div class="by">— Alumni Batch 2023, sekarang Frontend Engineer</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="join">
+      <div>
+        <h2 class="disp">Yuk gabung! 🎉</h2>
+        <p>Open recruitment dua kali setahun. Isi form, sekilas profile, masuk bootcamp 2 minggu. Gratis, tanpa biaya, tapi harus mau serius dikit.</p>
+      </div>
+      <div class="cta">
+        <a class="btn v" href="#">Daftar Sekarang 🚀</a>
+        <a class="btn" href="#">Chat IG Dulu</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="logo" href="#" style="margin-bottom:10px"><span class="mark">⚡</span><span class="disp" style="font-size:20px">Komandro</span></a>
+        <p style="max-width:300px">Komunitas Android &amp; Teknologi CCIT-FTUI. Belajar bareng, berkembang bareng.</p>
+      </div>
+      <div><h5>Belajar</h5><a href="#">Semua Materi</a><a href="#">Mobile</a><a href="#">Web</a><a href="#">DevOps</a></div>
+      <div><h5>Komunitas</h5><a href="#">Tentang</a><a href="#">Anggota</a><a href="#">Agenda</a><a href="#">Alumni</a></div>
+      <div><h5>Sosial</h5><a href="#">Instagram</a><a href="#">GitHub</a><a href="#">Email</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 Komandro CCIT-FTUI</span><span>Engineering Center, CCIT-FTUI · Universitas Indonesia, Depok</span></div>
+  </div>
+</footer>
+</body>
+</html>

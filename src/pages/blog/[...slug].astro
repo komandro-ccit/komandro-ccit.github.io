@@ -17,64 +17,66 @@ const { Content } = await post.render();
 ---
 
 <Layout title={`${post.data.title} - Komandro CCIT-FTUI`}>
-  <main class="pt-24">
-    
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-white hero-pattern border-b border-surface-border">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24">
+  <main class="pt-[100px]">
+
+    {/* Hero */}
+    <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-14 md:py-20">
+      <span class="pointer-events-none absolute -top-24 right-[-60px] w-[300px] h-[300px] rounded-full bg-violet opacity-[.14] blur-[90px]" aria-hidden="true"></span>
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
         <div class="max-w-4xl">
-          <a href={link('/blog')} class="inline-flex items-center gap-2 text-secondary hover:text-on-background mb-8 font-label-md text-label-md uppercase tracking-wider transition-colors">
-            <i class="bx bx-left-arrow-alt text-[18px]"></i>
-            Back to Blog
+          <a href={link('/blog')} class="inline-flex items-center gap-2 bg-white text-ink-2 hover:text-violet mb-7 px-4 h-10 rounded-full text-[13.5px] font-bold shadow-card transition-colors">
+            <i class="bx bx-left-arrow-alt text-[17px]" aria-hidden="true"></i>
+            Kembali ke Blog
           </a>
-          
-          <div class="flex flex-wrap items-center gap-4 mb-6 font-label-md text-label-md text-secondary uppercase tracking-widest">
-            <div class="flex items-center gap-2">
-              <i class="bx bx-calendar text-[16px]"></i>
-              <span>{new Date(post.data.pubDate).toLocaleDateString('id-ID', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}</span>
-            </div>
-            
-            <div class="flex items-center gap-2">
-              <i class="bx bx-user text-[16px]"></i>
-              <span>{post.data.author}</span>
-            </div>
+
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mb-6 text-[13.5px] font-semibold text-ink-2">
+            <span class="inline-flex items-center gap-2">
+              <i class="bx bx-calendar text-ink-3 text-[16px]" aria-hidden="true"></i>
+              {new Date(post.data.pubDate).toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </span>
+            <span class="w-1 h-1 rounded-full bg-ink-3" aria-hidden="true"></span>
+            <span class="inline-flex items-center gap-2">
+              <i class="bx bx-user text-ink-3 text-[16px]" aria-hidden="true"></i>
+              {post.data.author}
+            </span>
           </div>
-          
-          <h1 class="text-headline-xl-home-mobile md:text-headline-xl-home text-on-background leading-tight">{post.data.title}</h1>
+
+          <h1 class="font-display text-[36px] leading-[1.12] tracking-tight md:text-display-lg text-ink">{post.data.title}</h1>
         </div>
       </div>
     </section>
 
-    <!-- Content -->
-    <section class="py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-      <div class="bg-white md:border md:border-surface-border md:rounded">
+    {/* Konten */}
+    <section class="py-12 md:py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="bg-white rounded-lg shadow-card">
         {post.data.heroImage && (
-          <div class="aspect-video md:border-b border-surface-border">
-            <img 
-              src={post.data.heroImage} 
+          <div class="p-3 pb-0 md:p-5 md:pb-0">
+            <img
+              src={post.data.heroImage}
               alt={post.data.title}
-              class="w-full h-full object-cover"
+              class="w-full aspect-video object-cover rounded-[18px]"
             />
           </div>
         )}
-        
-        <div class="px-0 py-8 md:px-8 md:py-12 lg:px-12 lg:py-12">
-          <p class="text-body-lg-home text-secondary mb-10 leading-relaxed">{post.data.description}</p>
 
-          <article class="prose prose-lg max-w-none prose-headings:text-on-background prose-p:text-secondary prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-on-background prose-code:text-primary prose-code:bg-surface-container prose-code:px-1.5 prose-code:py-0.5">
+        <div class="px-5 py-8 md:px-10 md:py-12">
+          <p class="text-body-lg text-ink-2 mb-10 leading-relaxed">{post.data.description}</p>
+
+          <article class="prose prose-lg max-w-none prose-headings:text-ink prose-headings:font-display prose-headings:tracking-tight prose-p:text-ink-2 prose-a:text-violet prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-strong:text-ink prose-code:text-violet-deep prose-code:bg-soft prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-[6px]
+            prose-li:marker:text-violet prose-blockquote:border-l-4 prose-blockquote:border-violet prose-blockquote:bg-soft prose-blockquote:rounded-r-[14px]">
             <Content />
           </article>
 
           {post.data.tags && post.data.tags.length > 0 && (
-            <div class="mt-12 pt-8 border-t border-surface-border">
-              <h3 class="font-label-md text-label-md text-secondary uppercase tracking-widest mb-4">Tags</h3>
+            <div class="mt-12 pt-8 border-t border-ink/8">
+              <h3 class="text-label uppercase tracking-widest text-ink-3 mb-4">Tag</h3>
               <div class="flex flex-wrap gap-2">
                 {post.data.tags.map((tag) => (
-                  <span class="px-3 py-1 bg-surface-variant text-on-background font-label-md text-label-md uppercase tracking-widest">
+                  <span class="px-3.5 h-[28px] inline-flex items-center rounded-full bg-violet-soft text-violet-deep text-[12px] font-bold">
                     {tag}
                   </span>
                 ))}
@@ -83,11 +85,11 @@ const { Content } = await post.render();
           )}
 
           {post.data.updatedDate && (
-            <div class="mt-6 text-secondary text-body-md">
-              Updated: {new Date(post.data.updatedDate).toLocaleDateString('id-ID', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+            <div class="mt-6 text-[13px] font-semibold text-ink-3">
+              Diperbarui: {new Date(post.data.updatedDate).toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               })}
             </div>
           )}
@@ -99,10 +101,9 @@ const { Content } = await post.render();
 </Layout>
 
 <style is:global>
-  /* Shiki already handles pre/code styling with inline styles */
-  
   .prose img {
-    border: 1px solid #e5e7eb;
+    border: 0;
+    border-radius: 1rem;
     cursor: pointer;
     transition: opacity 0.2s;
   }
@@ -110,12 +111,12 @@ const { Content } = await post.render();
   .prose img:hover {
     opacity: 0.85;
   }
-  
+
   .prose pre {
-    background-color: #1e1e1e;
+    background-color: #10161A;
     color: #d4d4d4;
     padding: 0;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     overflow-x: auto;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
@@ -135,8 +136,9 @@ const { Content } = await post.render();
   }
 
   .prose blockquote {
-    border-left: 2px solid #006d3b;
-    background-color: #f2f4f6;
+    border-left: 4px solid #6C4DF6;
+    background-color: #F6F2FF;
+    border-radius: 0 14px 14px 0;
     padding: 1rem 1.5rem;
     margin: 1.5rem 0;
   }
@@ -146,9 +148,9 @@ const { Content } = await post.render();
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1.25rem;
-    background-color: #2d2d2d;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    background-color: #1B2229;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     font-size: 0.75rem;
     font-family: ui-monospace, monospace;
     color: #999;
@@ -181,7 +183,7 @@ const { Content } = await post.render();
   }
 
   .code-block-header .copy-btn.copied {
-    color: #4ade80;
+    color: #3DDC84;
   }
 
   .prose pre > code {
@@ -209,16 +211,16 @@ const { Content } = await post.render();
 
       const btn = document.createElement('button');
       btn.className = 'copy-btn';
-      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Salin';
 
       btn.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(codeText);
           btn.classList.add('copied');
-          btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+          btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Tersalin!';
           setTimeout(() => {
             btn.classList.remove('copied');
-            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Salin';
           }, 2000);
         } catch {
           // fallback
