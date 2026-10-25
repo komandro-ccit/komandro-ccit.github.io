@@ -6,6 +6,7 @@ import MemberLookupForm from '../components/MemberLookupForm.astro';
 import HeroBg from '../components/ui/HeroBg.astro';
 import IconBadge from '../components/ui/IconBadge.astro';
 import { isSupabaseConfigured, cekKeanggotaanEndpoint, SUPABASE_ANON_KEY } from '../utils/memberLookup';
+import { ANGGOTA_DEMO } from '../data/anggota-demo';
 import { link } from '../utils/link';
 
 // Data contoh (dummy, fiktif) — dipakai sebagai preview sebelum lookup.
@@ -196,7 +197,7 @@ const benefits = [
 {/* QR + lookup script — vanilla, tanpa framework */}
 <script is:inline src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 
-<script define:vars={{ endpoint: lookupEndpoint, anonKey: lookupAnonKey, verifyPath: verifyPath }}>
+<script define:vars={{ endpoint: lookupEndpoint, anonKey: lookupAnonKey, verifyPath: verifyPath, demoMembers: ANGGOTA_DEMO }}>
   const form = document.querySelector('[data-lookup-form]');
   const input = document.getElementById('nim-input');
   const submitBtn = document.querySelector('[data-lookup-submit]');
@@ -330,7 +331,21 @@ const benefits = [
       }
 
       if (!endpoint) {
-        showStatus('warn', 'Layanan verifikasi sedang dalam pemeliharaan. Untuk konfirmasi manual, hubungi @komandro_ccit.');
+        // MODE DEMO — Supabase belum dikonfigurasi. Simulasi lookup pakai data dummy.
+        showStatus('loading', 'Sedang mencari kartu…');
+        setTimeout(() => {
+          const hit = demoMembers.find((m) => m.nim === nim);
+          if (hit) {
+            showStatus('ok', 'Kartu kamu ketemu! (mode demo — Supabase belum dikonfigurasi)');
+            cardSlot.innerHTML = renderCardTemplate(hit, { demo: true });
+            attachCard(cardSlot.firstElementChild);
+            cardSlot.firstElementChild?.setAttribute('tabindex', '-1');
+            cardSlot.firstElementChild?.focus({ preventScroll: false });
+          } else {
+            showStatus('error', 'NIM tidak terdaftar sebagai anggota Komandro. (mode demo — coba NIM 2210512345)');
+          }
+          setLoading(false);
+        }, 600);
         return;
       }
 
