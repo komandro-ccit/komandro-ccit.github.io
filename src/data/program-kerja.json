@@ -2,7 +2,7 @@
   "programs": [
     {
       "name": "Komandro Academy",
-      "description": "Program pembelajaran rutin setiap semester mencakup Android, Web Development, UI/UX, dan DevOps dengan kurikulum terstruktur.",
+      "description": "Program pembelajaran rutin dengan materi yang telah tersedia pada web Komandro.",
       "status": "active",
       "category": "Pendidikan"
     },
@@ -13,28 +13,10 @@
       "category": "Pendidikan"
     },
     {
-      "name": "Hackathon Komandro",
-      "description": "Kompetisi pengembangan aplikasi 24 jam antar anggota dengan tema tahunan. Evaluasi berdasarkan inovasi, eksekusi, dan presentasi.",
-      "status": "active",
-      "category": "Kompetisi"
-    },
-    {
       "name": "Tech Talk Series",
       "description": "Seri seminar bulanan mengundang practitioner dan alumni untuk berbagi pengalaman di industri teknologi.",
       "status": "active",
       "category": "Keorganisasian"
-    },
-    {
-      "name": "Open Recruitment",
-      "description": "Penerimaan anggota baru dua kali setahun (awal semester Ganjil dan Genap) melalui proses seleksi portofolio dan wawancara.",
-      "status": "active",
-      "category": "Keorganisasian"
-    },
-    {
-      "name": "Final Project Showcase",
-      "description": "Pameran proyek akhir semester di mana setiap divisi mempresentasikan hasil kerja terbaik mereka.",
-      "status": "completed",
-      "category": "Pameran"
     },
     {
       "name": "Code Review Session",
