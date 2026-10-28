@@ -55,10 +55,6 @@ const benefits = [
       <HeroBg />
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
         <div class="max-w-3xl">
-          <div class="inline-flex items-center gap-2.5 bg-white rounded-full px-5 py-2.5 mb-7 shadow-card">
-            <span class="w-2 h-2 rounded-full bg-violet" aria-hidden="true"></span>
-            <span class="text-[13px] font-semibold text-ink-2">Kartu Keanggotaan</span>
-          </div>
           <h1 class="font-display text-[40px] leading-[1.08] tracking-tight md:text-display-xl text-ink mb-5">
             Kartu <span class="text-violet">Keanggotaan</span> Digital
           </h1>
@@ -72,15 +68,9 @@ const benefits = [
     {/* Preview + Form */}
     <section id="cek-kartu" class="py-16 md:py-24 bg-white scroll-mt-24">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* Kolom kiri: kartu hasil / demo */}
           <div>
-            <SectionHeader
-              kicker="Kartu Kamu"
-              accent="violet"
-              title="Tampilan Kartu"
-              description="Ini bentuk kartu keanggotaan digital Komandro. Setelah kamu mencari NIM, kartu di sebelah sini berubah jadi kartu kamu yang sebenarnya."
-            />
             <div data-card-slot>
               <MemberCard member={demoMember} demo={true} width="lg" />
             </div>
@@ -88,7 +78,7 @@ const benefits = [
 
           {/* Kolom kanan: form */}
           <div class="bg-canvas rounded-lg p-8 md:p-10 shadow-card">
-            <h2 class="font-display text-display-md text-ink mb-2">Cek Kartu Kamu</h2>
+            <h2 class="font-display text-display-md text-ink mb-2">Cek Status Keanggotaan</h2>
             <p class="text-body-md text-ink-2 mb-7">
               Masukkan NIM yang kamu gunakan saat pendaftaran bootcamp Komandro.
             </p>
@@ -134,7 +124,7 @@ const benefits = [
     <section class="py-16 md:py-24 bg-canvas">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
         <SectionHeader
-          kicker="Kenapa Perlu Kartu"
+          kicker="Bukti Keanggotaan"
           accent="pink"
           title="Kartu Digital Resmi Komandro"
           align="center"
