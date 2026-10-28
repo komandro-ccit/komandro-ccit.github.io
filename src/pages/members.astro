@@ -15,7 +15,7 @@ const demoMember = {
   angkatan: 2024,
   jurusan: 'D3 Teknologi Komputer',
   status: 'demo' as const,
-  program: 'Bootcamp 2024 — Mobile Development',
+  program: 'Bootcamp 2024 · Mobile Development',
   fotoUrl: null,
   cardId: 'KMD-2024-0042',
 };
@@ -42,7 +42,7 @@ const benefits = [
     icon: 'bx-lock-alt',
     accent: 'sky' as const,
     title: 'Data Kamu Aman',
-    text: 'NIM tidak pernah dipublikasikan — pencarian hanya bisa dilakukan oleh pemilik NIM.',
+    text: 'NIM tidak pernah dipublikasikan; pencarian hanya bisa dilakukan oleh pemilik NIM.',
   },
 ];
 ---
@@ -59,7 +59,7 @@ const benefits = [
             Kartu <span class="text-violet">Keanggotaan</span> Digital
           </h1>
           <p class="text-body-lg text-ink-2 max-w-xl">
-            Buktikan keanggotaanmu di Komandro CCIT-FTUI. Masukkan NIM, dan kartu resmi digital kamu muncul langsung di sini — lengkap dengan QR verifikasi.
+            Buktikan keanggotaanmu di Komandro CCIT-FTUI. Masukkan NIM, dan kartu resmi digital kamu muncul langsung di sini, lengkap dengan QR verifikasi.
           </p>
         </div>
       </div>
@@ -326,13 +326,13 @@ const benefits = [
         setTimeout(() => {
           const hit = demoMembers.find((m) => m.nim === nim);
           if (hit) {
-            showStatus('ok', 'Kartu kamu ketemu! (mode demo — Supabase belum dikonfigurasi)');
+            showStatus('ok', 'Kartu kamu ketemu! (mode demo – Supabase belum dikonfigurasi)');
             cardSlot.innerHTML = renderCardTemplate(hit, { demo: true });
             attachCard(cardSlot.firstElementChild);
             cardSlot.firstElementChild?.setAttribute('tabindex', '-1');
             cardSlot.firstElementChild?.focus({ preventScroll: false });
           } else {
-            showStatus('error', 'NIM tidak terdaftar sebagai anggota Komandro. (mode demo — coba NIM 2210512345)');
+            showStatus('error', 'NIM tidak terdaftar sebagai anggota Komandro. (mode demo – coba NIM 2210512345)');
           }
           setLoading(false);
         }, 600);
