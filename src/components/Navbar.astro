@@ -47,7 +47,9 @@ const gid = (i: number) => `nav-group-${i}`;
     <nav class="flex justify-between items-center bg-white/90 backdrop-blur-md rounded-full pl-6 pr-3.5 py-2.5 shadow-nav transition-shadow duration-300 h-[68px]">
       <!-- Logo -->
       <a href={link('/')} class="flex items-center gap-3">
-        <span class="w-9 h-9 rounded-[13px] bg-gradient-to-br from-violet to-pink text-white grid place-items-center -rotate-6 text-[18px]" aria-hidden="true">⚡</span>
+        <span class="w-9 h-9 rounded-[13px] bg-gradient-to-br from-violet to-pink grid place-items-center -rotate-6" aria-hidden="true">
+          <img src="/brand/logo-emblem-white.png" alt="" width="26" height="18" class="w-[26px] h-auto" decoding="async" />
+        </span>
         <span class="font-display font-bold text-[20px] text-ink tracking-tight">Komandro</span>
       </a>
 

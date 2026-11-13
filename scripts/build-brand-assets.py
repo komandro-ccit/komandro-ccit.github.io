@@ -92,6 +92,13 @@ def circle_mask(size):
     return m.resize((size, size), Image.LANCZOS)
 
 
+def recolor(img, color):
+    """Ganti warna RGB, pertahankan alpha (untuk versi knockout putih)."""
+    out = Image.new("RGBA", img.size, color + (0,))
+    out.putalpha(img.getchannel("A"))
+    return out
+
+
 def save_png(img, path, alpha_steps=32):
     """Quantisasi alpha (32 level) -> file jauh lebih kecil, mata tidak lihat beda."""
     q = 255 // (alpha_steps - 1) if alpha_steps else 1
@@ -155,6 +162,11 @@ def main():
     }.items():
         save_png(color, brand / f"{name}.png")
         save_png(mono, brand / f"{name}-navy.png")
+
+    # versi knockout putih (untuk tile gradient / background gelap).
+    # 256px cukup untuk logo UI sampai 3x DPR, hemat ~3/4 ukuran file.
+    em_white = em.resize((256, max(1, round(256 * em.height / em.width))), Image.LANCZOS)
+    save_png(recolor(em_white, WHITE), brand / "logo-emblem-white.png")
 
     # --- lockup & seal (transparan) ---
     for name, width in (("lockup", 1200), ("seal", 1200)):
