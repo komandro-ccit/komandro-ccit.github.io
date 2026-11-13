@@ -27,7 +27,7 @@ export interface CategoryInfo {
 export const CATEGORIES: Record<string, CategoryInfo> = {
   web: {
     slug: 'web',
-    label: 'Pengembangan Web',
+    label: 'Web Development',
     description: 'Membangun aplikasi web modern: HTML, CSS, JavaScript, sampai Laravel dan backend.',
     icon: 'bx-globe',
     tone: 'sky',
@@ -36,7 +36,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   },
   mobile: {
     slug: 'mobile',
-    label: 'Pengembangan Mobile',
+    label: 'Mobile Development',
     description: 'Membuat aplikasi native & cross-platform dengan Dart dan Flutter, dari widget dasar sampai lanjutan.',
     icon: 'bx-mobile-alt',
     tone: 'violet',
@@ -45,8 +45,8 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   },
   'ui-ux': {
     slug: 'ui-ux',
-    label: 'Desain UI/UX',
-    description: 'Menguasai layout, teori warna, tipografi, dan riset pengguna untuk merancang antarmuka yang menawan.',
+    label: 'UI/UX Design',
+    description: 'Menguasai layout, color theory, typography, dan user research untuk merancang antarmuka yang menawan.',
     icon: 'bx-paint',
     tone: 'pink',
     bg: 'bg-gradient-to-br from-[#FF5C9A] to-[#FF8FB8]',
@@ -54,8 +54,8 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   },
   qa: {
     slug: 'qa',
-    label: 'Jaminan Mutu',
-    description: 'Menjamin keandalan software lewat pengujian manual, otomatisasi, dan manajemen bug yang terstruktur.',
+    label: 'Quality Assurance',
+    description: 'Menjaga keandalan software lewat manual testing, automation testing, dan bug tracking yang terstruktur.',
     icon: 'bx-bug',
     tone: 'amber',
     bg: 'bg-gradient-to-br from-[#FFB020] to-[#FFD36B]',
@@ -64,7 +64,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   devops: {
     slug: 'devops',
     label: 'DevOps',
-    description: 'Efisienkan siklus pengembangan dengan CI/CD, cloud, dan kontainerisasi.',
+    description: 'Efisienkan siklus pengembangan dengan CI/CD, cloud, dan container.',
     icon: 'bx-cloud',
     tone: 'mint',
     bg: 'bg-gradient-to-br from-[#12C9A0] to-[#5EE3C2]',
@@ -81,7 +81,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   },
   game: {
     slug: 'game',
-    label: 'Pengembangan Game',
+    label: 'Game Development',
     description: 'Merancang dan memprogram pengalaman interaktif dengan game engine modern.',
     icon: 'bx-game',
     tone: 'magenta',
@@ -90,7 +90,7 @@ export const CATEGORIES: Record<string, CategoryInfo> = {
   },
   tools: {
     slug: 'tools',
-    label: 'Perkakas',
+    label: 'Tools',
     description: 'Menguasai tools wajib developer: Git, GitHub, dan version control untuk kerja tim yang efisien.',
     icon: 'bx-wrench',
     tone: 'orange',
