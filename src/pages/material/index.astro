@@ -8,7 +8,10 @@ const categoryOrder = ['mobile', 'web', 'ui-ux', 'devops', 'qa', 'iot', 'tools',
 const categories = categoryOrder.map((slug) => ({ slug, ...CATEGORIES[slug] }));
 ---
 
-<Layout title="Sumber Belajar - Komandro CCIT-FTUI">
+<Layout
+  title="Sumber Belajar - Komandro CCIT-FTUI"
+  description="Sumber belajar Komandro CCIT-FTUI: materi Android, web, DevOps, UI/UX, QA, dan lainnya — gratis dan terstruktur."
+>
   <main class="min-h-screen bg-canvas pt-[92px]">
     {/* Hero */}
     <section class="relative py-20 md:py-28 overflow-hidden bg-canvas hero-pattern border-b border-ink/6">

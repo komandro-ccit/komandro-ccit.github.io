@@ -62,7 +62,10 @@ const maxBatchYear = currentYear - 2;
 const availableYears = Array.from({ length: maxBatchYear - 2013 }, (_, i) => 2014 + i).reverse();
 ---
 
-<Layout title={`Alumni Batch ${year} - Komandro CCIT-FTUI`}>
+<Layout
+  title={`Alumni Batch ${year} - Komandro CCIT-FTUI`}
+  description={`Arsip alumni Komandro CCIT-FTUI angkatan ${year} — orang-orang yang tumbuh bersama komunitas Android dan teknologi Fakultas Teknik UI.`}
+>
   <main class="pt-[92px]">
     {/* Hero */}
     <section class="relative overflow-hidden bg-canvas hero-pattern border-b border-ink/6 py-14 md:py-20">

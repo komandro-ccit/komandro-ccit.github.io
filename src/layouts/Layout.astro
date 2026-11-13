@@ -5,12 +5,84 @@ import { link } from '../utils/link';
 interface Props {
   title: string;
   description?: string;
+  /** Path gambar share (default /og-image.png 1200x630). */
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date | string;
+  modifiedTime?: Date | string;
+  author?: string;
+  /** Tag artikel (hanya dipakai kalau type="article"). */
+  tags?: string[];
+  noindex?: boolean;
 }
+
+const SITE_NAME = 'Komandro CCIT-FTUI';
+const SITE_DESCRIPTION = 'Komandro CCIT-FTUI - Komunitas Android dan Teknologi sejak 2015. Belajar, Berkarya, Berkomunitas.';
 
 const {
   title,
-  description = "Komandro CCIT-FTUI - Komunitas Android dan Teknologi sejak 2015. Belajar, Berkarya, Berkomunitas."
+  description = SITE_DESCRIPTION,
+  image = '/og-image.png',
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  author = SITE_NAME,
+  tags = [],
+  noindex = false
 } = Astro.props;
+
+const siteURL = Astro.site ?? new URL('https://komandro-ccit.github.io');
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const imageURL = new URL(image, siteURL);
+const imageAlt = title;
+const isDefaultImage = image === '/og-image.png';
+const imageType = /\.jpe?g$/i.test(imageURL.pathname)
+  ? 'image/jpeg'
+  : /\.webp$/i.test(imageURL.pathname)
+    ? 'image/webp'
+    : /\.svg$/i.test(imageURL.pathname)
+      ? 'image/svg+xml'
+      : 'image/png';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  alternateName: 'Komandro',
+  url: siteURL.href,
+  logo: new URL('/icon-512.png', siteURL).href,
+  image: new URL('/og-image.png', siteURL).href,
+  description: SITE_DESCRIPTION,
+  email: 'komandro@ccit-ftui.ac.id',
+  foundingDate: '2015',
+  sameAs: [
+    'https://instagram.com/komandro_ccit',
+    'https://github.com/komandro-ccit'
+  ],
+  parentOrganization: {
+    '@type': 'CollegeOrUniversity',
+    name: 'CCIT - Fakultas Teknik Universitas Indonesia'
+  }
+};
+
+const articleData = type === 'article'
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: title,
+      description,
+      image: imageURL.href,
+      author: { '@type': 'Person', name: author },
+      publisher: { '@type': 'Organization', name: SITE_NAME, logo: structuredData.logo },
+      mainEntityOfPage: canonicalURL.href,
+      ...(publishedTime ? { datePublished: new Date(publishedTime).toISOString() } : {}),
+      ...(modifiedTime
+        ? { dateModified: new Date(modifiedTime).toISOString() }
+        : publishedTime
+          ? { dateModified: new Date(publishedTime).toISOString() }
+          : {})
+    }
+  : null;
 
 const currentYear = new Date().getFullYear();
 
@@ -49,10 +121,58 @@ const footerNav = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Komandro CCIT-FTUI" />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <!-- Favicon & app icon (dibuat oleh scripts/build-brand-assets.py) -->
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48 64x64" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="application-name" content="Komandro CCIT" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Komandro CCIT" />
+    <meta name="theme-color" content="#FFF9F3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0A1927" media="(prefers-color-scheme: dark)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={imageURL.href} />
+    <meta property="og:image:type" content={imageType} />
+    {isDefaultImage && <meta property="og:image:width" content="1200" />}
+    {isDefaultImage && <meta property="og:image:height" content="630" />}
+    <meta property="og:image:alt" content={imageAlt} />
+    {publishedTime && <meta property="article:published_time" content={new Date(publishedTime).toISOString()} />}
+    {modifiedTime && <meta property="article:modified_time" content={new Date(modifiedTime).toISOString()} />}
+    {type === 'article' && <meta property="article:author" content={author} />}
+    {type === 'article' && tags.map((tag) => <meta property="article:tag" content={tag} />)}
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL.href} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    {articleData && <script type="application/ld+json" set:html={JSON.stringify(articleData)} />}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

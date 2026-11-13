@@ -59,7 +59,10 @@ Object.keys(curriculumLessons).forEach(key => {
 const totalItems = curriculums.length + standaloneArticles.length;
 ---
 
-<Layout title={`${info.label} - Materi - Komandro CCIT-FTUI`}>
+<Layout
+  title={`${info.label} - Materi - Komandro CCIT-FTUI`}
+  description={`Kumpulan materi ${info.label} Komandro CCIT-FTUI — tutorial dan panduan belajar yang tersusun rapi.`}
+>
   <main class="min-h-screen bg-canvas pt-[92px]">
 
     {/* Hero */}

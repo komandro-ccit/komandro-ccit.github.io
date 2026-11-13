@@ -65,8 +65,24 @@ public/
 ├── images/
 │   ├── alumni/      # Alumni photos
 │   └── showcase/    # Showcase project images
-└── favicon.svg
+├── brand/           # Logo turunan dari PNG sumber (lihat scripts/build-brand-assets.py)
+├── favicon.ico      # 16/32/48/64
+├── favicon-16.png
+├── favicon-32.png
+├── favicon-48.png
+├── apple-touch-icon.png
+├── icon-192.png
+├── icon-512.png
+├── icon-maskable-512.png
+├── og-image.png     # kartu share 1200x630 (Open Graph / Twitter)
+├── robots.txt
+└── site.webmanifest
 ```
+
+Galeri semua aset brand: buka `brand-preview.html` di root repo.
+
+Sitemap (`dist/sitemap-index.xml` + `dist/sitemap-0.xml`) dibuat otomatis saat `npm run build` oleh `@astrojs/sitemap`.
+
 
 ## Features
 

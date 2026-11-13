@@ -16,7 +16,16 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Layout title={`${post.data.title} - Komandro CCIT-FTUI`}>
+<Layout
+  title={`${post.data.title} - Komandro CCIT-FTUI`}
+  description={post.data.description}
+  image={post.data.heroImage}
+  type="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={post.data.updatedDate}
+  author={post.data.author}
+  tags={post.data.tags}
+>
   <main class="pt-[100px]">
 
     {/* Hero */}

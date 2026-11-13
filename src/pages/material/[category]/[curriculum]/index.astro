@@ -76,7 +76,10 @@ const modules = lessons.map((lesson, index) => ({
 const activeModuleIndex = 0;
 ---
 
-<Layout title={`${curriculumData.title} - Komandro CCIT-FTUI`}>
+<Layout
+  title={`${curriculumData.title} - Komandro CCIT-FTUI`}
+  description={`Kurikulum ${curriculumData.title} dari Komandro CCIT-FTUI — daftar materi berurutan untuk belajar dari dasar sampai mahir.`}
+>
   <main class="min-h-screen bg-canvas pt-[92px]">
 
     {/* Back nav */}

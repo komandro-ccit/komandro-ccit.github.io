@@ -1,0 +1,5 @@
+# Komandro CCIT-FTUI
+User-agent: *
+Allow: /
+
+Sitemap: https://komandro-ccit.github.io/sitemap-index.xml
